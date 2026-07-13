@@ -1,0 +1,4 @@
+# Frozen research baseline: store every file byte-for-byte.
+# Disable all line-ending / text conversion so checkouts are
+# identical on any machine or platform.
+* -text

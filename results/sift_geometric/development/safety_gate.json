@@ -1,0 +1,126 @@
+{
+  "checks": {
+    "config_unchanged_during_gate": true,
+    "opencv_distribution_exact": true,
+    "opencv_version_pinned": true,
+    "pilot_geometry_failure_rate_not_extreme": true,
+    "pilot_impostor_acceptance_within_guardrail": true,
+    "pilot_preparation_failure_rate_acceptable": true,
+    "pilot_self_acceptance_not_broadly_failed": true,
+    "pilot_zero_score_rate_not_extreme": true,
+    "reference_parity_passed": true,
+    "repeated_scores_finite": true,
+    "repeated_subset_exact": true
+  },
+  "config_sha256": "f9f0623ae89752d09c5933d49dc80acc5803863cc8dc7109efb98b96d282f01f",
+  "repeated_subset": [
+    {
+      "exactly_equal": true,
+      "first": {
+        "geometric_inlier_count": 2,
+        "keypoint_count_a": 3001,
+        "keypoint_count_b": 3000,
+        "matches_submitted_to_geometry": 4,
+        "ratio_match_count_a_to_b": 16,
+        "raw_score": 2.0
+      },
+      "pair_id": "pilot_genuine_sd300b_plain_roll_00001747_01",
+      "second": {
+        "geometric_inlier_count": 2,
+        "keypoint_count_a": 3001,
+        "keypoint_count_b": 3000,
+        "matches_submitted_to_geometry": 4,
+        "ratio_match_count_a_to_b": 16,
+        "raw_score": 2.0
+      }
+    },
+    {
+      "exactly_equal": true,
+      "first": {
+        "geometric_inlier_count": 7,
+        "keypoint_count_a": 3001,
+        "keypoint_count_b": 3000,
+        "matches_submitted_to_geometry": 17,
+        "ratio_match_count_a_to_b": 44,
+        "raw_score": 7.0
+      },
+      "pair_id": "pilot_genuine_sd300b_plain_roll_00001227_08",
+      "second": {
+        "geometric_inlier_count": 7,
+        "keypoint_count_a": 3001,
+        "keypoint_count_b": 3000,
+        "matches_submitted_to_geometry": 17,
+        "ratio_match_count_a_to_b": 44,
+        "raw_score": 7.0
+      }
+    },
+    {
+      "exactly_equal": true,
+      "first": {
+        "geometric_inlier_count": 3,
+        "keypoint_count_a": 3000,
+        "keypoint_count_b": 3001,
+        "matches_submitted_to_geometry": 4,
+        "ratio_match_count_a_to_b": 12,
+        "raw_score": 3.0
+      },
+      "pair_id": "pilot_genuine_sd300b_plain_roll_00001530_01",
+      "second": {
+        "geometric_inlier_count": 3,
+        "keypoint_count_a": 3000,
+        "keypoint_count_b": 3001,
+        "matches_submitted_to_geometry": 4,
+        "ratio_match_count_a_to_b": 12,
+        "raw_score": 3.0
+      }
+    },
+    {
+      "exactly_equal": true,
+      "first": {
+        "geometric_inlier_count": 0,
+        "keypoint_count_a": 1185,
+        "keypoint_count_b": 3000,
+        "matches_submitted_to_geometry": 0,
+        "ratio_match_count_a_to_b": 0,
+        "raw_score": 0.0
+      },
+      "pair_id": "pilot_genuine_sd300b_plain_roll_00001530_05",
+      "second": {
+        "geometric_inlier_count": 0,
+        "keypoint_count_a": 1185,
+        "keypoint_count_b": 3000,
+        "matches_submitted_to_geometry": 0,
+        "ratio_match_count_a_to_b": 0,
+        "raw_score": 0.0
+      }
+    }
+  ],
+  "safety_gate_schema": "sift-safety-gate-v1",
+  "selected_pilot_metrics": {
+    "candidate_id": "mutual_consistency",
+    "conclusion": "retain",
+    "decision_rationale": "best development-only ordered objective after safety guardrails",
+    "geometry_failure_rate": "0.6546610169491526",
+    "macro_eer": "0.09",
+    "macro_impostor_acceptance_at_primary": "0.01",
+    "macro_impostor_far_at_far_0_001": "0.0",
+    "macro_impostor_far_at_far_0_005": "0.0",
+    "macro_impostor_far_at_far_0_01": "0.01",
+    "macro_plain_roll_tar_at_far_0_001": "0.45833333333333337",
+    "macro_plain_roll_tar_at_far_0_005": "0.45833333333333337",
+    "macro_plain_roll_tar_at_far_0_01": "0.5",
+    "macro_plain_roll_tar_at_primary": "0.5",
+    "macro_roc_auc": "0.9610069444444445",
+    "macro_self_acceptance_at_primary": "1.0",
+    "median_total_ms": "596.80855",
+    "preparation_failure_rate": "0.0",
+    "primary_far_guardrail": "0.010000000001",
+    "primary_target_far": "0.01",
+    "score_mode": "geometric_inlier_count",
+    "selected": "True",
+    "selection_eligible": "True",
+    "thresholds_by_dataset_json": "{\"sd300b\": 4.0, \"sd300c\": 4.0}",
+    "zero_score_rate": "0.6546610169491526"
+  },
+  "status": "pass"
+}

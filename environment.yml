@@ -1,0 +1,10 @@
+name: fingerprint-recognition-research
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pytest
+  - pip:
+      - numpy==2.2.6
+      - opencv-python==4.12.0.88

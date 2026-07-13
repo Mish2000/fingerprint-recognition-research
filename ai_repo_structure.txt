@@ -1,0 +1,607 @@
+# AI Repository Structure Index
+
+Repository root: C:\fingerprint-recognition-research
+Generated at: 2026-07-12 17:50:28
+
+Purpose:
+This file is designed for an AI agent to quickly understand the repository layout and retrieve exact file/folder paths.
+Reparse point directories are listed but not traversed.
+
+Excluded noisy directories:
+.git, .idea, .vscode, __pycache__, .pytest_cache, .mypy_cache, .ruff_cache, node_modules, venv, .venv, env, .env, dist, build, target, out, template_cache, sourceafis_template_cache, candidate_score_cache, visual_audit_sheets, .vite, htmlcov, .ipynb_checkpoints, tmp, captures, tmp_captures
+
+Excluded generated files:
+ai_repo_structure.txt, project_tree.txt
+
+Legend:
+DIR  = directory
+FILE = file
+
+============================================================
+SECTION 1 - HUMAN READABLE TREE
+============================================================
+
+[D] .codex-tmp/
+[D] apps/
+  [D] sourceafis-sidecar/
+    [F] pom.xml
+    [D] src/
+      [D] main/
+        [D] java/
+          [D] org/
+            [D] fingerprintresearch/
+              [D] sourceafis/
+                [D] v2/
+                  [F] ApiException.java
+                  [F] BuildInfo.java
+                  [F] SourceAfisSidecarService.java
+                  [F] SourceAfisV2Engine.java
+        [D] resources/
+          [F] sourceafis-sidecar.properties
+      [D] test/
+        [D] java/
+          [D] org/
+            [D] fingerprintresearch/
+              [D] sourceafis/
+                [D] v2/
+                  [F] SourceAfisV2EngineTest.java
+[D] docs/
+  [F] benchmark_contract.md
+  [F] sourceafis_integration_v2.md
+  [F] sourceafis_reproducibility_audit.md
+[F] environment.yml
+[D] protocols/
+  [D] sd300b/
+    [F] plain_roll.csv
+    [F] plain_self.csv
+    [F] protocol_audit.json
+    [F] roll_self.csv
+  [D] sd300c/
+    [F] plain_roll.csv
+    [F] plain_self.csv
+    [F] protocol_audit.json
+    [F] roll_self.csv
+[F] pyproject.toml
+[F] README.md
+[D] results/
+  [D] cohorts/
+    [D] sourceafis_joint_self_accept_t40_v1/
+      [F] cohort_summary.csv
+      [F] cohort_summary.json
+      [F] excluded_identities.csv
+      [F] included_identities.csv
+      [D] sd300b/
+        [D] plain_roll/
+          [F] pairs.csv
+        [D] plain_self/
+          [F] pairs.csv
+        [D] roll_self/
+          [F] pairs.csv
+      [D] sd300c/
+        [D] plain_roll/
+          [F] pairs.csv
+        [D] plain_self/
+          [F] pairs.csv
+        [D] roll_self/
+          [F] pairs.csv
+      [F] supervisor_tables.md
+    [D] sourceafis_joint_self_positive_v1/
+      [F] cohort_summary.csv
+      [F] cohort_summary.json
+      [F] excluded_identities.csv
+      [F] included_identities.csv
+      [D] sd300b/
+        [D] plain_roll/
+          [F] pairs.csv
+        [D] plain_self/
+          [F] pairs.csv
+        [D] roll_self/
+          [F] pairs.csv
+      [D] sd300c/
+        [D] plain_roll/
+          [F] pairs.csv
+        [D] plain_self/
+          [F] pairs.csv
+        [D] roll_self/
+          [F] pairs.csv
+  [D] reproducibility_audits/
+    [D] sourceafis_reproducibility_audit_v1/
+      [D] comparison/
+        [F] audit_report.json
+        [F] condition_summary.csv
+        [F] pair_comparison.csv
+      [D] manifests/
+        [D] sd300b/
+          [F] plain_roll.csv
+          [F] plain_self.csv
+          [F] roll_self.csv
+        [D] sd300c/
+          [F] plain_roll.csv
+          [F] plain_self.csv
+          [F] roll_self.csv
+      [D] plan/
+        [F] audit_plan.json
+        [F] selection.csv
+      [D] runs/
+        [D] sd300b/
+          [D] plain_roll/
+            [D] sourceafis/
+              [D] pairwise-benchmark-v2/
+                [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+                  [F] pairs.csv
+                  [F] run_metadata.json
+          [D] plain_self/
+            [D] sourceafis/
+              [D] pairwise-benchmark-v2/
+                [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+                  [F] pairs.csv
+                  [F] run_metadata.json
+          [D] roll_self/
+            [D] sourceafis/
+              [D] pairwise-benchmark-v2/
+                [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+                  [F] pairs.csv
+                  [F] run_metadata.json
+        [D] sd300c/
+          [D] plain_roll/
+            [D] sourceafis/
+              [D] pairwise-benchmark-v2/
+                [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+                  [F] pairs.csv
+                  [F] run_metadata.json
+          [D] plain_self/
+            [D] sourceafis/
+              [D] pairwise-benchmark-v2/
+                [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+                  [F] pairs.csv
+                  [F] run_metadata.json
+          [D] roll_self/
+            [D] sourceafis/
+              [D] pairwise-benchmark-v2/
+                [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+                  [F] pairs.csv
+                  [F] run_metadata.json
+  [D] sd300b/
+    [D] plain_roll/
+      [D] sourceafis/
+        [F] pairs.csv
+        [D] pairwise-benchmark-v2/
+          [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+            [F] pairs.csv
+            [F] run_metadata.json
+        [F] run_metadata.json
+    [D] plain_self/
+      [D] sourceafis/
+        [F] pairs.csv
+        [D] pairwise-benchmark-v2/
+          [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+            [F] pairs.csv
+            [F] run_metadata.json
+        [F] run_metadata.json
+    [D] roll_self/
+      [D] sourceafis/
+        [F] pairs.csv
+        [D] pairwise-benchmark-v2/
+          [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+            [F] pairs.csv
+            [F] run_metadata.json
+        [F] run_metadata.json
+  [D] sd300c/
+    [D] plain_roll/
+      [D] sourceafis/
+        [F] pairs.csv
+        [D] pairwise-benchmark-v2/
+          [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+            [F] pairs.csv
+            [F] run_metadata.json
+        [F] run_metadata.json
+    [D] plain_self/
+      [D] sourceafis/
+        [F] pairs.csv
+        [D] pairwise-benchmark-v2/
+          [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+            [F] pairs.csv
+            [F] run_metadata.json
+        [F] run_metadata.json
+    [D] roll_self/
+      [D] sourceafis/
+        [F] pairs.csv
+        [D] pairwise-benchmark-v2/
+          [D] cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3/
+            [F] pairs.csv
+            [F] run_metadata.json
+        [F] run_metadata.json
+  [D] sourceafis/
+    [D] pairwise-benchmark-v2/
+      [F] diagnostics.json
+      [F] paired-sd300b-sd300c-plain_roll.csv
+      [F] paired-sd300b-sd300c-plain_self.csv
+      [F] paired-sd300b-sd300c-roll_self.csv
+      [F] supervisor_summary.csv
+      [F] supervisor_summary.json
+      [D] threshold40_audit/
+        [F] paired_bc_decision_summary.csv
+        [F] paired_bc_decisions.csv
+        [F] plain_roll_decisions.csv
+        [F] self_below_threshold_identities.csv
+        [F] threshold40_audit.json
+        [F] threshold40_summary.csv
+      [F] v1-v2-sd300b-plain_roll.csv
+      [F] v1-v2-sd300b-plain_self.csv
+      [F] v1-v2-sd300b-roll_self.csv
+      [F] v1-v2-sd300c-plain_roll.csv
+      [F] v1-v2-sd300c-plain_self.csv
+      [F] v1-v2-sd300c-roll_self.csv
+      [D] zero_score_audit/
+        [D] contact_sheets/
+        [F] manual_review_queue.csv
+        [F] zero_score_audit.json
+        [F] zero_score_pairs.csv
+        [F] zero_score_summary.csv
+[D] run-logs/
+  [F] repro-sd300c-plain_self.manual.log
+  [F] sd300c-plain_roll.manual.log
+  [F] sd300c-roll_self.manual.log
+[D] scripts/
+  [F] build_sourceafis_joint_self_accept_t40_v1.mjs
+  [F] build_sourceafis_joint_self_positive_v1.mjs
+  [F] run_sourceafis_reproducibility_audit.ps1
+  [F] threshold40_audit.mjs
+[D] src/
+  [D] fingerprint_benchmark/
+    [F] __init__.py
+    [F] bundle.py
+    [F] cli.py
+    [F] contract.py
+    [F] diagnostics.py
+    [F] hashing.py
+    [F] io.py
+    [F] manifest.py
+    [F] preflight.py
+    [F] provenance.py
+    [F] reproducibility_audit.py
+    [F] runner.py
+    [F] sourceafis_adapter.py
+    [F] sourceafis_client.py
+    [F] sourceafis_sidecar.py
+    [F] summary.py
+  [D] fingerprint_data_discovery/
+    [F] __init__.py
+    [F] audit.py
+    [F] canonical_fingers.py
+    [F] nist_sd300.py
+    [F] plain_roll_protocol.py
+    [F] plain_self_protocol.py
+    [F] protocol_dataset.py
+    [F] roll_self_protocol.py
+    [F] sd300b_plain_roll.py
+    [F] sd300b_plain_self.py
+    [F] sd300b_protocol_audit.py
+    [F] sd300b_roll_self.py
+    [F] sd300c_plain_roll.py
+    [F] sd300c_plain_self.py
+    [F] sd300c_protocol_audit.py
+    [F] sd300c_roll_self.py
+    [F] self_manifest_common.py
+  [D] fingerprint_recognition_research.egg-info/
+    [F] dependency_links.txt
+    [F] entry_points.txt
+    [F] PKG-INFO
+    [F] SOURCES.txt
+    [F] top_level.txt
+[D] tests/
+  [F] conftest.py
+  [F] test_benchmark_diagnostics.py
+  [F] test_benchmark_runner.py
+  [F] test_canonical_fingers.py
+  [F] test_nist_sd300.py
+  [F] test_plain_self_protocol.py
+  [F] test_protocol_dataset.py
+  [F] test_protocol_hardening.py
+  [F] test_reproducibility_audit.py
+  [F] test_sd300b_plain_roll.py
+  [F] test_sd300b_plain_self.py
+  [F] test_sd300b_protocol_audit.py
+  [F] test_sd300b_roll_self.py
+  [F] test_sd300c_protocols.py
+  [F] test_self_manifest_common.py
+  [F] test_sourceafis_adapter.py
+  [F] test_sourceafis_client_contract_v2.py
+  [F] test_sourceafis_sidecar_integration_optional.py
+  [F] test_sourceafis_sidecar_lifecycle.py
+[F] write_ai_repo_structure_root.ps1
+
+============================================================
+SECTION 2 - MACHINE READABLE PATH INDEX
+============================================================
+
+TYPE	DEPTH	EXTENSION	SIZE_BYTES	LAST_WRITE_TIME	RELATIVE_PATH
+DIR	0			2026-07-12 13:30:10	.codex-tmp
+DIR	0			2026-07-09 22:54:47	apps
+DIR	1			2026-07-11 12:34:34	apps\sourceafis-sidecar
+FILE	2	.xml	4141	2026-07-11 12:27:42	apps\sourceafis-sidecar\pom.xml
+DIR	2			2026-07-09 22:54:47	apps\sourceafis-sidecar\src
+DIR	3			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main
+DIR	4			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\java
+DIR	5			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\java\org
+DIR	6			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\java\org\fingerprintresearch
+DIR	7			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\java\org\fingerprintresearch\sourceafis
+DIR	8			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\java\org\fingerprintresearch\sourceafis\v2
+FILE	9	.java	310	2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\java\org\fingerprintresearch\sourceafis\v2\ApiException.java
+FILE	9	.java	1569	2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\java\org\fingerprintresearch\sourceafis\v2\BuildInfo.java
+FILE	9	.java	7255	2026-07-11 12:13:39	apps\sourceafis-sidecar\src\main\java\org\fingerprintresearch\sourceafis\v2\SourceAfisSidecarService.java
+FILE	9	.java	8272	2026-07-11 12:17:27	apps\sourceafis-sidecar\src\main\java\org\fingerprintresearch\sourceafis\v2\SourceAfisV2Engine.java
+DIR	4			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\resources
+FILE	5	.properties	232	2026-07-09 22:54:47	apps\sourceafis-sidecar\src\main\resources\sourceafis-sidecar.properties
+DIR	3			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\test
+DIR	4			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\test\java
+DIR	5			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\test\java\org
+DIR	6			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\test\java\org\fingerprintresearch
+DIR	7			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\test\java\org\fingerprintresearch\sourceafis
+DIR	8			2026-07-09 22:54:47	apps\sourceafis-sidecar\src\test\java\org\fingerprintresearch\sourceafis\v2
+FILE	9	.java	8325	2026-07-11 12:17:23	apps\sourceafis-sidecar\src\test\java\org\fingerprintresearch\sourceafis\v2\SourceAfisV2EngineTest.java
+DIR	0			2026-07-12 10:58:08	docs
+FILE	1	.md	7325	2026-07-11 12:33:02	docs\benchmark_contract.md
+FILE	1	.md	4915	2026-07-11 12:20:17	docs\sourceafis_integration_v2.md
+FILE	1	.md	4940	2026-07-12 11:15:21	docs\sourceafis_reproducibility_audit.md
+FILE	0	.yml	114	2026-07-09 13:27:30	environment.yml
+DIR	0			2026-07-09 18:33:11	protocols
+DIR	1			2026-07-09 19:02:42	protocols\sd300b
+FILE	2	.csv	2076333	2026-07-09 19:02:15	protocols\sd300b\plain_roll.csv
+FILE	2	.csv	2097783	2026-07-09 19:01:21	protocols\sd300b\plain_self.csv
+FILE	2	.json	1235	2026-07-09 19:04:11	protocols\sd300b\protocol_audit.json
+FILE	2	.csv	2060838	2026-07-09 19:01:49	protocols\sd300b\roll_self.csv
+DIR	1			2026-07-09 19:00:52	protocols\sd300c
+FILE	2	.csv	2076333	2026-07-09 18:58:12	protocols\sd300c\plain_roll.csv
+FILE	2	.csv	2097783	2026-07-09 18:34:56	protocols\sd300c\plain_self.csv
+FILE	2	.json	1235	2026-07-09 19:00:52	protocols\sd300c\protocol_audit.json
+FILE	2	.csv	2060838	2026-07-09 18:57:46	protocols\sd300c\roll_self.csv
+FILE	0	.toml	1225	2026-07-12 10:58:08	pyproject.toml
+FILE	0	.md	3190	2026-07-12 10:58:08	README.md
+DIR	0			2026-07-12 11:10:34	results
+DIR	1			2026-07-12 13:28:07	results\cohorts
+DIR	2			2026-07-12 13:29:31	results\cohorts\sourceafis_joint_self_accept_t40_v1
+FILE	3	.csv	6433	2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\cohort_summary.csv
+FILE	3	.json	24603	2026-07-12 13:29:31	results\cohorts\sourceafis_joint_self_accept_t40_v1\cohort_summary.json
+FILE	3	.csv	29226	2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\excluded_identities.csv
+FILE	3	.csv	1029677	2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\included_identities.csv
+DIR	3			2026-07-12 13:28:08	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300b
+DIR	4			2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300b\plain_roll
+FILE	5	.csv	4637678	2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300b\plain_roll\pairs.csv
+DIR	4			2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300b\plain_self
+FILE	5	.csv	4628663	2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300b\plain_self\pairs.csv
+DIR	4			2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300b\roll_self
+FILE	5	.csv	4665598	2026-07-12 13:29:29	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300b\roll_self\pairs.csv
+DIR	3			2026-07-12 13:28:08	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300c
+DIR	4			2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300c\plain_roll
+FILE	5	.csv	4646925	2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300c\plain_roll\pairs.csv
+DIR	4			2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300c\plain_self
+FILE	5	.csv	4647174	2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300c\plain_self\pairs.csv
+DIR	4			2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300c\roll_self
+FILE	5	.csv	4668205	2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\sd300c\roll_self\pairs.csv
+FILE	3	.md	2899	2026-07-12 13:29:30	results\cohorts\sourceafis_joint_self_accept_t40_v1\supervisor_tables.md
+DIR	2			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1
+FILE	3	.csv	4013	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\cohort_summary.csv
+FILE	3	.json	12899	2026-07-12 10:17:12	results\cohorts\sourceafis_joint_self_positive_v1\cohort_summary.json
+FILE	3	.csv	18100	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\excluded_identities.csv
+FILE	3	.csv	1037028	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\included_identities.csv
+DIR	3			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1\sd300b
+DIR	4			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1\sd300b\plain_roll
+FILE	5	.csv	4675803	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\sd300b\plain_roll\pairs.csv
+DIR	4			2026-07-12 10:14:49	results\cohorts\sourceafis_joint_self_positive_v1\sd300b\plain_self
+FILE	5	.csv	4667425	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\sd300b\plain_self\pairs.csv
+DIR	4			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1\sd300b\roll_self
+FILE	5	.csv	4704711	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\sd300b\roll_self\pairs.csv
+DIR	3			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1\sd300c
+DIR	4			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1\sd300c\plain_roll
+FILE	5	.csv	4685289	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\sd300c\plain_roll\pairs.csv
+DIR	4			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1\sd300c\plain_self
+FILE	5	.csv	4686069	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\sd300c\plain_self\pairs.csv
+DIR	4			2026-07-12 10:14:50	results\cohorts\sourceafis_joint_self_positive_v1\sd300c\roll_self
+FILE	5	.csv	4707313	2026-07-12 10:17:11	results\cohorts\sourceafis_joint_self_positive_v1\sd300c\roll_self\pairs.csv
+DIR	1			2026-07-12 11:10:34	results\reproducibility_audits
+DIR	2			2026-07-12 11:47:38	results\reproducibility_audits\sourceafis_reproducibility_audit_v1
+DIR	3			2026-07-12 11:47:38	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\comparison
+FILE	4	.json	9734	2026-07-12 11:47:38	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\comparison\audit_report.json
+FILE	4	.csv	3173	2026-07-12 11:47:38	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\comparison\condition_summary.csv
+FILE	4	.csv	789374	2026-07-12 11:47:38	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\comparison\pair_comparison.csv
+DIR	3			2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests
+DIR	4			2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300b
+FILE	5	.csv	317004	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300b\plain_roll.csv
+FILE	5	.csv	77986	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300b\plain_self.csv
+FILE	5	.csv	49849	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300b\roll_self.csv
+DIR	4			2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300c
+FILE	5	.csv	317004	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300c\plain_roll.csv
+FILE	5	.csv	77986	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300c\plain_self.csv
+FILE	5	.csv	49849	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\manifests\sd300c\roll_self.csv
+DIR	3			2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\plan
+FILE	4	.json	15573	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\plan\audit_plan.json
+FILE	4	.csv	253323	2026-07-12 11:10:34	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\plan\selection.csv
+DIR	3			2026-07-12 11:29:45	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs
+DIR	4			2026-07-12 11:28:14	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b
+DIR	5			2026-07-12 11:28:14	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_roll
+DIR	6			2026-07-12 11:28:14	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_roll\sourceafis
+DIR	7			2026-07-12 11:28:14	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2
+DIR	8			2026-07-12 11:28:14	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	9	.csv	714658	2026-07-12 11:28:14	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	9	.json	16397	2026-07-12 11:28:14	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+DIR	5			2026-07-12 11:19:04	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_self
+DIR	6			2026-07-12 11:19:04	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_self\sourceafis
+DIR	7			2026-07-12 11:19:04	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_self\sourceafis\pairwise-benchmark-v2
+DIR	8			2026-07-12 11:19:04	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	9	.csv	174323	2026-07-12 11:19:04	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	9	.json	16216	2026-07-12 11:19:04	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+DIR	5			2026-07-12 11:20:46	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\roll_self
+DIR	6			2026-07-12 11:20:46	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\roll_self\sourceafis
+DIR	7			2026-07-12 11:20:46	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\roll_self\sourceafis\pairwise-benchmark-v2
+DIR	8			2026-07-12 11:20:46	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	9	.csv	116219	2026-07-12 11:20:46	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	9	.json	16209	2026-07-12 11:20:46	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300b\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+DIR	4			2026-07-12 11:47:37	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c
+DIR	5			2026-07-12 11:47:37	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_roll
+DIR	6			2026-07-12 11:47:37	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_roll\sourceafis
+DIR	7			2026-07-12 11:47:37	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2
+DIR	8			2026-07-12 11:47:37	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	9	.csv	715748	2026-07-12 11:47:37	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	9	.json	16398	2026-07-12 11:47:37	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+DIR	5			2026-07-12 11:29:45	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_self
+DIR	6			2026-07-12 11:29:45	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_self\sourceafis
+DIR	7			2026-07-12 11:29:45	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_self\sourceafis\pairwise-benchmark-v2
+DIR	8			2026-07-12 11:29:45	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	9	.csv	174976	2026-07-12 11:29:45	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	9	.json	16216	2026-07-12 11:29:45	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+DIR	5			2026-07-12 11:33:08	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\roll_self
+DIR	6			2026-07-12 11:33:08	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\roll_self\sourceafis
+DIR	7			2026-07-12 11:33:08	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\roll_self\sourceafis\pairwise-benchmark-v2
+DIR	8			2026-07-12 11:33:08	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	9	.csv	116297	2026-07-12 11:33:08	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	9	.json	16209	2026-07-12 11:33:08	results\reproducibility_audits\sourceafis_reproducibility_audit_v1\runs\sd300c\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+DIR	1			2026-07-10 01:51:32	results\sd300b
+DIR	2			2026-07-10 01:51:32	results\sd300b\plain_roll
+DIR	3			2026-07-11 13:48:24	results\sd300b\plain_roll\sourceafis
+FILE	4	.csv	2240318	2026-07-10 01:51:32	results\sd300b\plain_roll\sourceafis\pairs.csv
+DIR	4			2026-07-11 13:48:25	results\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2
+DIR	5			2026-07-11 13:48:24	results\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	6	.csv	4743257	2026-07-11 13:48:24	results\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	6	.json	15473	2026-07-11 13:48:24	results\sd300b\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+FILE	4	.json	5351	2026-07-10 01:51:32	results\sd300b\plain_roll\sourceafis\run_metadata.json
+DIR	2			2026-07-09 23:27:25	results\sd300b\plain_self
+DIR	3			2026-07-11 13:00:00	results\sd300b\plain_self\sourceafis
+FILE	4	.csv	2238086	2026-07-09 23:27:25	results\sd300b\plain_self\sourceafis\pairs.csv
+DIR	4			2026-07-11 13:00:01	results\sd300b\plain_self\sourceafis\pairwise-benchmark-v2
+DIR	5			2026-07-11 13:00:01	results\sd300b\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	6	.csv	4739478	2026-07-11 13:00:00	results\sd300b\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	6	.json	15304	2026-07-11 13:00:01	results\sd300b\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+FILE	4	.json	5352	2026-07-09 23:27:25	results\sd300b\plain_self\sourceafis\run_metadata.json
+DIR	2			2026-07-10 00:40:29	results\sd300b\roll_self
+DIR	3			2026-07-11 15:02:27	results\sd300b\roll_self\sourceafis
+FILE	4	.csv	2255056	2026-07-10 00:40:29	results\sd300b\roll_self\sourceafis\pairs.csv
+DIR	4			2026-07-11 15:02:28	results\sd300b\roll_self\sourceafis\pairwise-benchmark-v2
+DIR	5			2026-07-11 15:02:28	results\sd300b\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	6	.csv	4823988	2026-07-11 15:02:27	results\sd300b\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	6	.json	15299	2026-07-11 15:02:28	results\sd300b\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+FILE	4	.json	5349	2026-07-10 00:40:29	results\sd300b\roll_self\sourceafis\run_metadata.json
+DIR	1			2026-07-10 15:11:05	results\sd300c
+DIR	2			2026-07-10 15:11:05	results\sd300c\plain_roll
+DIR	3			2026-07-11 23:02:17	results\sd300c\plain_roll\sourceafis
+FILE	4	.csv	2245544	2026-07-10 15:11:05	results\sd300c\plain_roll\sourceafis\pairs.csv
+DIR	4			2026-07-11 23:02:17	results\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2
+DIR	5			2026-07-11 23:02:17	results\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	6	.csv	4752783	2026-07-11 23:02:17	results\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	6	.json	15473	2026-07-11 23:02:17	results\sd300c\plain_roll\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+FILE	4	.json	5351	2026-07-10 15:11:05	results\sd300c\plain_roll\sourceafis\run_metadata.json
+DIR	2			2026-07-10 02:37:01	results\sd300c\plain_self
+DIR	3			2026-07-11 16:13:15	results\sd300c\plain_self\sourceafis
+FILE	4	.csv	2249901	2026-07-10 02:37:01	results\sd300c\plain_self\sourceafis\pairs.csv
+DIR	4			2026-07-11 16:13:16	results\sd300c\plain_self\sourceafis\pairwise-benchmark-v2
+DIR	5			2026-07-11 16:13:15	results\sd300c\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	6	.csv	4758425	2026-07-11 16:13:15	results\sd300c\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	6	.json	15304	2026-07-11 16:13:15	results\sd300c\plain_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+FILE	4	.json	5351	2026-07-10 02:37:01	results\sd300c\plain_self\sourceafis\run_metadata.json
+DIR	2			2026-07-10 13:35:59	results\sd300c\roll_self
+DIR	3			2026-07-11 21:17:24	results\sd300c\roll_self\sourceafis
+FILE	4	.csv	2259529	2026-07-10 13:35:59	results\sd300c\roll_self\sourceafis\pairs.csv
+DIR	4			2026-07-11 21:17:25	results\sd300c\roll_self\sourceafis\pairwise-benchmark-v2
+DIR	5			2026-07-11 21:17:25	results\sd300c\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3
+FILE	6	.csv	4826720	2026-07-11 21:17:24	results\sd300c\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\pairs.csv
+FILE	6	.json	15297	2026-07-11 21:17:25	results\sd300c\roll_self\sourceafis\pairwise-benchmark-v2\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3\run_metadata.json
+FILE	4	.json	5348	2026-07-10 13:36:00	results\sd300c\roll_self\sourceafis\run_metadata.json
+DIR	1			2026-07-11 23:03:07	results\sourceafis
+DIR	2			2026-07-12 12:22:32	results\sourceafis\pairwise-benchmark-v2
+FILE	3	.json	41060885	2026-07-11 23:05:06	results\sourceafis\pairwise-benchmark-v2\diagnostics.json
+FILE	3	.csv	1496504	2026-07-11 23:05:04	results\sourceafis\pairwise-benchmark-v2\paired-sd300b-sd300c-plain_roll.csv
+FILE	3	.csv	1478530	2026-07-11 23:05:04	results\sourceafis\pairwise-benchmark-v2\paired-sd300b-sd300c-plain_self.csv
+FILE	3	.csv	1362837	2026-07-11 23:05:04	results\sourceafis\pairwise-benchmark-v2\paired-sd300b-sd300c-roll_self.csv
+FILE	3	.csv	3761	2026-07-11 23:36:27	results\sourceafis\pairwise-benchmark-v2\supervisor_summary.csv
+FILE	3	.json	10183	2026-07-11 23:36:27	results\sourceafis\pairwise-benchmark-v2\supervisor_summary.json
+DIR	3			2026-07-12 12:24:29	results\sourceafis\pairwise-benchmark-v2\threshold40_audit
+FILE	4	.csv	615	2026-07-12 12:24:28	results\sourceafis\pairwise-benchmark-v2\threshold40_audit\paired_bc_decision_summary.csv
+FILE	4	.csv	2613132	2026-07-12 12:24:28	results\sourceafis\pairwise-benchmark-v2\threshold40_audit\paired_bc_decisions.csv
+FILE	4	.csv	640	2026-07-12 12:24:28	results\sourceafis\pairwise-benchmark-v2\threshold40_audit\plain_roll_decisions.csv
+FILE	4	.csv	8290	2026-07-12 12:24:28	results\sourceafis\pairwise-benchmark-v2\threshold40_audit\self_below_threshold_identities.csv
+FILE	4	.json	18277	2026-07-12 12:24:29	results\sourceafis\pairwise-benchmark-v2\threshold40_audit\threshold40_audit.json
+FILE	4	.csv	1393	2026-07-12 12:24:28	results\sourceafis\pairwise-benchmark-v2\threshold40_audit\threshold40_summary.csv
+FILE	3	.csv	1282570	2026-07-11 23:04:06	results\sourceafis\pairwise-benchmark-v2\v1-v2-sd300b-plain_roll.csv
+FILE	3	.csv	1319591	2026-07-11 23:03:23	results\sourceafis\pairwise-benchmark-v2\v1-v2-sd300b-plain_self.csv
+FILE	3	.csv	1325750	2026-07-11 23:03:38	results\sourceafis\pairwise-benchmark-v2\v1-v2-sd300b-roll_self.csv
+FILE	3	.csv	1282313	2026-07-11 23:05:04	results\sourceafis\pairwise-benchmark-v2\v1-v2-sd300c-plain_roll.csv
+FILE	3	.csv	1319839	2026-07-11 23:04:21	results\sourceafis\pairwise-benchmark-v2\v1-v2-sd300c-plain_self.csv
+FILE	3	.csv	1325705	2026-07-11 23:04:36	results\sourceafis\pairwise-benchmark-v2\v1-v2-sd300c-roll_self.csv
+DIR	3			2026-07-12 01:18:51	results\sourceafis\pairwise-benchmark-v2\zero_score_audit
+DIR	4			2026-07-12 00:56:55	results\sourceafis\pairwise-benchmark-v2\zero_score_audit\contact_sheets
+FILE	4	.csv	130	2026-07-12 01:03:31	results\sourceafis\pairwise-benchmark-v2\zero_score_audit\manual_review_queue.csv
+FILE	4	.json	6325736	2026-07-12 01:03:32	results\sourceafis\pairwise-benchmark-v2\zero_score_audit\zero_score_audit.json
+FILE	4	.csv	2140850	2026-07-12 01:03:31	results\sourceafis\pairwise-benchmark-v2\zero_score_audit\zero_score_pairs.csv
+FILE	4	.csv	806	2026-07-12 01:03:31	results\sourceafis\pairwise-benchmark-v2\zero_score_audit\zero_score_summary.csv
+DIR	0			2026-07-11 23:05:35	run-logs
+FILE	1	.log	943	2026-07-11 23:11:15	run-logs\repro-sd300c-plain_self.manual.log
+FILE	1	.log	9036	2026-07-11 23:02:17	run-logs\sd300c-plain_roll.manual.log
+FILE	1	.log	9034	2026-07-11 21:17:25	run-logs\sd300c-roll_self.manual.log
+DIR	0			2026-07-12 13:27:58	scripts
+FILE	1	.mjs	34843	2026-07-12 13:27:58	scripts\build_sourceafis_joint_self_accept_t40_v1.mjs
+FILE	1	.mjs	22040	2026-07-12 10:14:38	scripts\build_sourceafis_joint_self_positive_v1.mjs
+FILE	1	.ps1	3344	2026-07-12 11:15:21	scripts\run_sourceafis_reproducibility_audit.ps1
+FILE	1	.mjs	36352	2026-07-12 12:24:10	scripts\threshold40_audit.mjs
+DIR	0			2026-07-12 11:10:29	src
+DIR	1			2026-07-12 10:57:15	src\fingerprint_benchmark
+FILE	2	.py	680	2026-07-11 12:27:52	src\fingerprint_benchmark\__init__.py
+FILE	2	.py	2113	2026-07-11 12:15:28	src\fingerprint_benchmark\bundle.py
+FILE	2	.py	17681	2026-07-11 12:30:32	src\fingerprint_benchmark\cli.py
+FILE	2	.py	4473	2026-07-11 12:13:28	src\fingerprint_benchmark\contract.py
+FILE	2	.py	18025	2026-07-11 12:16:09	src\fingerprint_benchmark\diagnostics.py
+FILE	2	.py	835	2026-07-11 12:14:13	src\fingerprint_benchmark\hashing.py
+FILE	2	.py	2295	2026-07-09 22:52:28	src\fingerprint_benchmark\io.py
+FILE	2	.py	3331	2026-07-09 22:52:28	src\fingerprint_benchmark\manifest.py
+FILE	2	.py	3724	2026-07-11 12:14:13	src\fingerprint_benchmark\preflight.py
+FILE	2	.py	5234	2026-07-11 12:32:40	src\fingerprint_benchmark\provenance.py
+FILE	2	.py	49814	2026-07-12 11:14:45	src\fingerprint_benchmark\reproducibility_audit.py
+FILE	2	.py	31421	2026-07-11 12:35:47	src\fingerprint_benchmark\runner.py
+FILE	2	.py	9198	2026-07-11 12:24:24	src\fingerprint_benchmark\sourceafis_adapter.py
+FILE	2	.py	16676	2026-07-11 12:24:24	src\fingerprint_benchmark\sourceafis_client.py
+FILE	2	.py	9630	2026-07-11 12:16:57	src\fingerprint_benchmark\sourceafis_sidecar.py
+FILE	2	.py	498	2026-07-09 22:52:28	src\fingerprint_benchmark\summary.py
+DIR	1			2026-07-11 12:04:46	src\fingerprint_data_discovery
+FILE	2	.py	682	2026-07-09 15:22:05	src\fingerprint_data_discovery\__init__.py
+FILE	2	.py	3494	2026-07-09 14:52:25	src\fingerprint_data_discovery\audit.py
+FILE	2	.py	2969	2026-07-09 14:49:56	src\fingerprint_data_discovery\canonical_fingers.py
+FILE	2	.py	8295	2026-07-09 14:49:56	src\fingerprint_data_discovery\nist_sd300.py
+FILE	2	.py	22134	2026-07-09 22:48:40	src\fingerprint_data_discovery\plain_roll_protocol.py
+FILE	2	.py	15564	2026-07-09 22:48:40	src\fingerprint_data_discovery\plain_self_protocol.py
+FILE	2	.py	1716	2026-07-09 18:20:05	src\fingerprint_data_discovery\protocol_dataset.py
+FILE	2	.py	16095	2026-07-09 22:48:40	src\fingerprint_data_discovery\roll_self_protocol.py
+FILE	2	.py	4522	2026-07-09 18:52:30	src\fingerprint_data_discovery\sd300b_plain_roll.py
+FILE	2	.py	4510	2026-07-09 18:30:20	src\fingerprint_data_discovery\sd300b_plain_self.py
+FILE	2	.py	15778	2026-07-09 18:03:12	src\fingerprint_data_discovery\sd300b_protocol_audit.py
+FILE	2	.py	4496	2026-07-09 18:49:35	src\fingerprint_data_discovery\sd300b_roll_self.py
+FILE	2	.py	4522	2026-07-09 18:52:54	src\fingerprint_data_discovery\sd300c_plain_roll.py
+FILE	2	.py	4510	2026-07-09 18:30:43	src\fingerprint_data_discovery\sd300c_plain_self.py
+FILE	2	.py	15778	2026-07-09 18:54:47	src\fingerprint_data_discovery\sd300c_protocol_audit.py
+FILE	2	.py	4496	2026-07-09 18:49:59	src\fingerprint_data_discovery\sd300c_roll_self.py
+FILE	2	.py	6441	2026-07-09 16:14:44	src\fingerprint_data_discovery\self_manifest_common.py
+DIR	1			2026-07-12 11:10:29	src\fingerprint_recognition_research.egg-info
+FILE	2	.txt	1	2026-07-12 11:10:29	src\fingerprint_recognition_research.egg-info\dependency_links.txt
+FILE	2	.txt	874	2026-07-12 11:10:29	src\fingerprint_recognition_research.egg-info\entry_points.txt
+FILE	2		173	2026-07-12 11:10:29	src\fingerprint_recognition_research.egg-info\PKG-INFO
+FILE	2	.txt	2464	2026-07-12 11:10:29	src\fingerprint_recognition_research.egg-info\SOURCES.txt
+FILE	2	.txt	49	2026-07-12 11:10:29	src\fingerprint_recognition_research.egg-info\top_level.txt
+DIR	0			2026-07-12 10:58:54	tests
+FILE	1	.py	419	2026-07-09 23:01:23	tests\conftest.py
+FILE	1	.py	9014	2026-07-11 12:16:09	tests\test_benchmark_diagnostics.py
+FILE	1	.py	28308	2026-07-11 12:32:59	tests\test_benchmark_runner.py
+FILE	1	.py	2124	2026-07-09 14:49:56	tests\test_canonical_fingers.py
+FILE	1	.py	3362	2026-07-09 14:51:12	tests\test_nist_sd300.py
+FILE	1	.py	14314	2026-07-09 18:32:35	tests\test_plain_self_protocol.py
+FILE	1	.py	6842	2026-07-09 18:20:13	tests\test_protocol_dataset.py
+FILE	1	.py	8518	2026-07-09 22:49:44	tests\test_protocol_hardening.py
+FILE	1	.py	8011	2026-07-12 11:15:36	tests\test_reproducibility_audit.py
+FILE	1	.py	18661	2026-07-09 18:53:18	tests\test_sd300b_plain_roll.py
+FILE	1	.py	11050	2026-07-09 16:24:12	tests\test_sd300b_plain_self.py
+FILE	1	.py	16956	2026-07-09 16:56:37	tests\test_sd300b_protocol_audit.py
+FILE	1	.py	8700	2026-07-09 16:03:21	tests\test_sd300b_roll_self.py
+FILE	1	.py	19884	2026-07-09 18:57:03	tests\test_sd300c_protocols.py
+FILE	1	.py	4267	2026-07-09 16:14:44	tests\test_self_manifest_common.py
+FILE	1	.py	7610	2026-07-11 12:18:49	tests\test_sourceafis_adapter.py
+FILE	1	.py	8350	2026-07-11 12:24:44	tests\test_sourceafis_client_contract_v2.py
+FILE	1	.py	3012	2026-07-11 12:18:57	tests\test_sourceafis_sidecar_integration_optional.py
+FILE	1	.py	4240	2026-07-11 12:20:43	tests\test_sourceafis_sidecar_lifecycle.py
+FILE	0	.ps1	5138	2026-07-09 21:30:23	write_ai_repo_structure_root.ps1

@@ -1,0 +1,19 @@
+# --- Agent / IDE / tooling temp ---
+.codex-tmp/
+.idea/
+.vscode/
+
+# --- Python caches ---
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- OS cruft ---
+.DS_Store
+Thumbs.db
+
+# NOTE: build artifacts under apps/**/target are intentionally KEPT
+# (the sourceafis-sidecar jars are committed so the frozen baseline
+#  never needs to be rebuilt). Do not add 'target/' here.
