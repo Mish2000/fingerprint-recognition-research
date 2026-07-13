@@ -1,0 +1,13 @@
+scope,dataset,protocol,threshold,total_count,ok_count,non_ok_count,score_zero_count,score_positive_below_threshold_count,accepted_count,rejected_count,accepted_percentage,rejected_percentage
+primary_full_results,sd300b,plain_self,40,8788,8788,0,116,59,8613,175,98.008648156577,1.991351843423
+primary_full_results,sd300b,roll_self,40,8871,8871,0,12,16,8843,28,99.684364784128,0.315635215872
+primary_full_results,sd300b,plain_roll,40,8779,8779,0,764,2231,5784,2995,65.884497095341,34.115502904659
+primary_full_results,sd300c,plain_self,40,8788,8788,0,110,46,8632,156,98.224852071006,1.775147928994
+primary_full_results,sd300c,roll_self,40,8871,8871,0,11,13,8847,24,99.729455529253,0.270544470747
+primary_full_results,sd300c,plain_roll,40,8779,8779,0,767,2307,5705,3074,64.98462239435,35.01537760565
+self_positive_cohort,sd300b,plain_self,40,8651,8651,0,0,53,8598,53,99.387354063114,0.612645936886
+self_positive_cohort,sd300b,roll_self,40,8651,8651,0,0,9,8642,9,99.895965784302,0.104034215698
+self_positive_cohort,sd300b,plain_roll,40,8651,8651,0,640,2228,5783,2868,66.847763264362,33.152236735637
+self_positive_cohort,sd300c,plain_self,40,8651,8651,0,0,34,8617,34,99.606981851809,0.393018148191
+self_positive_cohort,sd300c,roll_self,40,8651,8651,0,0,7,8644,7,99.919084498902,0.080915501098
+self_positive_cohort,sd300c,plain_roll,40,8651,8651,0,641,2305,5705,2946,65.946133394983,34.053866605017

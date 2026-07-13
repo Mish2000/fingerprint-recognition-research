@@ -1,0 +1,54 @@
+{
+  "canonical_pair_counts": {
+    "plain_roll": {
+      "01": 875,
+      "02": 879,
+      "03": 875,
+      "04": 882,
+      "05": 867,
+      "06": 875,
+      "07": 881,
+      "08": 881,
+      "09": 885,
+      "10": 879
+    },
+    "plain_self": {
+      "01": 875,
+      "02": 880,
+      "03": 878,
+      "04": 883,
+      "05": 867,
+      "06": 875,
+      "07": 883,
+      "08": 883,
+      "09": 885,
+      "10": 879
+    },
+    "roll_self": {
+      "01": 888,
+      "02": 887,
+      "03": 885,
+      "04": 887,
+      "05": 888,
+      "06": 888,
+      "07": 886,
+      "08": 886,
+      "09": 888,
+      "10": 888
+    }
+  },
+  "dataset": "sd300c",
+  "expected_intersection_count": 8779,
+  "intersection_consistent": true,
+  "manifest_sha256": {
+    "plain_roll": "42b157f7a741f9c0cd0810df5384ca0edd29323cbb6a0f2d0034683012cd5044",
+    "plain_self": "b80e3978fad60a4977d959286d8ab5bf342577da44e487e7abe22ce0063ad004",
+    "roll_self": "7f8f24c54b3ffa32992db6070b690c797dc18a142485fc0d71124ad8aeddb6c4"
+  },
+  "plain_only_count": 9,
+  "plain_roll_count": 8779,
+  "plain_self_count": 8788,
+  "roll_only_count": 92,
+  "roll_self_count": 8871,
+  "source_consistency_checked_pairs": 8779
+}

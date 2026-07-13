@@ -1,0 +1,31 @@
+{
+  "artifact_inventory_sha256": "bdcded9827bf781ce3c35775a6a6c212fd10ab56627f1f49d9f562e19eff56a5",
+  "cohort_identity_count": 8777,
+  "cohort_name": "sift_geometric_joint_self_accept_v1",
+  "cohort_table": "C:\\fingerprint-recognition-research\\results\\sift_geometric\\reports\\cohort_supervisor_table.csv",
+  "evaluation_subjects_table": "C:\\fingerprint-recognition-research\\results\\sift_geometric\\reports\\evaluation_subjects_supervisor_table.csv",
+  "full_manifest_table": "C:\\fingerprint-recognition-research\\results\\sift_geometric\\reports\\full_manifest_supervisor_table.csv",
+  "full_run_count": 6,
+  "method": "sift_geometric",
+  "method_version": "sift-geometric-v1",
+  "protected_input_integrity": {
+    "after": {
+      "dataset_stat_inventory_sha256": "dd8f05b748cca1f704959544e1b49a69c296d2d10fbc15204aac44a70e748b13",
+      "protocol_manifest_inventory_sha256": "5b39b1eada17813a990ff1f1f826710e74f3e0876fc9941fccb44f5e60ca1fd4",
+      "sourceafis_inventory_sha256": "f4f50793007be6df66af4c0601e1b0455221dc79450108dc5d61ec1192026aef"
+    },
+    "before": {
+      "dataset_stat_inventory_sha256": "dd8f05b748cca1f704959544e1b49a69c296d2d10fbc15204aac44a70e748b13",
+      "protocol_manifest_inventory_sha256": "5b39b1eada17813a990ff1f1f826710e74f3e0876fc9941fccb44f5e60ca1fd4",
+      "sourceafis_inventory_sha256": "f4f50793007be6df66af4c0601e1b0455221dc79450108dc5d61ec1192026aef"
+    },
+    "matches": {
+      "dataset_stat_inventory_sha256": true,
+      "protocol_manifest_inventory_sha256": true,
+      "sourceafis_inventory_sha256": true
+    },
+    "status": "ok"
+  },
+  "report_schema": "sift-geometric-supervisor-report-v1",
+  "supervisor_markdown": "C:\\fingerprint-recognition-research\\results\\sift_geometric\\reports\\supervisor_tables.md"
+}

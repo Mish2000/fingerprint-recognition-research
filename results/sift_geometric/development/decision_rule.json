@@ -1,0 +1,28 @@
+{
+  "acceptance_operator": "raw_score >= dataset_threshold",
+  "decision_rule_hash": "f3f03d964b20229cea8dfc5363f6b9558cae9fb60b4e4c0d5df868dcd1fc9914",
+  "decision_rule_schema": "sift-decision-rule-v1",
+  "primary_target_far": 0.01,
+  "score_mode": "geometric_inlier_count",
+  "selection_split": "development",
+  "thresholds_by_dataset": {
+    "sd300b": {
+      "actual_far_0.001": 0.0,
+      "actual_far_0.005": 0.0,
+      "actual_far_0.01": 0.01,
+      "far_0.001": 4.000000000000001,
+      "far_0.005": 4.000000000000001,
+      "far_0.01": 4.0,
+      "primary_threshold": 4.0
+    },
+    "sd300c": {
+      "actual_far_0.001": 0.0,
+      "actual_far_0.005": 0.0,
+      "actual_far_0.01": 0.01,
+      "far_0.001": 4.000000000000001,
+      "far_0.005": 4.000000000000001,
+      "far_0.01": 4.0,
+      "primary_threshold": 4.0
+    }
+  }
+}
