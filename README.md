@@ -119,6 +119,25 @@ fingerprint-sift-study run
 fingerprint-sift-study report
 ```
 
+## Detector-only comparison
+
+`detector_only_v1` fixes physical support, orientation, descriptor, matching,
+geometry, and raw-score semantics so that only the detector varies. The first
+classical baseline is `opencv_gftt_harris_rootsift_geometric`, version
+`opencv-gftt-harris-rootsift-geometric-v1`:
+
+```python
+from fingerprint_benchmark.detectors import (
+    OpenCVGFTTHarrisRootSIFTGeometricAdapter,
+)
+
+adapter = OpenCVGFTTHarrisRootSIFTGeometricAdapter()
+```
+
+The generic detector contract, fixed/common parameter boundary, PPI-aware
+support rule, and backward-compatibility policy are documented in
+[docs/detector_only_protocol.md](docs/detector_only_protocol.md).
+
 ## SourceAFIS reproducibility audit
 
 The isolated, pre-specified audit workflow is documented in
