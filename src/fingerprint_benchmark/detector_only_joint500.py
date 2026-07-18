@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import base64
 import csv
+from dataclasses import asdict, is_dataclass
+from functools import partial
 import hashlib
 import io
 import json
@@ -12,8 +14,16 @@ from pathlib import Path
 import statistics
 from typing import Any, Iterable, Mapping, Sequence
 
+from fingerprint_data_discovery.canonical_fingers import canonical_finger_position
+from fingerprint_data_discovery.nist_sd300 import (
+    DATASETS as DATASET_SPECS,
+    DEFAULT_DATA_ROOT,
+    validate_image_path,
+)
+
 from .hashing import file_sha256, stable_hash
 from .manifest import MANIFEST_COLUMNS, PairRecord, read_pair_manifest
+from .preflight import validator_for
 
 
 PROTOCOL_NAME = "detector_only_joint_500_v1"
@@ -26,6 +36,36 @@ FINGER_POSITIONS = tuple(range(1, 11))
 PER_POSITION = 50
 COHORT_SIZE = 500
 PROTOCOL_DIRECTORY = Path("protocols") / PROTOCOL_NAME
+SOURCEAFIS_PREFLIGHT_SCHEMA_VERSION = "sourceafis-final-minutiae-preflight-v1"
+SOURCEAFIS_PREFLIGHT_FIELDS = frozenset(
+    {
+        "schema_version",
+        "status",
+        "protocol_name",
+        "protocol_sha256",
+        "detector_version",
+        "sidecar_jar_sha256",
+        "image_count",
+        "identities_per_dataset",
+        "impressions",
+        "items",
+        "biometric_bytes_persisted",
+    }
+)
+SOURCEAFIS_PREFLIGHT_ITEM_FIELDS = frozenset(
+    {
+        "logical_image_id",
+        "dataset",
+        "subject_id",
+        "canonical_finger_position",
+        "impression",
+        "ppi",
+        "template_sha256",
+        "minutia_count",
+        "parity",
+        "repeated_raw_payload_equal",
+    }
+)
 SELECTED_COLUMNS = [
     "protocol_version",
     "subject_id",
@@ -215,13 +255,85 @@ def validate_protocol_artifacts(
     }
 
 
-def validate_joint_manifest(manifest_path: Path, data_root: Path) -> dict[str, Any]:
+def validate_joint_dataset_preflight(
+    *,
+    repository_root: Path = Path("."),
+    data_root: Path = DEFAULT_DATA_ROOT,
+) -> dict[str, Any]:
+    """Validate all base and derived manifests against one explicit dataset root."""
+
+    root = repository_root.resolve()
+    resolved_data_root = Path(data_root).resolve()
+    if not resolved_data_root.is_dir():
+        raise Joint500ProtocolError(f"Joint-500 data root does not exist: {resolved_data_root}")
+    protocol_report = validate_protocol_artifacts(repository_root=root)
+    metadata_path = root / PROTOCOL_DIRECTORY / "protocol_metadata.json"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    expected_base_hashes = metadata.get("base_manifest_sha256")
+    if not isinstance(expected_base_hashes, dict):
+        raise Joint500ProtocolError("Protocol metadata base_manifest_sha256 must be an object.")
+
+    validator_reports: dict[str, Any] = {}
+    for dataset in DATASETS:
+        for protocol in BASE_PROTOCOLS:
+            relative = Path("protocols") / dataset / f"{protocol}.csv"
+            path = root / relative
+            try:
+                result = validator_for(dataset, protocol)(path, resolved_data_root)
+            except Exception as exc:
+                raise Joint500ProtocolError(
+                    f"Base manifest validation failed for {dataset}/{protocol}: {exc}"
+                ) from exc
+            actual_sha = file_sha256(path)
+            if expected_base_hashes.get(relative.as_posix()) != actual_sha:
+                raise Joint500ProtocolError(
+                    f"Base manifest SHA-256 mismatch for {relative.as_posix()}."
+                )
+            validator_reports[relative.as_posix()] = _validator_report(result)
+
+    base, base_hashes = _read_base_manifests(root)
+    if base_hashes != expected_base_hashes:
+        raise Joint500ProtocolError("Validated base manifest hashes do not match protocol metadata.")
+    validated_path_count = _validate_derived_dataset_paths(
+        repository_root=root,
+        data_root=resolved_data_root,
+        base=base,
+    )
+    derived_manifest_hashes = {
+        protocol_manifest_path(dataset, pair_kind).as_posix(): file_sha256(
+            root / protocol_manifest_path(dataset, pair_kind)
+        )
+        for dataset in DATASETS
+        for pair_kind in PAIR_KINDS
+    }
+    return {
+        **protocol_report,
+        "dataset_preflight_status": "ok",
+        "data_root": str(resolved_data_root),
+        "base_manifest_validator_results": validator_reports,
+        "derived_manifest_sha256": derived_manifest_hashes,
+        "derived_dataset_path_count": validated_path_count,
+    }
+
+
+def validate_joint_manifest(
+    manifest_path: Path,
+    data_root: Path,
+    *,
+    dataset_preflight: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     """Dedicated runner validator for one of the eight derived manifests."""
 
-    del data_root
     resolved = manifest_path.resolve()
     repository_root = _repository_root_from_manifest(resolved)
-    report = validate_protocol_artifacts(repository_root=repository_root)
+    report = (
+        validate_joint_dataset_preflight(
+            repository_root=repository_root,
+            data_root=data_root,
+        )
+        if dataset_preflight is None
+        else _validate_dataset_preflight_binding(dataset_preflight, data_root)
+    )
     protocol_root = (repository_root / PROTOCOL_DIRECTORY).resolve()
     try:
         relative = resolved.relative_to(protocol_root)
@@ -230,6 +342,12 @@ def validate_joint_manifest(manifest_path: Path, data_root: Path) -> dict[str, A
     expected = {Path(dataset) / f"{kind}.csv" for dataset in DATASETS for kind in PAIR_KINDS}
     if relative not in expected:
         raise Joint500ProtocolError(f"Not a joint-500 pair manifest: {relative.as_posix()}")
+    relative_to_repository = (PROTOCOL_DIRECTORY / relative).as_posix()
+    expected_sha = (report.get("derived_manifest_sha256") or {}).get(relative_to_repository)
+    if expected_sha is None or file_sha256(resolved) != expected_sha:
+        raise Joint500ProtocolError(
+            f"Derived manifest changed after dataset preflight: {relative_to_repository}"
+        )
     return {**report, "validated_manifest": relative.as_posix()}
 
 
@@ -332,7 +450,7 @@ def run_sourceafis_preflight(
     if len(items) != 20:
         raise Joint500ProtocolError(f"SourceAFIS preflight must contain 20 images, got {len(items)}.")
     artifact = {
-        "schema_version": "sourceafis-final-minutiae-preflight-v1",
+        "schema_version": SOURCEAFIS_PREFLIGHT_SCHEMA_VERSION,
         "status": "ok",
         "protocol_name": PROTOCOL_NAME,
         "protocol_sha256": validation["protocol_sha256"],
@@ -353,7 +471,11 @@ def run_sourceafis_preflight(
     output.parent.mkdir(parents=True, exist_ok=True)
     if not output.exists():
         output.write_bytes(content)
-    return {**artifact, "path": str(output.resolve()), "sha256": _bytes_sha256(content)}
+    return validate_sourceafis_preflight(
+        results_root=results_root,
+        protocol_sha256=validation["protocol_sha256"],
+        jar_sha256=jar_sha256,
+    )
 
 
 def validate_sourceafis_preflight(
@@ -364,28 +486,141 @@ def validate_sourceafis_preflight(
 ) -> dict[str, Any]:
     from .detectors.sourceafis_final_minutiae import DETECTOR_VERSION
 
-    path = preflight_artifact_path(results_root)
+    path = preflight_artifact_path(results_root).resolve()
     if not path.is_file():
         raise Joint500ProtocolError(
             f"Matching SourceAFIS preflight is required before joint-500 run: {path}"
         )
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    expected = {
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise Joint500ProtocolError(f"Cannot read SourceAFIS preflight artifact: {exc}") from exc
+    _validate_sourceafis_preflight_payload(
+        payload,
+        protocol_sha256=protocol_sha256,
+        jar_sha256=jar_sha256,
+        detector_version=DETECTOR_VERSION,
+    )
+    return {
+        **payload,
+        "preflight_path": str(path),
+        "preflight_sha256": file_sha256(path),
+    }
+
+
+def _validate_sourceafis_preflight_payload(
+    payload: Any,
+    *,
+    protocol_sha256: str,
+    jar_sha256: str,
+    detector_version: str,
+) -> None:
+    if not isinstance(payload, dict) or set(payload) != SOURCEAFIS_PREFLIGHT_FIELDS:
+        actual = sorted(payload) if isinstance(payload, dict) else type(payload).__name__
+        raise Joint500ProtocolError(
+            f"SourceAFIS preflight top-level schema mismatch: {actual}."
+        )
+    expected_scalars = {
+        "schema_version": SOURCEAFIS_PREFLIGHT_SCHEMA_VERSION,
         "status": "ok",
         "protocol_name": PROTOCOL_NAME,
-        "protocol_sha256": protocol_sha256,
-        "detector_version": DETECTOR_VERSION,
+        "protocol_sha256": _validate_sha256(protocol_sha256, "protocol"),
+        "detector_version": detector_version,
         "sidecar_jar_sha256": _validate_sha256(jar_sha256, "sidecar JAR"),
-        "image_count": 20,
     }
-    for key, value in expected.items():
-        if payload.get(key) != value:
+    for key, expected in expected_scalars.items():
+        if payload.get(key) != expected:
             raise Joint500ProtocolError(
-                f"SourceAFIS preflight field {key!r} mismatch: expected {value!r}, got {payload.get(key)!r}."
+                f"SourceAFIS preflight field {key!r} mismatch: "
+                f"expected {expected!r}, got {payload.get(key)!r}."
             )
+    if type(payload.get("image_count")) is not int or payload["image_count"] != 20:
+        raise Joint500ProtocolError("SourceAFIS preflight image_count must be integer 20.")
+    if type(payload.get("identities_per_dataset")) is not int or payload["identities_per_dataset"] != 5:
+        raise Joint500ProtocolError(
+            "SourceAFIS preflight identities_per_dataset must be integer 5."
+        )
+    if payload.get("impressions") != ["plain", "roll"]:
+        raise Joint500ProtocolError(
+            "SourceAFIS preflight impressions must be exactly ['plain', 'roll']."
+        )
     if payload.get("biometric_bytes_persisted") is not False:
         raise Joint500ProtocolError("SourceAFIS preflight must not persist biometric bytes.")
-    return payload
+    items = payload.get("items")
+    if not isinstance(items, list) or len(items) != 20:
+        raise Joint500ProtocolError("SourceAFIS preflight items must contain exactly 20 entries.")
+
+    logical_ids: set[str] = set()
+    identities: dict[str, dict[tuple[str, int], set[str]]] = {
+        dataset: {} for dataset in DATASETS
+    }
+    for index, item in enumerate(items):
+        if not isinstance(item, dict) or set(item) != SOURCEAFIS_PREFLIGHT_ITEM_FIELDS:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} schema mismatch."
+            )
+        dataset = item.get("dataset")
+        if dataset not in DATASETS:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} has invalid dataset {dataset!r}."
+            )
+        subject_id = item.get("subject_id")
+        if not isinstance(subject_id, str) or len(subject_id) != 8 or not subject_id.isdigit():
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} has invalid subject_id."
+            )
+        position = item.get("canonical_finger_position")
+        if type(position) is not int or position not in FINGER_POSITIONS:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} has invalid canonical finger position."
+            )
+        impression = item.get("impression")
+        if impression not in {"plain", "roll"}:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} has invalid impression."
+            )
+        expected_logical_id = f"{dataset}:{subject_id}:{position:02d}:{impression}"
+        if item.get("logical_image_id") != expected_logical_id:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} logical_image_id mismatch."
+            )
+        if expected_logical_id in logical_ids:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight logical_image_id is duplicated: {expected_logical_id}."
+            )
+        logical_ids.add(expected_logical_id)
+        ppi = item.get("ppi")
+        if type(ppi) is not int or ppi != DATASET_SPECS[dataset].ppi:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} PPI does not match {dataset}."
+            )
+        _validate_sha256(item.get("template_sha256"), f"preflight item {index} template")
+        minutia_count = item.get("minutia_count")
+        if type(minutia_count) is not int or minutia_count < 0:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} minutia_count must be a nonnegative integer."
+            )
+        if item.get("parity") is not True or item.get("repeated_raw_payload_equal") is not True:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} did not pass parity and repeatability."
+            )
+        identity = (subject_id, position)
+        identities[dataset].setdefault(identity, set()).add(impression)
+
+    expected_impressions = {"plain", "roll"}
+    for dataset, dataset_identities in identities.items():
+        if len(dataset_identities) != 5:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight must contain exactly five identities for {dataset}."
+            )
+        if any(impressions != expected_impressions for impressions in dataset_identities.values()):
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight must contain Plain and Roll for every {dataset} identity."
+            )
+    if set(identities["sd300b"]) != set(identities["sd300c"]):
+        raise Joint500ProtocolError(
+            "SourceAFIS preflight must use the same five logical identities in SD300b and SD300c."
+        )
 
 
 def run_joint500(
@@ -394,7 +629,7 @@ def run_joint500(
     dataset: str | None = None,
     pair_kind: str | None = None,
     results_root: Path = Path("results"),
-    data_root: Path = Path("C:/fingerprint-datasets/NIST"),
+    data_root: Path = DEFAULT_DATA_ROOT,
     repository_root: Path = Path("."),
     sidecar_jar: Path | None = None,
     service_url: str = "http://127.0.0.1:8765",
@@ -417,7 +652,11 @@ def run_joint500(
 
     if method not in {HARRIS_METHOD, SOURCEAFIS_METHOD}:
         raise Joint500ProtocolError(f"Unsupported joint-500 method: {method}.")
-    validation = validate_protocol_artifacts(repository_root=repository_root)
+    validation = validate_joint_dataset_preflight(
+        repository_root=repository_root,
+        data_root=data_root,
+    )
+    dedicated_validator = partial(validate_joint_manifest, dataset_preflight=validation)
     datasets = (dataset,) if dataset is not None else DATASETS
     kinds = (pair_kind,) if pair_kind is not None else PAIR_KINDS
     if any(item not in DATASETS for item in datasets) or any(item not in PAIR_KINDS for item in kinds):
@@ -425,11 +664,13 @@ def run_joint500(
     if method == SOURCEAFIS_METHOD:
         if sidecar_jar is None or not sidecar_jar.is_file():
             raise Joint500ProtocolError("SourceAFIS joint-500 run requires an existing sidecar JAR.")
-        validate_sourceafis_preflight(
+        sourceafis_preflight = validate_sourceafis_preflight(
             results_root=results_root,
             protocol_sha256=validation["protocol_sha256"],
             jar_sha256=file_sha256(sidecar_jar),
         )
+    else:
+        sourceafis_preflight = None
     reports: list[dict[str, Any]] = []
     for active_dataset in datasets:
         for active_kind in kinds:
@@ -446,7 +687,7 @@ def run_joint500(
                         results_root=results_root,
                         startup_validation={},
                         data_root=data_root,
-                        dedicated_validator=validate_joint_manifest,
+                        dedicated_validator=dedicated_validator,
                         skip_existing=skip_existing,
                         bundle_directory=bundle,
                     )
@@ -469,9 +710,13 @@ def run_joint500(
                             expected_dataset=active_dataset,
                             expected_protocol=row_protocol(active_kind),
                             results_root=results_root,
-                            startup_validation=_sidecar_startup_dict(sidecar.startup, health.raw),
+                            startup_validation=_sidecar_startup_dict(
+                                sidecar.startup,
+                                health.raw,
+                                sourceafis_preflight=sourceafis_preflight,
+                            ),
                             data_root=data_root,
-                            dedicated_validator=validate_joint_manifest,
+                            dedicated_validator=dedicated_validator,
                             skip_existing=skip_existing,
                             bundle_directory=bundle,
                         )
@@ -485,21 +730,54 @@ def report_joint500(
     *,
     results_root: Path = Path("results"),
     output_directory: Path | None = None,
+    repository_root: Path = Path("."),
+    allow_partial: bool = False,
 ) -> dict[str, Any]:
-    """Create a screening-only report from already persisted bundles."""
+    """Create a screening-only report from validated benchmark-v2 bundles."""
 
-    protocol_results = results_root / PROTOCOL_NAME
-    result_paths = sorted(protocol_results.glob("*/*/*/pairs.csv"))
-    if not result_paths:
+    protocol_results = (results_root / PROTOCOL_NAME).resolve()
+    repository_root = repository_root.resolve()
+    protocol_validation = validate_protocol_artifacts(repository_root=repository_root)
+    bundles = _validated_joint500_bundles(
+        protocol_results=protocol_results,
+        repository_root=repository_root,
+        protocol_sha256=protocol_validation["protocol_sha256"],
+    )
+    if not bundles:
         raise Joint500ProtocolError(f"No joint-500 result bundles found under {protocol_results}.")
-    rows: list[dict[str, str]] = []
-    for path in result_paths:
-        with path.open("r", newline="", encoding="utf-8") as handle:
-            rows.extend(csv.DictReader(handle))
+    expected_matrix = {
+        (method, dataset, pair_kind)
+        for method in _joint_method_versions()
+        for dataset in DATASETS
+        for pair_kind in PAIR_KINDS
+    }
+    actual_matrix = set(bundles)
+    missing = sorted(expected_matrix - actual_matrix)
+    if missing and not allow_partial:
+        raise Joint500ProtocolError(
+            f"Complete joint-500 report requires 16 validated bundles; missing={missing}."
+        )
+    complete_protocol_matrix = actual_matrix == expected_matrix
+
     grouped: dict[tuple[str, str, str], list[dict[str, str]]] = {}
-    for row in rows:
-        pair_kind = _pair_kind_from_protocol(row["protocol"])
-        grouped.setdefault((row["method"], row["dataset"], pair_kind), []).append(row)
+    method_identities: dict[str, tuple[str, str, str, str, str]] = {}
+    for key, bundle in sorted(bundles.items()):
+        method, dataset, pair_kind = key
+        metadata = bundle["metadata"]
+        identity = (
+            metadata["method_version"],
+            metadata["config_hash"],
+            metadata["implementation_hash"],
+            metadata["score_direction"],
+            metadata["score_semantics"],
+        )
+        previous = method_identities.setdefault(method, identity)
+        if identity != previous:
+            raise Joint500ProtocolError(
+                f"Mixed method version/config/implementation detected for {method}."
+            )
+        bundle_rows = bundle["rows"]
+        grouped[(method, dataset, pair_kind)] = bundle_rows
     summaries = [
         _screening_group_summary(method, dataset, pair_kind, group)
         for (method, dataset, pair_kind), group in sorted(grouped.items())
@@ -515,9 +793,14 @@ def report_joint500(
             screening.append(_screening_roc(method, dataset, genuine, impostor))
     paired = _paired_bc_analysis(grouped)
     report = {
-        "schema_version": "detector-only-joint-500-screening-report-v1",
+        "schema_version": "detector-only-joint-500-screening-report-v2",
         "protocol_name": PROTOCOL_NAME,
+        "protocol_sha256": protocol_validation["protocol_sha256"],
         "screening_only": True,
+        "complete_protocol_matrix": complete_protocol_matrix,
+        "validated_bundle_count": len(bundles),
+        "required_bundle_count": 16,
+        "allow_partial": bool(allow_partial),
         "impostor_count": 500,
         "far_resolution": 0.002,
         "threshold_calibration": "none",
@@ -533,6 +816,8 @@ def report_joint500(
             "This is a development/screening cohort, not held-out evaluation.",
             "A negative result tests minutia locations with common RootSIFT downstream, not minutiae-native matching.",
             "SD300b and SD300c are paired views and are not pooled as independent samples.",
+            "ROC, AUC, EER, and TAR-at-FAR metrics are conditional on successful comparisons.",
+            "Operational metrics use a fail-closed policy over all 500 requested rows.",
         ],
     }
     output = output_directory or (protocol_results / "report")
@@ -543,10 +828,209 @@ def report_joint500(
     return {
         "status": "ok",
         "output_directory": str(output.resolve()),
-        "bundle_count": len(result_paths),
+        "bundle_count": len(bundles),
+        "validated_bundle_count": len(bundles),
+        "complete_protocol_matrix": complete_protocol_matrix,
         "summary_count": len(summaries),
         "screening_comparison_count": len(screening),
     }
+
+
+def _validated_joint500_bundles(
+    *,
+    protocol_results: Path,
+    repository_root: Path,
+    protocol_sha256: str,
+) -> dict[tuple[str, str, str], dict[str, Any]]:
+    method_versions = _joint_method_versions()
+    candidate_directories = {
+        path.parent.resolve()
+        for filename in ("pairs.csv", "run_metadata.json")
+        for path in protocol_results.rglob(filename)
+    }
+    bundles: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for directory in sorted(candidate_directories, key=lambda path: path.as_posix()):
+        try:
+            relative = directory.relative_to(protocol_results)
+        except ValueError as exc:
+            raise Joint500ProtocolError(f"Bundle is outside result root: {directory}") from exc
+        if len(relative.parts) != 3:
+            raise Joint500ProtocolError(
+                f"Bare or misplaced joint-500 bundle artifact: {directory}"
+            )
+        dataset, pair_kind, method = relative.parts
+        if dataset not in DATASETS:
+            raise Joint500ProtocolError(f"Unknown joint-500 bundle dataset: {dataset!r}.")
+        if pair_kind not in PAIR_KINDS:
+            raise Joint500ProtocolError(f"Unknown joint-500 bundle pair kind: {pair_kind!r}.")
+        if method not in method_versions:
+            raise Joint500ProtocolError(f"Unknown joint-500 bundle method: {method!r}.")
+        key = (method, dataset, pair_kind)
+        if key in bundles:
+            raise Joint500ProtocolError(f"Duplicate joint-500 bundle identity: {key}.")
+        bundles[key] = _validate_joint500_bundle(
+            bundle_directory=directory,
+            repository_root=repository_root,
+            dataset=dataset,
+            pair_kind=pair_kind,
+            method=method,
+            expected_method_version=method_versions[method],
+            results_root=protocol_results.parent,
+            protocol_sha256=protocol_sha256,
+        )
+    return bundles
+
+
+def _validate_joint500_bundle(
+    *,
+    bundle_directory: Path,
+    repository_root: Path,
+    dataset: str,
+    pair_kind: str,
+    method: str,
+    expected_method_version: str,
+    results_root: Path,
+    protocol_sha256: str,
+) -> dict[str, Any]:
+    from .contract import BENCHMARK_CONTRACT_VERSION, HIGHER_IS_MORE_SIMILAR, BenchmarkRunSpec
+    from .runner import RESULT_FILENAME, validate_result_bundle
+
+    result_path = bundle_directory / "pairs.csv"
+    metadata_path = bundle_directory / "run_metadata.json"
+    if not result_path.is_file() or not metadata_path.is_file():
+        raise Joint500ProtocolError(
+            f"Partial bundle must contain pairs.csv and run_metadata.json: {bundle_directory}"
+        )
+    try:
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise Joint500ProtocolError(f"Cannot read bundle metadata {metadata_path}: {exc}") from exc
+    if not isinstance(metadata, dict):
+        raise Joint500ProtocolError(f"Bundle metadata must be an object: {metadata_path}")
+    if metadata.get("method") != method or metadata.get("method_version") != expected_method_version:
+        raise Joint500ProtocolError(
+            f"Bundle method identity mismatch for {bundle_directory}."
+        )
+    config_hash = _validate_sha256(metadata.get("config_hash"), "bundle config")
+    implementation_hash = _validate_sha256(
+        metadata.get("implementation_hash"), "bundle implementation"
+    )
+    score_direction = metadata.get("score_direction")
+    score_semantics = metadata.get("score_semantics")
+    if score_direction != HIGHER_IS_MORE_SIMILAR or not isinstance(score_semantics, str) or not score_semantics:
+        raise Joint500ProtocolError(f"Bundle score identity is invalid: {bundle_directory}")
+    manifest_path = (repository_root / protocol_manifest_path(dataset, pair_kind)).resolve()
+    manifest_records = read_pair_manifest(manifest_path)
+    if len(manifest_records) != COHORT_SIZE:
+        raise Joint500ProtocolError(
+            f"Joint-500 report manifest must contain 500 rows: {manifest_path}"
+        )
+    run_spec = BenchmarkRunSpec(
+        expected_dataset=dataset,
+        expected_protocol=row_protocol(pair_kind),
+        manifest_path=manifest_path,
+        manifest_sha256=file_sha256(manifest_path),
+        method=method,
+        method_version=expected_method_version,
+        benchmark_contract_version=BENCHMARK_CONTRACT_VERSION,
+        config_hash=config_hash,
+        implementation_hash=implementation_hash,
+    )
+    try:
+        validated_metadata = validate_result_bundle(
+            bundle_directory,
+            manifest_records=manifest_records,
+            run_spec=run_spec,
+            score_direction=score_direction,
+            score_semantics=score_semantics,
+        )
+    except Exception as exc:
+        raise Joint500ProtocolError(
+            f"Benchmark-v2 bundle validation failed for {bundle_directory}: {exc}"
+        ) from exc
+    if method == _sourceafis_method_name():
+        _validate_sourceafis_bundle_preflight(
+            metadata=validated_metadata,
+            results_root=results_root,
+            protocol_sha256=protocol_sha256,
+        )
+    with (bundle_directory / RESULT_FILENAME).open("r", newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    return {"metadata": validated_metadata, "rows": rows}
+
+
+def _validate_sourceafis_bundle_preflight(
+    *,
+    metadata: Mapping[str, Any],
+    results_root: Path,
+    protocol_sha256: str,
+) -> None:
+    startup = metadata.get("startup_validation")
+    if not isinstance(startup, dict):
+        raise Joint500ProtocolError("SourceAFIS bundle startup_validation must be an object.")
+    summary = startup.get("sourceafis_preflight")
+    expected_fields = {
+        "path",
+        "sha256",
+        "schema_version",
+        "protocol_sha256",
+        "detector_version",
+        "sidecar_jar_sha256",
+        "image_count",
+    }
+    if not isinstance(summary, dict) or set(summary) != expected_fields:
+        raise Joint500ProtocolError("SourceAFIS bundle preflight metadata schema mismatch.")
+    jar_sha256 = summary["sidecar_jar_sha256"]
+    implementation_components = metadata.get("implementation_hash_components")
+    if (
+        startup.get("jar_sha256") != jar_sha256
+        or not isinstance(implementation_components, dict)
+        or implementation_components.get("sidecar_jar_sha256") != jar_sha256
+    ):
+        raise Joint500ProtocolError(
+            "SourceAFIS bundle preflight JAR SHA does not match startup/implementation metadata."
+        )
+    expected_path = preflight_artifact_path(results_root).resolve()
+    if Path(str(summary["path"])).resolve() != expected_path:
+        raise Joint500ProtocolError("SourceAFIS bundle preflight path mismatch.")
+    validated = validate_sourceafis_preflight(
+        results_root=results_root,
+        protocol_sha256=protocol_sha256,
+        jar_sha256=jar_sha256,
+    )
+    expected = {
+        "path": validated["preflight_path"],
+        "sha256": validated["preflight_sha256"],
+        "schema_version": validated["schema_version"],
+        "protocol_sha256": validated["protocol_sha256"],
+        "detector_version": validated["detector_version"],
+        "sidecar_jar_sha256": validated["sidecar_jar_sha256"],
+        "image_count": validated["image_count"],
+    }
+    if summary != expected:
+        raise Joint500ProtocolError("SourceAFIS bundle preflight metadata is stale or tampered.")
+
+
+def _joint_method_versions() -> dict[str, str]:
+    from .detectors.opencv_gftt_harris import (
+        METHOD_NAME as HARRIS_METHOD,
+        METHOD_VERSION as HARRIS_VERSION,
+    )
+    from .detectors.sourceafis_final_minutiae import (
+        METHOD_NAME as SOURCEAFIS_METHOD,
+        METHOD_VERSION as SOURCEAFIS_VERSION,
+    )
+
+    return {
+        HARRIS_METHOD: HARRIS_VERSION,
+        SOURCEAFIS_METHOD: SOURCEAFIS_VERSION,
+    }
+
+
+def _sourceafis_method_name() -> str:
+    from .detectors.sourceafis_final_minutiae import METHOD_NAME
+
+    return METHOD_NAME
 
 
 def _read_base_manifests(
@@ -562,6 +1046,148 @@ def _read_base_manifests(
             base[(dataset, protocol)] = rows
             hashes[relative.as_posix()] = file_sha256(path)
     return base, hashes
+
+
+def _validate_derived_dataset_paths(
+    *,
+    repository_root: Path,
+    data_root: Path,
+    base: Mapping[tuple[str, str], Sequence[PairRecord]],
+) -> int:
+    target = repository_root / PROTOCOL_DIRECTORY
+    selected = _read_csv_dicts(target / "selected_identities.csv", SELECTED_COLUMNS)
+    pairing = _read_csv_dicts(target / "impostor_pairing.csv", PAIRING_COLUMNS)
+    validated_path_count = 0
+    for dataset in DATASETS:
+        for pair_kind in PAIR_KINDS:
+            actual = read_pair_manifest(target / dataset / f"{pair_kind}.csv")
+            expected = _pair_manifest_rows(
+                dataset=dataset,
+                pair_kind=pair_kind,
+                selected=selected,
+                pairing=pairing,
+                base=base,
+            )
+            if len(actual) != len(expected):
+                raise Joint500ProtocolError(
+                    f"Derived manifest row count differs from base derivation: {dataset}/{pair_kind}."
+                )
+            impressions = (
+                ("plain", "plain")
+                if pair_kind == "plain_self"
+                else ("roll", "roll")
+                if pair_kind == "roll_self"
+                else ("plain", "roll")
+            )
+            for row_number, (record, expected_row) in enumerate(
+                zip(actual, expected, strict=True),
+                start=2,
+            ):
+                if _pair_record_row(record) != expected_row:
+                    raise Joint500ProtocolError(
+                        f"Derived row does not match its base-manifest derivation at "
+                        f"{dataset}/{pair_kind} line {row_number}."
+                    )
+                for side, path, impression, raw_frgp in (
+                    ("a", record.path_a, impressions[0], record.raw_frgp_a),
+                    ("b", record.path_b, impressions[1], record.raw_frgp_b),
+                ):
+                    _validate_derived_image_reference(
+                        path=path,
+                        data_root=data_root,
+                        dataset=dataset,
+                        impression=impression,
+                        expected_ppi=record.ppi,
+                        expected_frgp=raw_frgp,
+                        expected_position=record.canonical_finger_position,
+                        label=f"{dataset}/{pair_kind} line {row_number} side {side}",
+                    )
+                    validated_path_count += 1
+    return validated_path_count
+
+
+def _validate_derived_image_reference(
+    *,
+    path: Path,
+    data_root: Path,
+    dataset: str,
+    impression: str,
+    expected_ppi: int,
+    expected_frgp: int,
+    expected_position: int,
+    label: str,
+) -> None:
+    if not path.is_file():
+        raise Joint500ProtocolError(f"Derived dataset file is missing for {label}: {path}")
+    spec = DATASET_SPECS[dataset]
+    resolved = path.resolve()
+    expected_root = spec.impression_dir(data_root, impression).resolve()
+    try:
+        resolved.relative_to(expected_root)
+    except ValueError as exc:
+        raise Joint500ProtocolError(
+            f"Derived dataset path is outside the expected {dataset}/{impression} root for {label}: {path}"
+        ) from exc
+    try:
+        source = validate_image_path(resolved, spec, impression)
+    except Exception as exc:
+        raise Joint500ProtocolError(f"Derived dataset path schema is invalid for {label}: {exc}") from exc
+    if source.ppi != expected_ppi or source.frgp != expected_frgp:
+        raise Joint500ProtocolError(
+            f"Derived dataset PPI/FRGP metadata mismatch for {label}: "
+            f"expected {expected_ppi}/{expected_frgp}, got {source.ppi}/{source.frgp}."
+        )
+    mapped = canonical_finger_position(source.impression_type, source.frgp)
+    if mapped != expected_position:
+        raise Joint500ProtocolError(
+            f"Derived dataset canonical position mismatch for {label}: "
+            f"expected {expected_position}, got {mapped}."
+        )
+
+
+def _pair_record_row(record: PairRecord) -> dict[str, str]:
+    return {
+        "pair_id": record.pair_id,
+        "dataset": record.dataset,
+        "protocol": record.protocol,
+        "subject_id": record.subject_id,
+        "canonical_finger_position": str(record.canonical_finger_position),
+        "ppi": str(record.ppi),
+        "raw_frgp_a": str(record.raw_frgp_a),
+        "raw_frgp_b": str(record.raw_frgp_b),
+        "path_a": str(record.path_a),
+        "path_b": str(record.path_b),
+    }
+
+
+def _validate_dataset_preflight_binding(
+    dataset_preflight: Mapping[str, Any],
+    data_root: Path,
+) -> dict[str, Any]:
+    report = dict(dataset_preflight)
+    if report.get("status") != "ok" or report.get("dataset_preflight_status") != "ok":
+        raise Joint500ProtocolError("Shared joint-500 dataset preflight is not successful.")
+    expected_root = Path(data_root).resolve()
+    if Path(str(report.get("data_root"))).resolve() != expected_root:
+        raise Joint500ProtocolError(
+            f"Joint-500 data root differs from shared preflight: {expected_root}"
+        )
+    hashes = report.get("derived_manifest_sha256")
+    if not isinstance(hashes, dict) or set(hashes) != {
+        protocol_manifest_path(dataset, pair_kind).as_posix()
+        for dataset in DATASETS
+        for pair_kind in PAIR_KINDS
+    }:
+        raise Joint500ProtocolError("Shared dataset preflight has invalid derived manifest hashes.")
+    return report
+
+
+def _validator_report(result: Any) -> dict[str, Any]:
+    if is_dataclass(result):
+        return asdict(result)
+    if isinstance(result, dict):
+        return dict(result)
+    return {"result": str(result)}
 
 
 def _eligible_identities(
@@ -864,10 +1490,15 @@ def _bundle_directory(results_root: Path, dataset: str, pair_kind: str, method: 
     return (results_root / PROTOCOL_NAME / dataset / pair_kind / method).resolve()
 
 
-def _sidecar_startup_dict(startup: Any, health: Mapping[str, Any]) -> dict[str, Any]:
+def _sidecar_startup_dict(
+    startup: Any,
+    health: Mapping[str, Any],
+    *,
+    sourceafis_preflight: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     if startup is None:
         raise Joint500ProtocolError("Managed SourceAFIS startup metadata is unavailable.")
-    return {
+    result = {
         "managed_by_runner": startup.managed_by_runner,
         "service_url": startup.service_url,
         "startup_ms": startup.startup_ms,
@@ -878,6 +1509,17 @@ def _sidecar_startup_dict(startup: Any, health: Mapping[str, Any]) -> dict[str, 
         "java_executable": startup.java_executable,
         "health": dict(health),
     }
+    if sourceafis_preflight is not None:
+        result["sourceafis_preflight"] = {
+            "path": sourceafis_preflight["preflight_path"],
+            "sha256": sourceafis_preflight["preflight_sha256"],
+            "schema_version": sourceafis_preflight["schema_version"],
+            "protocol_sha256": sourceafis_preflight["protocol_sha256"],
+            "detector_version": sourceafis_preflight["detector_version"],
+            "sidecar_jar_sha256": sourceafis_preflight["sidecar_jar_sha256"],
+            "image_count": sourceafis_preflight["image_count"],
+        }
+    return result
 
 
 def _pair_kind_from_protocol(protocol: str) -> str:
@@ -993,20 +1635,37 @@ def _screening_roc(
     eer_point = min(roc, key=lambda point: abs(point["far"] - (1.0 - point["tar"])))
     candidates = [point for point in roc if point["far"] <= 0.01]
     far_one = max(candidates, key=lambda point: (point["tar"], point["far"], -point["threshold"]))
+    genuine_failure_count = len(genuine_rows) - len(genuine)
+    impostor_failure_count = len(impostor_rows) - len(impostor)
+    selected_threshold = far_one["threshold"]
     return {
         "method": method,
         "dataset": dataset,
+        "conditional_on_success": True,
         "genuine_requested": len(genuine_rows),
         "genuine_successful": len(genuine),
+        "genuine_failure_count": genuine_failure_count,
+        "genuine_failure_rate": genuine_failure_count / len(genuine_rows),
         "impostor_requested": len(impostor_rows),
         "impostor_successful": len(impostor),
-        "auc": auc,
-        "screening_eer": (eer_point["far"] + (1.0 - eer_point["tar"])) / 2.0,
-        "eer_threshold": eer_point["threshold"],
-        "tar_at_far_1_percent": far_one["tar"],
-        "actual_achieved_far": far_one["far"],
-        "far_1_percent_threshold": far_one["threshold"],
-        "roc": roc,
+        "impostor_failure_count": impostor_failure_count,
+        "impostor_failure_rate": impostor_failure_count / len(impostor_rows),
+        "conditional_auc": auc,
+        "conditional_screening_eer": (eer_point["far"] + (1.0 - eer_point["tar"])) / 2.0,
+        "conditional_eer_threshold": eer_point["threshold"],
+        "conditional_tar_at_far_1_percent": far_one["tar"],
+        "conditional_actual_far_at_1_percent": far_one["far"],
+        "conditional_far_1_percent_threshold": selected_threshold,
+        "conditional_roc": roc,
+        "selected_threshold": selected_threshold,
+        "selected_threshold_source": "conditional_far_1_percent_report_only",
+        "operational_tar_at_selected_threshold": (
+            sum(score >= selected_threshold for score in genuine) / len(genuine_rows)
+        ),
+        "operational_far_at_selected_threshold": (
+            sum(score >= selected_threshold for score in impostor) / len(impostor_rows)
+        ),
+        "failure_policy": "fail_closed",
         "threshold_calibration": "none_report_only_empirical",
     }
 
@@ -1220,10 +1879,18 @@ def _report_markdown(report: Mapping[str, Any]) -> str:
         "",
         "This report is screening-only. Threshold calibration is not performed.",
         "",
+        f"- Complete protocol matrix: {str(report['complete_protocol_matrix']).lower()}",
+        f"- Validated benchmark-v2 bundles: {report['validated_bundle_count']} / {report['required_bundle_count']}",
         f"- Bundled summary groups: {len(report['summaries'])}",
         f"- Genuine/impostor comparisons: {len(report['genuine_impostor_screening'])}",
         "- Impostor count per complete comparison: 500 (FAR resolution 0.002)",
         "- Reported operating point: FAR 1% only",
+        "",
+        "## Conditional and operational metrics",
+        "",
+        "ROC, conditional AUC, conditional screening EER, and conditional TAR at FAR 1% use only successful comparisons.",
+        "Genuine and impostor failure counts/rates are reported separately.",
+        "Operational TAR/FAR use all 500 requested rows with fail-closed handling: genuine failures are non-matches and impostor failures are non-accepts.",
         "",
         "## Interpretation limits",
         "",
@@ -1249,6 +1916,7 @@ __all__ = [
     "PROTOCOL_NAME",
     "PROTOCOL_VERSION",
     "SEED",
+    "SOURCEAFIS_PREFLIGHT_SCHEMA_VERSION",
     "Joint500ProtocolError",
     "build_protocol_artifacts",
     "preflight_artifact_path",
@@ -1258,6 +1926,7 @@ __all__ = [
     "report_joint500",
     "run_joint500",
     "run_sourceafis_preflight",
+    "validate_joint_dataset_preflight",
     "validate_joint_manifest",
     "validate_protocol_artifacts",
     "validate_sourceafis_preflight",

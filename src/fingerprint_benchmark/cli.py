@@ -97,6 +97,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     joint_report = joint_phases.add_parser("report", help="Report screening metrics from existing bundles only.")
     joint_report.add_argument("--results-root", type=Path, default=Path("results"))
     joint_report.add_argument("--output-directory", type=Path)
+    joint_report.add_argument("--repository-root", type=Path, default=Path("."))
+    joint_report.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="Allow a validated subset of the 16 bundles for debugging only.",
+    )
     return parser.parse_args(argv)
 
 
@@ -169,6 +175,8 @@ def main(argv: list[str] | None = None) -> int:
                 payload = report_joint500(
                     results_root=args.results_root,
                     output_directory=args.output_directory,
+                    repository_root=args.repository_root,
+                    allow_partial=args.allow_partial,
                 )
             else:
                 raise ValueError(f"Unsupported detector-joint500 phase: {args.joint_phase!r}")

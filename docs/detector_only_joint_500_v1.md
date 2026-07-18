@@ -45,6 +45,14 @@ Plain-self and roll-self rows are engineering diagnostics only. A self failure
 is recorded, but it never removes or replaces an identity and never changes a
 genuine or impostor row.
 
+Before any run warm-up, the six source manifests are revalidated with their
+registered dataset validators and the CLI-selected `data_root`. Their SHA-256
+values must still match `protocol_metadata.json`. Every derived path must exist
+under the expected dataset/impression root, match the exact path derived from
+the source manifests, and preserve PPI, FRGP, and canonical-position metadata.
+One shared validation snapshot is used within a run command; it is never cached
+between processes.
+
 ## SourceAFIS final-template semantics
 
 The detector consumes exact raw grayscale bytes and parses the documented
@@ -70,10 +78,27 @@ Both detector branches use `detector_only_v1` unchanged and return raw
 not be compared across methods, because detector point count is itself part of
 detector output and SourceAFIS/Harris may return different counts.
 
-The report is screening-only. Genuine and impostor rows produce an empirical
-ROC, AUC, screening EER, and a report-only operating point at FAR 1%. With 500
-impostors, FAR resolution is 0.002; FAR 0.1% is not reported or claimed.
-Threshold calibration is `none`.
+The report accepts complete benchmark-v2 bundles only. Each bundle must contain
+`pairs.csv` and `run_metadata.json`, and its manifest/result/score-payload,
+method, config, implementation, schema, row count, and ordered pair identities
+are validated before rows are read for reporting. The default report requires
+the complete 16-bundle matrix. `--allow-partial` permits a validated subset for
+debugging and marks `complete_protocol_matrix=false`.
+
+The report is screening-only. ROC, `conditional_auc`,
+`conditional_screening_eer`, and `conditional_tar_at_far_1_percent` are
+explicitly conditional on successful comparisons. Genuine and impostor failure
+counts/rates are reported separately. Operational TAR/FAR retain all 500 rows
+and apply `failure_policy=fail_closed`: genuine failures are non-matches and
+impostor failures are non-accepts. The only report operating point is FAR 1%.
+With 500 impostors, FAR resolution is 0.002; FAR 0.1% is not reported or
+claimed. Threshold calibration is `none`.
+
+Every SourceAFIS bundle records a strict `sourceafis_preflight` binding in run
+metadata: artifact path/SHA, schema and protocol versions, detector version,
+sidecar JAR SHA, and image count. The referenced 20-item artifact must contain
+five shared identities per dataset with both Plain and Roll, and every item
+must pass encoded/raw parity and repeated-payload equality.
 
 SD300b and SD300c are paired views joined by logical identity/pair, not pooled as
 independent observations. This is a development/screening cohort, not held-out
