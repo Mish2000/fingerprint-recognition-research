@@ -1,3 +1,0 @@
-dataset,threshold,plain_self_total_count,plain_self_accepted_count,roll_self_total_count,roll_self_accepted_count,base_plain_roll_count,identity_universe_count,included_identity_count,excluded_identity_count,advisory_expected_included_count,advisory_count_delta,derived_manifest_sha256
-sd300b,40.0,8788,8613,8871,8843,8779,8880,8593,287,8593,0,6bfd32209a55f2144053ffc9d35487bc4ba81f096de90997015172446adce804
-sd300c,40.0,8788,8632,8871,8847,8779,8880,8614,266,8614,0,45406674a0a46564bdcc18f49f5eedee5fae67ec808de2066dc104d40ce2fbc9

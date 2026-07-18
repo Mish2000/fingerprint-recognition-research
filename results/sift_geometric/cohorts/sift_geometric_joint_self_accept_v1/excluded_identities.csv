@@ -1,3 +1,0 @@
-identity_key,subject_id,canonical_finger_position,sd300b_plain_self,sd300b_roll_self,sd300c_plain_self,sd300c_roll_self,exclusion_reasons_json
-00001019|05,00001019,5,below_threshold,accepted,accepted,accepted,"[""sd300b_plain_self""]"
-00001738|02,00001738,2,prepare_a_failure,accepted,accepted,accepted,"[""sd300b_plain_self""]"

@@ -37,24 +37,7 @@ def implementation_provenance(
             ("sourceafis_client.py", "sourceafis_sidecar.py"),
         )
         if method_metadata.method == "sourceafis"
-        else (
-            _source_hashes(
-                package_directory / "sift",
-                (
-                    "__init__.py",
-                    "adapter.py",
-                    "config.py",
-                    "descriptors.py",
-                    "extractor.py",
-                    "geometry.py",
-                    "matching.py",
-                    "preprocessing.py",
-                    "scoring.py",
-                ),
-            )
-            if method_metadata.method == "sift_geometric"
-            else {}
-        )
+        else {}
     )
     declared_sources = _adapter_declared_source_component(
         adapter,

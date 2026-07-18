@@ -5,16 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fingerprint-recognition-research"
 version = "0.1.0"
-description = "Minimal NIST SD300b/SD300c data discovery utilities."
+description = "Detector-only fingerprint research on NIST SD300b and SD300c."
 requires-python = ">=3.11,<3.12"
 dependencies = [
     "numpy==2.2.6",
     "opencv-python==4.12.0.88",
-]
-
-[project.optional-dependencies]
-harriszplus-cuda = [
-    "torch==2.11.0",
 ]
 
 [project.scripts]
@@ -28,12 +23,6 @@ fingerprint-sd300c-roll-self = "fingerprint_data_discovery.sd300c_roll_self:main
 fingerprint-sd300c-plain-roll = "fingerprint_data_discovery.sd300c_plain_roll:main"
 fingerprint-sd300c-protocol-audit = "fingerprint_data_discovery.sd300c_protocol_audit:main"
 fingerprint-benchmark = "fingerprint_benchmark.cli:main"
-fingerprint-repro-audit = "fingerprint_benchmark.reproducibility_audit:main"
-fingerprint-sift-study = "fingerprint_benchmark.sift.study:main"
-fingerprint-derived-sourceafis = "fingerprint_benchmark.derived_protocol:main"
-fingerprint-derived-sift = "fingerprint_benchmark.sift_derived_protocol:main"
-fingerprint-shared-accuracy = "fingerprint_benchmark.shared_accuracy:main"
-fingerprint-harriszplus-study = "fingerprint_benchmark.harriszplus.pilot:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

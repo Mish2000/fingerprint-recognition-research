@@ -16,9 +16,6 @@ from fingerprint_benchmark.local_features.detector_only import (
     REPRESENTATION_VERSION,
     build_representation,
 )
-from fingerprint_benchmark.sift import geometry as legacy_geometry
-from fingerprint_benchmark.sift import matching as legacy_matching
-from fingerprint_benchmark.sift.descriptors import rootsift as legacy_rootsift
 
 
 class FakeDetector:
@@ -177,7 +174,13 @@ def test_adapter_compare_exposes_raw_score_without_decision_threshold() -> None:
     assert adapter.metadata().config["decision_threshold"] is None
 
 
-def test_generic_imports_are_the_exact_legacy_protected_implementations() -> None:
-    assert common_rootsift is legacy_rootsift
-    assert common_matching.match_descriptors is legacy_matching.match_descriptors
-    assert common_geometry.verify_geometry is legacy_geometry.verify_geometry
+def test_generic_imports_are_repository_native_implementations() -> None:
+    assert common_rootsift.__module__ == (
+        "fingerprint_benchmark.local_features.descriptors.rootsift"
+    )
+    assert common_matching.match_descriptors.__module__ == (
+        "fingerprint_benchmark.local_features.matching"
+    )
+    assert common_geometry.verify_geometry.__module__ == (
+        "fingerprint_benchmark.local_features.geometry"
+    )

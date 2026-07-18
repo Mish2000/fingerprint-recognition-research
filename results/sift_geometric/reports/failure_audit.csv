@@ -1,3 +1,0 @@
-pair_id,dataset,protocol,subject_id,canonical_finger_position,status,error_code,raw_score,threshold,accepted,zero_score,geometry_success,geometry_failure_reason,keypoint_count_a,keypoint_count_b,ratio_match_count,mutual_match_count,matches_submitted,inlier_count,outlier_count,total_ms
-sd300b_plain_roll_00001738_02,sd300b,plain_roll,00001738,2,prepare_a_failure,too_few_descriptors,,4.0,False,False,,,,,,,,,,53.4545
-sd300b_plain_self_00001738_02,sd300b,plain_self,00001738,2,prepare_a_failure,too_few_descriptors,,4.0,False,False,,,,,,,,,,55.8622

@@ -1,3 +1,0 @@
-dataset,overlap_count,exact_score_match_count,mismatch_count,max_absolute_score_delta,status_match_count,error_code_match_count,deterministic_diagnostics_match_count,timing_equality_required,passed
-sd300b,84,84,0,0.0,84,84,84,false,true
-sd300c,85,85,0,0.0,85,85,85,false,true

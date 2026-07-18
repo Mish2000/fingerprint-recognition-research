@@ -102,8 +102,8 @@ def test_harris_wrapper_contains_no_local_corner_selection_implementation() -> N
     source = inspect.getsource(harris_module)
     for forbidden in ("corner" + "Harris", "di" + "late", "N" + "MS"):
         assert forbidden not in source
-    assert "fingerprint_benchmark.sift" not in source
-    assert "fingerprint_benchmark.harriszplus" not in source
+    assert "fingerprint_benchmark." + "sift" not in source
+    assert "fingerprint_benchmark." + "harriszplus" not in source
 
 
 def test_public_harris_method_runs_the_complete_common_pipeline(tmp_path) -> None:

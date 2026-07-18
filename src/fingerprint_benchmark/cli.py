@@ -1,4 +1,4 @@
-"""Command line entry points for benchmark-v2 execution and diagnostics."""
+"""Command line entry points for pairwise benchmark execution."""
 
 from __future__ import annotations
 
@@ -10,24 +10,8 @@ from typing import Any, Iterable
 
 from fingerprint_data_discovery.nist_sd300 import DEFAULT_DATA_ROOT
 
-from .contract import BENCHMARK_CONTRACT_VERSION, BenchmarkRunSpec
-from .diagnostics import (
-    compare_v1_v2_scores,
-    paired_sd300_diagnostics,
-    score_diagnostics,
-    write_diagnostics_json,
-    write_paired_diagnostics_csv,
-    write_v1_v2_comparison_csv,
-)
 from .manifest import read_pair_manifest
-from .preflight import preflight_manifest
-from .runner import (
-    METADATA_FILENAME,
-    RESULT_FILENAME,
-    read_result_rows,
-    run_benchmark_manifest,
-    validate_result_bundle,
-)
+from .runner import run_benchmark_manifest
 from .sourceafis_adapter import SourceAfisAdapter
 from .sourceafis_client import SourceAfisSidecarClient, validate_health
 from .sourceafis_sidecar import ManagedSourceAfisSidecar, SidecarStartup, unmanaged_startup
@@ -36,12 +20,10 @@ from .summary import summarize_result_file
 
 DATASETS = ("sd300b", "sd300c")
 PROTOCOLS = ("plain_self", "roll_self", "plain_roll")
-METHOD_SOURCEAFIS = "sourceafis"
 DEFAULT_SERVICE_URL = "http://127.0.0.1:8765"
 DEFAULT_SIDECAR_JAR = (
     Path("apps") / "sourceafis-sidecar" / "target" / "sourceafis-sidecar-0.2.0.jar"
 )
-DEFAULT_DIAGNOSTICS_DIR = Path("results") / "sourceafis" / BENCHMARK_CONTRACT_VERSION
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -71,15 +53,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Reuse a bundle only after full manifest/result/metadata validation.",
     )
-
-    diagnose = subparsers.add_parser(
-        "diagnose-sourceafis-v2",
-        help="Validate six v2 bundles and write deterministic score/paired/v1 reports.",
-    )
-    diagnose.add_argument("--results-root", type=Path, default=Path("results"))
-    diagnose.add_argument("--data-root", type=Path, default=DEFAULT_DATA_ROOT)
-    diagnose.add_argument("--output-dir", type=Path, default=DEFAULT_DIAGNOSTICS_DIR)
-    diagnose.add_argument("--repro-results-root", type=Path, default=None)
 
     summarize = subparsers.add_parser("summarize", help="Summarize one or more result CSV files.")
     summarize.add_argument("results", nargs="+", type=Path)
@@ -123,15 +96,6 @@ def main(argv: list[str] | None = None) -> int:
                     sort_keys=True,
                 )
             )
-            return 0
-        if args.command == "diagnose-sourceafis-v2":
-            report = _diagnose_sourceafis_v2(
-                results_root=args.results_root,
-                data_root=args.data_root,
-                output_dir=args.output_dir,
-                repro_results_root=args.repro_results_root,
-            )
-            print(json.dumps(_diagnostics_brief(report, args.output_dir), ensure_ascii=True, indent=2, sort_keys=True))
             return 0
         if args.command == "summarize":
             summaries = [summarize_result_file(path) for path in args.results]
@@ -257,142 +221,6 @@ def _run_sourceafis_managed(
             client.close()
 
 
-def _diagnose_sourceafis_v2(
-    *,
-    results_root: Path,
-    data_root: Path,
-    output_dir: Path,
-    repro_results_root: Path | None,
-) -> dict[str, Any]:
-    run_rows: dict[tuple[str, str], list[dict[str, str]]] = {}
-    run_reports: dict[str, Any] = {}
-    primary_metadata: dict[tuple[str, str], dict[str, Any]] = {}
-    v1_comparisons: dict[str, Any] = {}
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    for dataset, protocol in _all_runs():
-        bundle = _find_single_bundle(results_root, dataset, protocol)
-        metadata, rows = _load_and_validate_bundle(bundle, data_root=data_root)
-        key = (dataset, protocol)
-        label = f"{dataset}/{protocol}"
-        run_rows[key] = rows
-        primary_metadata[key] = metadata
-        run_reports[label] = {
-            "bundle_path": str(bundle.resolve()),
-            "result_sha256": metadata["result"]["sha256"],
-            "score_payload_sha256": metadata["result"]["score_payload_sha256"],
-            "score_diagnostics": score_diagnostics(rows),
-        }
-
-        v1_path = results_root / dataset / protocol / METHOD_SOURCEAFIS / RESULT_FILENAME
-        v1_rows = read_result_rows(v1_path)
-        comparison = compare_v1_v2_scores(v1_rows, rows)
-        v1_comparisons[label] = comparison
-        write_v1_v2_comparison_csv(
-            comparison,
-            output_dir / f"v1-v2-{dataset}-{protocol}.csv",
-        )
-
-    paired_reports: dict[str, Any] = {}
-    for protocol in PROTOCOLS:
-        paired = paired_sd300_diagnostics(
-            run_rows[("sd300b", protocol)],
-            run_rows[("sd300c", protocol)],
-        )
-        paired_reports[protocol] = paired
-        write_paired_diagnostics_csv(
-            paired,
-            output_dir / f"paired-sd300b-sd300c-{protocol}.csv",
-        )
-
-    reproducibility: dict[str, Any] = {}
-    if repro_results_root is not None:
-        for dataset, protocol in _all_runs():
-            candidates = _find_bundles(repro_results_root, dataset, protocol)
-            if not candidates:
-                continue
-            if len(candidates) != 1:
-                raise ValueError(
-                    f"Expected one reproducibility bundle for {dataset}/{protocol}, found {len(candidates)}."
-                )
-            metadata, rows = _load_and_validate_bundle(candidates[0], data_root=data_root)
-            primary = primary_metadata[(dataset, protocol)]
-            label = f"{dataset}/{protocol}"
-            reproducibility[label] = {
-                "bundle_path": str(candidates[0].resolve()),
-                "primary_score_payload_sha256": primary["result"]["score_payload_sha256"],
-                "rerun_score_payload_sha256": metadata["result"]["score_payload_sha256"],
-                "score_payload_sha256_equal": (
-                    primary["result"]["score_payload_sha256"]
-                    == metadata["result"]["score_payload_sha256"]
-                ),
-                "primary_result_sha256": primary["result"]["sha256"],
-                "rerun_result_sha256": metadata["result"]["sha256"],
-                "result_sha256_equal": primary["result"]["sha256"] == metadata["result"]["sha256"],
-                "score_comparison": compare_v1_v2_scores(run_rows[(dataset, protocol)], rows),
-            }
-
-    report = {
-        "benchmark_contract_version": BENCHMARK_CONTRACT_VERSION,
-        "runs": run_reports,
-        "paired_sd300b_sd300c": paired_reports,
-        "v1_comparisons": v1_comparisons,
-        "reproducibility": reproducibility,
-        "sd300_dependency_note": (
-            "SD300b and SD300c are paired resolution conditions over shared identities, "
-            "not independent subject populations."
-        ),
-    }
-    write_diagnostics_json(report, output_dir / "diagnostics.json")
-    return report
-
-
-def _find_single_bundle(results_root: Path, dataset: str, protocol: str) -> Path:
-    candidates = _find_bundles(results_root, dataset, protocol)
-    if len(candidates) != 1:
-        raise ValueError(
-            f"Expected exactly one benchmark-v2 bundle for {dataset}/{protocol}, found {len(candidates)}."
-        )
-    return candidates[0]
-
-
-def _find_bundles(results_root: Path, dataset: str, protocol: str) -> list[Path]:
-    contract_dir = (
-        results_root / dataset / protocol / METHOD_SOURCEAFIS / BENCHMARK_CONTRACT_VERSION
-    )
-    return sorted(
-        metadata.parent
-        for metadata in contract_dir.glob(f"*/{METADATA_FILENAME}")
-        if (metadata.parent / RESULT_FILENAME).is_file()
-    )
-
-
-def _load_and_validate_bundle(
-    bundle: Path,
-    *,
-    data_root: Path,
-) -> tuple[dict[str, Any], list[dict[str, str]]]:
-    metadata = json.loads((bundle / METADATA_FILENAME).read_text(encoding="utf-8"))
-    raw_spec = dict(metadata["run_spec"])
-    raw_spec["manifest_path"] = Path(raw_spec["manifest_path"])
-    spec = BenchmarkRunSpec(**raw_spec)
-    pairs, _ = preflight_manifest(
-        manifest_path=spec.manifest_path,
-        expected_dataset=spec.expected_dataset,
-        expected_protocol=spec.expected_protocol,
-        run_spec=spec,
-        data_root=data_root,
-    )
-    validated = validate_result_bundle(
-        bundle,
-        manifest_records=pairs,
-        run_spec=spec,
-        score_direction=metadata["score_direction"],
-        score_semantics=metadata["score_semantics"],
-    )
-    return validated, read_result_rows(bundle / RESULT_FILENAME)
-
-
 def default_manifest_path(dataset: str, protocol: str) -> Path:
     return Path("protocols") / dataset / f"{protocol}.csv"
 
@@ -434,16 +262,6 @@ def _metadata_brief(metadata: dict[str, Any]) -> dict[str, Any]:
         "score_payload_sha256": metadata["result"]["score_payload_sha256"],
         "config_hash": metadata["config_hash"],
         "implementation_hash": metadata["implementation_hash"],
-    }
-
-
-def _diagnostics_brief(report: dict[str, Any], output_dir: Path) -> dict[str, Any]:
-    return {
-        "benchmark_contract_version": report["benchmark_contract_version"],
-        "run_count": len(report["runs"]),
-        "paired_protocol_count": len(report["paired_sd300b_sd300c"]),
-        "reproducibility_run_count": len(report["reproducibility"]),
-        "output": str((output_dir / "diagnostics.json").resolve()),
     }
 
 

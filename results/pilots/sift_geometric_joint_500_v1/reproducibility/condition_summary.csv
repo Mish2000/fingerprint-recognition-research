@@ -1,9 +1,0 @@
-dataset,condition,comparison_scope,target_pair_count,eligible_unique_pair_count,source_comparison_count,exact_pass_count,exact_fail_count,not_previously_computed_count,timing_compared,status
-sd300b,plain_self,all_self_or_genuine_pairs,500,500,500,500,0,0,false,pass
-sd300b,roll_self,all_self_or_genuine_pairs,500,500,500,500,0,0,false,pass
-sd300b,plain_roll_genuine,all_self_or_genuine_pairs,500,500,500,500,0,0,false,pass
-sd300c,plain_self,all_self_or_genuine_pairs,500,500,500,500,0,0,false,pass
-sd300c,roll_self,all_self_or_genuine_pairs,500,500,500,500,0,0,false,pass
-sd300c,plain_roll_genuine,all_self_or_genuine_pairs,500,500,500,500,0,0,false,pass
-sd300b,plain_roll_negative,eligible_exact_path_pair_only,500,5,5,5,0,495,false,pass
-sd300c,plain_roll_negative,eligible_exact_path_pair_only,500,5,5,5,0,495,false,pass

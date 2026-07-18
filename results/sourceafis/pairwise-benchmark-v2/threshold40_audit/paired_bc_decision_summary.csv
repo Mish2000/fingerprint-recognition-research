@@ -1,3 +1,0 @@
-scope,threshold,total_paired_identity_count,ok_in_both_count,non_ok_in_either_count,accepted_in_both_count,rejected_in_both_count,accepted_only_in_sd300b_count,accepted_only_in_sd300c_count,score_zero_in_both_count,score_zero_only_in_one_count,positive_below_threshold_in_both_count,decision_agreement_count,decision_disagreement_count,decision_agreement_percentage,decision_disagreement_percentage
-primary_full_results,40,8779,8779,0,5173,2463,611,532,392,747,1423,7636,1143,86.98029388313,13.01970611687
-self_positive_cohort,40,8651,8651,0,5173,2336,610,532,270,741,1423,7509,1142,86.799213963704,13.200786036296

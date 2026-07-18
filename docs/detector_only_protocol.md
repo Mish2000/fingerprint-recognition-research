@@ -59,13 +59,10 @@ The fixed choices live in `DetectorOnlyProtocolConfig`:
 - `geometry_model` and `ransac_threshold_reference_px` define common
   PPI-normalized verification.
 
-RootSIFT is a descriptor normalization, not the SIFT detector. Its historical
-source file remains byte-protected under `fingerprint_benchmark.sift` for
-reproducibility, while `fingerprint_benchmark.local_features.descriptors`
-provides the detector-neutral public import. Matching, geometry, and scoring
-are exposed the same way from `fingerprint_benchmark.local_features`. The
-generic modules re-export the exact protected function objects; there is no
-parallel implementation and legacy imports remain valid.
+RootSIFT is a descriptor normalization, not the SIFT detector. Its authoritative
+implementation lives under
+`fingerprint_benchmark.local_features.descriptors.rootsift`. Matching, geometry,
+and scoring are implemented directly in `fingerprint_benchmark.local_features`.
 
 ## Public Harris method
 
@@ -96,8 +93,7 @@ benchmark provenance layer. Each declared file is persisted under a sorted
 repository-relative path with its SHA-256, and the ordered list receives a
 deterministic component SHA-256. The complete component participates in the
 run's implementation hash. The Harris adapter declares the detector sources,
-all common representation/matching/geometry sources, and the protected legacy
-SIFT files behind the generic re-exports.
+all common representation, descriptor, matching, geometry, and scoring sources.
 
 ## Research boundary
 

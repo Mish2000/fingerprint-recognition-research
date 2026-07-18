@@ -1,9 +1,0 @@
-{
-  "command": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\python.exe -m pytest -q",
-  "duration_seconds": 14.05,
-  "failed_count": 0,
-  "passed": true,
-  "passed_count": 358,
-  "schema_version": "shared-accuracy-pytest-result-v1",
-  "skipped_count": 1
-}

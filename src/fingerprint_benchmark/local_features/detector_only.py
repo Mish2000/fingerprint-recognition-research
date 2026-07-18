@@ -282,10 +282,6 @@ class DetectorOnlyAdapter:
             "local_features/matching.py",
             "local_features/geometry.py",
             "local_features/scoring.py",
-            "sift/descriptors.py",
-            "sift/matching.py",
-            "sift/geometry.py",
-            "sift/scoring.py",
         )
         paths = {package_directory / relative for relative in relative_sources}
         paths.add(Path(detector_source).resolve())

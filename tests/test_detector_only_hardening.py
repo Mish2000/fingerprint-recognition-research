@@ -37,10 +37,6 @@ REQUIRED_HARRIS_SOURCES = {
     "src/fingerprint_benchmark/local_features/matching.py",
     "src/fingerprint_benchmark/local_features/geometry.py",
     "src/fingerprint_benchmark/local_features/scoring.py",
-    "src/fingerprint_benchmark/sift/descriptors.py",
-    "src/fingerprint_benchmark/sift/matching.py",
-    "src/fingerprint_benchmark/sift/geometry.py",
-    "src/fingerprint_benchmark/sift/scoring.py",
 }
 
 
@@ -103,7 +99,7 @@ def test_active_descriptor_is_consistent_in_method_and_representation_metadata(
     assert prepared.representation.payload.metadata["descriptor"] == "standard"
 
 
-def test_harris_provenance_covers_common_and_legacy_implementation_sources() -> None:
+def test_harris_provenance_covers_common_implementation_sources() -> None:
     adapter = OpenCVGFTTHarrisRootSIFTGeometricAdapter()
     full, components, implementation_hash = _implementation(adapter)
     component = components[DECLARED_COMPONENT]
