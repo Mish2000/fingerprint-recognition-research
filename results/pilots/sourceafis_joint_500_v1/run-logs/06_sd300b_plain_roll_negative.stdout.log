@@ -1,0 +1,12 @@
+[sd300b/plain_roll_negative] 1/500 measured pairs
+[sd300b/plain_roll_negative] 50/500 measured pairs
+[sd300b/plain_roll_negative] 100/500 measured pairs
+[sd300b/plain_roll_negative] 150/500 measured pairs
+[sd300b/plain_roll_negative] 200/500 measured pairs
+[sd300b/plain_roll_negative] 250/500 measured pairs
+[sd300b/plain_roll_negative] 300/500 measured pairs
+[sd300b/plain_roll_negative] 350/500 measured pairs
+[sd300b/plain_roll_negative] 400/500 measured pairs
+[sd300b/plain_roll_negative] 450/500 measured pairs
+[sd300b/plain_roll_negative] 500/500 measured pairs
+RUN_COMPLETE {"correct_reject_percentage": 100.0, "correctly_rejected": 500, "dataset": "sd300b", "execution_wall_ms": 150303.183, "failures": 0, "false_match_percentage": 0.0, "incorrectly_matched": 0, "mean_comparison_ms": 4.718205200000001, "mean_score": 1.6107179681150299, "mean_total_ms": 300.55060480000003, "median_score": 0.6201364690833628, "positive_below_40": 325, "result_sha256": "fa6fc50e62388323b5a3f51fbdb23ea075c5487afdeb5e2793de60ea24afeba5", "role": "negative", "score_payload_sha256": "f040f2edd36ca801e26458eb3b5efbb65a94acf3e7e31c6875574d0e872c9e9d", "score_zero": 175, "serial_run_index": 6, "total_pairs": 500}
