@@ -1,0 +1,29 @@
+{
+  "namespace": "sift_geometric_per_dataset_self_accept_v1",
+  "primary_artifacts_overwritten": false,
+  "protocol_summary_sha256": "daec0f040f3381d885dc99d03a35f470e99e8e6e5b6dbe30f2a14c4ee7eb7313",
+  "runs": [
+    {
+      "bundle_path": "C:\\fingerprint-recognition-research\\results\\derived_protocol_runs\\sift_geometric_per_dataset_self_accept_v1\\sd300b\\plain_roll\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a",
+      "config_hash": "51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a",
+      "dataset": "sd300b",
+      "implementation_hash": "a663786cf6503cb522ab0194c1ab6bc65698d366408c53d49defce09e4960bbb",
+      "manifest_sha256": "17d2a6379635cfd83def3ad6631322a54c0ed99a6907ba8d4f06ed00e5b9a9ed",
+      "pair_count": 8777,
+      "pairs_sha256": "869f3e45fe2af1a3234a34e569facd6cc9fa74ee715a933d9b7cbf99f9760cd4",
+      "score_payload_sha256": "1904988aae5d478decd4746caa6dcba609afbc0f9b2f0d82b268bb5c1133b2b0"
+    },
+    {
+      "bundle_path": "C:\\fingerprint-recognition-research\\results\\derived_protocol_runs\\sift_geometric_per_dataset_self_accept_v1\\sd300c\\plain_roll\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a",
+      "config_hash": "51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a",
+      "dataset": "sd300c",
+      "implementation_hash": "a663786cf6503cb522ab0194c1ab6bc65698d366408c53d49defce09e4960bbb",
+      "manifest_sha256": "42b157f7a741f9c0cd0810df5384ca0edd29323cbb6a0f2d0034683012cd5044",
+      "pair_count": 8779,
+      "pairs_sha256": "3b5cd1b8920f007d920d547e7a6032666654c8126fc0e673ee9f3ad96648885c",
+      "score_payload_sha256": "cb6dc516c60195592b56b80390cb1483fde5922930c5de2c095f3cdd2d11bdaa"
+    }
+  ],
+  "runtime_preflight_sha256": "51e528c96ae22af99dd92d0ecc0e30a3678f0a54307cbb051fe9e8962409c8f2",
+  "schema_version": "sift-derived-run-summary-v1"
+}

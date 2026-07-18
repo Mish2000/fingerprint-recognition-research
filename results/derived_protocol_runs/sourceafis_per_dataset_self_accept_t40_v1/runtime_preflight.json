@@ -1,0 +1,93 @@
+{
+  "conditions": [
+    {
+      "dataset": "sd300b",
+      "java_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\Library\\bin\\java.exe",
+      "java_runtime_vendor": "Azul Systems, Inc.",
+      "java_runtime_version": "21.0.10+7-LTS",
+      "passed": true,
+      "sample_count": 5,
+      "samples": [
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300b_plain_roll_00001000_01",
+          "raw_score": "110.01934110762956"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300b_plain_roll_00001000_02",
+          "raw_score": "57.36656979331658"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300b_plain_roll_00001000_03",
+          "raw_score": "83.32405743647807"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300b_plain_roll_00001000_04",
+          "raw_score": "38.36792507271839"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300b_plain_roll_00001000_05",
+          "raw_score": "5.649330144421114"
+        }
+      ],
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e"
+    },
+    {
+      "dataset": "sd300c",
+      "java_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\Library\\bin\\java.exe",
+      "java_runtime_vendor": "Azul Systems, Inc.",
+      "java_runtime_version": "21.0.10+7-LTS",
+      "passed": true,
+      "sample_count": 5,
+      "samples": [
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300c_plain_roll_00001000_01",
+          "raw_score": "135.02288618340845"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300c_plain_roll_00001000_02",
+          "raw_score": "48.172915641402696"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300c_plain_roll_00001000_03",
+          "raw_score": "69.0382498085857"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300c_plain_roll_00001000_04",
+          "raw_score": "57.057576212690435"
+        },
+        {
+          "diagnostics_equal": true,
+          "exact_score_equal": true,
+          "pair_id": "sd300c_plain_roll_00001000_05",
+          "raw_score": "4.24250113972457"
+        }
+      ],
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e"
+    }
+  ],
+  "diagnostics_equality_required": true,
+  "exact_score_equality_required": true,
+  "namespace": "sourceafis_per_dataset_self_accept_t40_v1",
+  "passed": true,
+  "protocol_summary_sha256": "39e8ec8af0f67e10fd1bb2b481d255bae669bee535b49e29e453f19b3696ebfc",
+  "sample_count_per_dataset": 5,
+  "schema_version": "derived-sourceafis-runtime-preflight-v1"
+}

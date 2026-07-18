@@ -1,0 +1,154 @@
+{
+  "conditions": [
+    {
+      "config_hash": "cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+      "dataset": "sd300b",
+      "exact_provenance_match": true,
+      "implementation_hash": "153bf41d47720151cee10b6fdb63accdd8366407e5e6803dcf611f084269adbd",
+      "missing_count": 8509,
+      "negative_pair_count": 8593,
+      "overlap_count": 84,
+      "shared_compatible_score_count": 87790,
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e",
+      "sourceafis_version": "3.18.1"
+    },
+    {
+      "config_hash": "cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+      "dataset": "sd300c",
+      "exact_provenance_match": true,
+      "implementation_hash": "153bf41d47720151cee10b6fdb63accdd8366407e5e6803dcf611f084269adbd",
+      "missing_count": 8529,
+      "negative_pair_count": 8614,
+      "overlap_count": 85,
+      "shared_compatible_score_count": 87790,
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e",
+      "sourceafis_version": "3.18.1"
+    }
+  ],
+  "config_hash": "cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+  "full_cold_pair_run_still_required": true,
+  "implementation_hash": "153bf41d47720151cee10b6fdb63accdd8366407e5e6803dcf611f084269adbd",
+  "match_key": [
+    "dataset",
+    "ppi",
+    "path_a",
+    "path_b",
+    "subject_id_a",
+    "subject_id_b",
+    "canonical_finger_position"
+  ],
+  "method": "sourceafis",
+  "missing_count": 17038,
+  "overlap_count": 169,
+  "passed": true,
+  "protocol_summary_sha256": "724131963000b4061152a04464347f5bbc0a7aa5522ffc6e0c735697ae16d76d",
+  "schema_version": "sourceafis-negative-exact-reuse-preflight-v1",
+  "shared_method_runtime_sha256": "cbbd9560767a6de64addbdbf04ec3e31dda6bb7749d973e32d773d64e688c612",
+  "shared_runtime_sourceafis": {
+    "environment": {
+      "java_runtime_vendor": "Azul Systems, Inc.",
+      "java_runtime_version": "21.0.10+7-LTS",
+      "sidecar_contract_version": "sourceafis-sidecar-v2.1",
+      "sidecar_implementation_version": "0.2.0",
+      "sourceafis_version": "3.18.1"
+    },
+    "frozen_config_hash": "cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+    "implementation_hash": "153bf41d47720151cee10b6fdb63accdd8366407e5e6803dcf611f084269adbd",
+    "implementation_hash_components": {
+      "adapter_declared_provenance": {
+        "engine": "SourceAFIS",
+        "external_preprocessing": "none",
+        "maven_coordinates": "com.machinezoo.sourceafis:sourceafis:3.18.1",
+        "method_internal_timing": {
+          "extract_template_scope": "FingerprintImageOptions construction, FingerprintImage construction, FingerprintTemplate extraction, and FingerprintTemplate.toByteArray serialization; excludes HTTP, JSON, request Base64 decoding, and response Base64 encoding.",
+          "unit": "milliseconds",
+          "verify_scope": "FingerprintTemplate deserialization for both templates, FingerprintMatcher construction, and FingerprintMatcher.match; excludes HTTP, JSON, and request Base64 decoding."
+        },
+        "official_implementation_family": "Java",
+        "raw_score_semantics": "SourceAFIS raw similarity score from FingerprintMatcher.match",
+        "sidecar_contract_version": "sourceafis-sidecar-v2.1",
+        "sidecar_implementation_provenance": "apps/sourceafis-sidecar",
+        "sidecar_implementation_version": "0.2.0",
+        "sourceafis_version": "3.18.1",
+        "template_cache": false
+      },
+      "benchmark_contract_source_sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2",
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "benchmark_runner_source_sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c",
+      "benchmark_support_source_sha256": {
+        "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+        "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+        "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+        "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+        "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+        "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+      },
+      "method": "sourceafis",
+      "method_support_source_sha256": {
+        "sourceafis_client.py": "d2cac9b76bb17c58ac20407b9554f378612423c7d0a406f0f8614a3be10363d1",
+        "sourceafis_sidecar.py": "fc1e26d33bc8a83bbe5588eab620f6a13966c72a5e89eb8858ea15c7e2bfd782"
+      },
+      "method_version": "3.18.1",
+      "python_adapter_source_sha256": "882e7e57d196e389365bdfded4f6fac29c71480962f60830b41640a45253cf69",
+      "score_direction": "higher_is_more_similar",
+      "score_semantics": "Unnormalized SourceAFIS similarity score returned by FingerprintMatcher.match; no threshold or decision is applied.",
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e"
+    },
+    "implementation_provenance": {
+      "benchmark_contract_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\contract.py",
+        "sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2"
+      },
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "benchmark_runner_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\runner.py",
+        "sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c"
+      },
+      "benchmark_support_sources": {
+        "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+        "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+        "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+        "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+        "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+        "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+      },
+      "engine": "SourceAFIS",
+      "external_preprocessing": "none",
+      "java_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\Library\\bin\\java.exe",
+      "maven_coordinates": "com.machinezoo.sourceafis:sourceafis:3.18.1",
+      "method_internal_timing": {
+        "extract_template_scope": "FingerprintImageOptions construction, FingerprintImage construction, FingerprintTemplate extraction, and FingerprintTemplate.toByteArray serialization; excludes HTTP, JSON, request Base64 decoding, and response Base64 encoding.",
+        "unit": "milliseconds",
+        "verify_scope": "FingerprintTemplate deserialization for both templates, FingerprintMatcher construction, and FingerprintMatcher.match; excludes HTTP, JSON, and request Base64 decoding."
+      },
+      "method_support_sources": {
+        "sourceafis_client.py": "d2cac9b76bb17c58ac20407b9554f378612423c7d0a406f0f8614a3be10363d1",
+        "sourceafis_sidecar.py": "fc1e26d33bc8a83bbe5588eab620f6a13966c72a5e89eb8858ea15c7e2bfd782"
+      },
+      "official_implementation_family": "Java",
+      "python_adapter_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\sourceafis_adapter.py",
+        "sha256": "882e7e57d196e389365bdfded4f6fac29c71480962f60830b41640a45253cf69"
+      },
+      "raw_score_semantics": "SourceAFIS raw similarity score from FingerprintMatcher.match",
+      "repository": {
+        "commit": "97477036e4ed641252991a58308840f1e2983955",
+        "dirty": true,
+        "is_git_checkout": true,
+        "root": "C:\\fingerprint-recognition-research"
+      },
+      "sidecar_contract_version": "sourceafis-sidecar-v2.1",
+      "sidecar_implementation_provenance": "apps/sourceafis-sidecar",
+      "sidecar_implementation_version": "0.2.0",
+      "sidecar_jar_path": "C:\\fingerprint-recognition-research\\apps\\sourceafis-sidecar\\target\\sourceafis-sidecar-0.2.0.jar",
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e",
+      "sourceafis_version": "3.18.1",
+      "template_cache": false
+    },
+    "method": "sourceafis",
+    "method_version": "3.18.1",
+    "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e"
+  },
+  "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e",
+  "sourceafis_version": "3.18.1"
+}
