@@ -34,14 +34,16 @@ conda activate fingerprint-recognition-research
 python -m pip install -e .
 ```
 
-Build and test the SourceAFIS sidecar when that baseline is needed:
+The SourceAFIS JAR is built locally and is not stored in Git. Build and test
+the sidecar before using managed SourceAFIS commands:
 
 ```powershell
-Set-Location apps\sourceafis-sidecar
-mvn test
-mvn package
-Set-Location ..\..
+mvn -f apps\sourceafis-sidecar\pom.xml test
+mvn -f apps\sourceafis-sidecar\pom.xml package
 ```
+
+`mvn package` creates the CLI's default JAR under
+`apps\sourceafis-sidecar\target\`; Maven output is ignored by Git.
 
 ## Commands and tests
 

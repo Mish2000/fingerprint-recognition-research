@@ -24,6 +24,7 @@ from fingerprint_benchmark.contract import (
 )
 from fingerprint_benchmark.detectors.types import Detector, DetectorResult
 
+from . import scoring as local_scoring
 from .descriptors import compute_sift_descriptors
 from .geometry import verify_geometry
 from .matching import match_descriptors
@@ -39,6 +40,7 @@ from .types import CanonicalLocalFeature, LocalFeatureRepresentation
 PROTOCOL_NAME = "detector_only_v1"
 PROTOCOL_VERSION = "detector-only-v1"
 REPRESENTATION_VERSION = "detector-only-local-features-v1"
+SCORE_MODE = "geometric_inlier_count"
 
 
 @dataclass(frozen=True, slots=True)
@@ -312,6 +314,8 @@ class DetectorOnlyAdapter:
                 "orientation_policy": self.config.orientation_policy,
                 "matching_implementation": "fingerprint_benchmark.local_features.matching",
                 "geometry_implementation": "fingerprint_benchmark.local_features.geometry",
+                "scoring_implementation": "fingerprint_benchmark.local_features.scoring",
+                "score_mode": SCORE_MODE,
                 "opencv_version": cv2.__version__,
                 "numpy_version": np.__version__,
             },
@@ -323,6 +327,7 @@ class DetectorOnlyAdapter:
                 "detector_version": self.detector.detector_version,
                 "detector_config": detector_config,
                 "protocol": PROTOCOL_NAME,
+                "score_mode": SCORE_MODE,
                 "decision_threshold": None,
                 "thresholding": "none_in_adapter",
                 "representation_cache": False,
@@ -429,6 +434,13 @@ class DetectorOnlyAdapter:
                 matching_mode=self.config.matching_mode,
             )
             geometry = verify_geometry(payload_a, payload_b, matches.submitted, self.config)
+            components = local_scoring.score_components(
+                inliers=geometry.inlier_count,
+                matches=len(matches.submitted),
+                keypoints_a=payload_a.keypoint_count,
+                keypoints_b=payload_b.keypoint_count,
+            )
+            score = local_scoring.raw_score(SCORE_MODE, components)
         except (ValueError, IndexError, cv2.error) as exc:
             raise MethodExecutionError(
                 "detector_only_comparison_failure",
@@ -437,7 +449,7 @@ class DetectorOnlyAdapter:
             ) from exc
         elapsed_ms = _elapsed(started)
         return CompareOutcome(
-            raw_score=float(geometry.inlier_count),
+            raw_score=score,
             method_internal_ms=elapsed_ms,
             diagnostics={
                 "protocol": PROTOCOL_NAME,
@@ -448,7 +460,9 @@ class DetectorOnlyAdapter:
                 "lowe_ratio": float(self.config.lowe_ratio),
                 **matches.diagnostics,
                 **geometry.diagnostics,
-                "score_field": "geometric_inlier_count",
+                "score_field": SCORE_MODE,
+                "score_mode": SCORE_MODE,
+                "score_components": components,
                 "score_direction": HIGHER_IS_MORE_SIMILAR,
                 "decision_threshold_applied": False,
                 "decision_threshold": None,
@@ -575,6 +589,7 @@ __all__ = [
     "PROTOCOL_NAME",
     "PROTOCOL_VERSION",
     "REPRESENTATION_VERSION",
+    "SCORE_MODE",
     "DetectorOnlyAdapter",
     "DetectorOnlyProtocolConfig",
     "adapt_detector_result",

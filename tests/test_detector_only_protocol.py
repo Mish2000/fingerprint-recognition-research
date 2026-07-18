@@ -5,6 +5,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from fingerprint_benchmark.local_features import scoring as common_scoring
 from fingerprint_benchmark.contract import PreparedRepresentation
 from fingerprint_benchmark.detectors import DetectedPoint, DetectorResult
 from fingerprint_benchmark.local_features import geometry as common_geometry
@@ -168,10 +169,60 @@ def test_adapter_compare_exposes_raw_score_without_decision_threshold() -> None:
         payload=representation,
     )
     comparison = adapter.compare(prepared, prepared)
-    assert comparison.raw_score >= 0.0
+    assert comparison.raw_score == float(
+        comparison.diagnostics["geometric_inlier_count"]
+    )
+    assert comparison.diagnostics["score_mode"] == "geometric_inlier_count"
+    assert comparison.diagnostics["score_components"]["geometric_inlier_count"] == (
+        comparison.raw_score
+    )
     assert comparison.diagnostics["decision_threshold_applied"] is False
     assert comparison.diagnostics["decision_threshold"] is None
     assert adapter.metadata().config["decision_threshold"] is None
+    assert adapter.metadata().config["score_mode"] == "geometric_inlier_count"
+
+
+def test_adapter_compare_executes_scoring_helpers(monkeypatch) -> None:
+    image = _textured_image()
+    points = tuple(DetectedPoint(x, y, 1.0) for x, y in _locations())
+    detector = FakeDetector(points)
+    config = DetectorOnlyProtocolConfig(maximum_keypoints=20)
+    representation, _, _ = build_representation(
+        image,
+        {"ppi": 1000.0},
+        detector.detect(image, {"ppi": 1000.0}),
+        config,
+    )
+    adapter = DetectorOnlyAdapter(detector, config)
+    prepared = PreparedRepresentation(
+        method=adapter.method_name,
+        method_version=adapter.method_version,
+        representation_format="detector-only-local-features",
+        representation_version=REPRESENTATION_VERSION,
+        payload=representation,
+    )
+    real_score_components = common_scoring.score_components
+    real_raw_score = common_scoring.raw_score
+    calls: list[str] = []
+
+    def shifted_components(**kwargs):
+        calls.append("score_components")
+        components = real_score_components(**kwargs)
+        components["geometric_inlier_count"] += 100.0
+        return components
+
+    def shifted_raw_score(mode, components):
+        calls.append("raw_score")
+        return real_raw_score(mode, components) + 7.0
+
+    monkeypatch.setattr(common_scoring, "score_components", shifted_components)
+    monkeypatch.setattr(common_scoring, "raw_score", shifted_raw_score)
+
+    comparison = adapter.compare(prepared, prepared)
+    assert calls == ["score_components", "raw_score"]
+    assert comparison.raw_score == (
+        float(comparison.diagnostics["geometric_inlier_count"]) + 107.0
+    )
 
 
 def test_generic_imports_are_repository_native_implementations() -> None:

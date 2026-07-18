@@ -1,116 +1,85 @@
 # Pairwise Benchmark Contract v2
 
-The explicit contract identifier is:
+The repository's method-neutral benchmark contract is identified by:
 
 ```text
 pairwise-benchmark-v2
 ```
 
-It is part of run configuration, the immutable run specification, every result
-row, run metadata, and the output path. Historical SourceAFIS v1 files remain at
-their original paths and are never replaced.
+It defines serial evaluation of an ordered pair manifest and publication of
+raw pairwise scores. Method-specific detection, representation, and comparison
+behavior belongs to adapters such as the OpenCV Harris detector-only adapter
+and the external SourceAFIS adapter.
 
-## Scope
+## Adapter contract
 
-This milestone produces only raw pairwise method scores, operation timings, and
-explicit operation status. It does not add thresholds, negative pairs, TA/FR,
-ROC/DET/EER, identification, fusion, SIFT, NBIS, Harris, TPS, MCC, deep methods,
-or parallel execution.
-
-## Output identity
-
-Every primary bundle is published under:
-
-```text
-results/<dataset>/<protocol>/<method>/pairwise-benchmark-v2/<config_hash>/
-```
-
-The directory contains exactly the canonical `pairs.csv` and
-`run_metadata.json` artifacts. A reproducibility rerun can use a separate
-`--results-root`; it retains the same contract-relative layout without
-overwriting the primary bundle.
-
-`config_hash` is SHA-256 over canonical JSON containing method configuration,
-method/version, score semantics, timing mode, warm-up policy, and contract
-version. `implementation_hash` is a separate SHA-256 over stable
-implementation facts. The run specification binds:
-
-- expected dataset and protocol;
-- resolved manifest path and current manifest SHA-256;
-- method and method version;
-- benchmark contract version;
-- config hash;
-- implementation hash.
-
-## Method-neutral adapter
-
-Representations are genuinely opaque. Their payload is `Any`, with provenance
-recorded separately:
-
-```text
-PreparedRepresentation
-  method
-  method_version
-  representation_format
-  representation_version
-  payload: Any
-  metadata
-```
-
-Operations return explicit outcomes:
+Every adapter declares its method identity, version, configuration, score
+semantics, score direction, runtime information, and implementation
+provenance. The two operations are:
 
 ```text
 prepare(image_path, image_metadata) -> PrepareOutcome
-  representation
-  method_internal_ms: optional
-  diagnostics: dict
-
 compare(representation_a, representation_b) -> CompareOutcome
-  raw_score
-  method_internal_ms: optional
-  diagnostics: dict
 ```
 
-The Python runner independently measures adapter wall time. An adapter can use
-a Base64 string, array, object, or descriptor structure without changing the
-general contract.
+`PreparedRepresentation.payload` is opaque to the runner. It can contain an
+array, object, descriptor structure, or external-system template. The runner
+requires the representation's method and version to match the active adapter.
 
-Every method declares non-empty `score_semantics` and one legal
-`score_direction`:
+`PrepareOutcome` and `CompareOutcome` carry optional method-internal timing and
+structured diagnostics. A successful comparison returns one finite raw score.
+The adapter declares whether higher or lower scores are more similar. The
+benchmark performs no thresholding, calibration, score normalization, or
+decision making.
 
-```text
-higher_is_more_similar
-lower_is_more_similar
-```
+## Immutable run identity
 
-No normalization or thresholding is performed.
+The run specification binds:
 
-## Manifest preflight
+- expected dataset and protocol;
+- resolved manifest path and its SHA-256;
+- method name and version;
+- benchmark contract version;
+- canonical configuration hash;
+- implementation hash.
 
-Before warm-up or the first measured pair, the runner:
+`config_hash` is SHA-256 over canonical JSON containing the adapter
+configuration, method identity, score semantics, timing mode, warm-up policy,
+and contract version. `implementation_hash` covers stable code and dependency
+provenance that can affect the result.
 
-1. invokes the dedicated validator registered for the exact dataset/protocol;
+## Manifest validation
+
+Before warm-up or measured execution, preflight validation:
+
+1. invokes the validator registered for the requested dataset and protocol;
 2. rejects an empty manifest;
-3. confirms every row has the expected dataset and protocol;
-4. confirms the manifest path and SHA-256 match the run specification;
-5. rejects CLI dataset/protocol values that disagree with manifest content.
+3. verifies every row's dataset and protocol;
+4. checks the resolved manifest path and SHA-256 against the run specification;
+5. preserves the manifest's exact, unique pair-ID order.
 
-The six registered validators are the existing SD300b/SD300c protocol
-validators. Dataset images are read-only.
+Dataset images and protocol manifests are treated as read-only inputs.
 
-## Timing and warm-up
+## Pair execution and result rows
 
-Execution is serial and `cold_pair`: for every result pair, preparation A,
-preparation B, and comparison run in order. No representation cache is shared
-between pairs, even when both image paths are equal.
+Execution is serial. For every measured pair, the runner performs preparation
+A, preparation B, and comparison in that order. The first manifest pair is
+executed once as warm-up and recorded only in run metadata.
 
-The fixed warm-up policy executes the first manifest pair once (two prepares
-and one comparison) before measured rows. Metadata records its pair ID, three
-operations, and duration; it is not written to `pairs.csv`. SourceAFIS uses a
-fresh managed JVM for each dataset/protocol, so warm/JIT state is never shared
-between the six protocol runs.
+Each result row records:
 
-Wall timings:
+- pair, dataset, protocol, subject, and canonical-finger identity;
+- method, contract, configuration, implementation, and manifest hashes;
+- raw score and declared score semantics;
+- wall-clock and optional method-internal timings;
+- structured preparation/comparison diagnostics;
+- explicit success or failure status, error code, and error message.
+
+Legal statuses are `ok`, `prepare_a_failure`, `prepare_b_failure`, and
+`comparison_failure`. Success rows contain a finite raw score and no error.
+Failure rows preserve the exact failing stage and do not synthesize a score.
+
+Wall timings are finite, non-negative milliseconds:
 
 ```text
 prepare_a_ms
@@ -119,69 +88,33 @@ compare_ms
 total_ms
 ```
 
-Optional method-internal timings:
+The serialized raw score uses Python's round-trip-safe `repr(float_value)`.
+
+## Bundle publication
+
+Bundles use the contract-relative layout:
 
 ```text
-method_prepare_a_ms
-method_prepare_b_ms
-method_compare_ms
+<results-root>/<dataset>/<protocol>/<method>/pairwise-benchmark-v2/<config_hash>/
 ```
 
-Wall time includes adapter/transport work. Method-internal time follows the
-method's documented timing scope. Timings are finite and non-negative.
+Each bundle contains canonical `pairs.csv` and `run_metadata.json` artifacts.
+The runner writes a sibling candidate directory, validates its result rows
+against the full ordered manifest and run specification, builds metadata,
+validates the complete bundle, and only then promotes it atomically. Invalid
+candidates are removed, and existing valid bundles are never overwritten.
 
-## Result schema v2
-
-The exact schema identifier is `pairwise-result-v2`. Columns, in order, are:
-
-```text
-pair_id,dataset,protocol,subject_id,canonical_finger_position,method,method_version,benchmark_contract_version,result_schema_version,config_hash,implementation_hash,manifest_sha256,score_direction,score_semantics,raw_score,prepare_a_ms,prepare_b_ms,compare_ms,method_prepare_a_ms,method_prepare_b_ms,method_compare_ms,total_ms,prepare_a_diagnostics,prepare_b_diagnostics,compare_diagnostics,status,error_code,error_message
-```
-
-Valid status values are:
-
-```text
-ok
-prepare_a_failure
-prepare_b_failure
-comparison_failure
-```
-
-`raw_score` is written with Python `repr(float_value)`, which is round-trip
-safe. Historical v1 files used `.9g` (nine significant digits). Millisecond
-fields use a shorter `.9g` representation.
-
-Strict validation compares the result to the full ordered manifest, not just a
-row count. It checks the exact unique pair-ID sequence; per-pair dataset,
-protocol, subject, and canonical position; all run identity fields; legal
-status; raw-score/error blankness; finite values; failure-stage field
-blankness; and timing consistency. For success, within a 0.001 ms serialization
-tolerance:
-
-```text
-total_ms >= prepare_a_ms + prepare_b_ms + compare_ms
-```
-
-## Safe bundle publication and reuse
-
-The runner writes a sibling candidate directory, validates `pairs.csv` against
-the manifest and run specification, builds metadata against the candidate
-result SHA, validates the complete bundle, and only then atomically renames the
-directory to its final path. Invalid candidates are removed. Existing bundles
-are never overwritten. A failed directory promotion is rolled back when the
-filesystem moved the candidate before reporting failure.
-
-`--skip-existing` is gated by full bundle validation. Reuse is rejected when
-manifest bytes/IDs, config, method version, implementation hash, contract
-version, result SHA, or the metadata/result relationship changes—even if the
-row count is unchanged.
+`--skip-existing` reuses a bundle only after the same full validation. Reuse is
+rejected when manifest bytes or IDs, method identity, configuration,
+implementation, contract version, result hash, or metadata relationships do
+not match.
 
 ## Reproducibility hashes
 
-`result.sha256` covers the full CSV, including runtime timings, so independent
-runs are not expected to have identical result-file hashes.
+`result.sha256` covers the full CSV, including timings. Independent executions
+therefore need not have the same full-file hash.
 
-`score_payload_sha256` is SHA-256 over canonical JSON projecting only:
+`score_payload_sha256` hashes canonical JSON containing only:
 
 ```text
 pair_id
@@ -190,25 +123,11 @@ full-precision raw_score
 error_code
 ```
 
-It excludes timings and runtime environment. Equal score payload hashes are the
-rerun reproducibility proof.
+This excludes runtime timings and environment variability and is the compact
+proof for exact pairwise-score reproduction.
 
-The deterministic `implementation_hash` covers the contract version, method
-identity and score semantics, declared implementation provenance, sidecar JAR
-SHA-256, Python adapter/client/lifecycle source SHA-256 values, benchmark
-runner and support-source SHA-256 values, and benchmark contract source
-SHA-256. Runtime durations, platform variability,
-Java paths, timestamps, and Git dirty state are excluded. Full metadata still
-records Java/runtime provenance and Git commit/dirty state when the workspace
-is a Git checkout; otherwise it explicitly records that it is not one.
-
-## Diagnostics
-
-Deterministic diagnostics report per-run counts, zero/positive scores,
-min/max/mean/median, zero-score pair IDs, and zero-score canonical-position
-distribution. SD300b/SD300c comparisons join by protocol, subject, and
-canonical position—not by row order—and report every score delta, exact
-equality, mean/median absolute delta, Pearson correlation, and zero overlap.
-
-SD300b and SD300c are resolution conditions over shared identities. They are
-not treated as independent populations or combined to claim a doubled sample.
+The deterministic implementation hash includes the contract and method
+identity, score semantics, adapter-declared source hashes, benchmark runner and
+support-source hashes, and method-specific stable dependency hashes. Runtime
+durations, timestamps, platform paths, and Git dirty state are excluded from
+that hash while remaining available in full run metadata.
