@@ -1,0 +1,170 @@
+{
+  "all_eligible_comparisons_exact": true,
+  "comparison_policy": {
+    "compared_fields": [
+      "raw_score text",
+      "raw_score numeric value",
+      "frozen decision",
+      "status",
+      "error_code",
+      "error_message",
+      "deterministic non-timing preparation and comparison diagnostics available under the source contract"
+    ],
+    "genuine": "all survivor genuine pairs compared to primary SIFT plain_roll bundles",
+    "negative": "only exact dataset, canonical finger, path A and path B matches in every pre-existing SIFT result source with identical config and implementation hashes",
+    "self": "all PLAIN-self and ROLL-self pairs compared to primary SIFT bundles",
+    "timing_compared": false
+  },
+  "conditions": [
+    {
+      "comparison_scope": "all_self_or_genuine_pairs",
+      "condition": "plain_self",
+      "dataset": "sd300b",
+      "eligible_unique_pair_count": 500,
+      "exact_fail_count": 0,
+      "exact_pass_count": 500,
+      "not_previously_computed_count": 0,
+      "source_comparison_count": 500,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    },
+    {
+      "comparison_scope": "all_self_or_genuine_pairs",
+      "condition": "roll_self",
+      "dataset": "sd300b",
+      "eligible_unique_pair_count": 500,
+      "exact_fail_count": 0,
+      "exact_pass_count": 500,
+      "not_previously_computed_count": 0,
+      "source_comparison_count": 500,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    },
+    {
+      "comparison_scope": "all_self_or_genuine_pairs",
+      "condition": "plain_roll_genuine",
+      "dataset": "sd300b",
+      "eligible_unique_pair_count": 500,
+      "exact_fail_count": 0,
+      "exact_pass_count": 500,
+      "not_previously_computed_count": 0,
+      "source_comparison_count": 500,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    },
+    {
+      "comparison_scope": "all_self_or_genuine_pairs",
+      "condition": "plain_self",
+      "dataset": "sd300c",
+      "eligible_unique_pair_count": 500,
+      "exact_fail_count": 0,
+      "exact_pass_count": 500,
+      "not_previously_computed_count": 0,
+      "source_comparison_count": 500,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    },
+    {
+      "comparison_scope": "all_self_or_genuine_pairs",
+      "condition": "roll_self",
+      "dataset": "sd300c",
+      "eligible_unique_pair_count": 500,
+      "exact_fail_count": 0,
+      "exact_pass_count": 500,
+      "not_previously_computed_count": 0,
+      "source_comparison_count": 500,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    },
+    {
+      "comparison_scope": "all_self_or_genuine_pairs",
+      "condition": "plain_roll_genuine",
+      "dataset": "sd300c",
+      "eligible_unique_pair_count": 500,
+      "exact_fail_count": 0,
+      "exact_pass_count": 500,
+      "not_previously_computed_count": 0,
+      "source_comparison_count": 500,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    },
+    {
+      "comparison_scope": "eligible_exact_path_pair_only",
+      "condition": "plain_roll_negative",
+      "dataset": "sd300b",
+      "eligible_unique_pair_count": 5,
+      "exact_fail_count": 0,
+      "exact_pass_count": 5,
+      "not_previously_computed_count": 495,
+      "source_comparison_count": 5,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    },
+    {
+      "comparison_scope": "eligible_exact_path_pair_only",
+      "condition": "plain_roll_negative",
+      "dataset": "sd300c",
+      "eligible_unique_pair_count": 5,
+      "exact_fail_count": 0,
+      "exact_pass_count": 5,
+      "not_previously_computed_count": 495,
+      "source_comparison_count": 5,
+      "status": "pass",
+      "target_pair_count": 500,
+      "timing_compared": false
+    }
+  ],
+  "config_hash": "51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a",
+  "detail_files": {
+    "condition_summary": "reproducibility/condition_summary.csv",
+    "negative_coverage": "reproducibility/negative_coverage.csv",
+    "pair_comparison": "reproducibility/pair_comparison.csv"
+  },
+  "implementation_hash": "a663786cf6503cb522ab0194c1ab6bc65698d366408c53d49defce09e4960bbb",
+  "negative_eligible_unique_pair_count": 10,
+  "negative_exact_fail_count": 0,
+  "negative_exact_pass_count": 10,
+  "negative_not_previously_computed_count": 990,
+  "negative_source_comparison_count": 10,
+  "preexisting_sift_index": {
+    "pairwise_bundle_file_count": 8,
+    "pairwise_files": [
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\derived_protocol_runs\\sift_geometric_per_dataset_self_accept_v1\\sd300b\\plain_roll\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv",
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\derived_protocol_runs\\sift_geometric_per_dataset_self_accept_v1\\sd300c\\plain_roll\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv",
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\sd300b\\plain_roll\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv",
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\sd300b\\plain_self\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv",
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\sd300b\\roll_self\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv",
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\sd300c\\plain_roll\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv",
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\sd300c\\plain_self\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv",
+      "\\\\?\\C:\\fingerprint-recognition-research\\results\\sd300c\\roll_self\\sift_geometric\\pairwise-benchmark-v2\\51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a\\pairs.csv"
+    ],
+    "pairwise_indexed_row_count": 70432,
+    "shared_accuracy_indexed_row_count": 193138,
+    "shared_accuracy_score_file_count": 8,
+    "shared_accuracy_score_files": [
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300b\\development\\genuine.csv",
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300b\\development\\impostor.csv",
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300b\\evaluation\\genuine.csv",
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300b\\evaluation\\impostor.csv",
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300c\\development\\genuine.csv",
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300c\\development\\impostor.csv",
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300c\\evaluation\\genuine.csv",
+      "C:\\fingerprint-recognition-research\\results\\shared_accuracy\\sourceafis_sift_v1\\scores\\sift_geometric\\sd300c\\evaluation\\impostor.csv"
+    ],
+    "skipped": {
+      "frozen_identity_mismatch": 4
+    },
+    "total_path_bearing_row_count": 263570,
+    "total_source_file_count": 16
+  },
+  "schema_version": "sift-geometric-joint-500-reproducibility-v1",
+  "self_and_genuine_exact_fail_count": 0,
+  "self_and_genuine_exact_pass_count": 3000
+}

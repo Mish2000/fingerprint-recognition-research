@@ -1,0 +1,12 @@
+[sd300b/plain_roll_genuine] 1/500 measured pairs
+[sd300b/plain_roll_genuine] 50/500 measured pairs
+[sd300b/plain_roll_genuine] 100/500 measured pairs
+[sd300b/plain_roll_genuine] 150/500 measured pairs
+[sd300b/plain_roll_genuine] 200/500 measured pairs
+[sd300b/plain_roll_genuine] 250/500 measured pairs
+[sd300b/plain_roll_genuine] 300/500 measured pairs
+[sd300b/plain_roll_genuine] 350/500 measured pairs
+[sd300b/plain_roll_genuine] 400/500 measured pairs
+[sd300b/plain_roll_genuine] 450/500 measured pairs
+[sd300b/plain_roll_genuine] 500/500 measured pairs
+RUN_COMPLETE {"dataset": "sd300b", "execution_wall_ms": 155204.105, "failures": 0, "match_percentage": 71.6, "matched": 358, "mean_comparison_ms": 4.8216688, "mean_score": 84.89498948674898, "mean_total_ms": 310.33539140000005, "median_score": 74.75564767878453, "nonmatched": 142, "positive_below_40": 114, "result_sha256": "49ceb50e23a72d346993d634709961bbbec9e7ad9647df2572debed43817bb1f", "role": "genuine", "score_payload_sha256": "63573fb231125f133c2a1cb9fa11d0e0d5b1121d019d4d0b539583966865ddea", "score_zero": 28, "serial_run_index": 5, "total_pairs": 500}

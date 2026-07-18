@@ -1,0 +1,124 @@
+{
+  "schema_version": "sift-geometric-joint-500-supervisor-report-v1",
+  "sections": [
+    {
+      "datasets": {
+        "sd300b": {
+          "plain_records": 500,
+          "roll_records": 500
+        },
+        "sd300c": {
+          "plain_records": 500,
+          "roll_records": 500
+        }
+      },
+      "number": 1,
+      "title": "Record counts"
+    },
+    {
+      "datasets": {
+        "sd300b": {
+          "accepted": 500,
+          "failures": 0,
+          "rejected": 0,
+          "remaining": 500,
+          "removed": 0
+        },
+        "sd300c": {
+          "accepted": 500,
+          "failures": 0,
+          "rejected": 0,
+          "remaining": 500,
+          "removed": 0
+        }
+      },
+      "number": 2,
+      "title": "PLAIN self-comparisons"
+    },
+    {
+      "datasets": {
+        "sd300b": {
+          "accepted": 500,
+          "failures": 0,
+          "rejected": 0,
+          "remaining": 500,
+          "removed": 0
+        },
+        "sd300c": {
+          "accepted": 500,
+          "failures": 0,
+          "rejected": 0,
+          "remaining": 500,
+          "removed": 0
+        }
+      },
+      "number": 3,
+      "title": "ROLL self-comparisons"
+    },
+    {
+      "datasets": {
+        "sd300b": {
+          "ground_truth_same_subject_same_finger": 500,
+          "ground_truth_wrong": 0,
+          "sift_classified_matching": 284,
+          "sift_classified_non_matching": 216,
+          "survivors": 500
+        },
+        "sd300c": {
+          "ground_truth_same_subject_same_finger": 500,
+          "ground_truth_wrong": 0,
+          "sift_classified_matching": 271,
+          "sift_classified_non_matching": 229,
+          "survivors": 500
+        }
+      },
+      "number": 4,
+      "title": "PLAIN-to-corresponding-ROLL record matching"
+    },
+    {
+      "datasets": {
+        "sd300b": {
+          "acceptance_percentage": 56.8,
+          "accepted": 284,
+          "failures": 0,
+          "mean_comparison_time_ms": 22.7717952,
+          "rejected": 216,
+          "total": 500
+        },
+        "sd300c": {
+          "acceptance_percentage": 54.2,
+          "accepted": 271,
+          "failures": 0,
+          "mean_comparison_time_ms": 23.885775600000002,
+          "rejected": 229,
+          "total": 500
+        }
+      },
+      "number": 5,
+      "title": "PLAIN versus corresponding ROLL"
+    },
+    {
+      "datasets": {
+        "sd300b": {
+          "correctly_rejected": 486,
+          "failures": 0,
+          "false_match_percentage": 2.8,
+          "incorrectly_accepted": 14,
+          "mean_comparison_time_ms": 23.119792399999998,
+          "total": 500
+        },
+        "sd300c": {
+          "correctly_rejected": 485,
+          "failures": 0,
+          "false_match_percentage": 3.0,
+          "incorrectly_accepted": 15,
+          "mean_comparison_time_ms": 23.7859946,
+          "total": 500
+        }
+      },
+      "number": 6,
+      "pairing_method": "next surviving subject within the same canonical finger position, circular shift by one",
+      "title": "PLAIN versus next subject's ROLL"
+    }
+  ]
+}

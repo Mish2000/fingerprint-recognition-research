@@ -1,0 +1,240 @@
+{
+  "file_count": 46,
+  "files": [
+    {
+      "path": "integrity/protected_after.jsonl",
+      "sha256": "9e0d8084c7f1466358debd65d07751ae08c32d899c719364152d97544f2867a8",
+      "size": 8622789
+    },
+    {
+      "path": "integrity/protected_artifact_integrity.json",
+      "sha256": "48bf5d4046715b42e79784341526e0822e5e82f02bbf387b3a4a5165ee371567",
+      "size": 1834
+    },
+    {
+      "path": "integrity/protected_before.jsonl",
+      "sha256": "9e0d8084c7f1466358debd65d07751ae08c32d899c719364152d97544f2867a8",
+      "size": 8622789
+    },
+    {
+      "path": "manifests/base_selected_identities_reference.json",
+      "sha256": "3eb07666f6285859c27fc5912c6fc4452ac17fff0daaefce11e68252d87733a4",
+      "size": 56906
+    },
+    {
+      "path": "manifests/protocol_summary.csv",
+      "sha256": "ce5b594b689c2d435ff15b71f320b371344dc2fb255f956350a499badacb34a9",
+      "size": 1045
+    },
+    {
+      "path": "manifests/protocol_summary.json",
+      "sha256": "ab502cda035e18567f731b6128330bf34384f83f5c0aeae96cd80f468a5ff1b0",
+      "size": 50083
+    },
+    {
+      "path": "manifests/sd300b/excluded_identities.csv",
+      "sha256": "2753da67134103349a15f69e2db45aad89533ff340b9bdfe89321fd420e353b4",
+      "size": 382
+    },
+    {
+      "path": "manifests/sd300b/pairing_map_after_self.csv",
+      "sha256": "2d7eaa08863db131fbd0ec0f75ffae545c05e62e7744fc428029e1b7a74832fa",
+      "size": 187766
+    },
+    {
+      "path": "manifests/sd300b/plain_roll_genuine_after_self.csv",
+      "sha256": "88a9863087803997cb6b7fec03e8f4f17a815dca3e7e3f540c30cf45f2a73390",
+      "size": 118850
+    },
+    {
+      "path": "manifests/sd300b/plain_roll_negative_after_self.csv",
+      "sha256": "099ed6450ac0302e9926ba50d9434def6ae5d31eae3cdd963d4e17f2cfa3c1b0",
+      "size": 144849
+    },
+    {
+      "path": "manifests/sd300b/plain_roll_negative_details_after_self.csv",
+      "sha256": "d8cac9420cb26843866ad009cd13cc8164d316f9b14b9e426a883d6c7fddf3ed",
+      "size": 222785
+    },
+    {
+      "path": "manifests/sd300b/plain_self.csv",
+      "sha256": "b08f663f6018e7d212d9b8034cbf72597e27a69d491e805d8ec6bd894dc8c202",
+      "size": 119953
+    },
+    {
+      "path": "manifests/sd300b/roll_self.csv",
+      "sha256": "9ef3188593140e21be8426fb5065c56530e2c367cbc35c11af4c14b3c23f1988",
+      "size": 116747
+    },
+    {
+      "path": "manifests/sd300b/surviving_identities.csv",
+      "sha256": "ff399993147028d90340967a9e9be9f16895ecd83c108d1c235f4ed43ee6cf0d",
+      "size": 57174
+    },
+    {
+      "path": "manifests/sd300c/excluded_identities.csv",
+      "sha256": "2753da67134103349a15f69e2db45aad89533ff340b9bdfe89321fd420e353b4",
+      "size": 382
+    },
+    {
+      "path": "manifests/sd300c/pairing_map_after_self.csv",
+      "sha256": "fb2470586b441b7f0b132e11ddf3fe6b72af104c6bf4676271a93f3403243cdf",
+      "size": 187766
+    },
+    {
+      "path": "manifests/sd300c/plain_roll_genuine_after_self.csv",
+      "sha256": "c6100bca555af42071e5f70a56b8d084ba95c7d519a184520e0cdea0cc70359c",
+      "size": 118850
+    },
+    {
+      "path": "manifests/sd300c/plain_roll_negative_after_self.csv",
+      "sha256": "6b354e6bab3d9fb90aaa0e7d84d3f5ecf4d72cc2fd10fd265d22c1674589559e",
+      "size": 144849
+    },
+    {
+      "path": "manifests/sd300c/plain_roll_negative_details_after_self.csv",
+      "sha256": "39857ededed6036143d3c0f05687b6ba446085a788e6c85850fd12e2fab0ced3",
+      "size": 222785
+    },
+    {
+      "path": "manifests/sd300c/plain_self.csv",
+      "sha256": "4bdd7485759425135b71461f136bd4f285e046ab68db55f9b2af3bd1f0ffc30d",
+      "size": 119953
+    },
+    {
+      "path": "manifests/sd300c/roll_self.csv",
+      "sha256": "27f33dc5a634369f72577614501a281fd359f6e561db65988dfca0255301282a",
+      "size": 116747
+    },
+    {
+      "path": "manifests/sd300c/surviving_identities.csv",
+      "sha256": "b30374ca2e965e383e11afadbf2be1900e069fc475164eae0795e4cc9bad8602",
+      "size": 57179
+    },
+    {
+      "path": "report/supervisor_report.csv",
+      "sha256": "6f9314c0c665c8fa3c9301cc9530305cd9fbeb2d8b292e03856694f939582e24",
+      "size": 3516
+    },
+    {
+      "path": "report/supervisor_report.json",
+      "sha256": "d6680d6e431d79f9c0a1dbb08c55f224af11ff4e317dbbd86d6d8d8c3db28f49",
+      "size": 3087
+    },
+    {
+      "path": "report/supervisor_report.md",
+      "sha256": "17670cb0e1d3aa9848442f168d268634028c0a8edb92d32f89a38c99715dc2af",
+      "size": 1583
+    },
+    {
+      "path": "reproducibility/condition_summary.csv",
+      "sha256": "46f8ac968274ddc2504c68e8f169495c2b86b6d339a190478ae6ddb0070423ce",
+      "size": 823
+    },
+    {
+      "path": "reproducibility/negative_coverage.csv",
+      "sha256": "35320670cea55210ec8f1486719693565559fbd99e73d784b04bdbfa08ab6111",
+      "size": 267622
+    },
+    {
+      "path": "reproducibility/pair_comparison.csv",
+      "sha256": "3b66df0731bea5cbc1b5e2a9ca599340cb7ff6857d72c01c0f15129d97d495cc",
+      "size": 2302459
+    },
+    {
+      "path": "reproducibility/reproducibility_summary.json",
+      "sha256": "7b20139a7076c1e0eca0a3dec52f22e289da23e97dd00c476f68139919bc907b",
+      "size": 8036
+    },
+    {
+      "path": "runs/sd300b/plain_roll_genuine/pairs.csv",
+      "sha256": "3e0c55fdd8f7dfd45ffb1bef30592fb7e605e92162986c5e19187481168168f0",
+      "size": 1860324
+    },
+    {
+      "path": "runs/sd300b/plain_roll_genuine/run_metadata.json",
+      "sha256": "94076884c75ebdcd6f7f6a8b2d1dabb46a88eb0b67687c4effe2a926f54e94be",
+      "size": 20922
+    },
+    {
+      "path": "runs/sd300b/plain_roll_negative/pairs.csv",
+      "sha256": "ca5eb6b0f95cfcc0451775ddc8a9d27614208066034d7ecb098c14d95a0c8ec8",
+      "size": 1798788
+    },
+    {
+      "path": "runs/sd300b/plain_roll_negative/run_metadata.json",
+      "sha256": "7e5a7f4e2632b4684190958c6775555b9eee92bcfa6ce207a2288c813ba31fec",
+      "size": 21290
+    },
+    {
+      "path": "runs/sd300b/plain_self/pairs.csv",
+      "sha256": "1695b4fc44c1a20cdaaa4fa27c33b4cebb2e036e342ff3decb86bbf84d2220c4",
+      "size": 1760057
+    },
+    {
+      "path": "runs/sd300b/plain_self/run_metadata.json",
+      "sha256": "d93cd6d90ddf5dc106a27b13dda43a9ad8666cacb5604d74256d36662be37719",
+      "size": 20539
+    },
+    {
+      "path": "runs/sd300b/roll_self/pairs.csv",
+      "sha256": "f6ed999ba4b358ff732ee06f5f893b1bd98fb510a140f18c3e91856934e3ec2f",
+      "size": 1761984
+    },
+    {
+      "path": "runs/sd300b/roll_self/run_metadata.json",
+      "sha256": "c671d521260efb5ec105695e1bcff45fcc91e6238ab338ac5dec0e170d054909",
+      "size": 20532
+    },
+    {
+      "path": "runs/sd300c/plain_roll_genuine/pairs.csv",
+      "sha256": "7cd35f90822806083f577c93c99fbb768d129fbf62203e3424c0dad59c291b9d",
+      "size": 1864509
+    },
+    {
+      "path": "runs/sd300c/plain_roll_genuine/run_metadata.json",
+      "sha256": "d5ffb58ed83ea2100bf19f721a77f99cee11a9a4d62617f027a7dd021f561b07",
+      "size": 20923
+    },
+    {
+      "path": "runs/sd300c/plain_roll_negative/pairs.csv",
+      "sha256": "2843dfd4216f2abc0a9136eb5730608b3a36aec589433edde29e9e368674efe0",
+      "size": 1809057
+    },
+    {
+      "path": "runs/sd300c/plain_roll_negative/run_metadata.json",
+      "sha256": "027171168389d7d4d7d92cfff67c43bdb8ac0dd0375040b63276b00e02876e1e",
+      "size": 21292
+    },
+    {
+      "path": "runs/sd300c/plain_self/pairs.csv",
+      "sha256": "8af88be2021b700249d7fb0c60e23d766f07390243d294491ea5684972836b05",
+      "size": 1766850
+    },
+    {
+      "path": "runs/sd300c/plain_self/run_metadata.json",
+      "sha256": "e7c6502ee8221fd40bb0016a88c358fdaa45567ef29b9cd19fae89cd835b174b",
+      "size": 20538
+    },
+    {
+      "path": "runs/sd300c/roll_self/pairs.csv",
+      "sha256": "9b1d5e3f5bc1d3df084b18b7c1eea1b3908029d4eaca1d8fa4ed740f4773d8d9",
+      "size": 1766716
+    },
+    {
+      "path": "runs/sd300c/roll_self/run_metadata.json",
+      "sha256": "2747e59fc00d3c21d8e62cd615af9829432b5d7bc98010f0eca7c55072b7cd3e",
+      "size": 20533
+    },
+    {
+      "path": "technical_provenance.json",
+      "sha256": "ea5c0603a1c49dce05061527f32499426d0aa424036da45ed86a108afedeebd4",
+      "size": 73716
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "namespace": "sift_geometric_joint_500_v1",
+  "schema_version": "shared-accuracy-artifact-manifest-v1",
+  "total_bytes": 36508159,
+  "tree_sha256": "daf1f0ffe319bc02105b1b7a17652b2cd720a47523e80d98d4d07866fe2a81d3"
+}
