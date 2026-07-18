@@ -25,6 +25,9 @@ fingerprint-sd300c-protocol-audit = "fingerprint_data_discovery.sd300c_protocol_
 fingerprint-benchmark = "fingerprint_benchmark.cli:main"
 fingerprint-repro-audit = "fingerprint_benchmark.reproducibility_audit:main"
 fingerprint-sift-study = "fingerprint_benchmark.sift.study:main"
+fingerprint-derived-sourceafis = "fingerprint_benchmark.derived_protocol:main"
+fingerprint-derived-sift = "fingerprint_benchmark.sift_derived_protocol:main"
+fingerprint-shared-accuracy = "fingerprint_benchmark.shared_accuracy:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

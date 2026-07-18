@@ -125,3 +125,32 @@ The isolated, pre-specified audit workflow is documented in
 [docs/sourceafis_reproducibility_audit.md](docs/sourceafis_reproducibility_audit.md).
 Only its explicit `run` phase invokes SourceAFIS; `prepare` and `compare` are
 read-only with respect to primary benchmark artifacts and datasets.
+
+## Per-dataset SourceAFIS self-accept protocol
+
+The method-specific threshold-40 derived protocol is implemented by
+`fingerprint-derived-sourceafis` (or
+`python -m fingerprint_benchmark.derived_protocol`). Its guarded phases are
+`prepare`, `preflight`, `run`, `report`, and `integrity`. Derived manifests and
+runs are published below `results/derived_protocols/` and
+`results/derived_protocol_runs/`; the six primary bundles are never replaced.
+
+## Per-dataset SIFT self-accept protocol
+
+The frozen SIFT protocol is implemented by `fingerprint-derived-sift` (or
+`python -m fingerprint_benchmark.sift_derived_protocol`). Its guarded phases
+are `protect-before`, `prepare`, `preflight`, `run`, `report`, and
+`protect-after`. The mandatory `preflight` compares 30 uniformly spaced pairs
+per dataset exactly with their primary results; any mismatch forbids the two
+full derived runs. Existing SIFT, SourceAFIS, manifest, and dataset artifacts
+are read-only.
+
+## Shared SourceAFIS/SIFT biometric accuracy
+
+`fingerprint-shared-accuracy` implements the separate prepared-representation
+accuracy study under `results/shared_accuracy/sourceafis_sift_v1/`. It compares
+both methods on identical subjects, genuine pairs, logical impostor pairs, and
+development-calibrated FAR targets of 1% and 0.1%. It does not modify or replace
+the cold-pair timing benchmark. The staged safety gates, cache scope,
+calibration rule, confidence reporting, and execution commands are documented
+in [docs/shared_biometric_accuracy_protocol.md](docs/shared_biometric_accuracy_protocol.md).
