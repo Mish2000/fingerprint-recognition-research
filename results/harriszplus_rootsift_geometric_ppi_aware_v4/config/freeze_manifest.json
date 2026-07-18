@@ -1,0 +1,110 @@
+{
+  "canonical_config_hash": "c371a265bf78c8bc7297945a997890a5b020c0d45b7165a5fdc0b12fb70f6724",
+  "config_file_sha256": "40971c9dabfcfe14aa02448d3f4993cd9086b21a0ad825685fed4fe711060647",
+  "decision_rule_file_sha256": "42eccf70e105640f0e0b19e41181bdeda7a0eee03534954fd4eafa080887e72e",
+  "decision_rule_hash": "cf4af74a9d87fdfccbcc17fd1082d01df0e0c6af7db69306dcd1ac73f02baf19",
+  "files": {
+    "algorithm_config.json": {
+      "sha256": "5e72b1f11a2e149d0bd121312d5d33116060be7e08ded20cc51bf7374e069574",
+      "size": 28220
+    },
+    "decision_rule.json": {
+      "sha256": "42eccf70e105640f0e0b19e41181bdeda7a0eee03534954fd4eafa080887e72e",
+      "size": 1058
+    },
+    "environment.json": {
+      "sha256": "544f069e5f961adede88ba6e27824f99535cb2f972f3c56ac8a9f021a74a7f3f",
+      "size": 10253
+    },
+    "implementation_components.json": {
+      "sha256": "9e09cb5eefb29bd12c67f556cc7f6fe605a0412b90d6b1851e6b24fd337eb990",
+      "size": 47600
+    },
+    "implementation_provenance.json": {
+      "sha256": "20eacf43ef7aa6b0ce422e0126874a7a5cdf37b9e5cb763675e19a59ef6e362e",
+      "size": 45526
+    },
+    "preflight_reference.json": {
+      "sha256": "76fd34586d210d1f33c2fe7165e4c213245fcc0af2d2ec11e4727116d916c572",
+      "size": 2426
+    },
+    "runner_config.json": {
+      "sha256": "40971c9dabfcfe14aa02448d3f4993cd9086b21a0ad825685fed4fe711060647",
+      "size": 26613
+    },
+    "runtime_identity.json": {
+      "sha256": "3f538f7083d846c63916c862b4ade2d595901d6ce02b4e80b06cd19fd49ffb2f",
+      "size": 1024
+    }
+  },
+  "frozen_before_500_results": true,
+  "immutable": true,
+  "implementation_hash": "f860868b69c278f010a326db3d700689b4016c69243cbe7b38760555b2a0958c",
+  "method": "harriszplus_rootsift_geometric_ppi_aware",
+  "method_version": "harriszplus-rootsift-geometric-ppi-aware-v4",
+  "overwrite_allowed": false,
+  "preflight_canonical_sha256": "693b66aac375f248bdf5326424c5d6ad96376889a14bdc0cb81412eb6fc656b2",
+  "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5",
+  "schema_version": "harriszplus-config-freeze-v4",
+  "validation_policy": {
+    "auto_relaxation_allowed": false,
+    "b_c_keypoint_equality_required": false,
+    "candidate_preuniform_minimum_count_ratio": 0.9995,
+    "canonical_pilot_cuda_device": "cuda:0",
+    "cuda_repeat_exact": true,
+    "decision_equality_required": true,
+    "decision_threshold": 4,
+    "frozen_before_500_results": true,
+    "maximum_downstream_raw_score_delta": 1,
+    "maximum_peak_vram_fraction_of_device": 0.9,
+    "minimum_exact_downstream_score_fraction": 0.95,
+    "minimum_matched_keypoint_fraction": 0.95,
+    "minimum_order_spearman_rank_correlation": 0.99,
+    "minimum_response_pixel_coverage": 0.9999,
+    "noncanonical_device_override_allowed": false,
+    "ordering_coordinate_tie_atol": 0.001,
+    "ordering_response_tie_atol": 1e-06,
+    "peak_memory_aggregation": "maximum_across_all_detector_and_prepare_calls",
+    "peak_vram_must_be_positive_finite_and_reserved_ge_allocated": true,
+    "physical_scale_contract_required_before_matcher": true,
+    "required_compare_timing_fields": [
+      "matcher_cpu_ms",
+      "ransac_cpu_ms",
+      "compare_total_ms",
+      "end_to_end_wall_ms"
+    ],
+    "required_detector_timing_fields": [
+      "detector_gpu_kernel_ms",
+      "candidate_transfer_ms",
+      "selection_cpu_ms",
+      "total_ms"
+    ],
+    "required_prepare_timing_fields": [
+      "image_load_ms",
+      "lanczos_ms",
+      "detector_gpu_wall_ms",
+      "detector_gpu_kernel_ms",
+      "candidate_transfer_ms",
+      "selection_cpu_ms",
+      "orientation_cpu_ms",
+      "descriptor_cpu_ms",
+      "prepare_total_ms"
+    ],
+    "response_atol": 0.0005,
+    "response_max_absolute_delta": 0.1,
+    "response_rtol": 0.0002,
+    "response_statistics_required": [
+      "minimum",
+      "maximum",
+      "mean",
+      "sample_stddev"
+    ],
+    "same_dataset_and_same_ppi_config_only": true,
+    "scale_index_exact": true,
+    "scale_tolerance": 1e-06,
+    "schema_version": "harriszplus-functional-validation-policy-v4",
+    "spatial_tolerance_original_pixels": 0.75,
+    "synthetic_minimum_response_pixel_coverage": 1.0,
+    "uniform_and_final_candidate_counts_exact": true
+  }
+}

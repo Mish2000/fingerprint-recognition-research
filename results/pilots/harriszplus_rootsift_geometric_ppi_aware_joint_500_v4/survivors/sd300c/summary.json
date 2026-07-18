@@ -1,0 +1,63 @@
+{
+  "acceptance_rule": "status == ok and geometric_inlier_count >= 4",
+  "artifacts": {
+    "excluded_identities": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_ppi_aware_joint_500_v4\\survivors\\sd300c\\excluded_identities.csv",
+      "sha256": "492c096c1ef780704aa246db60dda5e6fe97af5cc5bb3b0e48bd8eef3e774917",
+      "size": 218
+    },
+    "genuine_manifest": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_ppi_aware_joint_500_v4\\manifests\\sd300c\\plain_roll_genuine.csv",
+      "sha256": "9da74fa221506af801f738ab255dea969d07c973b0327abe52c3d3ea8a0ca98e",
+      "size": 118349
+    },
+    "included_identities": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_ppi_aware_joint_500_v4\\survivors\\sd300c\\included_identities.csv",
+      "sha256": "bbb40ebeeaa4e328137a196d3b8fb90f811014c3d4a066d48485e77f56520830",
+      "size": 52145
+    },
+    "negative_manifest": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_ppi_aware_joint_500_v4\\manifests\\sd300c\\plain_roll_negative.csv",
+      "sha256": "6b354e6bab3d9fb90aaa0e7d84d3f5ecf4d72cc2fd10fd265d22c1674589559e",
+      "size": 144849
+    },
+    "pairing_map": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_ppi_aware_joint_500_v4\\manifests\\sd300c\\pairing_map.csv",
+      "sha256": "ce63142ee8165bd76927dd4d39eedd61e47ffe7b6ff30d18a772ba07e24c0b2a",
+      "size": 187090
+    }
+  },
+  "base_identity_count": 500,
+  "both_self_failure_count": 0,
+  "both_self_nonaccepted_count": 0,
+  "both_self_technical_failure_count": 0,
+  "dataset": "sd300c",
+  "excluded_count": 0,
+  "genuine_or_negative_result_used_for_filtering": false,
+  "genuine_pair_count": 500,
+  "negative_pair_count": 500,
+  "negative_protocol": {
+    "circular_shift": 1,
+    "different_subjects": true,
+    "each_plain_once": true,
+    "each_roll_once": true,
+    "genuine_contamination": false,
+    "group_by_canonical_finger_position": true,
+    "order_by_selection_index": true
+  },
+  "plain_self_accepted_count": 500,
+  "plain_self_failure_count": 0,
+  "plain_self_rejected_count": 0,
+  "plain_self_rejected_or_failure_count": 0,
+  "reason_counts": {},
+  "replacement_identity_count": 0,
+  "roll_self_accepted_count": 500,
+  "roll_self_failure_count": 0,
+  "roll_self_rejected_count": 0,
+  "roll_self_rejected_or_failure_count": 0,
+  "schema_version": "harriszplus-per-dataset-self-survivors-v4",
+  "survivor_count": 500,
+  "survivor_definition": "accepted(plain_self) intersection accepted(roll_self), per dataset",
+  "threshold": 4,
+  "tie_score_4_accepted": true
+}

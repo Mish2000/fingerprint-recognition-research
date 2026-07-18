@@ -1,0 +1,472 @@
+{
+  "additional_sift_input_files": [
+    {
+      "path": "results/pilots/sift_geometric_joint_500_v1/runs/sd300b/plain_roll_genuine/pairs.csv",
+      "sha256": "3e0c55fdd8f7dfd45ffb1bef30592fb7e605e92162986c5e19187481168168f0",
+      "size": 1860324
+    },
+    {
+      "path": "results/pilots/sift_geometric_joint_500_v1/runs/sd300c/plain_roll_genuine/pairs.csv",
+      "sha256": "7cd35f90822806083f577c93c99fbb768d129fbf62203e3424c0dad59c291b9d",
+      "size": 1864509
+    }
+  ],
+  "analysis_policy": {
+    "existing_artifacts_only": true,
+    "no_config_or_threshold_change": true,
+    "no_matcher_or_pipeline_execution": true,
+    "protected_scope_excludes_only_new_postmortem_directory": true
+  },
+  "frozen_input_files": [
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/algorithm_config.json",
+      "sha256": "8f064d2937f899f38ab9cb34fa8e1bb649e2aa358f3fb97598e16455e287af3f",
+      "size": 5923
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/decision_rule.json",
+      "sha256": "702b7729fc17e9aaa08224102167a8cdfcc20ca3401294c2e3a43464b846c5cf",
+      "size": 1038
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/environment.json",
+      "sha256": "544f069e5f961adede88ba6e27824f99535cb2f972f3c56ac8a9f021a74a7f3f",
+      "size": 10253
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/freeze_manifest.json",
+      "sha256": "62957b4f9cc44d8e4ec0ac774a793f66975ed971ed1760555fb31438fcccb14f",
+      "size": 3182
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/implementation_components.json",
+      "sha256": "549c63acc815524f44612585ed18c05fcb8cb21bcde964eb35f1f7d308e3156a",
+      "size": 11451
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/implementation_provenance.json",
+      "sha256": "fb8f5af67c93ace497762c90d9f5d0b49618a58f90b847a42ed1640b3fd3629d",
+      "size": 11243
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/preflight_reference.json",
+      "sha256": "1855c2da2d2abfb3c1a12bcbc88aba89adffdb471cbd8f88799cf20bc23421ff",
+      "size": 1404
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/runner_config.json",
+      "sha256": "d517f8f26a9dd9791f931da4c74b4e35414c8c74f16f00670bf313b34ffa6df4",
+      "size": 6955
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/config/runtime_identity.json",
+      "sha256": "3f538f7083d846c63916c862b4ade2d595901d6ce02b4e80b06cd19fd49ffb2f",
+      "size": 1024
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/fixtures/engineering_fixture_provenance_v3.json",
+      "sha256": "0c1ec2e34717ba40bbcd0446910194117b3ac54dec9942893d92e2dc20adb9ae",
+      "size": 1480
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/fixtures/engineering_identities_v3.csv",
+      "sha256": "8d8e3b74952d08138648b4a9542e2c763ad9ee6ceb32b63948a0f1f6c60c1ae1",
+      "size": 3913
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/fixtures/engineering_pairs_v3.csv",
+      "sha256": "f475cd22399fbead5cbbcbd89e5b4e92e2088d7d9dd65ffb5dd7d8f95722bc57",
+      "size": 15993
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/preflight/engineering_preflight.json",
+      "sha256": "1117508cabc6439017abbe551451de0803f960544d40e7640fc30dce9d635ee0",
+      "size": 4226
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/preflight/engineering_preflight_contract_v3.json",
+      "sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+      "size": 7956
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/preflight/engineering_preflight_pass.json",
+      "sha256": "85f9f27fe61e6971181ffe97e7f04bf6a13019f9f7d6be5857e52d8304d43b7b",
+      "size": 785659
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/artifact_manifest.json",
+      "sha256": "900a6651d842d64a59b1f688e489bf345faad7b8fcb415e4a452bb4f726feeb2",
+      "size": 9750
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/integrity/protected_after.json",
+      "sha256": "216c4a1b5a46c0a88dfb1ae511b131a46549a5bdb83fcdaa10986e8da1bbe118",
+      "size": 613071
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/integrity/protected_before.json",
+      "sha256": "216c4a1b5a46c0a88dfb1ae511b131a46549a5bdb83fcdaa10986e8da1bbe118",
+      "size": 613071
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/integrity/protected_integrity.json",
+      "sha256": "3e70eaafe22d9815723e900c5e9b6a06a362d7a613dd99ff5ca6f8be5262e0c9",
+      "size": 1891
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/base_manifest_provenance.json",
+      "sha256": "f2f0748dea82d5a41321c190e7b3607203580a23e83f502507c33bc0f69170a1",
+      "size": 4698
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300b/pairing_map.csv",
+      "sha256": "e65c9cff85274e3b2c8bc4dcdbb2604d558ddb924b731ee07a3b1ea0c145779f",
+      "size": 187090
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300b/plain_roll_genuine.csv",
+      "sha256": "dfc4895f80bbad1aa095c428c6551591bad95bab5256cd81d06d98a28fa93e8c",
+      "size": 118349
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300b/plain_roll_negative.csv",
+      "sha256": "099ed6450ac0302e9926ba50d9434def6ae5d31eae3cdd963d4e17f2cfa3c1b0",
+      "size": 144849
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300b/plain_self.csv",
+      "sha256": "b08f663f6018e7d212d9b8034cbf72597e27a69d491e805d8ec6bd894dc8c202",
+      "size": 119953
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300b/roll_self.csv",
+      "sha256": "9ef3188593140e21be8426fb5065c56530e2c367cbc35c11af4c14b3c23f1988",
+      "size": 116747
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300c/pairing_map.csv",
+      "sha256": "ce63142ee8165bd76927dd4d39eedd61e47ffe7b6ff30d18a772ba07e24c0b2a",
+      "size": 187090
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300c/plain_roll_genuine.csv",
+      "sha256": "9da74fa221506af801f738ab255dea969d07c973b0327abe52c3d3ea8a0ca98e",
+      "size": 118349
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300c/plain_roll_negative.csv",
+      "sha256": "6b354e6bab3d9fb90aaa0e7d84d3f5ecf4d72cc2fd10fd265d22c1674589559e",
+      "size": 144849
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300c/plain_self.csv",
+      "sha256": "4bdd7485759425135b71461f136bd4f285e046ab68db55f9b2af3bd1f0ffc30d",
+      "size": 119953
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/manifests/sd300c/roll_self.csv",
+      "sha256": "27f33dc5a634369f72577614501a281fd359f6e561db65988dfca0255301282a",
+      "size": 116747
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/report/supervisor_report.csv",
+      "sha256": "202eb23971ab73f550ee6c342f44ff2e4586a3dce9247afd0de874b15f068767",
+      "size": 5031
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/report/supervisor_report.json",
+      "sha256": "4e6ae338982111d2039d338adbbb97fec3ef886a8a34e3fd7f465968f9f4dd5a",
+      "size": 55629
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/report/supervisor_report.md",
+      "sha256": "11006e32101d89e5710a4275220545132d7f056a6e36927c581eac52fe8a2867",
+      "size": 3107
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/plain_roll_genuine/pairs.csv",
+      "sha256": "8228e36b67310034daf2c72d2486421deb7695e20240021c46fc8adcb7c32ebb",
+      "size": 32662947
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/plain_roll_genuine/run_metadata.json",
+      "sha256": "ebb6b992d6d5ca43034bb3bd7c34bfa1acdb84692e41b720c18827358e7ba49c",
+      "size": 45174
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/plain_roll_negative/pairs.csv",
+      "sha256": "ecfde9255299d1bcc8694ba7ed35b14e0594aa1528912f936ab62a8a94de2d1a",
+      "size": 32656264
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/plain_roll_negative/run_metadata.json",
+      "sha256": "fc280749f95a49558b1ca85c94380c06aea9106646ef3d6e0ad469dbca48778f",
+      "size": 45274
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/plain_self/pairs.csv",
+      "sha256": "5b61177b611c6f9958ece858cc48d656fda11985dc734cbad6dffa86403bf988",
+      "size": 31889767
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/plain_self/run_metadata.json",
+      "sha256": "9be0dfc983f57bccf79d70dccb614330036d26af5346784572ca11164d92aa24",
+      "size": 45136
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/roll_self/pairs.csv",
+      "sha256": "ea9166abb3fb0a920a4bfcafd5ea6e518148c5cf8f3070a1cea221e5d066c396",
+      "size": 33257967
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300b/roll_self/run_metadata.json",
+      "sha256": "0805f4e3762532f7548d277f91181b1f5ba0795d5f4afc9edcb1d11d3880243e",
+      "size": 45128
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/plain_roll_genuine/pairs.csv",
+      "sha256": "f0cbfeeac87e156c65da8a28a20877b8e8870becd13d217997b17a056193e109",
+      "size": 34214947
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/plain_roll_genuine/run_metadata.json",
+      "sha256": "ba41ac13a8565d5592f3c039e7848c0b017e0cf8ffe25f25eb81310c8f181605",
+      "size": 45174
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/plain_roll_negative/pairs.csv",
+      "sha256": "54b112d64bb3ebe6d28948a9f50a84f0788ddf062730e89c75b97f12dc4b62f1",
+      "size": 34221854
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/plain_roll_negative/run_metadata.json",
+      "sha256": "26c0c430493a49f6e304dc76c22a7263bedeadc5cb956751b0f34009c7c2f33b",
+      "size": 45274
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/plain_self/pairs.csv",
+      "sha256": "630ecd694d46b75b58896552ea375ee99274bfb3820048ad43cfc207da067356",
+      "size": 33722472
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/plain_self/run_metadata.json",
+      "sha256": "dd839396d22d5d559d74daa657d0ad4dc3a9351e9c4e6bca8cf3e09f4256ba8a",
+      "size": 45136
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/roll_self/pairs.csv",
+      "sha256": "cdb7d4df24d47a81d971d1575dd88da2a522af37da73e599c85b9a7d019ab7c5",
+      "size": 34549426
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/runs/sd300c/roll_self/run_metadata.json",
+      "sha256": "031d61dcaa2a6595b0c0a41ecd2b692b6f7f6486603d3111652b23005fd2ac6b",
+      "size": 45129
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/selected_identities_reference.json",
+      "sha256": "5ff8d86195cdce4ece1695d4c4f25648443aa441cf98f3055823c3c757eecdc1",
+      "size": 5208
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/survivors/sd300b/excluded_identities.csv",
+      "sha256": "492c096c1ef780704aa246db60dda5e6fe97af5cc5bb3b0e48bd8eef3e774917",
+      "size": 218
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/survivors/sd300b/included_identities.csv",
+      "sha256": "c84a11b673eb821c7eee8a0fd08429ebd86d7b65d61d3d4bcd4aadf3e3986d7f",
+      "size": 52145
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/survivors/sd300b/summary.json",
+      "sha256": "66b67fbb76956d76dd738e7101386e093c6cccb72d8dc97f7a9a9f6d8a1059a4",
+      "size": 2725
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/survivors/sd300c/excluded_identities.csv",
+      "sha256": "492c096c1ef780704aa246db60dda5e6fe97af5cc5bb3b0e48bd8eef3e774917",
+      "size": 218
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/survivors/sd300c/included_identities.csv",
+      "sha256": "cf3d729f3541b14f5925d249646ddedd73e901e0e957ef3290bf37393deb473a",
+      "size": 52145
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/survivors/sd300c/summary.json",
+      "sha256": "0e37510386988989fd17f38d14811f9aad6fe1659a548a1697a4a3d7e4a89c7d",
+      "size": 2725
+    },
+    {
+      "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/technical_provenance.json",
+      "sha256": "80bb9635a1eb326937e0879f55d38f9c611b3476cf4b54baa93b52e3761f444a",
+      "size": 150328
+    }
+  ],
+  "generated_at_utc": "2026-07-17T13:29:36.691409+00:00",
+  "generated_file_count_excluding_this_manifest": 22,
+  "generated_files": [
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/build_postmortem.py",
+      "sha256": "6d1b87f8c8934c9aeb071763446bf8f6d2e43c7ae6be71f26812041f4a4536dc",
+      "size": 71007
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/cap_saturation.csv",
+      "sha256": "641498eb356d6d98f2765b150c2e6b8d781960906078c16ac4e0794610e1da82",
+      "size": 5984
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/failure_stage_classification.csv",
+      "sha256": "84cb88c70bedec571df7716dd4d88c43375bc3e0ce68ca0aaeac5349c1736a8d",
+      "size": 90201
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/b_accepted_c_rejected_first10/page_01.png",
+      "sha256": "e2418be6dd90c238cb9564d66686b73e5d0a1d3714d4fcafe9273feb3d8e50d0",
+      "size": 923976
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/b_accepted_c_rejected_first10/page_02.png",
+      "sha256": "0476685725903642a555118fae7babcc808e098a2992641be9927d47e8cc40e8",
+      "size": 981158
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/both_rejected_first10/page_01.png",
+      "sha256": "6dd9b955d4aeea17d86a481597277bea884b797a657a5e6222c975ea9a16c714",
+      "size": 988050
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/both_rejected_first10/page_02.png",
+      "sha256": "62cc6462e41dcf86a98c003cb9522caea75e622c6ce776345eaa4ae3f150393d",
+      "size": 1015245
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/c_accepted_all/page_01.png",
+      "sha256": "311c942377dcb22b4150f5b1ae08842be01b89769154aae6495e612a241bf6bc",
+      "size": 148217
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/c_score_zero_first10/page_01.png",
+      "sha256": "f0a6b52dc73f15ee821d557587024e13aadbcb8009c3eb6257629d84993396c2",
+      "size": 826552
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/c_score_zero_first10/page_02.png",
+      "sha256": "179204208f9d6a65864148a865f75135976fcb0186882d8bd5a57417b0659069",
+      "size": 812290
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/README.md",
+      "sha256": "97c9bc1f473b536f29b6396834abed832d024101a55ac9d3c085e7e3b45e401e",
+      "size": 443
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/selection.csv",
+      "sha256": "9cabefa542e25b61d76913989ad1bb7c505c95dc470d0451f8825343163deca8",
+      "size": 6328
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/orientation_audit.json",
+      "sha256": "f436fdfc3b00345c2183bd69c2748676d5c0b5d50441e64eaf288188a8cebb81",
+      "size": 9659
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/paired_bc_analysis.csv",
+      "sha256": "e4ba160aab344ec5f4c5ecb54580faa563d84891894e6dd263d5c7e2aa6f74d4",
+      "size": 210773
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/physical_scale_audit.csv",
+      "sha256": "4c54f7cb51f97715c7dd4bdb723f2320195e80ef6e0b21f55bfea81ef2bb84b8",
+      "size": 3943
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/postmortem_report.json",
+      "sha256": "f2fe04e4bc9a152868b3007b736c585d933ee6b67f7de317df3b0b0a33683215",
+      "size": 28507
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/postmortem_report.md",
+      "sha256": "f6c55f55d8881408fea097f709999cf2512934e9faf7a47d9b70c41c13811349",
+      "size": 5747
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/raw_scores.csv",
+      "sha256": "fd99d3e518a543abb6cbd954d92e4c31c1472a48dbf8ccedc9b00dbad710fa09",
+      "size": 172300
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/score_histograms.csv",
+      "sha256": "65d097d5df1775da0485bba5386d18cc8a14bb8c70579ce2ce6fd614493df878",
+      "size": 2265
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/score_histograms.png",
+      "sha256": "7a0b81d62efdcb515e6a42ddcde22978aea684500ab73424b98b63c8ad8c5317",
+      "size": 49404
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/sift_backend_comparison.csv",
+      "sha256": "d739f246bfe8241efe42eedb0d4bcb274dd51a02e907641c0a2604713661ca5e",
+      "size": 52761
+    },
+    {
+      "path": "results/harriszplus_rootsift_geometric_v3/postmortem/stage_attrition.csv",
+      "sha256": "a37af2f35091066bd01d67ea523ba80ba074ebf523fec60699f2414a22065812",
+      "size": 89721
+    }
+  ],
+  "protected_integrity": {
+    "byte_identical": true,
+    "file_count": 57,
+    "key_files": [
+      {
+        "after_sha256": "702b7729fc17e9aaa08224102167a8cdfcc20ca3401294c2e3a43464b846c5cf",
+        "before_sha256": "702b7729fc17e9aaa08224102167a8cdfcc20ca3401294c2e3a43464b846c5cf",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/config/decision_rule.json"
+      },
+      {
+        "after_sha256": "62957b4f9cc44d8e4ec0ac774a793f66975ed971ed1760555fb31438fcccb14f",
+        "before_sha256": "62957b4f9cc44d8e4ec0ac774a793f66975ed971ed1760555fb31438fcccb14f",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/config/freeze_manifest.json"
+      },
+      {
+        "after_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+        "before_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/preflight/engineering_preflight_contract_v3.json"
+      },
+      {
+        "after_sha256": "85f9f27fe61e6971181ffe97e7f04bf6a13019f9f7d6be5857e52d8304d43b7b",
+        "before_sha256": "85f9f27fe61e6971181ffe97e7f04bf6a13019f9f7d6be5857e52d8304d43b7b",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/preflight/engineering_preflight_pass.json"
+      },
+      {
+        "after_sha256": "900a6651d842d64a59b1f688e489bf345faad7b8fcb415e4a452bb4f726feeb2",
+        "before_sha256": "900a6651d842d64a59b1f688e489bf345faad7b8fcb415e4a452bb4f726feeb2",
+        "byte_identical": true,
+        "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/artifact_manifest.json"
+      },
+      {
+        "after_sha256": "3e70eaafe22d9815723e900c5e9b6a06a362d7a613dd99ff5ca6f8be5262e0c9",
+        "before_sha256": "3e70eaafe22d9815723e900c5e9b6a06a362d7a613dd99ff5ca6f8be5262e0c9",
+        "byte_identical": true,
+        "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/integrity/protected_integrity.json"
+      },
+      {
+        "after_sha256": "4e6ae338982111d2039d338adbbb97fec3ef886a8a34e3fd7f465968f9f4dd5a",
+        "before_sha256": "4e6ae338982111d2039d338adbbb97fec3ef886a8a34e3fd7f465968f9f4dd5a",
+        "byte_identical": true,
+        "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/report/supervisor_report.json"
+      }
+    ],
+    "tree_sha256_after": "2564be0521adf225adf18991087e10609af4313541237a623c16c32ce40ce31a",
+    "tree_sha256_before": "2564be0521adf225adf18991087e10609af4313541237a623c16c32ce40ce31a"
+  },
+  "schema_version": "harriszplus-v3-postmortem-artifact-manifest-v1"
+}

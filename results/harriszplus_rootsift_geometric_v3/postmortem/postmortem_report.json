@@ -1,0 +1,966 @@
+{
+  "artifact_manifest": "results/harriszplus_rootsift_geometric_v3/postmortem/artifact_manifest.json",
+  "cap_saturation": {
+    "b_saturation_factor": {
+      "count": 1000,
+      "maximum": 19.262,
+      "mean": 8.218762,
+      "median": 8.998666666666667,
+      "minimum": 1.0,
+      "p25": 3.4399166666666665,
+      "p5": 2.0774000000000004,
+      "p75": 12.26,
+      "p95": 14.7301,
+      "zero_count": 0
+    },
+    "c_materially_more_saturated": true,
+    "c_saturation_factor": {
+      "count": 1000,
+      "maximum": 69.50766666666667,
+      "mean": 28.751074666666668,
+      "median": 32.414,
+      "minimum": 2.126333333333333,
+      "p25": 10.487333333333332,
+      "p5": 6.04695,
+      "p75": 43.84016666666666,
+      "p95": 53.00183333333332,
+      "zero_count": 0
+    },
+    "capture_count": 1000,
+    "median_c_to_b_ratio": 3.462310874145543,
+    "negative_c_lt_b": 0,
+    "non_tied": 1000,
+    "paired_delta_c_minus_b": {
+      "count": 1000,
+      "maximum": 50.962666666666664,
+      "mean": 20.532312666666666,
+      "median": 23.230333333333334,
+      "minimum": 1.1263333333333332,
+      "p25": 7.071416666666668,
+      "p5": 4.049183333333334,
+      "p75": 31.65233333333334,
+      "p95": 38.522816666666664,
+      "zero_count": 0
+    },
+    "positive_c_gt_b": 1000,
+    "ties": 0,
+    "two_sided_exact_sign_test_p": 1.8665272370064378e-301
+  },
+  "conclusion": {
+    "code": "A",
+    "next_step": "Define a new v4 PPI-aware scale-normalization method/config and select all parameters only on development identities outside these 500 identities. Do not modify v3 or describe v4 as a small fix.",
+    "rationale": [
+      "C loses genuine correspondences before and through geometry, with lower mutual-match and inlier distributions.",
+      "For every fixed scale index, detector, orientation-window, and descriptor physical support in C is approximately one half of B.",
+      "The cap is saturated and the B/C scale/candidate behavior is measurably different.",
+      "All frozen compare diagnostics confirm PPI-to-reference coordinate normalization and equal 0.0762 mm RANSAC thresholds."
+    ],
+    "title": "PPI/scale mismatch strongly supported"
+  },
+  "data_availability_limits": {
+    "candidate_responses_near_cap_cutoff": "not serialized",
+    "exact_per_scale_post_duplicate_pre_cap_counts": "not serialized; candidates_after_eigen_ratio is reported as an explicit proxy",
+    "keypoint_coordinates": "not serialized",
+    "match_and_inlier_coordinates": "not serialized",
+    "orientation_angles_and_histograms": "not serialized",
+    "orientation_peak_dominance": "not serialized",
+    "raw_residual_vectors": "not serialized; per-pair mean/median/p95/maximum summaries are analyzed"
+  },
+  "frozen_identity": {
+    "canonical_config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+    "decision_rule_hash": "478785ecb9c0cc8275d5f2618e6c6e5f6c9dcae1bd5b95cdd64798ebfd26d4fa",
+    "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+    "method_version": "harriszplus-rootsift-geometric-v3",
+    "operational_threshold": 4
+  },
+  "generated_at_utc": "2026-07-17T13:29:36.691409+00:00",
+  "genuine_failure_stage_counts": {
+    "sd300b": {
+      "accepted_4_or_more_inliers": 64,
+      "insufficient_descriptors": 0,
+      "insufficient_mutual_matches": 105,
+      "no_ratio_matches": 0,
+      "ransac_model_failure": 0,
+      "ransac_not_attempted": 0,
+      "valid_model_but_0_to_3_inliers": 331
+    },
+    "sd300c": {
+      "accepted_4_or_more_inliers": 1,
+      "insufficient_descriptors": 0,
+      "insufficient_mutual_matches": 137,
+      "no_ratio_matches": 0,
+      "ransac_model_failure": 0,
+      "ransac_not_attempted": 0,
+      "valid_model_but_0_to_3_inliers": 362
+    }
+  },
+  "genuine_stage_metrics": {
+    "sd300b": {
+      "accepted": 64,
+      "inliers": {
+        "count": 500,
+        "maximum": 13.0,
+        "mean": 2.148,
+        "median": 2.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 0.0,
+        "p75": 2.0,
+        "p95": 5.0,
+        "zero_count": 105
+      },
+      "mutual_matches": {
+        "count": 500,
+        "maximum": 37.0,
+        "mean": 6.032,
+        "median": 5.0,
+        "minimum": 0.0,
+        "p25": 3.0,
+        "p5": 1.0,
+        "p75": 8.0,
+        "p95": 15.0,
+        "zero_count": 11
+      },
+      "ransac_inputs": {
+        "count": 500,
+        "maximum": 37.0,
+        "mean": 6.032,
+        "median": 5.0,
+        "minimum": 0.0,
+        "p25": 3.0,
+        "p5": 1.0,
+        "p75": 8.0,
+        "p95": 15.0,
+        "zero_count": 11
+      }
+    },
+    "sd300c": {
+      "accepted": 1,
+      "inliers": {
+        "count": 500,
+        "maximum": 4.0,
+        "mean": 1.472,
+        "median": 2.0,
+        "minimum": 0.0,
+        "p25": 0.0,
+        "p5": 0.0,
+        "p75": 2.0,
+        "p95": 2.0,
+        "zero_count": 137
+      },
+      "mutual_matches": {
+        "count": 500,
+        "maximum": 15.0,
+        "mean": 4.212,
+        "median": 4.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 1.0,
+        "p75": 6.0,
+        "p95": 9.0,
+        "zero_count": 20
+      },
+      "ransac_inputs": {
+        "count": 500,
+        "maximum": 15.0,
+        "mean": 4.212,
+        "median": 4.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 1.0,
+        "p75": 6.0,
+        "p95": 9.0,
+        "zero_count": 20
+      }
+    }
+  },
+  "inspection": {
+    "contact_sheets": [
+      "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/b_accepted_c_rejected_first10/page_01.png",
+      "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/b_accepted_c_rejected_first10/page_02.png",
+      "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/both_rejected_first10/page_01.png",
+      "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/both_rejected_first10/page_02.png",
+      "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/c_accepted_all/page_01.png",
+      "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/c_score_zero_first10/page_01.png",
+      "results/harriszplus_rootsift_geometric_v3/postmortem/inspection/c_score_zero_first10/page_02.png"
+    ],
+    "coordinate_overlay_status": "unavailable from frozen diagnostics; counts shown",
+    "selection_record_count_including_category_membership": 31
+  },
+  "integrity": {
+    "byte_identical": true,
+    "key_files": [
+      {
+        "after_sha256": "702b7729fc17e9aaa08224102167a8cdfcc20ca3401294c2e3a43464b846c5cf",
+        "before_sha256": "702b7729fc17e9aaa08224102167a8cdfcc20ca3401294c2e3a43464b846c5cf",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/config/decision_rule.json"
+      },
+      {
+        "after_sha256": "62957b4f9cc44d8e4ec0ac774a793f66975ed971ed1760555fb31438fcccb14f",
+        "before_sha256": "62957b4f9cc44d8e4ec0ac774a793f66975ed971ed1760555fb31438fcccb14f",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/config/freeze_manifest.json"
+      },
+      {
+        "after_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+        "before_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/preflight/engineering_preflight_contract_v3.json"
+      },
+      {
+        "after_sha256": "85f9f27fe61e6971181ffe97e7f04bf6a13019f9f7d6be5857e52d8304d43b7b",
+        "before_sha256": "85f9f27fe61e6971181ffe97e7f04bf6a13019f9f7d6be5857e52d8304d43b7b",
+        "byte_identical": true,
+        "path": "results/harriszplus_rootsift_geometric_v3/preflight/engineering_preflight_pass.json"
+      },
+      {
+        "after_sha256": "900a6651d842d64a59b1f688e489bf345faad7b8fcb415e4a452bb4f726feeb2",
+        "before_sha256": "900a6651d842d64a59b1f688e489bf345faad7b8fcb415e4a452bb4f726feeb2",
+        "byte_identical": true,
+        "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/artifact_manifest.json"
+      },
+      {
+        "after_sha256": "3e70eaafe22d9815723e900c5e9b6a06a362d7a613dd99ff5ca6f8be5262e0c9",
+        "before_sha256": "3e70eaafe22d9815723e900c5e9b6a06a362d7a613dd99ff5ca6f8be5262e0c9",
+        "byte_identical": true,
+        "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/integrity/protected_integrity.json"
+      },
+      {
+        "after_sha256": "4e6ae338982111d2039d338adbbb97fec3ef886a8a34e3fd7f465968f9f4dd5a",
+        "before_sha256": "4e6ae338982111d2039d338adbbb97fec3ef886a8a34e3fd7f465968f9f4dd5a",
+        "byte_identical": true,
+        "path": "results/pilots/harriszplus_rootsift_geometric_joint_500_v3/report/supervisor_report.json"
+      }
+    ],
+    "protected_file_count": 57,
+    "protected_tree_sha256_after": "2564be0521adf225adf18991087e10609af4313541237a623c16c32ce40ce31a",
+    "protected_tree_sha256_before": "2564be0521adf225adf18991087e10609af4313541237a623c16c32ce40ce31a"
+  },
+  "orientation": {
+    "availability": {
+      "aggregate_orientation_count_and_sample_range": "available",
+      "b_c_distribution_shift": "unavailable without angle payloads",
+      "near_180_ambiguity_rate": "unavailable",
+      "orientation_entropy": "unavailable",
+      "orientation_histogram": "unavailable: individual angles were not serialized",
+      "self_payload_identity": "available through representation SHA-256",
+      "ten_degree_neighborhood_rates": "unavailable",
+      "weak_peak_dominance_rate": "unavailable: peak values/dominance were not serialized",
+      "zero_180_concentration": "unavailable"
+    },
+    "configured_policy": {
+      "bins": 36,
+      "gaussian_sigma_factor": 1.5,
+      "histogram_smoothing_passes": 6,
+      "radius_factor": 3.0,
+      "random_180_flip": false,
+      "signed_gradient_full_360_degrees": true
+    },
+    "interpretation": "Self-pair hashes prove byte-identical orientation-bearing representations on both sides. The frozen payload cannot support an angle histogram, entropy, 180-degree shift, dispersion, or peak-dominance claim.",
+    "no_orientation_recomputed": true,
+    "representation_hash_scope": "representation_sha256 hashes points, sizes, angles, responses, octaves, class_ids, descriptors, dimensions, PPI, scale indices and source indices.",
+    "run_summaries": {
+      "sd300b/genuine": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 2998.481,
+          "median": 3000.0,
+          "minimum": 1980.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.822,
+          "median": 1022.0,
+          "minimum": 1013.0,
+          "p25": 1021.0,
+          "p5": 1019.0,
+          "p75": 1023.0,
+          "p95": 1024.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 107.0,
+          "mean": 55.205,
+          "median": 56.0,
+          "minimum": 29.0,
+          "p25": 50.0,
+          "p5": 40.0,
+          "p75": 58.0,
+          "p95": 74.0,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      },
+      "sd300b/negative": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 2998.481,
+          "median": 3000.0,
+          "minimum": 1980.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.822,
+          "median": 1022.0,
+          "minimum": 1013.0,
+          "p25": 1021.0,
+          "p5": 1019.0,
+          "p75": 1023.0,
+          "p95": 1024.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 107.0,
+          "mean": 55.205,
+          "median": 56.0,
+          "minimum": 29.0,
+          "p25": 50.0,
+          "p5": 40.0,
+          "p75": 58.0,
+          "p95": 74.0,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      },
+      "sd300b/plain_self": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 2996.962,
+          "median": 3000.0,
+          "minimum": 1980.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.886,
+          "median": 1022.0,
+          "minimum": 1013.0,
+          "p25": 1021.0,
+          "p5": 1019.0,
+          "p75": 1023.0,
+          "p95": 1024.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 107.0,
+          "mean": 51.664,
+          "median": 51.0,
+          "minimum": 29.0,
+          "p25": 45.0,
+          "p5": 39.0,
+          "p75": 56.0,
+          "p95": 72.09999999999991,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      },
+      "sd300b/roll_self": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 3000.0,
+          "median": 3000.0,
+          "minimum": 3000.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.758,
+          "median": 1022.0,
+          "minimum": 1015.0,
+          "p25": 1021.0,
+          "p5": 1019.0,
+          "p75": 1023.0,
+          "p95": 1024.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 96.0,
+          "mean": 58.746,
+          "median": 57.0,
+          "minimum": 34.0,
+          "p25": 56.0,
+          "p5": 53.0,
+          "p75": 60.0,
+          "p95": 74.0,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      },
+      "sd300c/genuine": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 3000.0,
+          "median": 3000.0,
+          "minimum": 3000.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.348,
+          "median": 1022.0,
+          "minimum": 1009.0,
+          "p25": 1021.0,
+          "p5": 1019.0,
+          "p75": 1022.0,
+          "p95": 1024.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 96.0,
+          "mean": 58.25,
+          "median": 57.0,
+          "minimum": 33.0,
+          "p25": 51.0,
+          "p5": 41.0,
+          "p75": 61.0,
+          "p95": 80.0,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      },
+      "sd300c/negative": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 3000.0,
+          "median": 3000.0,
+          "minimum": 3000.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.348,
+          "median": 1022.0,
+          "minimum": 1009.0,
+          "p25": 1021.0,
+          "p5": 1019.0,
+          "p75": 1022.0,
+          "p95": 1024.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 96.0,
+          "mean": 58.25,
+          "median": 57.0,
+          "minimum": 33.0,
+          "p25": 51.0,
+          "p5": 41.0,
+          "p75": 61.0,
+          "p95": 80.0,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      },
+      "sd300c/plain_self": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 3000.0,
+          "median": 3000.0,
+          "minimum": 3000.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.466,
+          "median": 1022.0,
+          "minimum": 1009.0,
+          "p25": 1021.0,
+          "p5": 1018.95,
+          "p75": 1023.0,
+          "p95": 1024.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 96.0,
+          "mean": 52.978,
+          "median": 51.0,
+          "minimum": 33.0,
+          "p25": 46.0,
+          "p5": 39.0,
+          "p75": 57.0,
+          "p95": 78.0,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      },
+      "sd300c/roll_self": {
+        "orientation_count": {
+          "count": 1000,
+          "maximum": 3000.0,
+          "mean": 3000.0,
+          "median": 3000.0,
+          "minimum": 3000.0,
+          "p25": 3000.0,
+          "p5": 3000.0,
+          "p75": 3000.0,
+          "p95": 3000.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_max": {
+          "count": 1000,
+          "maximum": 1025.0,
+          "mean": 1021.23,
+          "median": 1021.0,
+          "minimum": 1013.0,
+          "p25": 1020.0,
+          "p5": 1019.0,
+          "p75": 1022.0,
+          "p95": 1023.0,
+          "zero_count": 0
+        },
+        "orientation_sample_count_min": {
+          "count": 1000,
+          "maximum": 93.0,
+          "mean": 63.522,
+          "median": 60.0,
+          "minimum": 40.0,
+          "p25": 56.0,
+          "p5": 54.0,
+          "p75": 71.0,
+          "p95": 81.0,
+          "zero_count": 0
+        },
+        "representation_observations": 1000
+      }
+    },
+    "schema_version": "harriszplus-v3-orientation-postmortem-v1",
+    "self_pair_payload_identity": {
+      "sd300b/plain_self": {
+        "all_equal": true,
+        "pair_count": 500,
+        "representation_sha256_equal": 500
+      },
+      "sd300b/roll_self": {
+        "all_equal": true,
+        "pair_count": 500,
+        "representation_sha256_equal": 500
+      },
+      "sd300c/plain_self": {
+        "all_equal": true,
+        "pair_count": 500,
+        "representation_sha256_equal": 500
+      },
+      "sd300c/roll_self": {
+        "all_equal": true,
+        "pair_count": 500,
+        "representation_sha256_equal": 500
+      }
+    }
+  },
+  "paired_bc": {
+    "accepted_in_both": 1,
+    "accepted_only_b": 63,
+    "accepted_only_c": 0,
+    "identity_count": 500,
+    "rejected_in_both": 436,
+    "score_delta_c_minus_b": {
+      "count": 500,
+      "maximum": 2.0,
+      "mean": -0.676,
+      "median": 0.0,
+      "minimum": -11.0,
+      "p25": -2.0,
+      "p5": -4.0,
+      "p75": 0.0,
+      "p95": 2.0,
+      "zero_count": 255
+    },
+    "score_pearson_correlation": 0.17499618465832287,
+    "stage_transitions": {
+      "accepted_4_or_more_inliers -> accepted_4_or_more_inliers": 1,
+      "accepted_4_or_more_inliers -> insufficient_mutual_matches": 11,
+      "accepted_4_or_more_inliers -> valid_model_but_0_to_3_inliers": 52,
+      "insufficient_mutual_matches -> insufficient_mutual_matches": 47,
+      "insufficient_mutual_matches -> valid_model_but_0_to_3_inliers": 58,
+      "valid_model_but_0_to_3_inliers -> insufficient_mutual_matches": 79,
+      "valid_model_but_0_to_3_inliers -> valid_model_but_0_to_3_inliers": 252
+    }
+  },
+  "physical_scale": {
+    "final_scale_mix": {
+      "sd300b": {
+        "counts": {
+          "0": 2034383,
+          "1": 316443,
+          "2": 420001,
+          "3": 159431,
+          "4": 68223
+        },
+        "fractions": {
+          "0": 0.6784711992505539,
+          "1": 0.1055344356025601,
+          "2": 0.14007125607932816,
+          "3": 0.05317058870808253,
+          "4": 0.022752520359475347
+        }
+      },
+      "sd300c": {
+        "counts": {
+          "0": 1831801,
+          "1": 350019,
+          "2": 503614,
+          "3": 216782,
+          "4": 97784
+        },
+        "fractions": {
+          "0": 0.6106003333333333,
+          "1": 0.116673,
+          "2": 0.16787133333333334,
+          "3": 0.07226066666666667,
+          "4": 0.03259466666666667
+        }
+      }
+    },
+    "ransac_audit": {
+      "b_native_threshold_pixels": 3.0,
+      "b_threshold_mm": 0.07619999999999999,
+      "c_native_threshold_pixels": 6.0,
+      "c_threshold_mm": 0.07619999999999999,
+      "coordinate_normalization_ppi_to_reference_count": 4000,
+      "fully_ppi_normalized": true,
+      "pair_count": 4000,
+      "reference_ppi_1000_count": 4000,
+      "threshold_reference_pixels_3_count": 4000
+    },
+    "same_scale_c_to_b_physical_support_ratio": 0.5,
+    "scale_mix_total_variation_distance": 0.06787086591722057
+  },
+  "schema_version": "harriszplus-rootsift-geometric-v3-postmortem-v1",
+  "scope": {
+    "cap_changed": false,
+    "config_changed": false,
+    "descriptor_executed": false,
+    "detector_executed": false,
+    "matcher_executed": false,
+    "orientation_executed": false,
+    "postmortem_only": true,
+    "ransac_executed": false,
+    "runs_reexecuted": false,
+    "threshold_changed": false
+  },
+  "score_distributions": {
+    "sd300b/genuine": {
+      "accepted_at_threshold": {
+        "1": 395,
+        "2": 395,
+        "3": 122,
+        "4": 64
+      },
+      "bins": {
+        "0": 105,
+        "1": 0,
+        "10+": 5,
+        "2": 273,
+        "3": 58,
+        "4": 29,
+        "5-9": 30
+      },
+      "total": 500
+    },
+    "sd300b/negative": {
+      "accepted_at_threshold": {
+        "1": 259,
+        "2": 259,
+        "3": 6,
+        "4": 3
+      },
+      "bins": {
+        "0": 241,
+        "1": 0,
+        "10+": 0,
+        "2": 253,
+        "3": 3,
+        "4": 2,
+        "5-9": 1
+      },
+      "total": 500
+    },
+    "sd300c/genuine": {
+      "accepted_at_threshold": {
+        "1": 363,
+        "2": 363,
+        "3": 9,
+        "4": 1
+      },
+      "bins": {
+        "0": 137,
+        "1": 0,
+        "10+": 0,
+        "2": 354,
+        "3": 8,
+        "4": 1,
+        "5-9": 0
+      },
+      "total": 500
+    },
+    "sd300c/negative": {
+      "accepted_at_threshold": {
+        "1": 282,
+        "2": 282,
+        "3": 1,
+        "4": 0
+      },
+      "bins": {
+        "0": 218,
+        "1": 0,
+        "10+": 0,
+        "2": 281,
+        "3": 1,
+        "4": 0,
+        "5-9": 0
+      },
+      "total": 500
+    }
+  },
+  "sift_backend_comparison": {
+    "sd300b": {
+      "harrisz_descriptors_per_image": {
+        "count": 1000,
+        "maximum": 3000.0,
+        "mean": 2998.481,
+        "median": 3000.0,
+        "minimum": 1980.0,
+        "p25": 3000.0,
+        "p5": 3000.0,
+        "p75": 3000.0,
+        "p95": 3000.0,
+        "zero_count": 0
+      },
+      "harrisz_inliers": {
+        "count": 500,
+        "maximum": 13.0,
+        "mean": 2.148,
+        "median": 2.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 0.0,
+        "p75": 2.0,
+        "p95": 5.0,
+        "zero_count": 105
+      },
+      "harrisz_mutual_matches": {
+        "count": 500,
+        "maximum": 37.0,
+        "mean": 6.032,
+        "median": 5.0,
+        "minimum": 0.0,
+        "p25": 3.0,
+        "p5": 1.0,
+        "p75": 8.0,
+        "p95": 15.0,
+        "zero_count": 11
+      },
+      "harrisz_ransac_inputs": {
+        "count": 500,
+        "maximum": 37.0,
+        "mean": 6.032,
+        "median": 5.0,
+        "minimum": 0.0,
+        "p25": 3.0,
+        "p5": 1.0,
+        "p75": 8.0,
+        "p95": 15.0,
+        "zero_count": 11
+      },
+      "identity_count": 500,
+      "sift_descriptors_per_image": {
+        "count": 1000,
+        "maximum": 3002.0,
+        "mean": 2874.061,
+        "median": 3000.0,
+        "minimum": 419.0,
+        "p25": 3000.0,
+        "p5": 1869.9,
+        "p75": 3000.0,
+        "p95": 3001.0,
+        "zero_count": 0
+      },
+      "sift_inliers": {
+        "count": 500,
+        "maximum": 75.0,
+        "mean": 7.378,
+        "median": 4.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 0.0,
+        "p75": 9.0,
+        "p95": 26.0,
+        "zero_count": 96
+      },
+      "sift_mutual_matches": {
+        "count": 500,
+        "maximum": 196.0,
+        "mean": 16.646,
+        "median": 9.0,
+        "minimum": 0.0,
+        "p25": 4.0,
+        "p5": 1.0,
+        "p75": 20.0,
+        "p95": 56.049999999999955,
+        "zero_count": 20
+      },
+      "sift_ransac_inputs": {
+        "count": 500,
+        "maximum": 196.0,
+        "mean": 16.646,
+        "median": 9.0,
+        "minimum": 0.0,
+        "p25": 4.0,
+        "p5": 1.0,
+        "p75": 20.0,
+        "p95": 56.049999999999955,
+        "zero_count": 20
+      }
+    },
+    "sd300c": {
+      "harrisz_descriptors_per_image": {
+        "count": 1000,
+        "maximum": 3000.0,
+        "mean": 3000.0,
+        "median": 3000.0,
+        "minimum": 3000.0,
+        "p25": 3000.0,
+        "p5": 3000.0,
+        "p75": 3000.0,
+        "p95": 3000.0,
+        "zero_count": 0
+      },
+      "harrisz_inliers": {
+        "count": 500,
+        "maximum": 4.0,
+        "mean": 1.472,
+        "median": 2.0,
+        "minimum": 0.0,
+        "p25": 0.0,
+        "p5": 0.0,
+        "p75": 2.0,
+        "p95": 2.0,
+        "zero_count": 137
+      },
+      "harrisz_mutual_matches": {
+        "count": 500,
+        "maximum": 15.0,
+        "mean": 4.212,
+        "median": 4.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 1.0,
+        "p75": 6.0,
+        "p95": 9.0,
+        "zero_count": 20
+      },
+      "harrisz_ransac_inputs": {
+        "count": 500,
+        "maximum": 15.0,
+        "mean": 4.212,
+        "median": 4.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 1.0,
+        "p75": 6.0,
+        "p95": 9.0,
+        "zero_count": 20
+      },
+      "identity_count": 500,
+      "sift_descriptors_per_image": {
+        "count": 1000,
+        "maximum": 3003.0,
+        "mean": 2918.722,
+        "median": 3000.0,
+        "minimum": 476.0,
+        "p25": 3000.0,
+        "p5": 2281.35,
+        "p75": 3000.0,
+        "p95": 3001.0,
+        "zero_count": 0
+      },
+      "sift_inliers": {
+        "count": 500,
+        "maximum": 67.0,
+        "mean": 7.158,
+        "median": 4.0,
+        "minimum": 0.0,
+        "p25": 2.0,
+        "p5": 0.0,
+        "p75": 9.0,
+        "p95": 25.0,
+        "zero_count": 95
+      },
+      "sift_mutual_matches": {
+        "count": 500,
+        "maximum": 153.0,
+        "mean": 15.97,
+        "median": 9.0,
+        "minimum": 0.0,
+        "p25": 3.0,
+        "p5": 1.0,
+        "p75": 20.0,
+        "p95": 55.0,
+        "zero_count": 20
+      },
+      "sift_ransac_inputs": {
+        "count": 500,
+        "maximum": 153.0,
+        "mean": 15.97,
+        "median": 9.0,
+        "minimum": 0.0,
+        "p25": 3.0,
+        "p5": 1.0,
+        "p75": 20.0,
+        "p95": 55.0,
+        "zero_count": 20
+      }
+    }
+  }
+}

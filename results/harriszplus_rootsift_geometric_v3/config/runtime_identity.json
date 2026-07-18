@@ -1,0 +1,25 @@
+{
+  "compute_capability": [
+    12,
+    0
+  ],
+  "cudnn_version": 91900,
+  "dependency_artifact_sha256": {
+    "environment.yml": "7e6f2a8609cb3b3338093361fb48f8b8c75b9e222eba53962faf4c168f7bbe3a",
+    "pyproject.toml": "2762f937d9c866b539f533fce07dd84074f902e1d9c48b1e63e5e4e50cac55a5"
+  },
+  "device_index": 0,
+  "gpu_model": "NVIDIA GeForce RTX 5080 Laptop GPU",
+  "numpy_version": "2.2.6",
+  "nvidia_driver_version": "592.01",
+  "opencv_version": "4.12.0",
+  "operating_system": "Windows-10-10.0.26200-SP0",
+  "python_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\python.exe",
+  "python_version": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:27:10) [MSC v.1944 64 bit (AMD64)]",
+  "pytorch_version": "2.11.0+cu130",
+  "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5",
+  "schema_version": "harriszplus-runtime-identity-v1",
+  "selected_device": "cuda:0",
+  "torch_cuda_build_runtime": "13.0",
+  "total_vram_bytes": 17094475776
+}

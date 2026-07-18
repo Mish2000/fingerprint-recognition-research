@@ -1,0 +1,142 @@
+{
+  "schema_version": "engineering-preflight-v2",
+  "method_name": "harriszplus_rootsift_geometric",
+  "method_version": "harriszplus-rootsift-geometric-v2",
+  "parent_failed_candidate": "harriszplus-rootsift-geometric-v1",
+  "status": "frozen",
+  "immutable": true,
+  "overwrite_allowed": false,
+  "frozen_before_preflight": true,
+  "frozen_before_any_500_result": true,
+  "algorithm_changed": false,
+  "validation_contract_changed": true,
+  "candidate_algorithm_config_sha256": "521c23e27e5e3b0336aeeb755c8fa5baf32f510fecb9e6d2244c2fc204ba87fa",
+  "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+  "v1_failure_report_sha256": "9b822a9a2bc0e67e8b0bf3d9658b55d84865bb6c64f3f82a5900debebbb8cd42",
+  "absolute_conditions": {
+    "finite_only": true,
+    "cpu_and_cuda_complete_every_synthetic_case": true,
+    "cuda_repeat_exact": true,
+    "maximum_keypoints": 3000,
+    "coordinates_within_image_bounds": true,
+    "positive_scales": true,
+    "finite_descriptors": true,
+    "valid_statuses": [
+      "ok",
+      "prepare_a_failure",
+      "prepare_b_failure",
+      "comparison_failure"
+    ],
+    "out_of_memory_allowed": false,
+    "hidden_cpu_fallback_allowed": false
+  },
+  "response_maps": {
+    "response_atol": 0.0005,
+    "response_rtol": 0.0002,
+    "response_max_absolute_delta": 0.1,
+    "minimum_real_pixel_coverage": 0.9999,
+    "minimum_synthetic_pixel_coverage": 1.0,
+    "statistics_required": [
+      "minimum",
+      "maximum",
+      "mean",
+      "sample_stddev"
+    ],
+    "report_per_scale": [
+      "maximum_absolute_difference",
+      "mean_absolute_difference",
+      "normalized_rmse",
+      "sign_disagreement_count_at_0",
+      "mask_disagreement_count_at_0.31"
+    ],
+    "tolerances_identical_to_v1": true,
+    "post_result_widening_allowed": false
+  },
+  "intermediate_candidate_counts": {
+    "gate": "absolute_hybrid",
+    "allowed_absolute_delta": "max(2, ceil(0.005 * max(cpu_count, cuda_count)))",
+    "failure_condition": "abs(cpu_count - cuda_count) > allowed_absolute_delta",
+    "zero_versus_nonzero_always_fails": true,
+    "legacy_ratio_reported": true,
+    "legacy_ratio_is_gate": false
+  },
+  "final_keypoint_equivalence": {
+    "matching": "bidirectional_nearest_unused",
+    "spatial_distance_max_original_pixels": 0.5,
+    "relative_scale_difference_max": 0.01,
+    "count_allowed_absolute_delta": "max(2, ceil(0.005 * max(cpu_count, cuda_count)))",
+    "minimum_bidirectional_matched_fraction": 0.995,
+    "minimum_response_rank_spearman": 0.9999,
+    "match_requires_spatial_and_scale_tolerances": true,
+    "post_result_widening_allowed": false
+  },
+  "downstream_semantic_validation": {
+    "real_pair_count": 10,
+    "same_v1_real_pairs": true,
+    "status_exact": true,
+    "failure_stage_exact": true,
+    "threshold": 4,
+    "decision_exact": true,
+    "raw_score_max_absolute_delta": 1,
+    "minimum_exact_raw_scores": 9,
+    "descriptor_count_allowed_absolute_delta": "max(2, ceil(0.005 * max(cpu_count, cuda_count)))",
+    "any_decision_difference_fails": true
+  },
+  "cuda_reproducibility": {
+    "full_run_count": 2,
+    "synthetic_suite": [
+      "flat",
+      "single_corner",
+      "checkerboard",
+      "rotated_corner",
+      "scaled_corner",
+      "noisy_corner",
+      "edge_only"
+    ],
+    "real_image_count": 10,
+    "real_pair_count": 10,
+    "exact_fields": [
+      "selected_keypoint_payload",
+      "descriptors",
+      "raw_scores",
+      "decisions",
+      "statuses",
+      "deterministic_diagnostics"
+    ],
+    "payload_hashes_required": true
+  },
+  "real_suite": {
+    "datasets": [
+      "sd300b",
+      "sd300c"
+    ],
+    "identities_per_dataset": 5,
+    "same_five_identities_in_b_and_c": true,
+    "image_replacement_allowed": false
+  },
+  "performance_projection": {
+    "correctness_gate": false,
+    "required_measurements": [
+      "median_prepare_time_sd300b",
+      "median_prepare_time_sd300c",
+      "detector_time",
+      "descriptor_time",
+      "peak_vram"
+    ],
+    "required_projections": [
+      "one_500_pair_run_sd300b",
+      "one_500_pair_run_sd300c",
+      "all_eight_runs"
+    ],
+    "keypoint_cap_change_allowed": false,
+    "resolution_change_allowed": false,
+    "cold_pair_change_allowed": false,
+    "cache_change_allowed": false
+  },
+  "workflow_gate": {
+    "freeze_only_after_all_gates_pass": true,
+    "pilot_500_only_after_pass_artifact": true,
+    "failure_publishes_new_failure_artifact": true,
+    "failure_stops_before_pilot_500": true
+  }
+}

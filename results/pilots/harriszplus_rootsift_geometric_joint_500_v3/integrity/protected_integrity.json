@@ -1,0 +1,36 @@
+{
+  "added_paths": [],
+  "after_file_count": 228,
+  "after_snapshot_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\integrity\\protected_after.json",
+  "after_snapshot_sha256": "216c4a1b5a46c0a88dfb1ae511b131a46549a5bdb83fcdaa10986e8da1bbe118",
+  "after_tree_sha256": "61c8850865bab4d761f7a8d2da364f11d660c4385c2c569b17fafa79b553cca8",
+  "before_file_count": 228,
+  "before_snapshot_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\integrity\\protected_before.json",
+  "before_snapshot_sha256": "216c4a1b5a46c0a88dfb1ae511b131a46549a5bdb83fcdaa10986e8da1bbe118",
+  "before_tree_sha256": "61c8850865bab4d761f7a8d2da364f11d660c4385c2c569b17fafa79b553cca8",
+  "changed_paths": [],
+  "combined_snapshot_sha256_match": true,
+  "dataset_tree_rescanned": false,
+  "manifest_referenced_dataset_inventory": {
+    "after": {
+      "all_protocol_dataset_stat_inventory_sha256": "48671391df5a10c1f6732c3f0051d6093fc62a3768778ba5850f1a8f47cfd841",
+      "authoritative_pilot_image_content_inventory_sha256": "41b91795525685044aca095bc3ffee56a4d86a4dd9613937992977522129ff3a"
+    },
+    "all_protocol_dataset_file_count": 35318,
+    "authoritative_pilot_image_count": 2000,
+    "before": {
+      "all_protocol_dataset_stat_inventory_sha256": "48671391df5a10c1f6732c3f0051d6093fc62a3768778ba5850f1a8f47cfd841",
+      "authoritative_pilot_image_content_inventory_sha256": "41b91795525685044aca095bc3ffee56a4d86a4dd9613937992977522129ff3a"
+    },
+    "matches": {
+      "all_protocol_dataset_stat_inventory_sha256": true,
+      "authoritative_pilot_image_content_inventory_sha256": true
+    },
+    "status": "ok"
+  },
+  "mismatch_count": 0,
+  "passed": true,
+  "protected_artifacts_unchanged": true,
+  "removed_paths": [],
+  "schema_version": "harriszplus-narrow-protected-integrity-v1"
+}

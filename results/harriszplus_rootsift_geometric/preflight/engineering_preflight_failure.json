@@ -1,0 +1,102 @@
+{
+  "schema_version": "harriszplus-engineering-preflight-failure-v1",
+  "status": "failed",
+  "pilot_500_authorized": false,
+  "formal_preflight_execution_count": 1,
+  "formal_preflight_passing_artifact_published": false,
+  "failure": {
+    "case_id": "synthetic:noisy_corner",
+    "gate": "cpu_cuda_candidate_count_agreement",
+    "frozen_minimum_preuniform_count_ratio": 0.9995,
+    "aggregate_candidate_counts": {
+      "after_local_maxima": {
+        "cpu": 553,
+        "cuda": 551,
+        "ratio": 0.9963833634719711
+      },
+      "after_scale_suppression": {
+        "cpu": 552,
+        "cuda": 550,
+        "ratio": 0.9963768115942029
+      },
+      "after_eigen_ratio": {
+        "cpu": 516,
+        "cuda": 514,
+        "ratio": 0.9961240310077519
+      }
+    },
+    "scale_1_candidate_counts": {
+      "after_local_maxima": {
+        "cpu": 19,
+        "cuda": 17,
+        "ratio": 0.8947368421052632
+      },
+      "after_scale_suppression": {
+        "cpu": 19,
+        "cuda": 17,
+        "ratio": 0.8947368421052632
+      },
+      "after_eigen_ratio": {
+        "cpu": 13,
+        "cuda": 11,
+        "ratio": 0.8461538461538461
+      }
+    },
+    "passing_evidence_for_same_case": {
+      "response_maps_passed": true,
+      "nearest_keypoints_passed": true,
+      "matched_keypoint_fraction": 0.9960238568588469,
+      "minimum_matched_keypoint_fraction": 0.95,
+      "order_correlation_passed": true,
+      "matched_order_spearman_rank_correlation": 0.9999959159844337,
+      "minimum_order_spearman_rank_correlation": 0.99,
+      "cpu_final_keypoint_count": 503,
+      "cuda_final_keypoint_count": 503,
+      "cuda_repeat_exact": true,
+      "finite": true
+    },
+    "evidence_source": "post-failure targeted reproduction of the failing frozen synthetic case; no validation threshold or algorithm parameter was changed"
+  },
+  "workflow_termination": {
+    "config_frozen": false,
+    "decision_rule_artifact_published": false,
+    "pilot_bundle_count": 0,
+    "full_pilot_repeat_count": 0,
+    "threshold_or_tolerance_changed_after_result": false,
+    "calibration_or_tuning_on_500_results": false,
+    "any_500_result_observed": false
+  },
+  "candidate_identity_not_frozen": {
+    "canonical_config_hash": "521c23e27e5e3b0336aeeb755c8fa5baf32f510fecb9e6d2244c2fc204ba87fa",
+    "implementation_hash": "2719f93849f2761bff43bee95676a0e84a9166178c680bb5d516378449dbfa22",
+    "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5"
+  },
+  "formal_inputs": {
+    "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+    "integrity_before_sha256": "aecb657527edbba749859a539cddee293c093eac6eb37ce13fc00fba7f42ee35",
+    "integrity_before_combined_snapshot_sha256": "a751243272e6cf2b4f85d01b6449dbe9fffb9662c5e8d9f59efda1b257c1a5c6",
+    "base_manifest_provenance_sha256": "a942a86a6e056a8e7e7e9f7014c74cae8c7a02c84711817e4bdf01071b1253e5",
+    "synthetic_case_count": 7,
+    "real_image_count": 10,
+    "same_five_identities_in_sd300b_and_sd300c": true
+  },
+  "integrity_after": {
+    "status": "ok",
+    "protected_artifacts_unchanged": true,
+    "before_tree_sha256": "7ceb02b6226c3ac3cb5a59edf453ad77d812d050e869cc90c2d7273c48f4853a",
+    "after_tree_sha256": "7ceb02b6226c3ac3cb5a59edf453ad77d812d050e869cc90c2d7273c48f4853a",
+    "manifest_referenced_dataset_inventory_status": "ok",
+    "report_sha256": "9f1dcacebb1438c49d06adf8c313d0afe6036581a4cbd22dcb70f2519e534581"
+  },
+  "pre_formal_test_result": {
+    "passed": 454,
+    "skipped": 1
+  },
+  "anomalies": [
+    {
+      "stage": "preflight preparation before the formal preflight began",
+      "issue": "Windows text-mode os.open translated LF to CRLF in the first copied manifest",
+      "resolution": "the invalid partial root was removed, publication was fixed with O_BINARY, an exact-byte regression was added, the full test suite passed, and a new integrity-before baseline was captured before the sole formal preflight"
+    }
+  ]
+}
