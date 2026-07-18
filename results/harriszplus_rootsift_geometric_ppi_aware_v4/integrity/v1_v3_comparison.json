@@ -1,0 +1,11 @@
+{
+  "added": [],
+  "after_file_count": 123,
+  "after_tree_sha256": "14305806fbeb4d2463cadb2ce0717fb745e39fd8b529e38d3625a87aee1a90d5",
+  "before_file_count": 123,
+  "before_tree_sha256": "14305806fbeb4d2463cadb2ce0717fb745e39fd8b529e38d3625a87aee1a90d5",
+  "byte_identical": true,
+  "changed": [],
+  "missing": [],
+  "schema_version": "harriszplus-v1-v3-integrity-comparison-v4"
+}

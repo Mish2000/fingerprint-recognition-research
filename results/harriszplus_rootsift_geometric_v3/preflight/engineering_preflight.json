@@ -1,0 +1,84 @@
+{
+  "algorithm_source_sha256": {
+    "adapter.py": "125629842f012ce1b7b13b9c2ea4628d0a086cb4e7c6a7073f5d832bef6fa130",
+    "config.py": "8e543e0ae61e97fe8e11b546f564139271bc90fef0987cc38ea42092e48032ab",
+    "cuda_detector.py": "fa28d89a5fdb7f503824a6ce05dcf534793e4c1d5ed8f0c6f2b17766de65c52c",
+    "extractor.py": "513e86d9e4374b115ebb90811a79a8c10a1755897701beb08c7ea5bffd21af34",
+    "kernels.py": "e4fd03697f3fe07041d4e685d1b749c4601f82318039b1febade8b42ca9781a9",
+    "orientation.py": "93eb4bf385b3277862331d30ae8fae1ea89fce87e1ac7edbb91ca7cc74aa8ff6",
+    "provenance.py": "98e5716358eab0a887b1190f5dc6a6b476d1cc7a28ca7fc5081a3e264abfc41c",
+    "reference_cpu.py": "01533331da30c6aa58bd79369e2ce9a30c9c31a11ddcab3ccd9ceb158d84c983",
+    "selection.py": "8a7c89f3b6a25d41d08d90b2cd0a7e17488d7d74ae92103d342b4d194c9fc166",
+    "types.py": "14c50df0db4840c1c3b625c485e4161b82c772a5543e343d6fba38c411ba6c26"
+  },
+  "algorithm_sources_byte_exact_to_preflight": true,
+  "authorization_payload_sha256": "5d6e2319cc8790174b50b259071782ada3f6f14cab0e02b58e59e3aac01c9f5a",
+  "candidate_algorithm_config_sha256": "521c23e27e5e3b0336aeeb755c8fa5baf32f510fecb9e6d2244c2fc204ba87fa",
+  "candidate_freeze_identity": {
+    "canonical_config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+    "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+    "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5"
+  },
+  "device_binding": {
+    "canonical_device": "cuda:0",
+    "observed_device": "cuda:0",
+    "passed": true
+  },
+  "engineering_preflight_v3": {
+    "contract_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+    "path": "C:\\fingerprint-recognition-research\\results\\harriszplus_rootsift_geometric_v3\\preflight\\engineering_preflight_pass.json",
+    "report_payload_sha256": "22d809446e8a4074a7b50c61da40ad52bffc48590abfe80a1217f94498b87cbd",
+    "sha256": "85f9f27fe61e6971181ffe97e7f04bf6a13019f9f7d6be5857e52d8304d43b7b"
+  },
+  "memory": {
+    "capacity_fraction_is_correctness_gate": false,
+    "hidden_cpu_fallback_observed": false,
+    "out_of_memory_observed": false,
+    "passed": true,
+    "reported_peak_vram_bytes_information_only": 21124612096.0,
+    "v3_requirement": "no out-of-memory and no hidden CPU fallback"
+  },
+  "method_name": "harriszplus_rootsift_geometric",
+  "method_version": "harriszplus-rootsift-geometric-v3",
+  "no_500_result_observed": true,
+  "no_v4_relaxation_path": true,
+  "passed": true,
+  "pilot_500_authorized": true,
+  "ppi_coordinate_handling_all_passed": true,
+  "schema_version": "harriszplus-engineering-preflight-v3",
+  "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+  "spearman_is_diagnostic_only": true,
+  "status": "authorized_after_frozen_v3_functional_pass",
+  "timing_synchronization": {
+    "cuda_detector_uses_explicit_synchronization": true,
+    "real_comparison_medians_reported": true,
+    "required_timing_fields_all_passed": true,
+    "v3_timing_is_correctness_gate": false
+  },
+  "validation_policy": {
+    "auto_relaxation_allowed": false,
+    "candidate_count_allowed_delta": "max(2, ceil(0.005 * max(cpu_count, cuda_count)))",
+    "contract_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+    "cuda_repeat_exact": true,
+    "decision_equality_required": true,
+    "decision_threshold": 4,
+    "frozen_before_500_results": true,
+    "maximum_downstream_raw_score_delta": 1,
+    "minimum_bidirectional_matched_fraction": 0.995,
+    "minimum_exact_downstream_score_fraction": 0.95,
+    "minimum_real_pixel_coverage": 0.9999,
+    "minimum_synthetic_pixel_coverage": 1.0,
+    "minimum_top_k_bidirectional_overlap": 0.995,
+    "relative_scale_tolerance": 0.01,
+    "response_atol": 0.0005,
+    "response_max_absolute_delta": 0.1,
+    "response_rtol": 0.0002,
+    "schema_version": "harriszplus-functional-validation-policy-v3",
+    "spatial_tolerance_original_pixels": 0.5,
+    "spearman_is_gate": false,
+    "spearman_minimum_threshold": null,
+    "top_k": 3000,
+    "v4_relaxation_path_allowed": false,
+    "zero_versus_nonzero_candidate_count_fails": true
+  }
+}

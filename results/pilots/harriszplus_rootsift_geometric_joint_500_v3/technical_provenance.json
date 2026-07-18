@@ -1,0 +1,3593 @@
+{
+  "architecture": {
+    "color_grad": false,
+    "cuda": "PyTorch/CUDA dense response, local-maxima, and eigen/subpixel refinement; deterministic CPU distance/uniform selection, orientation, RootSIFT, matching, and RANSAC",
+    "matcher_reuse": "fingerprint_benchmark.sift.matching.match_descriptors, mutual Lowe 0.75",
+    "max_keypoints": 3000,
+    "native_resolution_grayscale": true,
+    "orientation": {
+      "orientation_bins": 36,
+      "orientation_border_mode": "reflect",
+      "orientation_gaussian_sigma_factor": 1.5,
+      "orientation_gradient_kernel": [
+        -1,
+        0,
+        1
+      ],
+      "orientation_histogram_interpolation": "linear_circular",
+      "orientation_histogram_smoothing_passes": 6,
+      "orientation_peak_interpolation": "parabolic",
+      "orientation_radius_factor": 3.0,
+      "orientation_scale_source": "output_integration_sigma",
+      "orientation_tie_policy": "lowest_angle"
+    },
+    "ppi_geometry_threshold": "3 px at 1000 PPI, linearly 6 px at 2000 PPI",
+    "ransac_reuse": "fingerprint_benchmark.sift.geometry.verify_geometry, partial affine",
+    "reference_cpu": "clear NumPy/OpenCV dense-response validation backend",
+    "root_sift_reuse": "fingerprint_benchmark.sift.descriptors.rootsift",
+    "scale_mapping": "2_times_output_integration_sigma"
+  },
+  "artifact_manifest_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\artifact_manifest.json",
+  "assertions": {
+    "dataset_tree_rescanned": false,
+    "datasets_treated_read_only": true,
+    "exactly_eight_bundles": true,
+    "extra_research_pilot_performed": false,
+    "gpu_cpu_efficiency_ranking_claimed": false,
+    "roc_auc_eer_or_fusion_performed": false,
+    "selection_changed": false,
+    "shared_accuracy_artifacts_changed": false,
+    "sift_code_or_results_changed": false,
+    "sourceafis_code_or_results_changed": false,
+    "sourceafis_threshold_40_used": false,
+    "threshold_changed_after_results": false,
+    "tuning_or_calibration_on_500_results": false
+  },
+  "clean_room_and_reference_provenance": {
+    "benchmark_contract_source": {
+      "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\contract.py",
+      "sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2"
+    },
+    "benchmark_contract_version": "pairwise-benchmark-v2",
+    "benchmark_runner_source": {
+      "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\runner.py",
+      "sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c"
+    },
+    "benchmark_support_sources": {
+      "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+      "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+      "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+      "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+      "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+      "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+    },
+    "copied_external_functions_or_fragments": false,
+    "descriptor": {
+      "local_descriptor": "cv2.SIFT.compute at supplied keypoints",
+      "minimum_finite_descriptors": 2,
+      "non_finite_policy": "drop complete descriptor rows before RootSIFT",
+      "postprocessing": "fingerprint_benchmark.sift.descriptors.rootsift unchanged"
+    },
+    "detector_backend": "cuda",
+    "detector_dtype": "float32",
+    "detector_only_ablation": "HarrisZ+ replaces DoG/SIFT keypoint detection; descriptor, matcher, geometry, and raw-score semantics reuse the existing SIFT implementation",
+    "determinism": {
+      "autocast": false,
+      "bf16": false,
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "detector_dtype": "float32",
+      "fp16": false,
+      "numpy_seeded": true,
+      "opencv_rng_seeded_before_geometry": true,
+      "seed": 0,
+      "torch_cuda_manual_seeded": true,
+      "torch_manual_seeded": true,
+      "torch_use_deterministic_algorithms": true
+    },
+    "engine": "clean-room HarrisZ+ CPU/CUDA detector with OpenCV supplied-keypoint SIFT",
+    "geometry": {
+      "confidence": 0.99,
+      "estimator": "OpenCV RANSAC",
+      "implementation": "fingerprint_benchmark.sift.geometry.verify_geometry unchanged",
+      "maximum_iterations": 2000,
+      "model": "affine_partial_2d",
+      "ppi_normalization": true,
+      "reference_ppi": 1000.0,
+      "refinement_iterations": 10,
+      "rng_seed": 0,
+      "threshold_reference_pixels": 3.0
+    },
+    "image_policy": {
+      "doubled_scales": [
+        0,
+        1
+      ],
+      "doubling": "one exact 2x cv2.resize call with INTER_LANCZOS4",
+      "downsampling": "none",
+      "enhancement": "none",
+      "load": "cv2.imread(path, cv2.IMREAD_GRAYSCALE)",
+      "oracle_divergence": "OpenCV INTER_LANCZOS4 is the frozen adapter choice; the official Matlab oracle uses Lanczos-3 support",
+      "ppi_source": "manifest_only",
+      "resolution": "native",
+      "segmentation": "none"
+    },
+    "implementation_policy": "clean_room_from_paper",
+    "implementation_source_sha256": {
+      "harriszplus": {
+        "__init__.py": "ab0dd2fa88e1ec2c34bed0b0d9131f050ed18d4c68da1a19fe8463e7dfb284f0",
+        "adapter.py": "125629842f012ce1b7b13b9c2ea4628d0a086cb4e7c6a7073f5d832bef6fa130",
+        "config.py": "8e543e0ae61e97fe8e11b546f564139271bc90fef0987cc38ea42092e48032ab",
+        "cuda_detector.py": "fa28d89a5fdb7f503824a6ce05dcf534793e4c1d5ed8f0c6f2b17766de65c52c",
+        "extractor.py": "513e86d9e4374b115ebb90811a79a8c10a1755897701beb08c7ea5bffd21af34",
+        "kernels.py": "e4fd03697f3fe07041d4e685d1b749c4601f82318039b1febade8b42ca9781a9",
+        "orientation.py": "93eb4bf385b3277862331d30ae8fae1ea89fce87e1ac7edbb91ca7cc74aa8ff6",
+        "pilot.py": "803d44f698615161368a316789a3738291e3443f076aac5e6d2b3b1089729b4c",
+        "pilot_v3.py": "dd8119800b09d31ac6d4d573074ce576b8247b9d56ae1938c8b2721cf4ed727b",
+        "preflight.py": "28d1ee2ab6a2798709f55e22cb415927f4b3058430c704c75d685c0186267596",
+        "preflight_v2.py": "fb770bf160faa650d851bce448c357bea27f72c61275661edf79375b4962ad75",
+        "preflight_v3.py": "2390e2c2e54cc8ebaf30156467a154a0effa212bcc2c8fbfbc84d743e1ac72a2",
+        "provenance.py": "98e5716358eab0a887b1190f5dc6a6b476d1cc7a28ca7fc5081a3e264abfc41c",
+        "reference_cpu.py": "01533331da30c6aa58bd79369e2ce9a30c9c31a11ddcab3ccd9ceb158d84c983",
+        "reporting.py": "0aac77fcd5f4468cf48f5dfdc7574a0b905a0167da76bec088157594c6d94e13",
+        "selection.py": "8a7c89f3b6a25d41d08d90b2cd0a7e17488d7d74ae92103d342b4d194c9fc166",
+        "types.py": "14c50df0db4840c1c3b625c485e4161b82c772a5543e343d6fba38c411ba6c26"
+      },
+      "required_score_producing_sources": {
+        "adapter.py": "125629842f012ce1b7b13b9c2ea4628d0a086cb4e7c6a7073f5d832bef6fa130",
+        "config.py": "8e543e0ae61e97fe8e11b546f564139271bc90fef0987cc38ea42092e48032ab",
+        "cuda_detector.py": "fa28d89a5fdb7f503824a6ce05dcf534793e4c1d5ed8f0c6f2b17766de65c52c",
+        "extractor.py": "513e86d9e4374b115ebb90811a79a8c10a1755897701beb08c7ea5bffd21af34",
+        "kernels.py": "e4fd03697f3fe07041d4e685d1b749c4601f82318039b1febade8b42ca9781a9",
+        "orientation.py": "93eb4bf385b3277862331d30ae8fae1ea89fce87e1ac7edbb91ca7cc74aa8ff6",
+        "provenance.py": "98e5716358eab0a887b1190f5dc6a6b476d1cc7a28ca7fc5081a3e264abfc41c",
+        "reference_cpu.py": "01533331da30c6aa58bd79369e2ce9a30c9c31a11ddcab3ccd9ceb158d84c983",
+        "selection.py": "8a7c89f3b6a25d41d08d90b2cd0a7e17488d7d74ae92103d342b4d194c9fc166",
+        "types.py": "14c50df0db4840c1c3b625c485e4161b82c772a5543e343d6fba38c411ba6c26"
+      },
+      "reuse_contract": {
+        "geometry": "fingerprint_benchmark.sift.geometry.verify_geometry",
+        "matching": "fingerprint_benchmark.sift.matching.match_descriptors",
+        "modification_policy": "imported unchanged",
+        "representation": "fingerprint_benchmark.sift.extractor.SiftRepresentation",
+        "rootsift": "fingerprint_benchmark.sift.descriptors.rootsift"
+      },
+      "reused_sift_unchanged": {
+        "config.py": "0dddaf996c10605ec6b08afc3494fefc9c8ff4adb26a5de819ee9049ac7317fb",
+        "descriptors.py": "073ed322c327457259d995a1719dbc13e29e682f2b2b06139887d70d72148f78",
+        "extractor.py": "90d86105190e0414c198ecce03783f18216ecd7884be688458726d11adc5e4c6",
+        "geometry.py": "35b51bd5888c296882a8c80c19df2af4443c1dea9ef91753a6ce5c4a84835982",
+        "matching.py": "3c9fd3d82b8c62674bcc52d3992caac07b0f5d0dd6eb67813316f684f15e127d"
+      }
+    },
+    "java_executable": null,
+    "keypoint_adapter": {
+      "detector_source_index": "preserved separately in representation metadata",
+      "effective_detector_gaussian_support": "recorded separately from descriptor size",
+      "opencv_class_id": "HarrisZ+ scale_index",
+      "opencv_octave": "0 for every native-coordinate supplied keypoint; HarrisZ scale must not alter OpenCV descriptor support",
+      "opencv_size_mapping": "size = 2 * output_integration_sigma",
+      "orientation": {
+        "ambiguity_180_degrees": "full signed gradient; no random flip",
+        "empty_histogram_angle_degrees": 0.0,
+        "gaussian_sigma_factor": 1.5,
+        "histogram_bins": 36,
+        "histogram_interpolation": "linear circular",
+        "histogram_smoothing": "repeated circular three-bin mean",
+        "histogram_smoothing_passes": 6,
+        "method": "SIFT-style signed dominant gradient",
+        "orientations_per_keypoint": 1,
+        "peak_interpolation": "three-sample parabola clipped to half a bin",
+        "radius_factor_of_weighting_sigma": 3.0,
+        "tie_policy": "lowest interpolated angle"
+      }
+    },
+    "matching": {
+      "direction": "mutual",
+      "implementation": "fingerprint_benchmark.sift.matching.match_descriptors unchanged",
+      "lowe_ratio": 0.75,
+      "matcher": "BF-L2 KNN k=2"
+    },
+    "method_support_sources": {},
+    "official_reference_oracle": {
+      "branch_at_review": "main",
+      "commit": "ec3a285ae3a86cc71d3026c01e24ec13554e3800",
+      "commit_date": "2025-07-18T01:50:14+02:00",
+      "license": "GNU General Public License v3.0",
+      "repository_url": "https://github.com/fb82/HarrisZ",
+      "reviewed_head_date": "2026-07-16",
+      "role": "reference oracle only for response/keypoint comparison and underspecified conventions; it is not a runtime dependency"
+    },
+    "original_harrisz_paper": {
+      "authors": [
+        "Fabio Bellavia",
+        "Domenico Tegolo",
+        "Carlo Valenti"
+      ],
+      "reviewed_pdf_filename": "iet.pdf",
+      "reviewed_pdf_sha256": "513a8c18783ca7d6ce9b5beeecdfb796797df673a3289f303aa4124f079bcd86",
+      "title": "Improving Harris corner selection strategy",
+      "venue": "IET Computer Vision",
+      "year": 2011
+    },
+    "primary_paper": {
+      "arxiv_identifier": "2109.12925",
+      "arxiv_version": "v6",
+      "authors": [
+        "Fabio Bellavia",
+        "Dmytro Mishkin"
+      ],
+      "reviewed_pdf_filename": "2109.12925v6.pdf",
+      "reviewed_pdf_sha256": "c9560b7e89849e7e4a05a4b376bc4eac2116eac8816b13fae9ff69859cb374df",
+      "specification_scope": {
+        "equations": "1-16",
+        "sections": [
+          "3.1",
+          "3.2"
+        ]
+      },
+      "title": "HarrisZ+: Harris Corner Selection for Next-Gen Image Matching Pipelines",
+      "url": "https://arxiv.org/abs/2109.12925v6"
+    },
+    "publication_wrapper": {
+      "algorithm_sources_byte_exact": true,
+      "candidate_algorithm_config_sha256": "521c23e27e5e3b0336aeeb755c8fa5baf32f510fecb9e6d2244c2fc204ba87fa",
+      "engineering_preflight_contract_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+      "method_version": "harriszplus-rootsift-geometric-v3",
+      "score_producing_adapter_method_version": "harriszplus-rootsift-geometric-v1"
+    },
+    "python_adapter_source": {
+      "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\harriszplus\\pilot_v3.py",
+      "sha256": "dd8119800b09d31ac6d4d573074ce576b8247b9d56ae1938c8b2721cf4ed727b"
+    },
+    "repository": {
+      "commit": "97477036e4ed641252991a58308840f1e2983955",
+      "dirty": true,
+      "is_git_checkout": true,
+      "root": "C:\\fingerprint-recognition-research"
+    },
+    "score": {
+      "decision_threshold_in_adapter": null,
+      "direction": "higher_is_more_similar",
+      "raw_score": "integer geometric_inlier_count"
+    },
+    "sidecar_jar_path": null,
+    "sidecar_jar_sha256": null,
+    "statement": "This repository implementation was written independently from the equations and prose in Sections 3.1 and 3.2 of the HarrisZ+ paper. The authors' GPL-3.0 repository was used only as a source-level reference oracle for validation and underspecified conventions. No function, code fragment, or translated implementation from that repository was copied.",
+    "timing_policy": {
+      "comparability_note": "HarrisZ+ detector uses GPU when configured; previous SourceAFIS/SIFT pilots may use different backends, so timings are not a direct CPU-efficiency ranking",
+      "cuda_segments": "torch.cuda.synchronize before and after wall timing",
+      "kernel_timing": "detector_gpu_kernel_ms is the sum of CUDA-event elapsed times for base gradients, all five dense scales, and GPU eigen/subpixel refinement; events are read only after explicit synchronization",
+      "pair": "cold pair: prepare A + prepare B + compare; no cross-pair cache",
+      "peak_vram": "torch.cuda max_memory_allocated/max_memory_reserved in bytes"
+    }
+  },
+  "environment": {
+    "numpy_version": "2.2.6",
+    "opencv_version": "4.12.0",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python_version": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:27:10) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": {
+      "cpu_architecture": "AMD64",
+      "dependency_artifact_sha256": {
+        "environment.yml": "7e6f2a8609cb3b3338093361fb48f8b8c75b9e222eba53962faf4c168f7bbe3a",
+        "pyproject.toml": "2762f937d9c866b539f533fce07dd84074f902e1d9c48b1e63e5e4e50cac55a5"
+      },
+      "numpy_version": "2.2.6",
+      "nvidia_smi": [
+        {
+          "compute_capability": "12.0",
+          "driver_version": "592.01",
+          "index": 0,
+          "memory_total_mib": 16303,
+          "name": "NVIDIA GeForce RTX 5080 Laptop GPU"
+        }
+      ],
+      "opencv_build_information": "\nGeneral configuration for OpenCV 4.12.0 =====================================\n  Version control:               4.12.0\n\n  Platform:\n    Timestamp:                   2025-07-04T16:40:32Z\n    Host:                        Windows 10.0.26100 AMD64\n    CMake:                       3.24.2\n    CMake generator:             Visual Studio 17 2022\n    CMake build tool:            C:/Program Files/Microsoft Visual Studio/2022/Enterprise/MSBuild/Current/Bin/amd64/MSBuild.exe\n    MSVC:                        1944\n    Configuration:               Debug Release\n    Algorithm Hint:              ALGO_HINT_ACCURATE\n\n  CPU/HW features:\n    Baseline:                    SSE SSE2 SSE3\n      requested:                 SSE3\n    Dispatched code generation:  SSE4_1 SSE4_2 AVX FP16 AVX2 AVX512_SKX\n      SSE4_1 (17 files):         + SSSE3 SSE4_1\n      SSE4_2 (1 files):          + SSSE3 SSE4_1 POPCNT SSE4_2\n      AVX (9 files):             + SSSE3 SSE4_1 POPCNT SSE4_2 AVX\n      FP16 (0 files):            + SSSE3 SSE4_1 POPCNT SSE4_2 AVX FP16\n      AVX2 (37 files):           + SSSE3 SSE4_1 POPCNT SSE4_2 AVX FP16 AVX2 FMA3\n      AVX512_SKX (6 files):      + SSSE3 SSE4_1 POPCNT SSE4_2 AVX FP16 AVX2 FMA3 AVX_512F AVX512_COMMON AVX512_SKX\n\n  C/C++:\n    Built as dynamic libs?:      NO\n    C++ standard:                11\n    C++ Compiler:                C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe  (ver 19.44.35209.0)\n    C++ flags (Release):         /DWIN32 /D_WINDOWS /W4 /GR  /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /Oi  /fp:precise    /EHa /wd4127 /wd4251 /wd4324 /wd4275 /wd4512 /wd4589 /wd4819 /MP  /O2 /Ob2 /DNDEBUG \n    C++ flags (Debug):           /DWIN32 /D_WINDOWS /W4 /GR  /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /Oi  /fp:precise    /EHa /wd4127 /wd4251 /wd4324 /wd4275 /wd4512 /wd4589 /wd4819 /MP  /Zi /Ob0 /Od /RTC1 \n    C Compiler:                  C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe\n    C flags (Release):           /DWIN32 /D_WINDOWS /W3  /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /Oi  /fp:precise    /MP   /O2 /Ob2 /DNDEBUG \n    C flags (Debug):             /DWIN32 /D_WINDOWS /W3  /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /Oi  /fp:precise    /MP /Zi /Ob0 /Od /RTC1 \n    Linker flags (Release):      /machine:x64  /NODEFAULTLIB:atlthunk.lib /INCREMENTAL:NO  /NODEFAULTLIB:libcmtd.lib /NODEFAULTLIB:libcpmtd.lib /NODEFAULTLIB:msvcrtd.lib\n    Linker flags (Debug):        /machine:x64  /NODEFAULTLIB:atlthunk.lib /debug /INCREMENTAL  /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:libcpmt.lib /NODEFAULTLIB:msvcrt.lib\n    ccache:                      NO\n    Precompiled headers:         YES\n    Extra dependencies:          wsock32 comctl32 gdi32 ole32 setupapi ws2_32\n    3rdparty dependencies:       libprotobuf ade ittnotify libjpeg-turbo libwebp libpng libtiff libopenjp2 IlmImf zlib ipphal ippiw ippicv\n\n  OpenCV modules:\n    To be built:                 calib3d core dnn features2d flann gapi highgui imgcodecs imgproc ml objdetect photo python3 stitching video videoio\n    Disabled:                    java world\n    Disabled by dependency:      -\n    Unavailable:                 python2 ts\n    Applications:                -\n    Documentation:               NO\n    Non-free algorithms:         NO\n\n  Windows RT support:            NO\n\n  GUI:                           WIN32UI\n    Win32 UI:                    YES\n    VTK support:                 NO\n\n  Media I/O: \n    ZLib:                        build (ver 1.3.1)\n    JPEG:                        build-libjpeg-turbo (ver 3.1.0-70)\n      SIMD Support Request:      YES\n      SIMD Support:              YES\n    WEBP:                        build (ver decoder: 0x0209, encoder: 0x020f, demux: 0x0107)\n    AVIF:                        NO\n    PNG:                         build (ver 1.6.43)\n      SIMD Support Request:      YES\n      SIMD Support:              YES (Intel SSE)\n    TIFF:                        build (ver 42 - 4.6.0)\n    JPEG 2000:                   build (ver 2.5.3)\n    OpenEXR:                     build (ver 2.3.0)\n    GIF:                         YES\n    HDR:                         YES\n    SUNRASTER:                   YES\n    PXM:                         YES\n    PFM:                         YES\n\n  Video I/O:\n    FFMPEG:                      YES (prebuilt binaries)\n      avcodec:                   YES (58.134.100)\n      avformat:                  YES (58.76.100)\n      avutil:                    YES (56.70.100)\n      swscale:                   YES (5.9.100)\n      avresample:                YES (4.0.0)\n    GStreamer:                   NO\n    DirectShow:                  YES\n    Media Foundation:            YES\n      DXVA:                      YES\n\n  Parallel framework:            Concurrency\n\n  Trace:                         YES (with Intel ITT(3.25.4))\n\n  Other third-party libraries:\n    Intel IPP:                   2022.1.0 [2022.1.0]\n           at:                   D:/a/opencv-python/opencv-python/_skbuild/win-amd64-3.9/cmake-build/3rdparty/ippicv/ippicv_win/icv\n    Intel IPP IW:                sources (2022.1.0)\n              at:                D:/a/opencv-python/opencv-python/_skbuild/win-amd64-3.9/cmake-build/3rdparty/ippicv/ippicv_win/iw\n    Lapack:                      NO\n    Eigen:                       NO\n    Custom HAL:                  YES (ipp (ver 0.0.1))\n    Protobuf:                    build (3.19.1)\n    Flatbuffers:                 builtin/3rdparty (23.5.9)\n\n  OpenCL:                        YES (NVD3D11)\n    Include path:                D:/a/opencv-python/opencv-python/opencv/3rdparty/include/opencl/1.2\n    Link libraries:              Dynamic load\n\n  Python 3:\n    Interpreter:                 C:/hostedtoolcache/windows/Python/3.9.13/x64/python.exe (ver 3.9.13)\n    Libraries:                   C:/hostedtoolcache/windows/Python/3.9.13/x64/libs/python39.lib (ver 3.9.13)\n    Limited API:                 YES (ver 0x03060000)\n    numpy:                       C:/hostedtoolcache/windows/Python/3.9.13/x64/lib/site-packages/numpy/_core/include (ver 2.0.2)\n    install path:                python/cv2/python-3\n\n  Python (for build):            C:\\hostedtoolcache\\windows\\Python\\3.9.13\\x64\\python.exe\n\n  Java:                          \n    ant:                         NO\n    Java:                        YES (ver 17.0.15)\n    JNI:                         C:/hostedtoolcache/windows/Java_Temurin-Hotspot_jdk/17.0.15-6/x64/include C:/hostedtoolcache/windows/Java_Temurin-Hotspot_jdk/17.0.15-6/x64/include/win32 C:/hostedtoolcache/windows/Java_Temurin-Hotspot_jdk/17.0.15-6/x64/include\n    Java wrappers:               NO\n    Java tests:                  NO\n\n  Install to:                    D:/a/opencv-python/opencv-python/_skbuild/win-amd64-3.9/cmake-install\n-----------------------------------------------------------------\n\n",
+      "opencv_distribution": [
+        {
+          "name": "opencv-python",
+          "version": "4.12.0.88"
+        }
+      ],
+      "opencv_optimized": true,
+      "opencv_thread_count": 16,
+      "opencv_version": "4.12.0",
+      "operating_system": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+      "python_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\python.exe",
+      "python_version": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:27:10) [MSC v.1944 64 bit (AMD64)]",
+      "runtime_network_policy": "no runtime downloads or model weights",
+      "torch": {
+        "compute_capability": [
+          12,
+          0
+        ],
+        "cuda_available": true,
+        "cuda_build_runtime": "13.0",
+        "cuda_matmul_allow_tf32": false,
+        "cudnn_allow_tf32": false,
+        "cudnn_version": 91900,
+        "deterministic_algorithms_enabled": true,
+        "device_index": 0,
+        "gpu_model": "NVIDIA GeForce RTX 5080 Laptop GPU",
+        "installed": true,
+        "selected_device": "cuda:0",
+        "total_vram_bytes": 17094475776,
+        "version": "2.11.0+cu130"
+      }
+    },
+    "runtime_identity": {
+      "compute_capability": [
+        12,
+        0
+      ],
+      "cudnn_version": 91900,
+      "dependency_artifact_sha256": {
+        "environment.yml": "7e6f2a8609cb3b3338093361fb48f8b8c75b9e222eba53962faf4c168f7bbe3a",
+        "pyproject.toml": "2762f937d9c866b539f533fce07dd84074f902e1d9c48b1e63e5e4e50cac55a5"
+      },
+      "device_index": 0,
+      "gpu_model": "NVIDIA GeForce RTX 5080 Laptop GPU",
+      "numpy_version": "2.2.6",
+      "nvidia_driver_version": "592.01",
+      "opencv_version": "4.12.0",
+      "operating_system": "Windows-10-10.0.26200-SP0",
+      "python_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\python.exe",
+      "python_version": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:27:10) [MSC v.1944 64 bit (AMD64)]",
+      "pytorch_version": "2.11.0+cu130",
+      "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5",
+      "schema_version": "harriszplus-runtime-identity-v1",
+      "selected_device": "cuda:0",
+      "torch_cuda_build_runtime": "13.0",
+      "total_vram_bytes": 17094475776
+    }
+  },
+  "execution": {
+    "bundle_paths_are_exact_short_requested_paths": true,
+    "completed_valid_bundle_count": 8,
+    "cross_pair_cache": false,
+    "full_repeat_count": 0,
+    "prepare_operations_per_pair": 2,
+    "requested_bundle_count": 8,
+    "runs": [
+      {
+        "actual_execution_index": 1,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_self",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "57d25737ee880828fc50249c64eaf532c73eff1078d4e2d5137ce4ff696cebbd",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300b",
+        "execution_wall_ms": 659644.215,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "plain_self",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\plain_self.csv",
+          "sha256": "b08f663f6018e7d212d9b8034cbf72597e27a69d491e805d8ec6bd894dc8c202",
+          "size": 119953
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_self\\pairs.csv",
+          "score_payload_sha256": "fc37e40d20fe861f0cefb7ca021da92b533108d14059e9bf830576948341b82e",
+          "sha256": "5b61177b611c6f9958ece858cc48d656fda11985dc734cbad6dffa86403bf988",
+          "size": 31889767
+        },
+        "protocol": "plain_self",
+        "role": "self",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_self\\run_metadata.json",
+          "sha256": "9be0dfc983f57bccf79d70dccb614330036d26af5346784572ca11164d92aa24",
+          "size": 45136
+        },
+        "summary": {
+          "acceptance_percentage": 100.0,
+          "accepted": 500,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 2996.962,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 2996.962,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.958,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "minimum": 1.0,
+            "p95": 1.0
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.962,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.962,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 97.4695,
+            "mean": 32.380477,
+            "median": 30.14215,
+            "minimum": 14.6127,
+            "p95": 37.4996
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.958,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "peak_vram_allocated_bytes": 1135834624.0,
+          "peak_vram_reserved_bytes": 4057989120.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 1351.5899,
+            "mean": 652.823312,
+            "median": 592.3169,
+            "minimum": 313.7751,
+            "p95": 1036.4346
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 1119.5387,
+            "mean": 630.4877764,
+            "median": 591.6591000000001,
+            "minimum": 299.4765,
+            "p95": 932.0494
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.958,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "rejected": 0,
+          "score_equal_threshold": 0,
+          "score_zero": 0,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.958,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 182.90469999919878,
+              "mean": 36.08546739993653,
+              "median": 22.568250000404078,
+              "minimum": 5.537700000786572,
+              "p95": 104.05079999691225
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 97.4695,
+              "mean": 32.380477,
+              "median": 30.14215,
+              "minimum": 14.6127,
+              "p95": 37.4996
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 34.1871,
+              "mean": 16.3287491,
+              "median": 14.713000000000001,
+              "minimum": 7.1569,
+              "p95": 25.5924
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 499.5435223579407,
+              "mean": 97.94108886879683,
+              "median": 74.94486379623413,
+              "minimum": 37.246911853551865,
+              "p95": 236.26438188552856
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 1015.4543,
+              "mean": 315.1826035,
+              "median": 267.76765,
+              "minimum": 83.8025,
+              "p95": 651.0771
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 2394.0252,
+              "mean": 1315.6915654,
+              "median": 1207.74865,
+              "minimum": 627.8643000000001,
+              "p95": 1970.9187
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 9.6888,
+              "mean": 3.6474058,
+              "median": 2.98745,
+              "minimum": 0.9907,
+              "p95": 7.3451
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 14.268,
+              "mean": 1.4833398,
+              "median": 1.24655,
+              "minimum": 0.5078,
+              "p95": 2.7235
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 95.9416,
+              "mean": 30.935963,
+              "median": 28.7021,
+              "minimum": 13.6087,
+              "p95": 36.1007
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 353.897,
+              "mean": 276.8953947,
+              "median": 274.6021,
+              "minimum": 187.5921,
+              "p95": 296.3327
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 1351.5899,
+              "mean": 641.6555442,
+              "median": 592.01555,
+              "minimum": 299.4765,
+              "p95": 992.238
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 2.064,
+              "mean": 1.4396828000000002,
+              "median": 1.39325,
+              "minimum": 1.0002,
+              "p95": 1.7441
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 479.5908000014606,
+              "mean": 168.014204599951,
+              "median": 144.95609999812586,
+              "minimum": 29.997400002685026,
+              "p95": 348.60309999749006
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 2398.8411,
+            "mean": 1319.046576,
+            "median": 1210.61395,
+            "minimum": 629.4928,
+            "p95": 1976.5682
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 1991.8776,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300b_plain_self_00001000_01"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      },
+      {
+        "actual_execution_index": 2,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\roll_self",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "1e81715a55126a386be518b27ae7bba3c21358c4cd8dd634152432ede46e9548",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300b",
+        "execution_wall_ms": 1142195.17,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "roll_self",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\roll_self.csv",
+          "sha256": "9ef3188593140e21be8426fb5065c56530e2c367cbc35c11af4c14b3c23f1988",
+          "size": 116747
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\roll_self\\pairs.csv",
+          "score_payload_sha256": "dd72cc02b17765c13fcea17e26e920b6916494bd77b72001f99e03c8bc9d631b",
+          "sha256": "ea9166abb3fb0a920a4bfcafd5ea6e518148c5cf8f3070a1cea221e5d066c396",
+          "size": 33257967
+        },
+        "protocol": "roll_self",
+        "role": "self",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\roll_self\\run_metadata.json",
+          "sha256": "0805f4e3762532f7548d277f91181b1f5ba0795d5f4afc9edcb1d11d3880243e",
+          "size": 45128
+        },
+        "summary": {
+          "acceptance_percentage": 100.0,
+          "accepted": 500,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "minimum": 1.0,
+            "p95": 1.0
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 96.6337,
+            "mean": 26.267662799999997,
+            "median": 22.84645,
+            "minimum": 20.8606,
+            "p95": 33.4805
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "peak_vram_allocated_bytes": 1351982080.0,
+          "peak_vram_reserved_bytes": 6968836096.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 1484.2439,
+            "mean": 1125.5867006,
+            "median": 1122.28665,
+            "minimum": 859.8397,
+            "p95": 1299.7107
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 1487.2267,
+            "mean": 1125.8412254000002,
+            "median": 1125.175,
+            "minimum": 819.5364,
+            "p95": 1290.6334
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "rejected": 0,
+          "score_equal_threshold": 0,
+          "score_zero": 0,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 257.3081999998976,
+              "mean": 105.95896620002895,
+              "median": 105.20910000013828,
+              "minimum": 38.475900000776164,
+              "p95": 197.32260000091628
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 96.6337,
+              "mean": 26.267662799999997,
+              "median": 22.84645,
+              "minimum": 20.8606,
+              "p95": 33.4805
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 51.2605,
+              "mean": 35.9238365,
+              "median": 36.1524,
+              "minimum": 26.0623,
+              "p95": 39.137
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 290.83142256736755,
+              "mean": 148.53807052153348,
+              "median": 134.8458091020584,
+              "minimum": 88.02806401252747,
+              "p95": 209.4454402923584
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 1130.5379,
+              "mean": 771.4492368,
+              "median": 771.8459499999999,
+              "minimum": 454.4362,
+              "p95": 942.0184
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 2948.0671,
+              "mean": 2277.6955888,
+              "median": 2273.6637499999997,
+              "minimum": 1708.9576,
+              "p95": 2594.1926
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 12.6724,
+              "mean": 10.1221058,
+              "median": 10.234100000000002,
+              "minimum": 7.5127,
+              "p95": 11.2612
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 19.7229,
+              "mean": 3.6351237000000003,
+              "median": 3.5002,
+              "minimum": 2.4605,
+              "p95": 4.495
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 95.2343,
+              "mean": 24.7906532,
+              "median": 21.3587,
+              "minimum": 19.2082,
+              "p95": 31.6368
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 376.8339,
+              "mean": 268.9001456,
+              "median": 267.28265,
+              "minimum": 255.6331,
+              "p95": 281.0439
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 1487.2267,
+              "mean": 1125.713963,
+              "median": 1124.13555,
+              "minimum": 819.5364,
+              "p95": 1295.2878
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 2.1342,
+              "mean": 1.4719724,
+              "median": 1.43,
+              "minimum": 1.3383,
+              "p95": 1.7346
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 808.3979999992152,
+              "mean": 492.46656110003823,
+              "median": 489.2177499987156,
+              "minimum": 249.51060000239522,
+              "p95": 622.475600001053
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 2954.5925,
+            "mean": 2284.1094082,
+            "median": 2279.91975,
+            "minimum": 1714.6423,
+            "p95": 2600.3501
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 2749.3536,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300b_roll_self_00001000_01"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      },
+      {
+        "actual_execution_index": 3,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_roll_genuine",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "bc64f54394e271384f603a78a179dc4984a3ac866dfe566a1c1e7c3e3497ce37",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300b",
+        "execution_wall_ms": 879796.086,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "plain_roll_genuine",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\plain_roll_genuine.csv",
+          "sha256": "dfc4895f80bbad1aa095c428c6551591bad95bab5256cd81d06d98a28fa93e8c",
+          "size": 118349
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_roll_genuine\\pairs.csv",
+          "score_payload_sha256": "982894fdf6e95b8600ace8d4f2345f38d01f4cdbdeceb6220d5dbbfb93f91f71",
+          "sha256": "8228e36b67310034daf2c72d2486421deb7695e20240021c46fc8adcb7c32ebb",
+          "size": 32662947
+        },
+        "protocol": "plain_roll",
+        "role": "genuine",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_roll_genuine\\run_metadata.json",
+          "sha256": "ebb6b992d6d5ca43034bb3bd7c34bfa1acdb84692e41b720c18827358e7ba49c",
+          "size": 45174
+        },
+        "summary": {
+          "acceptance_percentage": 12.8,
+          "accepted": 64,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 2998.481,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 2998.481,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 13.0,
+            "mean": 2.148,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 5.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 1.0,
+            "mean": 0.34149073333625934,
+            "median": 0.3333333333333333,
+            "minimum": 0.0,
+            "p95": 0.6666666666666666
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.962,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 81.8962,
+            "mean": 20.5200232,
+            "median": 17.91855,
+            "minimum": 11.3074,
+            "p95": 27.5035
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 37.0,
+            "mean": 6.032,
+            "median": 5.0,
+            "minimum": 0.0,
+            "p95": 15.0
+          },
+          "peak_vram_allocated_bytes": 1351982080.0,
+          "peak_vram_reserved_bytes": 6968836096.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 1022.514,
+            "mean": 603.9922682,
+            "median": 571.0723499999999,
+            "minimum": 288.5286,
+            "p95": 878.8865
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 1467.7924,
+            "mean": 1130.005942,
+            "median": 1125.4128500000002,
+            "minimum": 801.9465,
+            "p95": 1298.4874
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 13.0,
+            "mean": 2.148,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 5.0
+          },
+          "rejected": 436,
+          "score_equal_threshold": 29,
+          "score_zero": 105,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 77.0,
+            "mean": 23.724,
+            "median": 21.0,
+            "minimum": 1.0,
+            "p95": 49.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 320.6021000005421,
+              "mean": 68.57912310009488,
+              "median": 60.955049998483446,
+              "minimum": 5.73900000017602,
+              "p95": 153.60310000323807
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 81.8962,
+              "mean": 20.5200232,
+              "median": 17.91855,
+              "minimum": 11.3074,
+              "p95": 27.5035
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 40.382,
+              "mean": 25.3545841,
+              "median": 28.8452,
+              "minimum": 8.4074,
+              "p95": 36.3497
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 290.51657819747925,
+              "mean": 111.22925323104859,
+              "median": 109.9343532025814,
+              "minimum": 33.55126443505287,
+              "p95": 202.11657631397247
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 1113.0472,
+              "mean": 528.4511476,
+              "median": 577.8832,
+              "minimum": 78.6288,
+              "p95": 897.0699
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 2493.7252,
+              "mean": 1754.5182334,
+              "median": 1739.2148,
+              "minimum": 1370.9692,
+              "p95": 2114.4377
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 16.6489,
+              "mean": 6.9410215,
+              "median": 8.29415,
+              "minimum": 1.1229,
+              "p95": 10.9857
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 18.1818,
+              "mean": 2.7415147,
+              "median": 2.8842,
+              "minimum": 0.6359,
+              "p95": 4.5918
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 81.2827,
+              "mean": 20.2228074,
+              "median": 17.60275,
+              "minimum": 11.2739,
+              "p95": 27.2957
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 345.6321,
+              "mean": 271.8066161,
+              "median": 270.3583,
+              "minimum": 182.9971,
+              "p95": 287.4299
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 1467.7924,
+              "mean": 866.9991051000001,
+              "median": 928.0308,
+              "minimum": 288.5286,
+              "p95": 1253.4962
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 0.8751,
+              "mean": 0.2924982,
+              "median": 0.3408,
+              "minimum": 0.0201,
+              "p95": 0.4384
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 824.1041000001132,
+              "mean": 330.9966091000606,
+              "median": 360.753550001391,
+              "minimum": 29.99930000078166,
+              "p95": 586.7237000020395
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 2499.0403,
+            "mean": 1759.3075245999999,
+            "median": 1744.2690499999999,
+            "minimum": 1375.2254,
+            "p95": 2120.0127
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 2211.7099,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300b_plain_roll_00001000_01"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      },
+      {
+        "actual_execution_index": 4,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_roll_negative",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "d0ef2d1efffa2c3c03a2cbfdfebaf279fb9af4efc002a60dd4c4c91248beed1d",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300b",
+        "execution_wall_ms": 878798.575,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "plain_roll_negative",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\plain_roll_negative.csv",
+          "sha256": "099ed6450ac0302e9926ba50d9434def6ae5d31eae3cdd963d4e17f2cfa3c1b0",
+          "size": 144849
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_roll_negative\\pairs.csv",
+          "score_payload_sha256": "27fc44478d3c25812ab7eba9b4b63985df3e76dac9a47e5c42468e5fe175a8be",
+          "sha256": "ecfde9255299d1bcc8694ba7ed35b14e0594aa1528912f936ab62a8a94de2d1a",
+          "size": 32656264
+        },
+        "protocol": "plain_roll_next_subject_impostor",
+        "role": "negative",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300b\\plain_roll_negative\\run_metadata.json",
+          "sha256": "fc280749f95a49558b1ca85c94380c06aea9106646ef3d6e0ad469dbca48778f",
+          "size": 45274
+        },
+        "summary": {
+          "acceptance_percentage": 0.6,
+          "accepted": 3,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 2998.481,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 2998.481,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 6.0,
+            "mean": 1.058,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 2.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 0.6666666666666666,
+            "mean": 0.2615201687201687,
+            "median": 0.25,
+            "minimum": 0.0,
+            "p95": 0.6666666666666666
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2996.962,
+            "median": 3000.0,
+            "minimum": 1980.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 95.9141,
+            "mean": 20.7832174,
+            "median": 17.7991,
+            "minimum": 15.6453,
+            "p95": 26.6547
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 14.0,
+            "mean": 2.95,
+            "median": 3.0,
+            "minimum": 0.0,
+            "p95": 7.0
+          },
+          "peak_vram_allocated_bytes": 1351982080.0,
+          "peak_vram_reserved_bytes": 6968836096.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 1019.5074,
+            "mean": 602.672392,
+            "median": 567.7581,
+            "minimum": 301.1717,
+            "p95": 877.7325
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 1501.159,
+            "mean": 1129.0432736,
+            "median": 1130.55245,
+            "minimum": 850.9654,
+            "p95": 1300.65
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 6.0,
+            "mean": 1.058,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 2.0
+          },
+          "rejected": 497,
+          "score_equal_threshold": 2,
+          "score_zero": 241,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 53.0,
+            "mean": 17.76,
+            "median": 16.0,
+            "minimum": 2.0,
+            "p95": 35.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 311.6539999991801,
+              "mean": 69.21201589998054,
+              "median": 60.772600000746024,
+              "minimum": 5.500800001755124,
+              "p95": 146.74699999886798
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 95.9141,
+              "mean": 20.7832174,
+              "median": 17.7991,
+              "minimum": 15.6453,
+              "p95": 26.6547
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 43.7546,
+              "mean": 25.4102596,
+              "median": 28.777700000000003,
+              "minimum": 8.2754,
+              "p95": 36.5211
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 279.3040326833725,
+              "mean": 108.98590545406938,
+              "median": 109.49177575111389,
+              "minimum": 35.152223870158195,
+              "p95": 203.31276786327362
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 1136.7667,
+              "mean": 526.5893427999999,
+              "median": 575.4867999999999,
+              "minimum": 92.3187,
+              "p95": 910.4843
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 2259.5434000000005,
+              "mean": 1752.498883,
+              "median": 1725.1127999999999,
+              "minimum": 1188.8345,
+              "p95": 2115.9341999999997
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 13.0247,
+              "mean": 6.9298382,
+              "median": 8.247800000000002,
+              "minimum": 1.1495,
+              "p95": 11.0371
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 11.717,
+              "mean": 2.7373353000000002,
+              "median": 2.83125,
+              "minimum": 0.6108,
+              "p95": 4.6266
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 95.8824,
+              "mean": 20.5843226,
+              "median": 17.5925,
+              "minimum": 15.3741,
+              "p95": 26.3906
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 333.5633,
+              "mean": 272.5184756,
+              "median": 271.02995,
+              "minimum": 179.7585,
+              "p95": 293.3128
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 1501.159,
+              "mean": 865.8578328,
+              "median": 918.8781,
+              "minimum": 301.1717,
+              "p95": 1269.5959
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 0.6077,
+              "mean": 0.194031,
+              "median": 0.31235,
+              "minimum": 0.0181,
+              "p95": 0.4215
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 837.7958000000945,
+              "mean": 330.79343449998123,
+              "median": 351.4715499995873,
+              "minimum": 29.22939999916707,
+              "p95": 604.7278999994887
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 2265.5589,
+            "mean": 1757.314248,
+            "median": 1729.824,
+            "minimum": 1192.6933,
+            "p95": 2121.3255
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 2125.4269,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300b_plain_roll_next_subject_impostor_01_00001000_00001002"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      },
+      {
+        "actual_execution_index": 5,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_self",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "8b5245faf63f7f3c5f9298cf6e015d5b1cab0963c045c426b4bf3abc99aa8326",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300c",
+        "execution_wall_ms": 1357284.06,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "plain_self",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\plain_self.csv",
+          "sha256": "4bdd7485759425135b71461f136bd4f285e046ab68db55f9b2af3bd1f0ffc30d",
+          "size": 119953
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_self\\pairs.csv",
+          "score_payload_sha256": "fe9d68188b690e9c23ad42f18c9e5cab9b4c77727cd229e6a40696633c0a9b0f",
+          "sha256": "630ecd694d46b75b58896552ea375ee99274bfb3820048ad43cfc207da067356",
+          "size": 33722472
+        },
+        "protocol": "plain_self",
+        "role": "self",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_self\\run_metadata.json",
+          "sha256": "dd839396d22d5d559d74daa657d0ad4dc3a9351e9c4e6bca8cf3e09f4256ba8a",
+          "size": 45136
+        },
+        "summary": {
+          "acceptance_percentage": 100.0,
+          "accepted": 500,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2999.996,
+            "median": 3000.0,
+            "minimum": 2998.0,
+            "p95": 3000.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "minimum": 1.0,
+            "p95": 1.0
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 92.2725,
+            "mean": 25.9065382,
+            "median": 22.52815,
+            "minimum": 20.6103,
+            "p95": 31.4017
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2999.996,
+            "median": 3000.0,
+            "minimum": 2998.0,
+            "p95": 3000.0
+          },
+          "peak_vram_allocated_bytes": 4507041280.0,
+          "peak_vram_reserved_bytes": 27055357952.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 8119.0365,
+            "mean": 1346.137034,
+            "median": 1041.79595,
+            "minimum": 521.1216,
+            "p95": 2553.5704
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 7785.1968,
+            "mean": 1334.9857490000002,
+            "median": 1041.55625,
+            "minimum": 526.4257,
+            "p95": 2555.9529
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2999.996,
+            "median": 3000.0,
+            "minimum": 2998.0,
+            "p95": 3000.0
+          },
+          "rejected": 0,
+          "score_equal_threshold": 0,
+          "score_zero": 0,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 2999.996,
+            "median": 3000.0,
+            "minimum": 2998.0,
+            "p95": 3000.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 433.6199999997916,
+              "mean": 121.4600858999911,
+              "median": 103.70899999998073,
+              "minimum": 14.07169999947655,
+              "p95": 282.2790999998688
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 92.2725,
+              "mean": 25.9065382,
+              "median": 22.52815,
+              "minimum": 20.6103,
+              "p95": 31.4017
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 134.33,
+              "mean": 44.772521999999995,
+              "median": 39.37465,
+              "minimum": 20.6114,
+              "p95": 77.5561
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 6122.405268669128,
+              "mean": 292.9168314509392,
+              "median": 140.3238229751587,
+              "minimum": 44.43356794118881,
+              "p95": 461.8222393989563
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 7565.026,
+              "mean": 962.5862846,
+              "median": 682.3987999999999,
+              "minimum": 188.0447,
+              "p95": 2111.3467
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 15465.5937,
+              "mean": 2707.0293212,
+              "median": 2119.78885,
+              "minimum": 1069.1262,
+              "p95": 5085.882500000001
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 35.3259,
+              "mean": 12.999615200000001,
+              "median": 10.7675,
+              "minimum": 3.3201,
+              "p95": 26.013
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 24.6954,
+              "mean": 4.4411901,
+              "median": 3.6736500000000003,
+              "minimum": 1.6977,
+              "p95": 8.8036
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 90.4675,
+              "mean": 24.4821086,
+              "median": 21.1216,
+              "minimum": 19.1944,
+              "p95": 29.9996
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 362.6886,
+              "mean": 276.6505861,
+              "median": 273.69775000000004,
+              "minimum": 254.8395,
+              "p95": 299.6291
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 8119.0365,
+              "mean": 1340.5613915,
+              "median": 1041.55625,
+              "minimum": 521.1216,
+              "p95": 2555.9529
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 2.1518,
+              "mean": 1.4199156,
+              "median": 1.3942,
+              "minimum": 1.2353,
+              "p95": 1.6178
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 1677.7103999975225,
+              "mean": 514.4517496000681,
+              "median": 415.1548999989245,
+              "minimum": 116.93250000280386,
+              "p95": 1160.9664999996312
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 15478.73,
+            "mean": 2714.3091288,
+            "median": 2126.3264499999996,
+            "minimum": 1072.6451,
+            "p95": 5097.4978
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 4690.9331,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300c_plain_self_00001000_01"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      },
+      {
+        "actual_execution_index": 6,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\roll_self",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "6021410af0679b461262b366eadfa28869b3f49049cd2080cc8c4f7ff250e824",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300c",
+        "execution_wall_ms": 3479136.09,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "roll_self",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\roll_self.csv",
+          "sha256": "27f33dc5a634369f72577614501a281fd359f6e561db65988dfca0255301282a",
+          "size": 116747
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\roll_self\\pairs.csv",
+          "score_payload_sha256": "a0f954f4635cdfec104aff79bbf01c68dc68164085c446a0d276585fe4d78c84",
+          "sha256": "cdb7d4df24d47a81d971d1575dd88da2a522af37da73e599c85b9a7d019ab7c5",
+          "size": 34549426
+        },
+        "protocol": "roll_self",
+        "role": "self",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\roll_self\\run_metadata.json",
+          "sha256": "031d61dcaa2a6595b0c0a41ecd2b692b6f7f6486603d3111652b23005fd2ac6b",
+          "size": 45129
+        },
+        "summary": {
+          "acceptance_percentage": 100.0,
+          "accepted": 500,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 1.0,
+            "mean": 1.0,
+            "median": 1.0,
+            "minimum": 1.0,
+            "p95": 1.0
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 83.3193,
+            "mean": 23.9860504,
+            "median": 22.804900000000004,
+            "minimum": 20.8693,
+            "p95": 26.0194
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "peak_vram_allocated_bytes": 5417253376.0,
+          "peak_vram_reserved_bytes": 34472984576.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 10229.9444,
+            "mean": 3460.667458,
+            "median": 3187.75305,
+            "minimum": 2103.8307,
+            "p95": 6503.451
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 10114.4794,
+            "mean": 3459.281864,
+            "median": 3185.2924999999996,
+            "minimum": 2044.2001,
+            "p95": 6520.1897
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "rejected": 0,
+          "score_equal_threshold": 0,
+          "score_zero": 0,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 683.9054999982181,
+              "mean": 350.9957904999901,
+              "median": 351.68494999743416,
+              "minimum": 144.41199999964738,
+              "p95": 501.8807000014931
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 83.3193,
+              "mean": 23.9860504,
+              "median": 22.804900000000004,
+              "minimum": 20.8693,
+              "p95": 26.0194
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 149.2839,
+              "mean": 114.2608128,
+              "median": 115.3964,
+              "minimum": 82.9488,
+              "p95": 125.6225
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 6760.750776290894,
+              "mean": 862.4483137784005,
+              "median": 564.27623295784,
+              "minimum": 297.1197741031647,
+              "p95": 3809.7052526474
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 9691.8823,
+              "mean": 2945.2869342999998,
+              "median": 2666.9444999999996,
+              "minimum": 1569.5097,
+              "p95": 6041.8329
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 20366.619,
+              "mean": 6943.935372399999,
+              "median": 6394.4439,
+              "minimum": 4172.097900000001,
+              "p95": 13216.303100000001
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 49.578,
+              "mean": 39.4567846,
+              "median": 39.64265,
+              "minimum": 28.5075,
+              "p95": 44.3612
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 27.0173,
+              "mean": 13.800277099999999,
+              "median": 13.7855,
+              "minimum": 9.7081,
+              "p95": 15.8285
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 81.7122,
+              "mean": 22.554026399999998,
+              "median": 21.3933,
+              "minimum": 19.5677,
+              "p95": 24.5947
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 330.0763,
+              "mean": 276.0552855,
+              "median": 275.3967,
+              "minimum": 265.4912,
+              "p95": 281.7209
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 10229.9444,
+              "mean": 3459.9746609999997,
+              "median": 3187.24,
+              "minimum": 2044.2001,
+              "p95": 6520.1897
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 1.9893,
+              "mean": 1.4281724,
+              "median": 1.4029,
+              "minimum": 1.2971,
+              "p95": 1.6043
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 2737.739899999724,
+              "mean": 1640.8437490000051,
+              "median": 1641.5739999993093,
+              "minimum": 864.4614999993792,
+              "p95": 2089.4262999991042
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 20383.0228,
+            "mean": 6957.9916096,
+            "median": 6408.0251499999995,
+            "minimum": 4183.9735,
+            "p95": 13233.6223
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 14314.6514,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300c_roll_self_00001000_01"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      },
+      {
+        "actual_execution_index": 7,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_roll_genuine",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "611c16178084f6589f83cc0360f1eb039d82a21f82dc92f3fec4ea61712a4e65",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300c",
+        "execution_wall_ms": 2163363.56,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "plain_roll_genuine",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\plain_roll_genuine.csv",
+          "sha256": "9da74fa221506af801f738ab255dea969d07c973b0327abe52c3d3ea8a0ca98e",
+          "size": 118349
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_roll_genuine\\pairs.csv",
+          "score_payload_sha256": "5319c199f9788ccdbb3bd07f99ae7eeda2b624519d21ab2a37abb84b9f263a4f",
+          "sha256": "f0cbfeeac87e156c65da8a28a20877b8e8870becd13d217997b17a056193e109",
+          "size": 34214947
+        },
+        "protocol": "plain_roll",
+        "role": "genuine",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_roll_genuine\\run_metadata.json",
+          "sha256": "ba41ac13a8565d5592f3c039e7848c0b017e0cf8ffe25f25eb81310c8f181605",
+          "size": 45174
+        },
+        "summary": {
+          "acceptance_percentage": 0.2,
+          "accepted": 1,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 4.0,
+            "mean": 1.472,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 2.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 0.6666666666666666,
+            "mean": 0.3181617327117327,
+            "median": 0.3333333333333333,
+            "minimum": 0.0,
+            "p95": 0.6666666666666666
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 62.5006,
+            "mean": 17.8040674,
+            "median": 17.36495,
+            "minimum": 15.5117,
+            "p95": 19.5834
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 15.0,
+            "mean": 4.212,
+            "median": 4.0,
+            "minimum": 0.0,
+            "p95": 9.0
+          },
+          "peak_vram_allocated_bytes": 5417099264.0,
+          "peak_vram_reserved_bytes": 6276775936.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 2729.0413,
+            "mean": 1158.3497958,
+            "median": 981.6799,
+            "minimum": 524.8756,
+            "p95": 2252.1553
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 4469.8141,
+            "mean": 3138.964833,
+            "median": 3131.3137500000003,
+            "minimum": 2042.1191,
+            "p95": 3759.2946
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 4.0,
+            "mean": 1.472,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 2.0
+          },
+          "rejected": 499,
+          "score_equal_threshold": 1,
+          "score_zero": 137,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 72.0,
+            "mean": 19.18,
+            "median": 18.0,
+            "minimum": 2.0,
+            "p95": 35.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 631.2368000035349,
+              "mean": 241.77724380008294,
+              "median": 246.44760000228416,
+              "minimum": 14.151100000162842,
+              "p95": 497.85979999796837
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 62.5006,
+              "mean": 17.8040674,
+              "median": 17.36495,
+              "minimum": 15.5117,
+              "p95": 19.5834
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 130.0993,
+              "mean": 77.8371088,
+              "median": 87.84719999999999,
+              "minimum": 22.3187,
+              "p95": 118.7273
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 880.7192330360413,
+              "mean": 357.4875116878152,
+              "median": 395.65163564682007,
+              "minimum": 46.84940850734711,
+              "p95": 668.5846438407898
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 3959.8797,
+              "mean": 1708.9925581,
+              "median": 1930.1398,
+              "minimum": 188.57,
+              "p95": 3116.9603
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 7113.5271999999995,
+              "mean": 4315.1186962,
+              "median": 4216.6127,
+              "minimum": 2944.1171999999997,
+              "p95": 5678.3319
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 47.2595,
+              "mean": 26.0527222,
+              "median": 30.336750000000002,
+              "minimum": 4.3796,
+              "p95": 41.0719
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 21.3947,
+              "mean": 8.900332200000001,
+              "median": 10.011199999999999,
+              "minimum": 1.837,
+              "p95": 14.8952
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 62.1528,
+              "mean": 17.570589599999998,
+              "median": 17.1333,
+              "minimum": 15.1621,
+              "p95": 19.4334
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 337.9221,
+              "mean": 273.4876294,
+              "median": 273.83055,
+              "minimum": 256.8024,
+              "p95": 286.2693
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 4469.8141,
+              "mean": 2148.6573144,
+              "median": 2386.98625,
+              "minimum": 524.8756,
+              "p95": 3628.3555
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 0.5702,
+              "mean": 0.2295926,
+              "median": 0.2818,
+              "minimum": 0.0116,
+              "p95": 0.3866
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 2580.050399996253,
+              "mean": 1055.966502100091,
+              "median": 1175.9313499969721,
+              "minimum": 117.79900000692578,
+              "p95": 1947.3848000052385
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 7127.1693,
+            "mean": 4326.448917600001,
+            "median": 4227.49665,
+            "minimum": 2953.9192,
+            "p95": 5691.9316
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 5616.3202,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300c_plain_roll_00001000_01"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      },
+      {
+        "actual_execution_index": 8,
+        "bundle_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_roll_negative",
+        "bundle_tree_contract": "SHA-256 over ordered canonical JSON {path,size,sha256} records for pairs.csv and run_metadata.json, each followed by LF",
+        "bundle_tree_sha256": "9958267913ff12000b8e72d1edb46e9e70ebaa0376df19eed78ac2be4c638c01",
+        "config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "dataset": "sd300c",
+        "execution_wall_ms": 2166510.71,
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "label": "plain_roll_negative",
+        "manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\plain_roll_negative.csv",
+          "sha256": "6b354e6bab3d9fb90aaa0e7d84d3f5ecf4d72cc2fd10fd265d22c1674589559e",
+          "size": 144849
+        },
+        "pairs": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_roll_negative\\pairs.csv",
+          "score_payload_sha256": "e014e201685d80db0e3f3d8876d42df4e0257b45a131c6be00bfac7e6eefb8d6",
+          "sha256": "54b112d64bb3ebe6d28948a9f50a84f0788ddf062730e89c75b97f12dc4b62f1",
+          "size": 34221854
+        },
+        "protocol": "plain_roll_next_subject_impostor",
+        "role": "negative",
+        "run_isolation": {
+          "dedicated_managed_runtime": false,
+          "scope": "one_dataset_protocol",
+          "warm_state_shared_across_protocol_runs": false
+        },
+        "run_metadata": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\runs\\sd300c\\plain_roll_negative\\run_metadata.json",
+          "sha256": "26c0c430493a49f6e304dc76c22a7263bedeadc5cb956751b0f34009c7c2f33b",
+          "size": 45274
+        },
+        "summary": {
+          "acceptance_percentage": 0.0,
+          "accepted": 0,
+          "descriptor_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "detector_final_keypoint_count": {
+            "count": 1000,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "failure_counts": {},
+          "failures": 0,
+          "geometric_inlier_count": {
+            "count": 500,
+            "maximum": 3.0,
+            "mean": 1.13,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 2.0
+          },
+          "inlier_ratio": {
+            "count": 500,
+            "maximum": 0.6666666666666666,
+            "mean": 0.27456800976800977,
+            "median": 0.3333333333333333,
+            "minimum": 0.0,
+            "p95": 0.6666666666666666
+          },
+          "keypoint_count_a": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "keypoint_count_b": {
+            "count": 500,
+            "maximum": 3000.0,
+            "mean": 3000.0,
+            "median": 3000.0,
+            "minimum": 3000.0,
+            "p95": 3000.0
+          },
+          "method_compare_ms": {
+            "count": 500,
+            "maximum": 29.0953,
+            "mean": 17.3037924,
+            "median": 17.039749999999998,
+            "minimum": 15.6773,
+            "p95": 18.2958
+          },
+          "mutual_match_count": {
+            "count": 500,
+            "maximum": 13.0,
+            "mean": 3.112,
+            "median": 3.0,
+            "minimum": 0.0,
+            "p95": 7.0
+          },
+          "peak_vram_allocated_bytes": 5417099264.0,
+          "peak_vram_reserved_bytes": 6276775936.0,
+          "prepare_a_ms": {
+            "count": 500,
+            "maximum": 2671.1958,
+            "mean": 1162.3844322,
+            "median": 988.20385,
+            "minimum": 540.9123,
+            "p95": 2269.4654
+          },
+          "prepare_b_ms": {
+            "count": 500,
+            "maximum": 4424.2936,
+            "mean": 3141.4201669999998,
+            "median": 3139.86955,
+            "minimum": 2103.3786,
+            "p95": 3773.2313
+          },
+          "raw_score": {
+            "count": 500,
+            "maximum": 3.0,
+            "mean": 1.13,
+            "median": 2.0,
+            "minimum": 0.0,
+            "p95": 2.0
+          },
+          "rejected": 500,
+          "score_equal_threshold": 0,
+          "score_zero": 218,
+          "status_ok": 500,
+          "tentative_match_count": {
+            "count": 500,
+            "maximum": 47.0,
+            "mean": 16.346,
+            "median": 15.0,
+            "minimum": 1.0,
+            "p95": 30.0
+          },
+          "timing_breakdown_ms": {
+            "candidate_transfer_ms": {
+              "count": 1000,
+              "maximum": 612.912900007359,
+              "mean": 240.0124985999828,
+              "median": 245.81024999679357,
+              "minimum": 14.953799996874295,
+              "p95": 476.51869999754126
+            },
+            "compare_total_ms": {
+              "count": 500,
+              "maximum": 29.0953,
+              "mean": 17.3037924,
+              "median": 17.039749999999998,
+              "minimum": 15.6773,
+              "p95": 18.2958
+            },
+            "descriptor_cpu_ms": {
+              "count": 1000,
+              "maximum": 131.6478,
+              "mean": 78.3201392,
+              "median": 87.61070000000001,
+              "minimum": 22.8621,
+              "p95": 119.1704
+            },
+            "detector_gpu_kernel_ms": {
+              "count": 1000,
+              "maximum": 790.6134738922119,
+              "mean": 358.92248898908497,
+              "median": 403.81873738765717,
+              "minimum": 50.665055841207504,
+              "p95": 663.4100422859192
+            },
+            "detector_gpu_wall_ms": {
+              "count": 1000,
+              "maximum": 3910.8467,
+              "mean": 1711.5627715,
+              "median": 1928.9305,
+              "minimum": 206.9993,
+              "p95": 3115.3939
+            },
+            "end_to_end_wall_ms": {
+              "count": 500,
+              "maximum": 6448.6136,
+              "mean": 4321.1083916,
+              "median": 4201.6577,
+              "minimum": 3024.5753,
+              "p95": 5682.7329
+            },
+            "image_load_ms": {
+              "count": 1000,
+              "maximum": 45.872,
+              "mean": 25.5066223,
+              "median": 29.88955,
+              "minimum": 3.6405,
+              "p95": 41.1852
+            },
+            "lanczos_ms": {
+              "count": 1000,
+              "maximum": 24.4309,
+              "mean": 9.0288905,
+              "median": 10.02595,
+              "minimum": 1.8762,
+              "p95": 15.1421
+            },
+            "matcher_cpu_ms": {
+              "count": 500,
+              "maximum": 28.726,
+              "mean": 17.1187218,
+              "median": 16.8523,
+              "minimum": 15.4008,
+              "p95": 18.0559
+            },
+            "orientation_cpu_ms": {
+              "count": 1000,
+              "maximum": 328.6399,
+              "mean": 273.6947059,
+              "median": 274.04305,
+              "minimum": 255.8199,
+              "p95": 287.9284
+            },
+            "prepare_total_ms": {
+              "count": 1000,
+              "maximum": 4424.2936,
+              "mean": 2151.9022996,
+              "median": 2398.3898,
+              "minimum": 540.9123,
+              "p95": 3628.8255
+            },
+            "ransac_cpu_ms": {
+              "count": 500,
+              "maximum": 0.7971,
+              "mean": 0.18127359999999998,
+              "median": 0.2711,
+              "minimum": 0.0119,
+              "p95": 0.3672
+            },
+            "selection_cpu_ms": {
+              "count": 1000,
+              "maximum": 2702.447400002711,
+              "mean": 1058.5604652999318,
+              "median": 1193.346850001035,
+              "minimum": 118.24809999234276,
+              "p95": 1959.3036000005668
+            }
+          },
+          "total": 500,
+          "total_pair_ms": {
+            "count": 500,
+            "maximum": 6461.7471,
+            "mean": 4332.735633,
+            "median": 4213.245000000001,
+            "minimum": 3034.9348,
+            "p95": 5698.0301
+          }
+        },
+        "warm_up": {
+          "compare_operation_count": 1,
+          "duration_ms": 5179.0899,
+          "included_in_result_rows": false,
+          "operation_count": 3,
+          "pair_ids": [
+            "sd300c_plain_roll_next_subject_impostor_01_00001000_00001002"
+          ],
+          "policy": {
+            "compare_operations_per_pair": 1,
+            "pair_count": 1,
+            "prepare_operations_per_pair": 2,
+            "strategy": "first_manifest_pair"
+          },
+          "prepare_operation_count": 2
+        }
+      }
+    ],
+    "serial_pair_execution": true,
+    "timing_mode": "cold_pair",
+    "total_execution_wall_ms": 12726728.466000002
+  },
+  "freeze": {
+    "algorithm_config": {
+      "backend": "cuda",
+      "color_grad": false,
+      "derivative_border_policy": "zero_frame",
+      "derivative_kernel": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "derived_scale_table": [
+        {
+          "effective_support_diameter_original_px": 6.5,
+          "keypoint_size": 2.8284271247461903,
+          "nominal_differentiation_sigma": 0.7071067811865476,
+          "nominal_integration_sigma": 1.0000000000000002,
+          "output_differentiation_sigma": 1.0,
+          "output_integration_sigma": 1.4142135623730951,
+          "scale_index": 0,
+          "working_differentiation_sigma": 1.4142135623730951,
+          "working_image_scale": 2.0,
+          "working_integration_sigma": 2.0000000000000004
+        },
+        {
+          "effective_support_diameter_original_px": 9.5,
+          "keypoint_size": 2.8284271247461903,
+          "nominal_differentiation_sigma": 1.0,
+          "nominal_integration_sigma": 1.4142135623730951,
+          "output_differentiation_sigma": 1.0,
+          "output_integration_sigma": 1.4142135623730951,
+          "scale_index": 1,
+          "working_differentiation_sigma": 2.0,
+          "working_image_scale": 2.0,
+          "working_integration_sigma": 2.8284271247461903
+        },
+        {
+          "effective_support_diameter_original_px": 13.0,
+          "keypoint_size": 4.000000000000001,
+          "nominal_differentiation_sigma": 1.4142135623730951,
+          "nominal_integration_sigma": 2.0000000000000004,
+          "output_differentiation_sigma": 1.4142135623730951,
+          "output_integration_sigma": 2.0000000000000004,
+          "scale_index": 2,
+          "working_differentiation_sigma": 1.4142135623730951,
+          "working_image_scale": 1.0,
+          "working_integration_sigma": 2.0000000000000004
+        },
+        {
+          "effective_support_diameter_original_px": 19.0,
+          "keypoint_size": 5.656854249492381,
+          "nominal_differentiation_sigma": 2.0,
+          "nominal_integration_sigma": 2.8284271247461903,
+          "output_differentiation_sigma": 2.0,
+          "output_integration_sigma": 2.8284271247461903,
+          "scale_index": 3,
+          "working_differentiation_sigma": 2.0,
+          "working_image_scale": 1.0,
+          "working_integration_sigma": 2.8284271247461903
+        },
+        {
+          "effective_support_diameter_original_px": 25.0,
+          "keypoint_size": 8.000000000000002,
+          "nominal_differentiation_sigma": 2.8284271247461903,
+          "nominal_integration_sigma": 4.000000000000001,
+          "output_differentiation_sigma": 2.8284271247461903,
+          "output_integration_sigma": 4.000000000000001,
+          "scale_index": 4,
+          "working_differentiation_sigma": 2.8284271247461903,
+          "working_image_scale": 1.0,
+          "working_integration_sigma": 4.000000000000001
+        }
+      ],
+      "descriptor_mode": "rootsift",
+      "detector_dtype": "float32",
+      "device": "cuda:0",
+      "doubled_scale_indices": [
+        0,
+        1
+      ],
+      "duplicate_distance": 1.0,
+      "edge_mask_threshold": 0.31,
+      "edge_mask_threshold_comparison": "strict_greater_than",
+      "eigen_axis_ratio_threshold": 0.25,
+      "gaussian_border_mode": "opencv_BORDER_REFLECT_edge_including",
+      "gaussian_truncate": 3.0,
+      "geometry_model": "affine_partial_2d",
+      "hard_max_keypoints": 3000,
+      "integration_scale_multiplier": 1.4142135623730951,
+      "keypoint_size_formula": "2_times_output_integration_sigma",
+      "lanczos_interpolation": "INTER_LANCZOS4",
+      "local_maximum_border_policy": "partial_in_bounds",
+      "local_maximum_policy": "strict_unique_7x7",
+      "local_maximum_radius": 3,
+      "local_maximum_tie_atol": 1e-06,
+      "lowe_ratio": 0.75,
+      "matching_mode": "mutual",
+      "max_keypoints": 3000,
+      "minimum_descriptors": 2,
+      "minimum_geometry_matches": 3,
+      "normalize_coordinates_by_ppi": true,
+      "opencv_optimized": true,
+      "opencv_threads": 16,
+      "orientation_bins": 36,
+      "orientation_border_mode": "reflect",
+      "orientation_gaussian_sigma_factor": 1.5,
+      "orientation_gradient_kernel": [
+        -1,
+        0,
+        1
+      ],
+      "orientation_histogram_interpolation": "linear_circular",
+      "orientation_histogram_smoothing_passes": 6,
+      "orientation_peak_interpolation": "parabolic",
+      "orientation_radius_factor": 3.0,
+      "orientation_scale_source": "output_integration_sigma",
+      "orientation_tie_policy": "lowest_angle",
+      "paper_version": "arXiv:2109.12925v6",
+      "ranking_policy": "response_desc_scale_desc_y_asc_x_asc_source_asc",
+      "ransac_confidence": 0.99,
+      "ransac_max_iterations": 2000,
+      "ransac_refine_iterations": 10,
+      "ransac_threshold_at_reference_ppi": 3.0,
+      "raw_edge_comparison": "strict_greater_than",
+      "raw_edge_mean_multiplier": 1.0,
+      "reference_ppi": 1000.0,
+      "response_threshold": 0.0,
+      "response_threshold_comparison": "strict_greater_than",
+      "rng_seed": 0,
+      "rootsift_zero_norm_epsilon": 0.0,
+      "scale_base": 2.0,
+      "scale_exponent_divisor": 2.0,
+      "scale_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_version": "harriszplus-config-schema-v1",
+      "score_mode": "geometric_inlier_count",
+      "sift_contrast_threshold": 0.04,
+      "sift_edge_threshold": 10.0,
+      "sift_n_octave_layers": 3,
+      "sift_sigma": 1.6,
+      "subpixel_policy": "separable_parabola_no_clipping_zero_invalid_denominator_or_border",
+      "uniform_distance_formula": "sqrt(8mn/(pi*k))",
+      "uniform_spacing_scope": "pass_local",
+      "validation_candidate_preuniform_minimum_ratio": 0.9995,
+      "validation_minimum_keypoint_agreement": 0.95,
+      "validation_minimum_order_spearman_rank_correlation": 0.99,
+      "validation_ordering_coordinate_tie_atol": 0.001,
+      "validation_ordering_response_tie_atol": 1e-06,
+      "validation_response_atol": 0.0005,
+      "validation_response_max_absolute_delta": 0.1,
+      "validation_response_minimum_pixel_coverage": 0.9999,
+      "validation_response_rtol": 0.0002,
+      "validation_response_statistics": [
+        "minimum",
+        "maximum",
+        "mean",
+        "sample_stddev"
+      ],
+      "validation_scale_index_exact": true,
+      "validation_spatial_tolerance_original_px": 0.75,
+      "validation_synthetic_response_minimum_pixel_coverage": 1.0,
+      "validation_uniform_final_count_exact": true,
+      "zscore_ddof": 1,
+      "zscore_epsilon": 0.0,
+      "zscore_flat_policy": "zero"
+    },
+    "canonical_config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+    "config_directory": "C:\\fingerprint-recognition-research\\results\\harriszplus_rootsift_geometric_v3\\config",
+    "config_file_sha256": "d517f8f26a9dd9791f931da4c74b4e35414c8c74f16f00670bf313b34ffa6df4",
+    "decision_rule_file_sha256": "702b7729fc17e9aaa08224102167a8cdfcc20ca3401294c2e3a43464b846c5cf",
+    "decision_rule_hash": "478785ecb9c0cc8275d5f2618e6c6e5f6c9dcae1bd5b95cdd64798ebfd26d4fa",
+    "files": {
+      "algorithm_config.json": {
+        "sha256": "8f064d2937f899f38ab9cb34fa8e1bb649e2aa358f3fb97598e16455e287af3f",
+        "size": 5923
+      },
+      "decision_rule.json": {
+        "sha256": "702b7729fc17e9aaa08224102167a8cdfcc20ca3401294c2e3a43464b846c5cf",
+        "size": 1038
+      },
+      "environment.json": {
+        "sha256": "544f069e5f961adede88ba6e27824f99535cb2f972f3c56ac8a9f021a74a7f3f",
+        "size": 10253
+      },
+      "implementation_components.json": {
+        "sha256": "549c63acc815524f44612585ed18c05fcb8cb21bcde964eb35f1f7d308e3156a",
+        "size": 11451
+      },
+      "implementation_provenance.json": {
+        "sha256": "fb8f5af67c93ace497762c90d9f5d0b49618a58f90b847a42ed1640b3fd3629d",
+        "size": 11243
+      },
+      "preflight_reference.json": {
+        "sha256": "1855c2da2d2abfb3c1a12bcbc88aba89adffdb471cbd8f88799cf20bc23421ff",
+        "size": 1404
+      },
+      "runner_config.json": {
+        "sha256": "d517f8f26a9dd9791f931da4c74b4e35414c8c74f16f00670bf313b34ffa6df4",
+        "size": 6955
+      },
+      "runtime_identity.json": {
+        "sha256": "3f538f7083d846c63916c862b4ade2d595901d6ce02b4e80b06cd19fd49ffb2f",
+        "size": 1024
+      }
+    },
+    "frozen_before_500_results": true,
+    "immutable": true,
+    "implementation_components": {
+      "adapter_declared_provenance": {
+        "copied_external_functions_or_fragments": false,
+        "descriptor": {
+          "local_descriptor": "cv2.SIFT.compute at supplied keypoints",
+          "minimum_finite_descriptors": 2,
+          "non_finite_policy": "drop complete descriptor rows before RootSIFT",
+          "postprocessing": "fingerprint_benchmark.sift.descriptors.rootsift unchanged"
+        },
+        "detector_backend": "cuda",
+        "detector_dtype": "float32",
+        "detector_only_ablation": "HarrisZ+ replaces DoG/SIFT keypoint detection; descriptor, matcher, geometry, and raw-score semantics reuse the existing SIFT implementation",
+        "determinism": {
+          "autocast": false,
+          "bf16": false,
+          "cuda_matmul_allow_tf32": false,
+          "cudnn_allow_tf32": false,
+          "cudnn_benchmark": false,
+          "cudnn_deterministic": true,
+          "detector_dtype": "float32",
+          "fp16": false,
+          "numpy_seeded": true,
+          "opencv_rng_seeded_before_geometry": true,
+          "seed": 0,
+          "torch_cuda_manual_seeded": true,
+          "torch_manual_seeded": true,
+          "torch_use_deterministic_algorithms": true
+        },
+        "engine": "clean-room HarrisZ+ CPU/CUDA detector with OpenCV supplied-keypoint SIFT",
+        "geometry": {
+          "confidence": 0.99,
+          "estimator": "OpenCV RANSAC",
+          "implementation": "fingerprint_benchmark.sift.geometry.verify_geometry unchanged",
+          "maximum_iterations": 2000,
+          "model": "affine_partial_2d",
+          "ppi_normalization": true,
+          "reference_ppi": 1000.0,
+          "refinement_iterations": 10,
+          "rng_seed": 0,
+          "threshold_reference_pixels": 3.0
+        },
+        "image_policy": {
+          "doubled_scales": [
+            0,
+            1
+          ],
+          "doubling": "one exact 2x cv2.resize call with INTER_LANCZOS4",
+          "downsampling": "none",
+          "enhancement": "none",
+          "load": "cv2.imread(path, cv2.IMREAD_GRAYSCALE)",
+          "oracle_divergence": "OpenCV INTER_LANCZOS4 is the frozen adapter choice; the official Matlab oracle uses Lanczos-3 support",
+          "ppi_source": "manifest_only",
+          "resolution": "native",
+          "segmentation": "none"
+        },
+        "implementation_policy": "clean_room_from_paper",
+        "implementation_source_sha256": {
+          "harriszplus": {
+            "__init__.py": "ab0dd2fa88e1ec2c34bed0b0d9131f050ed18d4c68da1a19fe8463e7dfb284f0",
+            "adapter.py": "125629842f012ce1b7b13b9c2ea4628d0a086cb4e7c6a7073f5d832bef6fa130",
+            "config.py": "8e543e0ae61e97fe8e11b546f564139271bc90fef0987cc38ea42092e48032ab",
+            "cuda_detector.py": "fa28d89a5fdb7f503824a6ce05dcf534793e4c1d5ed8f0c6f2b17766de65c52c",
+            "extractor.py": "513e86d9e4374b115ebb90811a79a8c10a1755897701beb08c7ea5bffd21af34",
+            "kernels.py": "e4fd03697f3fe07041d4e685d1b749c4601f82318039b1febade8b42ca9781a9",
+            "orientation.py": "93eb4bf385b3277862331d30ae8fae1ea89fce87e1ac7edbb91ca7cc74aa8ff6",
+            "pilot.py": "803d44f698615161368a316789a3738291e3443f076aac5e6d2b3b1089729b4c",
+            "pilot_v3.py": "dd8119800b09d31ac6d4d573074ce576b8247b9d56ae1938c8b2721cf4ed727b",
+            "preflight.py": "28d1ee2ab6a2798709f55e22cb415927f4b3058430c704c75d685c0186267596",
+            "preflight_v2.py": "fb770bf160faa650d851bce448c357bea27f72c61275661edf79375b4962ad75",
+            "preflight_v3.py": "2390e2c2e54cc8ebaf30156467a154a0effa212bcc2c8fbfbc84d743e1ac72a2",
+            "provenance.py": "98e5716358eab0a887b1190f5dc6a6b476d1cc7a28ca7fc5081a3e264abfc41c",
+            "reference_cpu.py": "01533331da30c6aa58bd79369e2ce9a30c9c31a11ddcab3ccd9ceb158d84c983",
+            "reporting.py": "0aac77fcd5f4468cf48f5dfdc7574a0b905a0167da76bec088157594c6d94e13",
+            "selection.py": "8a7c89f3b6a25d41d08d90b2cd0a7e17488d7d74ae92103d342b4d194c9fc166",
+            "types.py": "14c50df0db4840c1c3b625c485e4161b82c772a5543e343d6fba38c411ba6c26"
+          },
+          "required_score_producing_sources": {
+            "adapter.py": "125629842f012ce1b7b13b9c2ea4628d0a086cb4e7c6a7073f5d832bef6fa130",
+            "config.py": "8e543e0ae61e97fe8e11b546f564139271bc90fef0987cc38ea42092e48032ab",
+            "cuda_detector.py": "fa28d89a5fdb7f503824a6ce05dcf534793e4c1d5ed8f0c6f2b17766de65c52c",
+            "extractor.py": "513e86d9e4374b115ebb90811a79a8c10a1755897701beb08c7ea5bffd21af34",
+            "kernels.py": "e4fd03697f3fe07041d4e685d1b749c4601f82318039b1febade8b42ca9781a9",
+            "orientation.py": "93eb4bf385b3277862331d30ae8fae1ea89fce87e1ac7edbb91ca7cc74aa8ff6",
+            "provenance.py": "98e5716358eab0a887b1190f5dc6a6b476d1cc7a28ca7fc5081a3e264abfc41c",
+            "reference_cpu.py": "01533331da30c6aa58bd79369e2ce9a30c9c31a11ddcab3ccd9ceb158d84c983",
+            "selection.py": "8a7c89f3b6a25d41d08d90b2cd0a7e17488d7d74ae92103d342b4d194c9fc166",
+            "types.py": "14c50df0db4840c1c3b625c485e4161b82c772a5543e343d6fba38c411ba6c26"
+          },
+          "reuse_contract": {
+            "geometry": "fingerprint_benchmark.sift.geometry.verify_geometry",
+            "matching": "fingerprint_benchmark.sift.matching.match_descriptors",
+            "modification_policy": "imported unchanged",
+            "representation": "fingerprint_benchmark.sift.extractor.SiftRepresentation",
+            "rootsift": "fingerprint_benchmark.sift.descriptors.rootsift"
+          },
+          "reused_sift_unchanged": {
+            "config.py": "0dddaf996c10605ec6b08afc3494fefc9c8ff4adb26a5de819ee9049ac7317fb",
+            "descriptors.py": "073ed322c327457259d995a1719dbc13e29e682f2b2b06139887d70d72148f78",
+            "extractor.py": "90d86105190e0414c198ecce03783f18216ecd7884be688458726d11adc5e4c6",
+            "geometry.py": "35b51bd5888c296882a8c80c19df2af4443c1dea9ef91753a6ce5c4a84835982",
+            "matching.py": "3c9fd3d82b8c62674bcc52d3992caac07b0f5d0dd6eb67813316f684f15e127d"
+          }
+        },
+        "keypoint_adapter": {
+          "detector_source_index": "preserved separately in representation metadata",
+          "effective_detector_gaussian_support": "recorded separately from descriptor size",
+          "opencv_class_id": "HarrisZ+ scale_index",
+          "opencv_octave": "0 for every native-coordinate supplied keypoint; HarrisZ scale must not alter OpenCV descriptor support",
+          "opencv_size_mapping": "size = 2 * output_integration_sigma",
+          "orientation": {
+            "ambiguity_180_degrees": "full signed gradient; no random flip",
+            "empty_histogram_angle_degrees": 0.0,
+            "gaussian_sigma_factor": 1.5,
+            "histogram_bins": 36,
+            "histogram_interpolation": "linear circular",
+            "histogram_smoothing": "repeated circular three-bin mean",
+            "histogram_smoothing_passes": 6,
+            "method": "SIFT-style signed dominant gradient",
+            "orientations_per_keypoint": 1,
+            "peak_interpolation": "three-sample parabola clipped to half a bin",
+            "radius_factor_of_weighting_sigma": 3.0,
+            "tie_policy": "lowest interpolated angle"
+          }
+        },
+        "matching": {
+          "direction": "mutual",
+          "implementation": "fingerprint_benchmark.sift.matching.match_descriptors unchanged",
+          "lowe_ratio": 0.75,
+          "matcher": "BF-L2 KNN k=2"
+        },
+        "official_reference_oracle": {
+          "branch_at_review": "main",
+          "commit": "ec3a285ae3a86cc71d3026c01e24ec13554e3800",
+          "commit_date": "2025-07-18T01:50:14+02:00",
+          "license": "GNU General Public License v3.0",
+          "repository_url": "https://github.com/fb82/HarrisZ",
+          "reviewed_head_date": "2026-07-16",
+          "role": "reference oracle only for response/keypoint comparison and underspecified conventions; it is not a runtime dependency"
+        },
+        "original_harrisz_paper": {
+          "authors": [
+            "Fabio Bellavia",
+            "Domenico Tegolo",
+            "Carlo Valenti"
+          ],
+          "reviewed_pdf_filename": "iet.pdf",
+          "reviewed_pdf_sha256": "513a8c18783ca7d6ce9b5beeecdfb796797df673a3289f303aa4124f079bcd86",
+          "title": "Improving Harris corner selection strategy",
+          "venue": "IET Computer Vision",
+          "year": 2011
+        },
+        "primary_paper": {
+          "arxiv_identifier": "2109.12925",
+          "arxiv_version": "v6",
+          "authors": [
+            "Fabio Bellavia",
+            "Dmytro Mishkin"
+          ],
+          "reviewed_pdf_filename": "2109.12925v6.pdf",
+          "reviewed_pdf_sha256": "c9560b7e89849e7e4a05a4b376bc4eac2116eac8816b13fae9ff69859cb374df",
+          "specification_scope": {
+            "equations": "1-16",
+            "sections": [
+              "3.1",
+              "3.2"
+            ]
+          },
+          "title": "HarrisZ+: Harris Corner Selection for Next-Gen Image Matching Pipelines",
+          "url": "https://arxiv.org/abs/2109.12925v6"
+        },
+        "publication_wrapper": {
+          "algorithm_sources_byte_exact": true,
+          "candidate_algorithm_config_sha256": "521c23e27e5e3b0336aeeb755c8fa5baf32f510fecb9e6d2244c2fc204ba87fa",
+          "engineering_preflight_contract_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+          "method_version": "harriszplus-rootsift-geometric-v3",
+          "score_producing_adapter_method_version": "harriszplus-rootsift-geometric-v1"
+        },
+        "score": {
+          "decision_threshold_in_adapter": null,
+          "direction": "higher_is_more_similar",
+          "raw_score": "integer geometric_inlier_count"
+        },
+        "statement": "This repository implementation was written independently from the equations and prose in Sections 3.1 and 3.2 of the HarrisZ+ paper. The authors' GPL-3.0 repository was used only as a source-level reference oracle for validation and underspecified conventions. No function, code fragment, or translated implementation from that repository was copied.",
+        "timing_policy": {
+          "comparability_note": "HarrisZ+ detector uses GPU when configured; previous SourceAFIS/SIFT pilots may use different backends, so timings are not a direct CPU-efficiency ranking",
+          "cuda_segments": "torch.cuda.synchronize before and after wall timing",
+          "kernel_timing": "detector_gpu_kernel_ms is the sum of CUDA-event elapsed times for base gradients, all five dense scales, and GPU eigen/subpixel refinement; events are read only after explicit synchronization",
+          "pair": "cold pair: prepare A + prepare B + compare; no cross-pair cache",
+          "peak_vram": "torch.cuda max_memory_allocated/max_memory_reserved in bytes"
+        }
+      },
+      "benchmark_contract_source_sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2",
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "benchmark_runner_source_sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c",
+      "benchmark_support_source_sha256": {
+        "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+        "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+        "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+        "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+        "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+        "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+      },
+      "method": "harriszplus_rootsift_geometric",
+      "method_support_source_sha256": {},
+      "method_version": "harriszplus-rootsift-geometric-v3",
+      "python_adapter_source_sha256": "dd8119800b09d31ac6d4d573074ce576b8247b9d56ae1938c8b2721cf4ed727b",
+      "score_direction": "higher_is_more_similar",
+      "score_semantics": "Integer number of mutual-RootSIFT correspondences verified as inliers by the existing PPI-normalized partial-affine RANSAC. compare() performs no acceptance thresholding.",
+      "sidecar_jar_sha256": null
+    },
+    "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+    "method": "harriszplus_rootsift_geometric",
+    "method_version": "harriszplus-rootsift-geometric-v3",
+    "overwrite_allowed": false,
+    "preflight_canonical_sha256": "2565d0fbe8e1875642ec84c4a51027effef9e8b877e08eb6e9760c93fb1ef353",
+    "runner_config": {
+      "backend": "cuda",
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "candidate_algorithm_config_sha256": "521c23e27e5e3b0336aeeb755c8fa5baf32f510fecb9e6d2244c2fc204ba87fa",
+      "color_grad": false,
+      "cross_pair_cache": false,
+      "decision_threshold": null,
+      "derivative_border_policy": "zero_frame",
+      "derivative_kernel": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "derived_scale_table": [
+        {
+          "effective_support_diameter_original_px": 6.5,
+          "keypoint_size": 2.8284271247461903,
+          "nominal_differentiation_sigma": 0.7071067811865476,
+          "nominal_integration_sigma": 1.0000000000000002,
+          "output_differentiation_sigma": 1.0,
+          "output_integration_sigma": 1.4142135623730951,
+          "scale_index": 0,
+          "working_differentiation_sigma": 1.4142135623730951,
+          "working_image_scale": 2.0,
+          "working_integration_sigma": 2.0000000000000004
+        },
+        {
+          "effective_support_diameter_original_px": 9.5,
+          "keypoint_size": 2.8284271247461903,
+          "nominal_differentiation_sigma": 1.0,
+          "nominal_integration_sigma": 1.4142135623730951,
+          "output_differentiation_sigma": 1.0,
+          "output_integration_sigma": 1.4142135623730951,
+          "scale_index": 1,
+          "working_differentiation_sigma": 2.0,
+          "working_image_scale": 2.0,
+          "working_integration_sigma": 2.8284271247461903
+        },
+        {
+          "effective_support_diameter_original_px": 13.0,
+          "keypoint_size": 4.000000000000001,
+          "nominal_differentiation_sigma": 1.4142135623730951,
+          "nominal_integration_sigma": 2.0000000000000004,
+          "output_differentiation_sigma": 1.4142135623730951,
+          "output_integration_sigma": 2.0000000000000004,
+          "scale_index": 2,
+          "working_differentiation_sigma": 1.4142135623730951,
+          "working_image_scale": 1.0,
+          "working_integration_sigma": 2.0000000000000004
+        },
+        {
+          "effective_support_diameter_original_px": 19.0,
+          "keypoint_size": 5.656854249492381,
+          "nominal_differentiation_sigma": 2.0,
+          "nominal_integration_sigma": 2.8284271247461903,
+          "output_differentiation_sigma": 2.0,
+          "output_integration_sigma": 2.8284271247461903,
+          "scale_index": 3,
+          "working_differentiation_sigma": 2.0,
+          "working_image_scale": 1.0,
+          "working_integration_sigma": 2.8284271247461903
+        },
+        {
+          "effective_support_diameter_original_px": 25.0,
+          "keypoint_size": 8.000000000000002,
+          "nominal_differentiation_sigma": 2.8284271247461903,
+          "nominal_integration_sigma": 4.000000000000001,
+          "output_differentiation_sigma": 2.8284271247461903,
+          "output_integration_sigma": 4.000000000000001,
+          "scale_index": 4,
+          "working_differentiation_sigma": 2.8284271247461903,
+          "working_image_scale": 1.0,
+          "working_integration_sigma": 4.000000000000001
+        }
+      ],
+      "descriptor_mode": "rootsift",
+      "detector_dtype": "float32",
+      "device": "cuda:0",
+      "doubled_scale_indices": [
+        0,
+        1
+      ],
+      "duplicate_distance": 1.0,
+      "edge_mask_threshold": 0.31,
+      "edge_mask_threshold_comparison": "strict_greater_than",
+      "eigen_axis_ratio_threshold": 0.25,
+      "gaussian_border_mode": "opencv_BORDER_REFLECT_edge_including",
+      "gaussian_truncate": 3.0,
+      "geometry_model": "affine_partial_2d",
+      "hard_max_keypoints": 3000,
+      "integration_scale_multiplier": 1.4142135623730951,
+      "keypoint_size_formula": "2_times_output_integration_sigma",
+      "lanczos_interpolation": "INTER_LANCZOS4",
+      "local_maximum_border_policy": "partial_in_bounds",
+      "local_maximum_policy": "strict_unique_7x7",
+      "local_maximum_radius": 3,
+      "local_maximum_tie_atol": 1e-06,
+      "lowe_ratio": 0.75,
+      "matching_mode": "mutual",
+      "max_keypoints": 3000,
+      "method": "harriszplus_rootsift_geometric",
+      "method_version": "harriszplus-rootsift-geometric-v3",
+      "minimum_descriptors": 2,
+      "minimum_geometry_matches": 3,
+      "normalize_coordinates_by_ppi": true,
+      "opencv_optimized": true,
+      "opencv_threads": 16,
+      "orientation_bins": 36,
+      "orientation_border_mode": "reflect",
+      "orientation_gaussian_sigma_factor": 1.5,
+      "orientation_gradient_kernel": [
+        -1,
+        0,
+        1
+      ],
+      "orientation_histogram_interpolation": "linear_circular",
+      "orientation_histogram_smoothing_passes": 6,
+      "orientation_peak_interpolation": "parabolic",
+      "orientation_radius_factor": 3.0,
+      "orientation_scale_source": "output_integration_sigma",
+      "orientation_tie_policy": "lowest_angle",
+      "paper_version": "arXiv:2109.12925v6",
+      "ranking_policy": "response_desc_scale_desc_y_asc_x_asc_source_asc",
+      "ransac_confidence": 0.99,
+      "ransac_max_iterations": 2000,
+      "ransac_refine_iterations": 10,
+      "ransac_threshold_at_reference_ppi": 3.0,
+      "raw_edge_comparison": "strict_greater_than",
+      "raw_edge_mean_multiplier": 1.0,
+      "reference_ppi": 1000.0,
+      "representation_cache": false,
+      "representation_version": "harriszplus-rootsift-representation-v1",
+      "response_threshold": 0.0,
+      "response_threshold_comparison": "strict_greater_than",
+      "rng_seed": 0,
+      "rootsift_zero_norm_epsilon": 0.0,
+      "scale_base": 2.0,
+      "scale_exponent_divisor": 2.0,
+      "scale_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_version": "harriszplus-config-schema-v1",
+      "score_direction": "higher_is_more_similar",
+      "score_field": "geometric_inlier_count",
+      "score_mode": "geometric_inlier_count",
+      "score_producing_adapter_method_version": "harriszplus-rootsift-geometric-v1",
+      "score_semantics": "Integer number of mutual-RootSIFT correspondences verified as inliers by the existing PPI-normalized partial-affine RANSAC. compare() performs no acceptance thresholding.",
+      "sift_contrast_threshold": 0.04,
+      "sift_edge_threshold": 10.0,
+      "sift_n_octave_layers": 3,
+      "sift_sigma": 1.6,
+      "subpixel_policy": "separable_parabola_no_clipping_zero_invalid_denominator_or_border",
+      "thresholding": "none_in_adapter_compare",
+      "timing_mode": "cold_pair",
+      "uniform_distance_formula": "sqrt(8mn/(pi*k))",
+      "uniform_spacing_scope": "pass_local",
+      "validation_candidate_preuniform_minimum_ratio": 0.9995,
+      "validation_minimum_keypoint_agreement": 0.95,
+      "validation_minimum_order_spearman_rank_correlation": 0.99,
+      "validation_ordering_coordinate_tie_atol": 0.001,
+      "validation_ordering_response_tie_atol": 1e-06,
+      "validation_response_atol": 0.0005,
+      "validation_response_max_absolute_delta": 0.1,
+      "validation_response_minimum_pixel_coverage": 0.9999,
+      "validation_response_rtol": 0.0002,
+      "validation_response_statistics": [
+        "minimum",
+        "maximum",
+        "mean",
+        "sample_stddev"
+      ],
+      "validation_scale_index_exact": true,
+      "validation_spatial_tolerance_original_px": 0.75,
+      "validation_synthetic_response_minimum_pixel_coverage": 1.0,
+      "validation_uniform_final_count_exact": true,
+      "warm_up_policy": {
+        "compare_operations_per_pair": 1,
+        "pair_count": 1,
+        "prepare_operations_per_pair": 2,
+        "strategy": "first_manifest_pair"
+      },
+      "zscore_ddof": 1,
+      "zscore_epsilon": 0.0,
+      "zscore_flat_policy": "zero"
+    },
+    "runtime_identity": {
+      "compute_capability": [
+        12,
+        0
+      ],
+      "cudnn_version": 91900,
+      "dependency_artifact_sha256": {
+        "environment.yml": "7e6f2a8609cb3b3338093361fb48f8b8c75b9e222eba53962faf4c168f7bbe3a",
+        "pyproject.toml": "2762f937d9c866b539f533fce07dd84074f902e1d9c48b1e63e5e4e50cac55a5"
+      },
+      "device_index": 0,
+      "gpu_model": "NVIDIA GeForce RTX 5080 Laptop GPU",
+      "numpy_version": "2.2.6",
+      "nvidia_driver_version": "592.01",
+      "opencv_version": "4.12.0",
+      "operating_system": "Windows-10-10.0.26200-SP0",
+      "python_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\python.exe",
+      "python_version": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:27:10) [MSC v.1944 64 bit (AMD64)]",
+      "pytorch_version": "2.11.0+cu130",
+      "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5",
+      "schema_version": "harriszplus-runtime-identity-v1",
+      "selected_device": "cuda:0",
+      "torch_cuda_build_runtime": "13.0",
+      "total_vram_bytes": 17094475776
+    },
+    "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5",
+    "schema_version": "harriszplus-config-freeze-v3",
+    "validation_policy": {
+      "auto_relaxation_allowed": false,
+      "candidate_count_allowed_delta": "max(2, ceil(0.005 * max(cpu_count, cuda_count)))",
+      "contract_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+      "cuda_repeat_exact": true,
+      "decision_equality_required": true,
+      "decision_threshold": 4,
+      "frozen_before_500_results": true,
+      "maximum_downstream_raw_score_delta": 1,
+      "minimum_bidirectional_matched_fraction": 0.995,
+      "minimum_exact_downstream_score_fraction": 0.95,
+      "minimum_real_pixel_coverage": 0.9999,
+      "minimum_synthetic_pixel_coverage": 1.0,
+      "minimum_top_k_bidirectional_overlap": 0.995,
+      "relative_scale_tolerance": 0.01,
+      "response_atol": 0.0005,
+      "response_max_absolute_delta": 0.1,
+      "response_rtol": 0.0002,
+      "schema_version": "harriszplus-functional-validation-policy-v3",
+      "spatial_tolerance_original_pixels": 0.5,
+      "spearman_is_gate": false,
+      "spearman_minimum_threshold": null,
+      "top_k": 3000,
+      "v4_relaxation_path_allowed": false,
+      "zero_versus_nonzero_candidate_count_fails": true
+    }
+  },
+  "integrity": {
+    "added_paths": [],
+    "after_file_count": 228,
+    "after_snapshot_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\integrity\\protected_after.json",
+    "after_snapshot_sha256": "216c4a1b5a46c0a88dfb1ae511b131a46549a5bdb83fcdaa10986e8da1bbe118",
+    "after_tree_sha256": "61c8850865bab4d761f7a8d2da364f11d660c4385c2c569b17fafa79b553cca8",
+    "before_file_count": 228,
+    "before_snapshot_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\integrity\\protected_before.json",
+    "before_snapshot_sha256": "216c4a1b5a46c0a88dfb1ae511b131a46549a5bdb83fcdaa10986e8da1bbe118",
+    "before_tree_sha256": "61c8850865bab4d761f7a8d2da364f11d660c4385c2c569b17fafa79b553cca8",
+    "changed_paths": [],
+    "combined_snapshot_sha256_match": true,
+    "dataset_tree_rescanned": false,
+    "manifest_referenced_dataset_inventory": {
+      "after": {
+        "all_protocol_dataset_stat_inventory_sha256": "48671391df5a10c1f6732c3f0051d6093fc62a3768778ba5850f1a8f47cfd841",
+        "authoritative_pilot_image_content_inventory_sha256": "41b91795525685044aca095bc3ffee56a4d86a4dd9613937992977522129ff3a"
+      },
+      "all_protocol_dataset_file_count": 35318,
+      "authoritative_pilot_image_count": 2000,
+      "before": {
+        "all_protocol_dataset_stat_inventory_sha256": "48671391df5a10c1f6732c3f0051d6093fc62a3768778ba5850f1a8f47cfd841",
+        "authoritative_pilot_image_content_inventory_sha256": "41b91795525685044aca095bc3ffee56a4d86a4dd9613937992977522129ff3a"
+      },
+      "matches": {
+        "all_protocol_dataset_stat_inventory_sha256": true,
+        "authoritative_pilot_image_content_inventory_sha256": true
+      },
+      "status": "ok"
+    },
+    "mismatch_count": 0,
+    "passed": true,
+    "protected_artifacts_unchanged": true,
+    "removed_paths": [],
+    "schema_version": "harriszplus-narrow-protected-integrity-v1"
+  },
+  "method": {
+    "decision_threshold_in_adapter": null,
+    "name": "harriszplus_rootsift_geometric",
+    "pilot_decision": "status == ok and geometric_inlier_count >= 4",
+    "pipeline": "HarrisZ+ detector -> deterministic scale/orientation -> RootSIFT -> existing mutual ratio matching -> existing partial-affine RANSAC -> geometric-inlier-count score",
+    "raw_score": "integer geometric_inlier_count",
+    "score_direction": "higher_is_more_similar",
+    "version": "harriszplus-rootsift-geometric-v3"
+  },
+  "namespace": "harriszplus_rootsift_geometric_joint_500_v3",
+  "preflight": {
+    "path": "C:\\fingerprint-recognition-research\\results\\harriszplus_rootsift_geometric_v3\\preflight\\engineering_preflight.json",
+    "ppi_coordinate_handling_all_passed": true,
+    "report": {
+      "algorithm_source_sha256": {
+        "adapter.py": "125629842f012ce1b7b13b9c2ea4628d0a086cb4e7c6a7073f5d832bef6fa130",
+        "config.py": "8e543e0ae61e97fe8e11b546f564139271bc90fef0987cc38ea42092e48032ab",
+        "cuda_detector.py": "fa28d89a5fdb7f503824a6ce05dcf534793e4c1d5ed8f0c6f2b17766de65c52c",
+        "extractor.py": "513e86d9e4374b115ebb90811a79a8c10a1755897701beb08c7ea5bffd21af34",
+        "kernels.py": "e4fd03697f3fe07041d4e685d1b749c4601f82318039b1febade8b42ca9781a9",
+        "orientation.py": "93eb4bf385b3277862331d30ae8fae1ea89fce87e1ac7edbb91ca7cc74aa8ff6",
+        "provenance.py": "98e5716358eab0a887b1190f5dc6a6b476d1cc7a28ca7fc5081a3e264abfc41c",
+        "reference_cpu.py": "01533331da30c6aa58bd79369e2ce9a30c9c31a11ddcab3ccd9ceb158d84c983",
+        "selection.py": "8a7c89f3b6a25d41d08d90b2cd0a7e17488d7d74ae92103d342b4d194c9fc166",
+        "types.py": "14c50df0db4840c1c3b625c485e4161b82c772a5543e343d6fba38c411ba6c26"
+      },
+      "algorithm_sources_byte_exact_to_preflight": true,
+      "authorization_payload_sha256": "5d6e2319cc8790174b50b259071782ada3f6f14cab0e02b58e59e3aac01c9f5a",
+      "candidate_algorithm_config_sha256": "521c23e27e5e3b0336aeeb755c8fa5baf32f510fecb9e6d2244c2fc204ba87fa",
+      "candidate_freeze_identity": {
+        "canonical_config_hash": "1083ead82be1ab310019d1e6e9e957becc41b74210b40007693fe3e39a58b159",
+        "implementation_hash": "34f56be893b9e6685047c15827ba77e235813a9490e285926e5600827abafe61",
+        "runtime_identity_hash": "9a959a017f61314f0f2fc22cf4dfe6d757ad1e03078ee7215dc28ef696e78fe5"
+      },
+      "device_binding": {
+        "canonical_device": "cuda:0",
+        "observed_device": "cuda:0",
+        "passed": true
+      },
+      "engineering_preflight_v3": {
+        "contract_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+        "path": "C:\\fingerprint-recognition-research\\results\\harriszplus_rootsift_geometric_v3\\preflight\\engineering_preflight_pass.json",
+        "report_payload_sha256": "22d809446e8a4074a7b50c61da40ad52bffc48590abfe80a1217f94498b87cbd",
+        "sha256": "85f9f27fe61e6971181ffe97e7f04bf6a13019f9f7d6be5857e52d8304d43b7b"
+      },
+      "memory": {
+        "capacity_fraction_is_correctness_gate": false,
+        "hidden_cpu_fallback_observed": false,
+        "out_of_memory_observed": false,
+        "passed": true,
+        "reported_peak_vram_bytes_information_only": 21124612096.0,
+        "v3_requirement": "no out-of-memory and no hidden CPU fallback"
+      },
+      "method_name": "harriszplus_rootsift_geometric",
+      "method_version": "harriszplus-rootsift-geometric-v3",
+      "no_500_result_observed": true,
+      "no_v4_relaxation_path": true,
+      "passed": true,
+      "pilot_500_authorized": true,
+      "ppi_coordinate_handling_all_passed": true,
+      "schema_version": "harriszplus-engineering-preflight-v3",
+      "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+      "spearman_is_diagnostic_only": true,
+      "status": "authorized_after_frozen_v3_functional_pass",
+      "timing_synchronization": {
+        "cuda_detector_uses_explicit_synchronization": true,
+        "real_comparison_medians_reported": true,
+        "required_timing_fields_all_passed": true,
+        "v3_timing_is_correctness_gate": false
+      },
+      "validation_policy": {
+        "auto_relaxation_allowed": false,
+        "candidate_count_allowed_delta": "max(2, ceil(0.005 * max(cpu_count, cuda_count)))",
+        "contract_sha256": "a0278413a2e6eb2c5308642b90de86afe8bfcb00d783aa1b092d18ca510d68d3",
+        "cuda_repeat_exact": true,
+        "decision_equality_required": true,
+        "decision_threshold": 4,
+        "frozen_before_500_results": true,
+        "maximum_downstream_raw_score_delta": 1,
+        "minimum_bidirectional_matched_fraction": 0.995,
+        "minimum_exact_downstream_score_fraction": 0.95,
+        "minimum_real_pixel_coverage": 0.9999,
+        "minimum_synthetic_pixel_coverage": 1.0,
+        "minimum_top_k_bidirectional_overlap": 0.995,
+        "relative_scale_tolerance": 0.01,
+        "response_atol": 0.0005,
+        "response_max_absolute_delta": 0.1,
+        "response_rtol": 0.0002,
+        "schema_version": "harriszplus-functional-validation-policy-v3",
+        "spatial_tolerance_original_pixels": 0.5,
+        "spearman_is_gate": false,
+        "spearman_minimum_threshold": null,
+        "top_k": 3000,
+        "v4_relaxation_path_allowed": false,
+        "zero_versus_nonzero_candidate_count_fails": true
+      }
+    },
+    "sha256": "1117508cabc6439017abbe551451de0803f960544d40e7640fc30dce9d635ee0"
+  },
+  "reports": {
+    "supervisor_report.csv": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\report\\supervisor_report.csv",
+      "sha256": "202eb23971ab73f550ee6c342f44ff2e4586a3dce9247afd0de874b15f068767",
+      "size": 5031
+    },
+    "supervisor_report.json": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\report\\supervisor_report.json",
+      "sha256": "4e6ae338982111d2039d338adbbb97fec3ef886a8a34e3fd7f465968f9f4dd5a",
+      "size": 55629
+    },
+    "supervisor_report.md": {
+      "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\report\\supervisor_report.md",
+      "sha256": "11006e32101d89e5710a4275220545132d7f056a6e36927c581eac52fe8a2867",
+      "size": 3107
+    }
+  },
+  "schema_version": "harriszplus-joint-500-technical-provenance-v3",
+  "selection": {
+    "expected_source_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+    "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\selected_identities_reference.json",
+    "reference": {
+      "actual_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+      "canonical_positions_unchanged": true,
+      "expected_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+      "identities_and_order_unchanged": true,
+      "identity_sequence_sha256": "3425383b243e24257577d919165ae3409c7f3a89781254c9f0a86043c99c182f",
+      "image_paths_preserved_from_authoritative_manifests": true,
+      "row_count": 500,
+      "same_500_used_in_sd300b_and_sd300c": true,
+      "schema_version": "harriszplus-selected-identities-reference-v1",
+      "selection_index_contiguous": true,
+      "self_manifests": [
+        {
+          "all_referenced_images_exist": true,
+          "all_referenced_images_under_data_root": true,
+          "byte_exact_copy": true,
+          "dataset": "sd300b",
+          "dataset_tree_scanned": false,
+          "manifest_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300b\\plain_self.csv",
+          "manifest_sha256": "b08f663f6018e7d212d9b8034cbf72597e27a69d491e805d8ec6bd894dc8c202",
+          "ppi": 1000,
+          "protocol": "plain_self",
+          "row_count": 500,
+          "selection_order_exact": true,
+          "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+          "source_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300b\\plain_self.csv",
+          "target_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\plain_self.csv",
+          "unique_referenced_image_count": 500,
+          "validation_mode": "recorded_manifest_exact_500_no_dataset_tree_scan"
+        },
+        {
+          "all_referenced_images_exist": true,
+          "all_referenced_images_under_data_root": true,
+          "byte_exact_copy": true,
+          "dataset": "sd300b",
+          "dataset_tree_scanned": false,
+          "manifest_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300b\\roll_self.csv",
+          "manifest_sha256": "9ef3188593140e21be8426fb5065c56530e2c367cbc35c11af4c14b3c23f1988",
+          "ppi": 1000,
+          "protocol": "roll_self",
+          "row_count": 500,
+          "selection_order_exact": true,
+          "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+          "source_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300b\\roll_self.csv",
+          "target_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\roll_self.csv",
+          "unique_referenced_image_count": 500,
+          "validation_mode": "recorded_manifest_exact_500_no_dataset_tree_scan"
+        },
+        {
+          "all_referenced_images_exist": true,
+          "all_referenced_images_under_data_root": true,
+          "byte_exact_copy": true,
+          "dataset": "sd300c",
+          "dataset_tree_scanned": false,
+          "manifest_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300c\\plain_self.csv",
+          "manifest_sha256": "4bdd7485759425135b71461f136bd4f285e046ab68db55f9b2af3bd1f0ffc30d",
+          "ppi": 2000,
+          "protocol": "plain_self",
+          "row_count": 500,
+          "selection_order_exact": true,
+          "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+          "source_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300c\\plain_self.csv",
+          "target_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\plain_self.csv",
+          "unique_referenced_image_count": 500,
+          "validation_mode": "recorded_manifest_exact_500_no_dataset_tree_scan"
+        },
+        {
+          "all_referenced_images_exist": true,
+          "all_referenced_images_under_data_root": true,
+          "byte_exact_copy": true,
+          "dataset": "sd300c",
+          "dataset_tree_scanned": false,
+          "manifest_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300c\\roll_self.csv",
+          "manifest_sha256": "27f33dc5a634369f72577614501a281fd359f6e561db65988dfca0255301282a",
+          "ppi": 2000,
+          "protocol": "roll_self",
+          "row_count": 500,
+          "selection_order_exact": true,
+          "selection_sha256": "942363780986aab4b28df97ab67421ac8322ead5c9fd5131446f90eb8cdca7e9",
+          "source_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\manifests\\sd300c\\roll_self.csv",
+          "target_path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\roll_self.csv",
+          "unique_referenced_image_count": 500,
+          "validation_mode": "recorded_manifest_exact_500_no_dataset_tree_scan"
+        }
+      ],
+      "source_artifact_manifest": {
+        "path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\artifact_manifest.json",
+        "sha256": "514ef8343d0eff83ad4b05a868ba4d7256836067232f5e87cf167575b11a3d90"
+      },
+      "source_path": "C:\\fingerprint-recognition-research\\results\\pilots\\sourceafis_joint_500_v1\\selected_identities.csv"
+    },
+    "sha256": "5ff8d86195cdce4ece1695d4c4f25648443aa441cf98f3055823c3c757eecdc1"
+  },
+  "self_filtering": {
+    "sd300b": {
+      "acceptance_rule": "status == ok and geometric_inlier_count >= 4",
+      "artifacts": {
+        "excluded_identities": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\survivors\\sd300b\\excluded_identities.csv",
+          "sha256": "492c096c1ef780704aa246db60dda5e6fe97af5cc5bb3b0e48bd8eef3e774917",
+          "size": 218
+        },
+        "genuine_manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\plain_roll_genuine.csv",
+          "sha256": "dfc4895f80bbad1aa095c428c6551591bad95bab5256cd81d06d98a28fa93e8c",
+          "size": 118349
+        },
+        "included_identities": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\survivors\\sd300b\\included_identities.csv",
+          "sha256": "c84a11b673eb821c7eee8a0fd08429ebd86d7b65d61d3d4bcd4aadf3e3986d7f",
+          "size": 52145
+        },
+        "negative_manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\plain_roll_negative.csv",
+          "sha256": "099ed6450ac0302e9926ba50d9434def6ae5d31eae3cdd963d4e17f2cfa3c1b0",
+          "size": 144849
+        },
+        "pairing_map": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300b\\pairing_map.csv",
+          "sha256": "e65c9cff85274e3b2c8bc4dcdbb2604d558ddb924b731ee07a3b1ea0c145779f",
+          "size": 187090
+        }
+      },
+      "base_identity_count": 500,
+      "both_self_failure_count": 0,
+      "both_self_nonaccepted_count": 0,
+      "both_self_technical_failure_count": 0,
+      "dataset": "sd300b",
+      "excluded_count": 0,
+      "genuine_or_negative_result_used_for_filtering": false,
+      "genuine_pair_count": 500,
+      "negative_pair_count": 500,
+      "negative_protocol": {
+        "circular_shift": 1,
+        "different_subjects": true,
+        "each_plain_once": true,
+        "each_roll_once": true,
+        "genuine_contamination": false,
+        "group_by_canonical_finger_position": true,
+        "order_by_selection_index": true
+      },
+      "plain_self_accepted_count": 500,
+      "plain_self_failure_count": 0,
+      "plain_self_rejected_count": 0,
+      "plain_self_rejected_or_failure_count": 0,
+      "reason_counts": {},
+      "replacement_identity_count": 0,
+      "roll_self_accepted_count": 500,
+      "roll_self_failure_count": 0,
+      "roll_self_rejected_count": 0,
+      "roll_self_rejected_or_failure_count": 0,
+      "schema_version": "harriszplus-per-dataset-self-survivors-v3",
+      "survivor_count": 500,
+      "survivor_definition": "accepted(plain_self) intersection accepted(roll_self), per dataset",
+      "threshold": 4,
+      "tie_score_4_accepted": true
+    },
+    "sd300c": {
+      "acceptance_rule": "status == ok and geometric_inlier_count >= 4",
+      "artifacts": {
+        "excluded_identities": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\survivors\\sd300c\\excluded_identities.csv",
+          "sha256": "492c096c1ef780704aa246db60dda5e6fe97af5cc5bb3b0e48bd8eef3e774917",
+          "size": 218
+        },
+        "genuine_manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\plain_roll_genuine.csv",
+          "sha256": "9da74fa221506af801f738ab255dea969d07c973b0327abe52c3d3ea8a0ca98e",
+          "size": 118349
+        },
+        "included_identities": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\survivors\\sd300c\\included_identities.csv",
+          "sha256": "cf3d729f3541b14f5925d249646ddedd73e901e0e957ef3290bf37393deb473a",
+          "size": 52145
+        },
+        "negative_manifest": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\plain_roll_negative.csv",
+          "sha256": "6b354e6bab3d9fb90aaa0e7d84d3f5ecf4d72cc2fd10fd265d22c1674589559e",
+          "size": 144849
+        },
+        "pairing_map": {
+          "path": "C:\\fingerprint-recognition-research\\results\\pilots\\harriszplus_rootsift_geometric_joint_500_v3\\manifests\\sd300c\\pairing_map.csv",
+          "sha256": "ce63142ee8165bd76927dd4d39eedd61e47ffe7b6ff30d18a772ba07e24c0b2a",
+          "size": 187090
+        }
+      },
+      "base_identity_count": 500,
+      "both_self_failure_count": 0,
+      "both_self_nonaccepted_count": 0,
+      "both_self_technical_failure_count": 0,
+      "dataset": "sd300c",
+      "excluded_count": 0,
+      "genuine_or_negative_result_used_for_filtering": false,
+      "genuine_pair_count": 500,
+      "negative_pair_count": 500,
+      "negative_protocol": {
+        "circular_shift": 1,
+        "different_subjects": true,
+        "each_plain_once": true,
+        "each_roll_once": true,
+        "genuine_contamination": false,
+        "group_by_canonical_finger_position": true,
+        "order_by_selection_index": true
+      },
+      "plain_self_accepted_count": 500,
+      "plain_self_failure_count": 0,
+      "plain_self_rejected_count": 0,
+      "plain_self_rejected_or_failure_count": 0,
+      "reason_counts": {},
+      "replacement_identity_count": 0,
+      "roll_self_accepted_count": 500,
+      "roll_self_failure_count": 0,
+      "roll_self_rejected_count": 0,
+      "roll_self_rejected_or_failure_count": 0,
+      "schema_version": "harriszplus-per-dataset-self-survivors-v3",
+      "survivor_count": 500,
+      "survivor_definition": "accepted(plain_self) intersection accepted(roll_self), per dataset",
+      "threshold": 4,
+      "tie_score_4_accepted": true
+    }
+  },
+  "status": "complete",
+  "total_actual_false_matches": 3
+}

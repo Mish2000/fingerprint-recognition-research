@@ -1,0 +1,481 @@
+dataset,class,metric,unit,available,source,notes,count,mean,median,p5,p25,p75,p95,zero_count,minimum,maximum
+sd300b,plain_self,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,0.996,1.0,1.0,1.0,1.0,1.0,2,0.0,1.0
+sd300b,plain_self,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,0.996,1.0,1.0,1.0,1.0,1.0,2,0.0,1.0
+sd300b,plain_self,cap_active_count,representations_per_pair,true,sum of side flags,,500,1.992,2.0,2.0,2.0,2.0,2.0,2,0.0,2.0
+sd300b,plain_self,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,12426.57,10317.5,5350.3,8175.0,13996.5,27015.199999999993,0,1980.0,36063.0
+sd300b,plain_self,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,12426.57,10317.5,5350.3,8175.0,13996.5,27015.199999999993,0,1980.0,36063.0
+sd300b,plain_self,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,4.143202666666666,3.439166666666667,1.7834333333333334,2.7249999999999996,4.6655,9.005066666666664,0,1.0,12.021
+sd300b,plain_self,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,4.143202666666666,3.439166666666667,1.7834333333333334,2.7249999999999996,4.6655,9.005066666666664,0,1.0,12.021
+sd300b,plain_self,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.8476955262170054,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,plain_self,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.8476955262170054,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,plain_self,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,51.664,51.0,39.0,45.0,56.0,72.09999999999991,0,29.0,107.0
+sd300b,plain_self,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,51.664,51.0,39.0,45.0,56.0,72.09999999999991,0,29.0,107.0
+sd300b,plain_self,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.886,1022.0,1019.0,1021.0,1023.0,1024.0,0,1013.0,1025.0
+sd300b,plain_self,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.886,1022.0,1019.0,1021.0,1023.0,1024.0,0,1013.0,1025.0
+sd300b,plain_self,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,2996.958,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,2996.958,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,2996.958,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,2996.958,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,plain_self,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,2996.958,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,plain_self,raw_score,inliers,true,pairs.csv raw_score,,500,2996.958,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,plain_self,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,500,3.457225510177189e-15,0.0,0.0,0.0,0.0,1.59651514794831e-14,430,0.0,1.82015830096716e-13
+sd300b,plain_self,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,500,3.0026001233930133e-15,0.0,0.0,0.0,0.0,1.4210854715202004e-14,459,0.0,2.2737367544323206e-13
+sd300b,plain_self,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,500,7.524659608130311e-15,0.0,0.0,0.0,0.0,5.684341886080802e-14,430,0.0,2.5421149729252077e-13
+sd300b,plain_self,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,500,8.822905610117854e-15,0.0,0.0,0.0,0.0,5.859285502108464e-14,430,0.0,2.5421149729252077e-13
+sd300b,plain_self,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,500,3.457225510177189e-15,0.0,0.0,0.0,0.0,1.59651514794831e-14,430,0.0,1.82015830096716e-13
+sd300b,plain_self,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,500,3.0026001233930133e-15,0.0,0.0,0.0,0.0,1.4210854715202004e-14,459,0.0,2.2737367544323206e-13
+sd300b,plain_self,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,500,7.524659608130311e-15,0.0,0.0,0.0,0.0,5.684341886080802e-14,430,0.0,2.5421149729252077e-13
+sd300b,plain_self,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,500,8.822905610117854e-15,0.0,0.0,0.0,0.0,5.859285502108464e-14,430,0.0,2.5421149729252077e-13
+sd300b,plain_self,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1856.468,1951.0,1054.0,1697.75,2098.25,2330.2,0,263.0,2594.0
+sd300b,plain_self,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7160.8,5858.0,2880.35,4579.75,8215.0,16160.149999999996,0,1109.0,24028.0
+sd300b,plain_self,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,353.638,310.5,175.8,255.75,393.0,679.6999999999994,0,94.0,1501.0
+sd300b,plain_self,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4821.282,4031.0,2091.4,3232.75,5547.75,10162.249999999998,0,789.0,13685.0
+sd300b,plain_self,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,512.788,483.0,273.0,407.0,585.0,839.2999999999997,0,176.0,1213.0
+sd300b,plain_self,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2226.922,1921.5,985.3000000000001,1531.25,2551.5,4558.199999999997,0,361.0,5963.0
+sd300b,plain_self,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,197.082,184.5,79.95,137.75,233.0,374.1999999999998,0,47.0,572.0
+sd300b,plain_self,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,1359.042,1186.0,606.7,942.75,1557.0,2747.3499999999995,0,243.0,3683.0
+sd300b,plain_self,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,76.986,72.0,26.0,50.0,95.25,146.0,0,7.0,260.0
+sd300b,plain_self,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,739.68,647.0,339.8,521.0,840.0,1477.2499999999998,0,129.0,1946.0
+sd300b,plain_self,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1856.468,1951.0,1054.0,1697.75,2098.25,2330.2,0,263.0,2594.0
+sd300b,plain_self,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7160.8,5858.0,2880.35,4579.75,8215.0,16160.149999999996,0,1109.0,24028.0
+sd300b,plain_self,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,353.638,310.5,175.8,255.75,393.0,679.6999999999994,0,94.0,1501.0
+sd300b,plain_self,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4821.282,4031.0,2091.4,3232.75,5547.75,10162.249999999998,0,789.0,13685.0
+sd300b,plain_self,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,512.788,483.0,273.0,407.0,585.0,839.2999999999997,0,176.0,1213.0
+sd300b,plain_self,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2226.922,1921.5,985.3000000000001,1531.25,2551.5,4558.199999999997,0,361.0,5963.0
+sd300b,plain_self,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,197.082,184.5,79.95,137.75,233.0,374.1999999999998,0,47.0,572.0
+sd300b,plain_self,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,1359.042,1186.0,606.7,942.75,1557.0,2747.3499999999995,0,243.0,3683.0
+sd300b,plain_self,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,76.986,72.0,26.0,50.0,95.25,146.0,0,7.0,260.0
+sd300b,plain_self,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,739.68,647.0,339.8,521.0,840.0,1477.2499999999998,0,129.0,1946.0
+sd300b,plain_self,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,654438,4.017492624861686,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,plain_self,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,654438,4.017492624861686,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,plain_self,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
+sd300b,roll_self,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,roll_self,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,roll_self,cap_active_count,representations_per_pair,true,sum of side flags,,500,2.0,2.0,2.0,2.0,2.0,2.0,0,2.0,2.0
+sd300b,roll_self,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,36882.964,36783.0,26979.65,32752.5,41020.0,46945.39999999999,0,20060.0,57786.0
+sd300b,roll_self,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,36882.964,36783.0,26979.65,32752.5,41020.0,46945.39999999999,0,20060.0,57786.0
+sd300b,roll_self,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,12.294321333333333,12.261,8.993216666666667,10.9175,13.673333333333334,15.648466666666662,0,6.6866666666666665,19.262
+sd300b,roll_self,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,12.294321333333333,12.261,8.993216666666667,10.9175,13.673333333333334,15.648466666666662,0,6.6866666666666665,19.262
+sd300b,roll_self,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.835979797464467,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,roll_self,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.835979797464467,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,roll_self,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,58.746,57.0,53.0,56.0,60.0,74.0,0,34.0,96.0
+sd300b,roll_self,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,58.746,57.0,53.0,56.0,60.0,74.0,0,34.0,96.0
+sd300b,roll_self,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.758,1022.0,1019.0,1021.0,1023.0,1024.0,0,1015.0,1025.0
+sd300b,roll_self,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.758,1022.0,1019.0,1021.0,1023.0,1024.0,0,1015.0,1025.0
+sd300b,roll_self,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,roll_self,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,roll_self,raw_score,inliers,true,pairs.csv raw_score,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,roll_self,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,500,3.9123876998743456e-15,0.0,0.0,0.0,0.0,2.7749861894742994e-14,424,0.0,3.14398238199072e-14
+sd300b,roll_self,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,500,2.3590018827235327e-15,0.0,0.0,0.0,0.0,2.842170943040401e-14,458,0.0,2.842170943040401e-14
+sd300b,roll_self,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,500,9.878991528671687e-15,0.0,0.0,0.0,0.0,6.703246762680666e-14,424,0.0,8.038873388460929e-14
+sd300b,roll_self,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,500,1.2219087550460612e-14,0.0,0.0,0.0,0.0,8.038873388460929e-14,424,0.0,8.038873388460929e-14
+sd300b,roll_self,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,500,3.9123876998743456e-15,0.0,0.0,0.0,0.0,2.7749861894742994e-14,424,0.0,3.14398238199072e-14
+sd300b,roll_self,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,500,2.3590018827235327e-15,0.0,0.0,0.0,0.0,2.842170943040401e-14,458,0.0,2.842170943040401e-14
+sd300b,roll_self,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,500,9.878991528671687e-15,0.0,0.0,0.0,0.0,6.703246762680666e-14,424,0.0,8.038873388460929e-14
+sd300b,roll_self,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,500,1.2219087550460612e-14,0.0,0.0,0.0,0.0,8.038873388460929e-14,424,0.0,8.038873388460929e-14
+sd300b,roll_self,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2212.298,2214.5,1998.9,2134.0,2304.25,2432.05,0,1158.0,2550.0
+sd300b,roll_self,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,21726.422,21500.5,15871.7,19242.75,24260.0,27817.299999999996,0,12156.0,34311.0
+sd300b,roll_self,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,279.248,277.0,197.95,248.0,310.0,349.04999999999995,0,152.0,624.0
+sd300b,roll_self,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14205.732,14160.5,10374.75,12610.5,15784.75,18102.649999999998,0,8169.0,22423.0
+sd300b,roll_self,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,327.214,323.0,230.95,286.75,362.0,430.0999999999999,0,160.0,907.0
+sd300b,roll_self,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,6219.274,6266.5,4473.2,5452.25,6949.25,7911.699999999999,0,3348.0,9496.0
+sd300b,roll_self,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,121.78,118.0,69.0,94.0,143.0,186.04999999999995,0,44.0,454.0
+sd300b,roll_self,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,3826.712,3858.0,2692.85,3359.5,4311.75,4922.399999999999,0,1513.0,5786.0
+sd300b,roll_self,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,59.46,58.0,25.0,42.0,73.0,100.0,0,18.0,211.0
+sd300b,roll_self,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2038.418,2054.5,1387.8,1774.5,2297.5,2632.3499999999995,0,471.0,2972.0
+sd300b,roll_self,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2212.298,2214.5,1998.9,2134.0,2304.25,2432.05,0,1158.0,2550.0
+sd300b,roll_self,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,21726.422,21500.5,15871.7,19242.75,24260.0,27817.299999999996,0,12156.0,34311.0
+sd300b,roll_self,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,279.248,277.0,197.95,248.0,310.0,349.04999999999995,0,152.0,624.0
+sd300b,roll_self,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14205.732,14160.5,10374.75,12610.5,15784.75,18102.649999999998,0,8169.0,22423.0
+sd300b,roll_self,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,327.214,323.0,230.95,286.75,362.0,430.0999999999999,0,160.0,907.0
+sd300b,roll_self,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,6219.274,6266.5,4473.2,5452.25,6949.25,7911.699999999999,0,3348.0,9496.0
+sd300b,roll_self,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,121.78,118.0,69.0,94.0,143.0,186.04999999999995,0,44.0,454.0
+sd300b,roll_self,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,3826.712,3858.0,2692.85,3359.5,4311.75,4922.399999999999,0,1513.0,5786.0
+sd300b,roll_self,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,59.46,58.0,25.0,42.0,73.0,100.0,0,18.0,211.0
+sd300b,roll_self,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2038.418,2054.5,1387.8,1774.5,2297.5,2632.3499999999995,0,471.0,2972.0
+sd300b,roll_self,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,524356,3.8156406068246667,2.8284271247461903,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,roll_self,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,524356,3.8156406068246667,2.8284271247461903,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,roll_self,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
+sd300b,genuine,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,genuine,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,genuine,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,genuine,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,genuine,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,0.996,1.0,1.0,1.0,1.0,1.0,2,0.0,1.0
+sd300b,genuine,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,genuine,cap_active_count,representations_per_pair,true,sum of side flags,,500,1.996,2.0,2.0,2.0,2.0,2.0,0,1.0,2.0
+sd300b,genuine,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,12426.57,10317.5,5350.3,8175.0,13996.5,27015.199999999993,0,1980.0,36063.0
+sd300b,genuine,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,36882.964,36783.0,26979.65,32752.5,41020.0,46945.39999999999,0,20060.0,57786.0
+sd300b,genuine,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,4.143202666666666,3.439166666666667,1.7834333333333334,2.7249999999999996,4.6655,9.005066666666664,0,1.0,12.021
+sd300b,genuine,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,12.294321333333333,12.261,8.993216666666667,10.9175,13.673333333333334,15.648466666666662,0,6.6866666666666665,19.262
+sd300b,genuine,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.8476955262170054,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,genuine,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.835979797464467,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,genuine,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,genuine,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,genuine,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,51.664,51.0,39.0,45.0,56.0,72.09999999999991,0,29.0,107.0
+sd300b,genuine,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,58.746,57.0,53.0,56.0,60.0,74.0,0,34.0,96.0
+sd300b,genuine,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.886,1022.0,1019.0,1021.0,1023.0,1024.0,0,1013.0,1025.0
+sd300b,genuine,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.758,1022.0,1019.0,1021.0,1023.0,1024.0,0,1015.0,1025.0
+sd300b,genuine,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,genuine,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,genuine,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,23.724,21.0,7.0,15.0,30.0,49.0,0,1.0,77.0
+sd300b,genuine,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,22.356,20.0,8.0,14.0,28.0,47.0,0,2.0,82.0
+sd300b,genuine,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,6.032,5.0,1.0,3.0,8.0,15.0,11,0.0,37.0
+sd300b,genuine,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,6.032,5.0,1.0,3.0,8.0,15.0,11,0.0,37.0
+sd300b,genuine,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,0.79,1.0,0.0,1.0,1.0,1.0,105,0.0,1.0
+sd300b,genuine,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,2.148,2.0,0.0,2.0,2.0,5.0,105,0.0,13.0
+sd300b,genuine,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,0.34149073333625934,0.3333333333333333,0.0,0.2,0.5,0.6666666666666666,105,0.0,1.0
+sd300b,genuine,raw_score,inliers,true,pairs.csv raw_score,,500,2.148,2.0,0.0,2.0,2.0,5.0,105,0.0,13.0
+sd300b,genuine,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,395,0.22309590765320028,1.203962931839382e-13,0.0,5.684341886080802e-14,0.3152038668166335,1.1514408115010506,70,0.0,1.4804349629110014
+sd300b,genuine,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,395,0.2388304511086497,1.203962931839382e-13,0.0,5.684341886080802e-14,0.4303860111193307,1.1282151024053275,70,0.0,1.6557882456066888
+sd300b,genuine,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,395,0.3492431094523577,2.1600499167107045e-13,0.0,5.684341886080802e-14,0.4668981677213371,1.8374385752283515,70,0.0,2.3744702401769473
+sd300b,genuine,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,395,0.36705088193680196,2.2737367544323206e-13,0.0,5.684341886080802e-14,0.4687459829327541,1.9413843998311706,70,0.0,2.6598520774957772
+sd300b,genuine,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,395,0.22309590765320028,1.203962931839382e-13,0.0,5.684341886080802e-14,0.3152038668166335,1.1514408115010506,70,0.0,1.4804349629110014
+sd300b,genuine,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,395,0.2388304511086497,1.203962931839382e-13,0.0,5.684341886080802e-14,0.4303860111193307,1.1282151024053275,70,0.0,1.6557882456066888
+sd300b,genuine,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,395,0.3492431094523577,2.1600499167107045e-13,0.0,5.684341886080802e-14,0.4668981677213371,1.8374385752283515,70,0.0,2.3744702401769473
+sd300b,genuine,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,395,0.36705088193680196,2.2737367544323206e-13,0.0,5.684341886080802e-14,0.4687459829327541,1.9413843998311706,70,0.0,2.6598520774957772
+sd300b,genuine,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1856.468,1951.0,1054.0,1697.75,2098.25,2330.2,0,263.0,2594.0
+sd300b,genuine,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7160.8,5858.0,2880.35,4579.75,8215.0,16160.149999999996,0,1109.0,24028.0
+sd300b,genuine,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,353.638,310.5,175.8,255.75,393.0,679.6999999999994,0,94.0,1501.0
+sd300b,genuine,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4821.282,4031.0,2091.4,3232.75,5547.75,10162.249999999998,0,789.0,13685.0
+sd300b,genuine,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,512.788,483.0,273.0,407.0,585.0,839.2999999999997,0,176.0,1213.0
+sd300b,genuine,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2226.922,1921.5,985.3000000000001,1531.25,2551.5,4558.199999999997,0,361.0,5963.0
+sd300b,genuine,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,197.082,184.5,79.95,137.75,233.0,374.1999999999998,0,47.0,572.0
+sd300b,genuine,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,1359.042,1186.0,606.7,942.75,1557.0,2747.3499999999995,0,243.0,3683.0
+sd300b,genuine,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,76.986,72.0,26.0,50.0,95.25,146.0,0,7.0,260.0
+sd300b,genuine,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,739.68,647.0,339.8,521.0,840.0,1477.2499999999998,0,129.0,1946.0
+sd300b,genuine,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2212.298,2214.5,1998.9,2134.0,2304.25,2432.05,0,1158.0,2550.0
+sd300b,genuine,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,21726.422,21500.5,15871.7,19242.75,24260.0,27817.299999999996,0,12156.0,34311.0
+sd300b,genuine,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,279.248,277.0,197.95,248.0,310.0,349.04999999999995,0,152.0,624.0
+sd300b,genuine,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14205.732,14160.5,10374.75,12610.5,15784.75,18102.649999999998,0,8169.0,22423.0
+sd300b,genuine,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,327.214,323.0,230.95,286.75,362.0,430.0999999999999,0,160.0,907.0
+sd300b,genuine,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,6219.274,6266.5,4473.2,5452.25,6949.25,7911.699999999999,0,3348.0,9496.0
+sd300b,genuine,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,121.78,118.0,69.0,94.0,143.0,186.04999999999995,0,44.0,454.0
+sd300b,genuine,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,3826.712,3858.0,2692.85,3359.5,4311.75,4922.399999999999,0,1513.0,5786.0
+sd300b,genuine,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,59.46,58.0,25.0,42.0,73.0,100.0,0,18.0,211.0
+sd300b,genuine,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2038.418,2054.5,1387.8,1774.5,2297.5,2632.3499999999995,0,471.0,2972.0
+sd300b,genuine,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,654438,4.017492624861686,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,genuine,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,524356,3.8156406068246667,2.8284271247461903,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,genuine,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
+sd300b,negative,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,negative,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,negative,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,negative,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,negative,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,0.996,1.0,1.0,1.0,1.0,1.0,2,0.0,1.0
+sd300b,negative,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300b,negative,cap_active_count,representations_per_pair,true,sum of side flags,,500,1.996,2.0,2.0,2.0,2.0,2.0,0,1.0,2.0
+sd300b,negative,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,12426.57,10317.5,5350.3,8175.0,13996.5,27015.199999999993,0,1980.0,36063.0
+sd300b,negative,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,36882.964,36783.0,26979.65,32752.5,41020.0,46945.39999999999,0,20060.0,57786.0
+sd300b,negative,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,4.143202666666667,3.439166666666667,1.7834333333333334,2.7249999999999996,4.6655,9.005066666666664,0,1.0,12.021
+sd300b,negative,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,12.294321333333333,12.261,8.993216666666667,10.9175,13.673333333333334,15.648466666666662,0,6.6866666666666665,19.262
+sd300b,negative,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.847695526217005,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,negative,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.835979797464467,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300b,negative,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,negative,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,negative,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,51.664,51.0,39.0,45.0,56.0,72.09999999999991,0,29.0,107.0
+sd300b,negative,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,58.746,57.0,53.0,56.0,60.0,74.0,0,34.0,96.0
+sd300b,negative,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.886,1022.0,1019.0,1021.0,1023.0,1024.0,0,1013.0,1025.0
+sd300b,negative,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.758,1022.0,1019.0,1021.0,1023.0,1024.0,0,1015.0,1025.0
+sd300b,negative,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,2996.962,3000.0,3000.0,3000.0,3000.0,3000.0,0,1980.0,3000.0
+sd300b,negative,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300b,negative,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,17.76,16.0,6.0,11.0,22.0,35.0,0,2.0,53.0
+sd300b,negative,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,16.968,15.5,6.0,11.75,21.0,32.0,0,3.0,65.0
+sd300b,negative,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,2.95,3.0,0.0,1.0,4.0,7.0,44,0.0,14.0
+sd300b,negative,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,2.95,3.0,0.0,1.0,4.0,7.0,44,0.0,14.0
+sd300b,negative,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,0.518,1.0,0.0,0.0,1.0,1.0,241,0.0,1.0
+sd300b,negative,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,1.058,2.0,0.0,0.0,2.0,2.0,241,0.0,6.0
+sd300b,negative,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,0.26152016872016864,0.25,0.0,0.0,0.5,0.6666666666666666,241,0.0,0.6666666666666666
+sd300b,negative,raw_score,inliers,true,pairs.csv raw_score,,500,1.058,2.0,0.0,0.0,2.0,2.0,241,0.0,6.0
+sd300b,negative,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,259,0.009817884076553504,8.038873388460929e-14,0.0,1.4210854715202004e-14,1.7053025658242404e-13,5.489286109816692e-13,61,0.0,0.9294196651770754
+sd300b,negative,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,259,0.011721144595229816,8.038873388460929e-14,0.0,1.4210854715202004e-14,1.7053025658242404e-13,5.489286109816692e-13,61,0.0,1.3876676350240396
+sd300b,negative,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,259,0.015468676396796915,1.1084466677857563e-13,0.0,2.7000623958883806e-14,2.2168933355715125e-13,6.567245672290452e-13,61,0.0,1.3902271043922116
+sd300b,negative,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,259,0.016079930675323414,1.1368683772161603e-13,0.0,2.842170943040401e-14,2.2737367544323206e-13,6.697483541464782e-13,61,0.0,1.3905114898775641
+sd300b,negative,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,259,0.009817884076553504,8.038873388460929e-14,0.0,1.4210854715202004e-14,1.7053025658242404e-13,5.489286109816692e-13,61,0.0,0.9294196651770754
+sd300b,negative,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,259,0.011721144595229816,8.038873388460929e-14,0.0,1.4210854715202004e-14,1.7053025658242404e-13,5.489286109816692e-13,61,0.0,1.3876676350240396
+sd300b,negative,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,259,0.015468676396796915,1.1084466677857563e-13,0.0,2.7000623958883806e-14,2.2168933355715125e-13,6.567245672290452e-13,61,0.0,1.3902271043922116
+sd300b,negative,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,259,0.016079930675323414,1.1368683772161603e-13,0.0,2.842170943040401e-14,2.2737367544323206e-13,6.697483541464782e-13,61,0.0,1.3905114898775641
+sd300b,negative,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1856.468,1951.0,1054.0,1697.75,2098.25,2330.2,0,263.0,2594.0
+sd300b,negative,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7160.8,5858.0,2880.35,4579.75,8215.0,16160.149999999996,0,1109.0,24028.0
+sd300b,negative,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,353.638,310.5,175.8,255.75,393.0,679.6999999999994,0,94.0,1501.0
+sd300b,negative,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4821.282,4031.0,2091.4,3232.75,5547.75,10162.249999999998,0,789.0,13685.0
+sd300b,negative,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,512.788,483.0,273.0,407.0,585.0,839.2999999999997,0,176.0,1213.0
+sd300b,negative,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2226.922,1921.5,985.3000000000001,1531.25,2551.5,4558.199999999997,0,361.0,5963.0
+sd300b,negative,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,197.082,184.5,79.95,137.75,233.0,374.1999999999998,0,47.0,572.0
+sd300b,negative,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,1359.042,1186.0,606.7,942.75,1557.0,2747.3499999999995,0,243.0,3683.0
+sd300b,negative,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,76.986,72.0,26.0,50.0,95.25,146.0,0,7.0,260.0
+sd300b,negative,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,739.68,647.0,339.8,521.0,840.0,1477.2499999999998,0,129.0,1946.0
+sd300b,negative,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2212.298,2214.5,1998.9,2134.0,2304.25,2432.05,0,1158.0,2550.0
+sd300b,negative,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,21726.422,21500.5,15871.7,19242.75,24260.0,27817.299999999996,0,12156.0,34311.0
+sd300b,negative,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,279.248,277.0,197.95,248.0,310.0,349.04999999999995,0,152.0,624.0
+sd300b,negative,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14205.732,14160.5,10374.75,12610.5,15784.75,18102.649999999998,0,8169.0,22423.0
+sd300b,negative,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,327.214,323.0,230.95,286.75,362.0,430.0999999999999,0,160.0,907.0
+sd300b,negative,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,6219.274,6266.5,4473.2,5452.25,6949.25,7911.699999999999,0,3348.0,9496.0
+sd300b,negative,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,121.78,118.0,69.0,94.0,143.0,186.04999999999995,0,44.0,454.0
+sd300b,negative,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,3826.712,3858.0,2692.85,3359.5,4311.75,4922.399999999999,0,1513.0,5786.0
+sd300b,negative,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,59.46,58.0,25.0,42.0,73.0,100.0,0,18.0,211.0
+sd300b,negative,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2038.418,2054.5,1387.8,1774.5,2297.5,2632.3499999999995,0,471.0,2972.0
+sd300b,negative,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,654438,4.017492624861686,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,negative,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,524356,3.8156406068246667,2.8284271247461903,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300b,negative,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
+sd300c,plain_self,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,plain_self,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,plain_self,cap_active_count,representations_per_pair,true,sum of side flags,,500,2.0,2.0,2.0,2.0,2.0,2.0,0,2.0,2.0
+sd300c,plain_self,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,39894.284,31456.0,15387.85,24536.0,45459.75,96657.24999999997,0,6379.0,123120.0
+sd300c,plain_self,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,39894.284,31456.0,15387.85,24536.0,45459.75,96657.24999999997,0,6379.0,123120.0
+sd300c,plain_self,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,13.298094666666668,10.485333333333333,5.129283333333333,8.178666666666667,15.15325,32.21908333333332,0,2.126333333333333,41.04
+sd300c,plain_self,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,13.298094666666668,10.485333333333333,5.129283333333333,8.178666666666667,15.15325,32.21908333333332,0,2.126333333333333,41.04
+sd300c,plain_self,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.942724963468528,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,5.656854249492381
+sd300c,plain_self,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.942724963468528,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,5.656854249492381
+sd300c,plain_self,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,52.978,51.0,39.0,46.0,57.0,78.0,0,33.0,96.0
+sd300c,plain_self,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,52.978,51.0,39.0,46.0,57.0,78.0,0,33.0,96.0
+sd300c,plain_self,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.466,1022.0,1018.95,1021.0,1023.0,1024.0,0,1009.0,1025.0
+sd300c,plain_self,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.466,1022.0,1018.95,1021.0,1023.0,1024.0,0,1009.0,1025.0
+sd300c,plain_self,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,plain_self,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,2999.996,3000.0,3000.0,3000.0,3000.0,3000.0,0,2998.0,3000.0
+sd300c,plain_self,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,2999.996,3000.0,3000.0,3000.0,3000.0,3000.0,0,2998.0,3000.0
+sd300c,plain_self,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,2999.996,3000.0,3000.0,3000.0,3000.0,3000.0,0,2998.0,3000.0
+sd300c,plain_self,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,2999.996,3000.0,3000.0,3000.0,3000.0,3000.0,0,2998.0,3000.0
+sd300c,plain_self,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,plain_self,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,2999.996,3000.0,3000.0,3000.0,3000.0,3000.0,0,2998.0,3000.0
+sd300c,plain_self,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,plain_self,raw_score,inliers,true,pairs.csv raw_score,,500,2999.996,3000.0,3000.0,3000.0,3000.0,3000.0,0,2998.0,3000.0
+sd300c,plain_self,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,500,3.35706064620098e-15,0.0,0.0,0.0,0.0,1.4397629868286584e-14,432,0.0,1.9019747727492967e-13
+sd300c,plain_self,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,500,2.677081434065222e-15,0.0,0.0,0.0,0.0,1.4210854715202004e-14,470,0.0,2.278173318171838e-13
+sd300c,plain_self,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,500,7.006711585080055e-15,0.0,0.0,0.0,0.0,4.0194366942304644e-14,432,0.0,2.5421149729252077e-13
+sd300c,plain_self,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,500,8.036706245364402e-15,0.0,0.0,0.0,0.0,4.0194366942304644e-14,432,0.0,2.5421149729252077e-13
+sd300c,plain_self,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,500,6.71412129240196e-15,0.0,0.0,0.0,0.0,2.879525973657317e-14,432,0.0,3.8039495454985934e-13
+sd300c,plain_self,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,500,5.354162868130444e-15,0.0,0.0,0.0,0.0,2.842170943040401e-14,470,0.0,4.556346636343676e-13
+sd300c,plain_self,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,500,1.401342317016011e-14,0.0,0.0,0.0,0.0,8.038873388460929e-14,432,0.0,5.084229945850415e-13
+sd300c,plain_self,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,500,1.6073412490728804e-14,0.0,0.0,0.0,0.0,8.038873388460929e-14,432,0.0,5.084229945850415e-13
+sd300c,plain_self,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1344.134,1469.0,214.95,558.0,2090.25,2300.1,0,94.0,2574.0
+sd300c,plain_self,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22301.016,17349.0,7560.45,12868.0,26202.0,56432.09999999999,0,2687.0,75905.0
+sd300c,plain_self,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,507.844,372.5,151.9,227.0,735.0,1233.1499999999999,0,22.0,2008.0
+sd300c,plain_self,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,15119.796,11819.5,5533.35,8916.5,17883.5,37087.149999999994,0,2468.0,47808.0
+sd300c,plain_self,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,702.618,602.5,315.9,407.0,919.25,1402.149999999999,0,198.0,1745.0
+sd300c,plain_self,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7410.566,6148.5,3059.95,4849.75,8661.0,15929.049999999996,0,1168.0,20074.0
+sd300c,plain_self,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,315.804,238.0,115.95,168.0,414.25,747.0,0,43.0,1081.0
+sd300c,plain_self,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4928.418,4152.5,2044.3500000000001,3278.5,5822.75,10272.599999999997,0,824.0,12723.0
+sd300c,plain_self,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,129.6,102.0,39.0,69.0,153.0,320.04999999999995,0,10.0,817.0
+sd300c,plain_self,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2840.036,2409.5,1244.5,1912.0,3285.75,5868.5,0,500.0,7736.0
+sd300c,plain_self,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1344.134,1469.0,214.95,558.0,2090.25,2300.1,0,94.0,2574.0
+sd300c,plain_self,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22301.016,17349.0,7560.45,12868.0,26202.0,56432.09999999999,0,2687.0,75905.0
+sd300c,plain_self,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,507.844,372.5,151.9,227.0,735.0,1233.1499999999999,0,22.0,2008.0
+sd300c,plain_self,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,15119.796,11819.5,5533.35,8916.5,17883.5,37087.149999999994,0,2468.0,47808.0
+sd300c,plain_self,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,702.618,602.5,315.9,407.0,919.25,1402.149999999999,0,198.0,1745.0
+sd300c,plain_self,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7410.566,6148.5,3059.95,4849.75,8661.0,15929.049999999996,0,1168.0,20074.0
+sd300c,plain_self,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,315.804,238.0,115.95,168.0,414.25,747.0,0,43.0,1081.0
+sd300c,plain_self,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4928.418,4152.5,2044.3500000000001,3278.5,5822.75,10272.599999999997,0,824.0,12723.0
+sd300c,plain_self,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,129.6,102.0,39.0,69.0,153.0,320.04999999999995,0,10.0,817.0
+sd300c,plain_self,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2840.036,2409.5,1244.5,1912.0,3285.75,5868.5,0,500.0,7736.0
+sd300c,plain_self,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,839990,4.24905870059907,4.000000000000001,2.8284271247461903,2.8284271247461903,5.656854249492381,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,plain_self,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,839990,4.24905870059907,4.000000000000001,2.8284271247461903,2.8284271247461903,5.656854249492381,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,plain_self,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
+sd300c,roll_self,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,roll_self,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,roll_self,cap_active_count,representations_per_pair,true,sum of side flags,,500,2.0,2.0,2.0,2.0,2.0,2.0,0,2.0,2.0
+sd300c,roll_self,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,132612.164,131551.0,97407.8,117898.5,146912.0,169391.5,0,71840.0,208523.0
+sd300c,roll_self,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,132612.164,131551.0,97407.8,117898.5,146912.0,169391.5,0,71840.0,208523.0
+sd300c,roll_self,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,44.204054666666664,43.85033333333333,32.46926666666667,39.2995,48.970666666666666,56.46383333333333,0,23.946666666666665,69.50766666666667
+sd300c,roll_self,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,44.204054666666664,43.85033333333333,32.46926666666667,39.2995,48.970666666666666,56.46383333333333,0,23.946666666666665,69.50766666666667
+sd300c,roll_self,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.8992447327281723,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300c,roll_self,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.8992447327281723,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300c,roll_self,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,63.522,60.0,54.0,56.0,71.0,81.0,0,40.0,93.0
+sd300c,roll_self,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,63.522,60.0,54.0,56.0,71.0,81.0,0,40.0,93.0
+sd300c,roll_self,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.23,1021.0,1019.0,1020.0,1022.0,1023.0,0,1013.0,1025.0
+sd300c,roll_self,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.23,1021.0,1019.0,1020.0,1022.0,1023.0,0,1013.0,1025.0
+sd300c,roll_self,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,roll_self,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,roll_self,raw_score,inliers,true,pairs.csv raw_score,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,roll_self,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,500,3.606271144977346e-15,0.0,0.0,0.0,0.0,2.768960405050126e-14,433,0.0,3.2846965858300144e-14
+sd300c,roll_self,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,500,2.9558577807620166e-15,0.0,0.0,0.0,0.0,2.842170943040401e-14,448,0.0,2.842170943040401e-14
+sd300c,roll_self,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,500,8.86879878992473e-15,0.0,0.0,0.0,0.0,6.703246762680666e-14,433,0.0,8.038873388460929e-14
+sd300c,roll_self,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,500,1.0772090340537644e-14,0.0,0.0,0.0,0.0,8.038873388460929e-14,433,0.0,8.038873388460929e-14
+sd300c,roll_self,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,500,7.212542289954692e-15,0.0,0.0,0.0,0.0,5.537920810100252e-14,433,0.0,6.569393171660029e-14
+sd300c,roll_self,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,500,5.911715561524033e-15,0.0,0.0,0.0,0.0,5.684341886080802e-14,448,0.0,5.684341886080802e-14
+sd300c,roll_self,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,500,1.773759757984946e-14,0.0,0.0,0.0,0.0,1.3406493525361332e-13,433,0.0,1.6077746776921858e-13
+sd300c,roll_self,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,500,2.1544180681075287e-14,0.0,0.0,0.0,0.0,1.6077746776921858e-13,433,0.0,1.6077746776921858e-13
+sd300c,roll_self,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2319.468,2321.5,2142.7,2261.0,2395.25,2497.05,0,1484.0,2647.0
+sd300c,roll_self,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,78374.55,78417.0,56569.15,69431.0,87225.25,101284.3,0,40550.0,122965.0
+sd300c,roll_self,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,192.194,188.0,116.95,158.0,214.0,276.04999999999995,0,66.0,780.0
+sd300c,roll_self,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,51504.702,51076.5,37800.1,45663.75,56831.25,66028.65,0,27706.0,81119.0
+sd300c,roll_self,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,304.61,302.0,228.85000000000002,277.0,328.0,381.0999999999999,0,182.0,564.0
+sd300c,roll_self,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22403.92,22265.0,16643.65,19827.75,24935.5,28451.699999999993,0,13439.0,34723.0
+sd300c,roll_self,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,117.76,118.0,66.95,99.0,135.0,169.0,0,38.0,462.0
+sd300c,roll_self,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14383.558,14326.0,10640.9,12729.5,15981.5,18259.149999999994,0,8405.0,22602.0
+sd300c,roll_self,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,65.968,65.0,30.0,51.0,79.0,106.0,0,13.0,179.0
+sd300c,roll_self,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,8152.344,8221.0,5871.45,7205.75,9085.75,10339.449999999999,0,4463.0,12714.0
+sd300c,roll_self,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2319.468,2321.5,2142.7,2261.0,2395.25,2497.05,0,1484.0,2647.0
+sd300c,roll_self,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,78374.55,78417.0,56569.15,69431.0,87225.25,101284.3,0,40550.0,122965.0
+sd300c,roll_self,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,192.194,188.0,116.95,158.0,214.0,276.04999999999995,0,66.0,780.0
+sd300c,roll_self,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,51504.702,51076.5,37800.1,45663.75,56831.25,66028.65,0,27706.0,81119.0
+sd300c,roll_self,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,304.61,302.0,228.85000000000002,277.0,328.0,381.0999999999999,0,182.0,564.0
+sd300c,roll_self,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22403.92,22265.0,16643.65,19827.75,24935.5,28451.699999999993,0,13439.0,34723.0
+sd300c,roll_self,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,117.76,118.0,66.95,99.0,135.0,169.0,0,38.0,462.0
+sd300c,roll_self,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14383.558,14326.0,10640.9,12729.5,15981.5,18259.149999999994,0,8405.0,22602.0
+sd300c,roll_self,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,65.968,65.0,30.0,51.0,79.0,106.0,0,13.0,179.0
+sd300c,roll_self,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,8152.344,8221.0,5871.45,7205.75,9085.75,10339.449999999999,0,4463.0,12714.0
+sd300c,roll_self,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,422886,4.047557943898299,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,roll_self,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,422886,4.047557943898299,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,roll_self,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
+sd300c,genuine,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,genuine,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,genuine,cap_active_count,representations_per_pair,true,sum of side flags,,500,2.0,2.0,2.0,2.0,2.0,2.0,0,2.0,2.0
+sd300c,genuine,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,39894.284,31456.0,15387.85,24536.0,45459.75,96657.24999999997,0,6379.0,123120.0
+sd300c,genuine,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,132612.164,131551.0,97407.8,117898.5,146912.0,169391.5,0,71840.0,208523.0
+sd300c,genuine,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,13.298094666666668,10.485333333333333,5.129283333333333,8.178666666666667,15.15325,32.21908333333332,0,2.126333333333333,41.04
+sd300c,genuine,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,44.204054666666664,43.85033333333333,32.46926666666667,39.2995,48.970666666666666,56.46383333333333,0,23.946666666666665,69.50766666666667
+sd300c,genuine,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.942724963468528,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,5.656854249492381
+sd300c,genuine,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.8992447327281723,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300c,genuine,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,52.978,51.0,39.0,46.0,57.0,78.0,0,33.0,96.0
+sd300c,genuine,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,63.522,60.0,54.0,56.0,71.0,81.0,0,40.0,93.0
+sd300c,genuine,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.466,1022.0,1018.95,1021.0,1023.0,1024.0,0,1009.0,1025.0
+sd300c,genuine,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.23,1021.0,1019.0,1020.0,1022.0,1023.0,0,1013.0,1025.0
+sd300c,genuine,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,genuine,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,19.18,18.0,7.0,13.0,24.0,35.0,0,2.0,72.0
+sd300c,genuine,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,18.2,17.5,8.0,13.0,23.0,31.0,0,2.0,48.0
+sd300c,genuine,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,4.212,4.0,1.0,2.0,6.0,9.0,20,0.0,15.0
+sd300c,genuine,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,4.212,4.0,1.0,2.0,6.0,9.0,20,0.0,15.0
+sd300c,genuine,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,0.726,1.0,0.0,0.0,1.0,1.0,137,0.0,1.0
+sd300c,genuine,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,1.472,2.0,0.0,0.0,2.0,2.0,137,0.0,4.0
+sd300c,genuine,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,0.3181617327117327,0.3333333333333333,0.0,0.0,0.5,0.6666666666666666,137,0.0,0.6666666666666666
+sd300c,genuine,raw_score,inliers,true,pairs.csv raw_score,,500,1.472,2.0,0.0,0.0,2.0,2.0,137,0.0,4.0
+sd300c,genuine,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,363,0.00950039227296027,6.394884621840902e-14,0.0,0.0,1.7053025658242404e-13,7.331128878433441e-13,95,0.0,0.9988454010448932
+sd300c,genuine,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,363,0.012846840085687714,6.394884621840902e-14,0.0,0.0,1.7053025658242404e-13,7.331128878433441e-13,95,0.0,1.2190170498861688
+sd300c,genuine,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,363,0.014259182741600224,1.0800249583553522e-13,0.0,0.0,2.2737367544323206e-13,9.129044924173915e-13,95,0.0,1.5041949983813827
+sd300c,genuine,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,363,0.014332104648574586,1.1368683772161603e-13,0.0,0.0,2.2737367544323206e-13,9.130839550828896e-13,95,0.0,1.5294928023866916
+sd300c,genuine,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,363,0.01900078454592054,1.2789769243681803e-13,0.0,0.0,3.410605131648481e-13,1.4662257756866882e-12,95,0.0,1.9976908020897863
+sd300c,genuine,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,363,0.025693680171375428,1.2789769243681803e-13,0.0,0.0,3.410605131648481e-13,1.4662257756866882e-12,95,0.0,2.4380340997723375
+sd300c,genuine,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,363,0.02851836548320045,2.1600499167107045e-13,0.0,0.0,4.547473508864641e-13,1.825808984834783e-12,95,0.0,3.0083899967627654
+sd300c,genuine,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,363,0.028664209297149173,2.2737367544323206e-13,0.0,0.0,4.547473508864641e-13,1.826167910165779e-12,95,0.0,3.058985604773383
+sd300c,genuine,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1344.134,1469.0,214.95,558.0,2090.25,2300.1,0,94.0,2574.0
+sd300c,genuine,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22301.016,17349.0,7560.45,12868.0,26202.0,56432.09999999999,0,2687.0,75905.0
+sd300c,genuine,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,507.844,372.5,151.9,227.0,735.0,1233.1499999999999,0,22.0,2008.0
+sd300c,genuine,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,15119.796,11819.5,5533.35,8916.5,17883.5,37087.149999999994,0,2468.0,47808.0
+sd300c,genuine,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,702.618,602.5,315.9,407.0,919.25,1402.149999999999,0,198.0,1745.0
+sd300c,genuine,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7410.566,6148.5,3059.95,4849.75,8661.0,15929.049999999996,0,1168.0,20074.0
+sd300c,genuine,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,315.804,238.0,115.95,168.0,414.25,747.0,0,43.0,1081.0
+sd300c,genuine,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4928.418,4152.5,2044.3500000000001,3278.5,5822.75,10272.599999999997,0,824.0,12723.0
+sd300c,genuine,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,129.6,102.0,39.0,69.0,153.0,320.04999999999995,0,10.0,817.0
+sd300c,genuine,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2840.036,2409.5,1244.5,1912.0,3285.75,5868.5,0,500.0,7736.0
+sd300c,genuine,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2319.468,2321.5,2142.7,2261.0,2395.25,2497.05,0,1484.0,2647.0
+sd300c,genuine,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,78374.55,78417.0,56569.15,69431.0,87225.25,101284.3,0,40550.0,122965.0
+sd300c,genuine,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,192.194,188.0,116.95,158.0,214.0,276.04999999999995,0,66.0,780.0
+sd300c,genuine,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,51504.702,51076.5,37800.1,45663.75,56831.25,66028.65,0,27706.0,81119.0
+sd300c,genuine,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,304.61,302.0,228.85000000000002,277.0,328.0,381.0999999999999,0,182.0,564.0
+sd300c,genuine,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22403.92,22265.0,16643.65,19827.75,24935.5,28451.699999999993,0,13439.0,34723.0
+sd300c,genuine,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,117.76,118.0,66.95,99.0,135.0,169.0,0,38.0,462.0
+sd300c,genuine,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14383.558,14326.0,10640.9,12729.5,15981.5,18259.149999999994,0,8405.0,22602.0
+sd300c,genuine,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,65.968,65.0,30.0,51.0,79.0,106.0,0,13.0,179.0
+sd300c,genuine,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,8152.344,8221.0,5871.45,7205.75,9085.75,10339.449999999999,0,4463.0,12714.0
+sd300c,genuine,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,839990,4.24905870059907,4.000000000000001,2.8284271247461903,2.8284271247461903,5.656854249492381,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,genuine,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,422886,4.047557943898299,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,genuine,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
+sd300c,negative,final_keypoints_a,keypoints,true,prepare_a_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,final_keypoints_b,keypoints,true,prepare_b_diagnostics.final_keypoint_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,descriptor_count_a,descriptors,true,prepare_a_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,descriptor_count_b,descriptors,true,prepare_b_diagnostics.descriptor_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,cap_active_a,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,negative,cap_active_b,boolean,true,derived from frozen cap diagnostics,,500,1.0,1.0,1.0,1.0,1.0,1.0,0,1.0,1.0
+sd300c,negative,cap_active_count,representations_per_pair,true,sum of side flags,,500,2.0,2.0,2.0,2.0,2.0,2.0,0,2.0,2.0
+sd300c,negative,candidates_before_cap_a,candidates,true,prepare_a_diagnostics.candidates_after_duplicate_removal,,500,39894.284,31456.0,15387.85,24536.0,45459.75,96657.24999999997,0,6379.0,123120.0
+sd300c,negative,candidates_before_cap_b,candidates,true,prepare_b_diagnostics.candidates_after_duplicate_removal,,500,132612.164,131551.0,97407.8,117898.5,146912.0,169391.5,0,71840.0,208523.0
+sd300c,negative,candidate_to_final_ratio_a,ratio,true,candidates_before_cap/final,,500,13.298094666666666,10.485333333333333,5.129283333333333,8.178666666666667,15.15325,32.21908333333332,0,2.126333333333333,41.04
+sd300c,negative,candidate_to_final_ratio_b,ratio,true,candidates_before_cap/final,,500,44.204054666666664,43.85033333333333,32.46926666666667,39.2995,48.970666666666666,56.46383333333333,0,23.946666666666665,69.50766666666667
+sd300c,negative,median_keypoint_size_a,native_pixels,true,derived from scale index and frozen mapping,,500,3.942724963468528,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,5.656854249492381
+sd300c,negative,median_keypoint_size_b,native_pixels,true,derived from scale index and frozen mapping,,500,3.8992447327281723,4.000000000000001,2.8284271247461903,4.000000000000001,4.000000000000001,4.000000000000001,0,2.8284271247461903,4.000000000000001
+sd300c,negative,orientation_count_a,orientations,true,prepare_a_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,orientation_count_b,orientations,true,prepare_b_diagnostics.orientation_count,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,orientation_sample_count_min_a,samples,true,aggregate orientation diagnostic,,500,52.978,51.0,39.0,46.0,57.0,78.0,0,33.0,96.0
+sd300c,negative,orientation_sample_count_min_b,samples,true,aggregate orientation diagnostic,,500,63.522,60.0,54.0,56.0,71.0,81.0,0,40.0,93.0
+sd300c,negative,orientation_sample_count_max_a,samples,true,aggregate orientation diagnostic,,500,1021.466,1022.0,1018.95,1021.0,1023.0,1024.0,0,1009.0,1025.0
+sd300c,negative,orientation_sample_count_max_b,samples,true,aggregate orientation diagnostic,,500,1021.23,1021.0,1019.0,1020.0,1022.0,1023.0,0,1013.0,1025.0
+sd300c,negative,knn_candidates_a_to_b,matches,true,compare_diagnostics.raw_knn_count_a_to_b,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,knn_candidates_b_to_a,matches,true,compare_diagnostics.raw_knn_count_b_to_a,,500,3000.0,3000.0,3000.0,3000.0,3000.0,3000.0,0,3000.0,3000.0
+sd300c,negative,lowe_passed_a_to_b,matches,true,compare_diagnostics.ratio_match_count_a_to_b,,500,16.346,15.0,5.0,11.0,21.0,30.0,0,1.0,47.0
+sd300c,negative,lowe_passed_b_to_a,matches,true,compare_diagnostics.ratio_match_count_b_to_a,,500,16.744,15.0,7.0,12.0,20.0,30.0,0,3.0,49.0
+sd300c,negative,mutual_matches,matches,true,compare_diagnostics.mutual_match_count,,500,3.112,3.0,0.0,2.0,5.0,7.0,35,0.0,13.0
+sd300c,negative,ransac_input_matches,matches,true,compare_diagnostics.ransac_input_count,,500,3.112,3.0,0.0,2.0,5.0,7.0,35,0.0,13.0
+sd300c,negative,geometric_model_success,boolean,true,compare_diagnostics.geometry_success,,500,0.564,1.0,0.0,0.0,1.0,1.0,218,0.0,1.0
+sd300c,negative,inlier_count,matches,true,compare_diagnostics.geometric_inlier_count,,500,1.13,2.0,0.0,0.0,2.0,2.0,218,0.0,3.0
+sd300c,negative,inlier_ratio,ratio,true,compare_diagnostics.inlier_ratio,,500,0.27456800976800977,0.3333333333333333,0.0,0.0,0.5,0.6666666666666666,218,0.0,0.6666666666666666
+sd300c,negative,raw_score,inliers,true,pairs.csv raw_score,,500,1.13,2.0,0.0,0.0,2.0,2.0,218,0.0,3.0
+sd300c,negative,residual_reference_mean,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.mean,,282,0.0008295741972826273,6.108632501166923e-14,0.0,0.0,1.940755716062253e-13,6.400758614175446e-13,79,0.0,0.23393992357848167
+sd300c,negative,residual_reference_median,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.median,,282,0.0012402245663633103,6.108632501166923e-14,0.0,0.0,1.940755716062253e-13,6.400758614175446e-13,79,0.0,0.34974332765923427
+sd300c,negative,residual_reference_p95,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.p95,,282,0.0012438058163659659,1.0913328808387931e-13,0.0,0.0,2.2737367544323206e-13,8.925766926312734e-13,79,0.0,0.35075324014999426
+sd300c,negative,residual_reference_maximum,pixels,true,per-pair compare_diagnostics.residual_reference_pixels.maximum,,282,0.0012442037330329275,1.1368683772161603e-13,0.0,0.0,2.2737367544323206e-13,9.094947017729282e-13,79,0.0,0.35086545264896757
+sd300c,negative,residual_destination_mean,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.mean,,282,0.0016591483945652546,1.2217265002333846e-13,0.0,0.0,3.881511432124506e-13,1.2801517228350891e-12,79,0.0,0.46787984715696335
+sd300c,negative,residual_destination_median,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.median,,282,0.0024804491327266205,1.2217265002333846e-13,0.0,0.0,3.881511432124506e-13,1.2801517228350891e-12,79,0.0,0.6994866553184685
+sd300c,negative,residual_destination_p95,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.p95,,282,0.0024876116327319318,2.1826657616775863e-13,0.0,0.0,4.547473508864641e-13,1.7851533852625468e-12,79,0.0,0.7015064802999885
+sd300c,negative,residual_destination_maximum,pixels,true,per-pair compare_diagnostics.residual_destination_pixels.maximum,,282,0.002488407466065855,2.2737367544323206e-13,0.0,0.0,4.547473508864641e-13,1.8189894035458565e-12,79,0.0,0.7017309052979351
+sd300c,negative,final_keypoints_scale_0_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,1344.134,1469.0,214.95,558.0,2090.25,2300.1,0,94.0,2574.0
+sd300c,negative,pre_cap_proxy_scale_0_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22301.016,17349.0,7560.45,12868.0,26202.0,56432.09999999999,0,2687.0,75905.0
+sd300c,negative,final_keypoints_scale_1_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,507.844,372.5,151.9,227.0,735.0,1233.1499999999999,0,22.0,2008.0
+sd300c,negative,pre_cap_proxy_scale_1_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,15119.796,11819.5,5533.35,8916.5,17883.5,37087.149999999994,0,2468.0,47808.0
+sd300c,negative,final_keypoints_scale_2_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,702.618,602.5,315.9,407.0,919.25,1402.149999999999,0,198.0,1745.0
+sd300c,negative,pre_cap_proxy_scale_2_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,7410.566,6148.5,3059.95,4849.75,8661.0,15929.049999999996,0,1168.0,20074.0
+sd300c,negative,final_keypoints_scale_3_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,315.804,238.0,115.95,168.0,414.25,747.0,0,43.0,1081.0
+sd300c,negative,pre_cap_proxy_scale_3_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,4928.418,4152.5,2044.3500000000001,3278.5,5822.75,10272.599999999997,0,824.0,12723.0
+sd300c,negative,final_keypoints_scale_4_a,keypoints,true,counted from frozen harriszplus_scale_indices,,500,129.6,102.0,39.0,69.0,153.0,320.04999999999995,0,10.0,817.0
+sd300c,negative,pre_cap_proxy_scale_4_a,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,2840.036,2409.5,1244.5,1912.0,3285.75,5868.5,0,500.0,7736.0
+sd300c,negative,final_keypoints_scale_0_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,2319.468,2321.5,2142.7,2261.0,2395.25,2497.05,0,1484.0,2647.0
+sd300c,negative,pre_cap_proxy_scale_0_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,78374.55,78417.0,56569.15,69431.0,87225.25,101284.3,0,40550.0,122965.0
+sd300c,negative,final_keypoints_scale_1_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,192.194,188.0,116.95,158.0,214.0,276.04999999999995,0,66.0,780.0
+sd300c,negative,pre_cap_proxy_scale_1_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,51504.702,51076.5,37800.1,45663.75,56831.25,66028.65,0,27706.0,81119.0
+sd300c,negative,final_keypoints_scale_2_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,304.61,302.0,228.85000000000002,277.0,328.0,381.0999999999999,0,182.0,564.0
+sd300c,negative,pre_cap_proxy_scale_2_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,22403.92,22265.0,16643.65,19827.75,24935.5,28451.699999999993,0,13439.0,34723.0
+sd300c,negative,final_keypoints_scale_3_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,117.76,118.0,66.95,99.0,135.0,169.0,0,38.0,462.0
+sd300c,negative,pre_cap_proxy_scale_3_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,14383.558,14326.0,10640.9,12729.5,15981.5,18259.149999999994,0,8405.0,22602.0
+sd300c,negative,final_keypoints_scale_4_b,keypoints,true,counted from frozen harriszplus_scale_indices,,500,65.968,65.0,30.0,51.0,79.0,106.0,0,13.0,179.0
+sd300c,negative,pre_cap_proxy_scale_4_b,candidates,true,candidates_after_eigen_ratio before cross-scale duplicate removal/uniform cap,,500,8152.344,8221.0,5871.45,7205.75,9085.75,10339.449999999999,0,4463.0,12714.0
+sd300c,negative,keypoint_size_distribution_a,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,839990,4.24905870059907,4.000000000000001,2.8284271247461903,2.8284271247461903,5.656854249492381,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,negative,keypoint_size_distribution_b,native_pixels_per_keypoint,true,"all keypoints, derived from frozen scale indices and size mapping",,422886,4.047557943898299,4.000000000000001,2.8284271247461903,2.8284271247461903,4.000000000000001,8.000000000000002,0,2.8284271247461903,8.000000000000002
+sd300c,negative,orientation_angle_distribution,degrees,false,not present in frozen diagnostics,Angles are covered by representation_sha256 but individual angle values/histograms were not serialized.,0,,,,,,,0,,
