@@ -12,6 +12,11 @@ dependencies = [
     "opencv-python==4.12.0.88",
 ]
 
+[project.optional-dependencies]
+harriszplus-cuda = [
+    "torch==2.11.0",
+]
+
 [project.scripts]
 fingerprint-audit = "fingerprint_data_discovery.audit:main"
 fingerprint-sd300b-plain-self = "fingerprint_data_discovery.sd300b_plain_self:main"
@@ -28,6 +33,7 @@ fingerprint-sift-study = "fingerprint_benchmark.sift.study:main"
 fingerprint-derived-sourceafis = "fingerprint_benchmark.derived_protocol:main"
 fingerprint-derived-sift = "fingerprint_benchmark.sift_derived_protocol:main"
 fingerprint-shared-accuracy = "fingerprint_benchmark.shared_accuracy:main"
+fingerprint-harriszplus-study = "fingerprint_benchmark.harriszplus.pilot:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
