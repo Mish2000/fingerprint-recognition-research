@@ -6,7 +6,7 @@
 
     <groupId>org.fingerprintresearch</groupId>
     <artifactId>sourceafis-sidecar</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <name>Fingerprint Research SourceAFIS Sidecar v2</name>
     <description>Thin local HTTP adapter for official SourceAFIS Java pairwise benchmarking.</description>
 
@@ -14,7 +14,7 @@
         <maven.compiler.release>11</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sourceafis.version>3.18.1</sourceafis.version>
-        <sidecar.contract.version>sourceafis-sidecar-v2.1</sidecar.contract.version>
+        <sidecar.contract.version>sourceafis-sidecar-v2.2</sidecar.contract.version>
         <jackson.version>2.17.2</jackson.version>
         <junit.version>5.10.3</junit.version>
     </properties>
@@ -28,6 +28,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-cbor</artifactId>
             <version>${jackson.version}</version>
         </dependency>
         <dependency>

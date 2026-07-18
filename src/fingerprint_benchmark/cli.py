@@ -11,6 +11,17 @@ from typing import Any, Iterable
 from fingerprint_data_discovery.nist_sd300 import DEFAULT_DATA_ROOT
 
 from .manifest import read_pair_manifest
+from .detector_only_joint500 import (
+    DATASETS as JOINT_DATASETS,
+    PAIR_KINDS as JOINT_PAIR_KINDS,
+    build_protocol_artifacts,
+    report_joint500,
+    run_joint500,
+    run_sourceafis_preflight,
+    validate_protocol_artifacts,
+)
+from .detectors.opencv_gftt_harris import METHOD_NAME as HARRIS_DETECTOR_METHOD
+from .detectors.sourceafis_final_minutiae import METHOD_NAME as SOURCEAFIS_DETECTOR_METHOD
 from .runner import run_benchmark_manifest
 from .sourceafis_adapter import SourceAfisAdapter
 from .sourceafis_client import SourceAfisSidecarClient, validate_health
@@ -22,7 +33,7 @@ DATASETS = ("sd300b", "sd300c")
 PROTOCOLS = ("plain_self", "roll_self", "plain_roll")
 DEFAULT_SERVICE_URL = "http://127.0.0.1:8765"
 DEFAULT_SIDECAR_JAR = (
-    Path("apps") / "sourceafis-sidecar" / "target" / "sourceafis-sidecar-0.2.0.jar"
+    Path("apps") / "sourceafis-sidecar" / "target" / "sourceafis-sidecar-0.3.0.jar"
 )
 
 
@@ -56,6 +67,36 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
     summarize = subparsers.add_parser("summarize", help="Summarize one or more result CSV files.")
     summarize.add_argument("results", nargs="+", type=Path)
+
+    joint = subparsers.add_parser("detector-joint500", help="Build, validate, run, or report joint-500 screening.")
+    joint_phases = joint.add_subparsers(dest="joint_phase", required=True)
+    joint_build = joint_phases.add_parser("build", help="Build deterministic joint-500 protocol artifacts.")
+    joint_build.add_argument("--repository-root", type=Path, default=Path("."))
+    joint_build.add_argument("--check", action="store_true")
+    joint_validate = joint_phases.add_parser("validate", help="Validate all joint-500 artifacts without detectors.")
+    joint_validate.add_argument("--repository-root", type=Path, default=Path("."))
+    joint_preflight = joint_phases.add_parser(
+        "preflight-sourceafis",
+        help="Check encoded-image/raw-pixel SourceAFIS parity on 20 cohort images.",
+    )
+    _add_sourceafis_connection_args(joint_preflight)
+    joint_preflight.add_argument("--results-root", type=Path, default=Path("results"))
+    joint_preflight.add_argument("--repository-root", type=Path, default=Path("."))
+    joint_run = joint_phases.add_parser("run", help="Run selected joint-500 benchmark bundles.")
+    _add_sourceafis_connection_args(joint_run)
+    _add_benchmark_io_args(joint_run)
+    joint_run.add_argument("--repository-root", type=Path, default=Path("."))
+    joint_run.add_argument("--dataset", choices=JOINT_DATASETS)
+    joint_run.add_argument("--pair-kind", choices=JOINT_PAIR_KINDS)
+    joint_run.add_argument(
+        "--method",
+        choices=(HARRIS_DETECTOR_METHOD, SOURCEAFIS_DETECTOR_METHOD),
+        default=HARRIS_DETECTOR_METHOD,
+    )
+    joint_run.add_argument("--skip-existing", action="store_true")
+    joint_report = joint_phases.add_parser("report", help="Report screening metrics from existing bundles only.")
+    joint_report.add_argument("--results-root", type=Path, default=Path("results"))
+    joint_report.add_argument("--output-directory", type=Path)
     return parser.parse_args(argv)
 
 
@@ -101,6 +142,38 @@ def main(argv: list[str] | None = None) -> int:
             summaries = [summarize_result_file(path) for path in args.results]
             print(json.dumps(summaries, ensure_ascii=True, indent=2, sort_keys=True))
             return 0
+        if args.command == "detector-joint500":
+            if args.joint_phase == "build":
+                payload = build_protocol_artifacts(
+                    repository_root=args.repository_root,
+                    check=args.check,
+                )
+            elif args.joint_phase == "validate":
+                payload = validate_protocol_artifacts(repository_root=args.repository_root)
+            elif args.joint_phase == "preflight-sourceafis":
+                payload = _joint_sourceafis_preflight_command(args)
+            elif args.joint_phase == "run":
+                payload = run_joint500(
+                    method=args.method,
+                    dataset=args.dataset,
+                    pair_kind=args.pair_kind,
+                    results_root=args.results_root,
+                    data_root=args.data_root,
+                    repository_root=args.repository_root,
+                    sidecar_jar=args.sidecar_jar,
+                    service_url=args.service_url,
+                    timeout_seconds=args.timeout_seconds,
+                    skip_existing=args.skip_existing,
+                )
+            elif args.joint_phase == "report":
+                payload = report_joint500(
+                    results_root=args.results_root,
+                    output_directory=args.output_directory,
+                )
+            else:
+                raise ValueError(f"Unsupported detector-joint500 phase: {args.joint_phase!r}")
+            print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
+            return 0
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
@@ -144,6 +217,28 @@ def _sourceafis_smoke_command(args: argparse.Namespace) -> dict[str, Any]:
             _startup_dict(sidecar.startup),
             args.timeout_seconds,
         )
+
+
+def _joint_sourceafis_preflight_command(args: argparse.Namespace) -> dict[str, Any]:
+    with ManagedSourceAfisSidecar(
+        args.sidecar_jar,
+        args.service_url,
+        timeout_seconds=args.timeout_seconds,
+    ) as sidecar:
+        if sidecar.startup is None or sidecar.startup.jar_sha256 is None:
+            raise ValueError("Managed SourceAFIS preflight requires a validated JAR SHA-256.")
+        client = SourceAfisSidecarClient(args.service_url, timeout_seconds=args.timeout_seconds)
+        try:
+            health = client.health()
+            validate_health(health)
+            return run_sourceafis_preflight(
+                client=client,
+                jar_sha256=sidecar.startup.jar_sha256,
+                results_root=args.results_root,
+                repository_root=args.repository_root,
+            )
+        finally:
+            client.close()
 
 
 def _sourceafis_smoke(

@@ -20,9 +20,27 @@ from fingerprint_benchmark.detectors import (
 )
 ```
 
-SourceAFIS is retained as a separate external end-to-end system baseline. It
-does not participate in `detector_only_v1` and is executed through the local
-Java sidecar and the generic benchmark runner.
+The second detector branch uses only the final minutia locations selected by
+SourceAFIS 3.18.1, then passes those locations through the exact same
+`detector_only_v1` support, orientation, RootSIFT, matching, geometry, and
+inlier-count score:
+
+```python
+from fingerprint_benchmark.detectors import (
+    SourceAfisFinalMinutiaeDetector,
+    SourceAfisFinalMinutiaeRootSIFTGeometricAdapter,
+)
+```
+
+Minutia type, SourceAFIS direction, template order, response sentinel, and
+metadata are diagnostic only and do not enter the common representation.
+SourceAFIS is also retained unchanged as a separate end-to-end baseline through
+`/extract-template` and `/verify`; the detector branch does not replace it.
+
+The method-neutral screening cohort is `detector_only_joint_500_v1`: 500
+identities, 50 per canonical finger position, one finger per subject, with the
+same logical identities and impostor pairing in SD300b and SD300c. It is a
+development/screening protocol, not held-out evaluation.
 
 ## Installation
 
@@ -54,6 +72,9 @@ Dataset discovery and protocol validation commands are installed from
 fingerprint-benchmark --help
 fingerprint-benchmark sourceafis-smoke --help
 fingerprint-benchmark run-sourceafis --help
+fingerprint-benchmark detector-joint500 --help
+fingerprint-benchmark detector-joint500 build --check
+fingerprint-benchmark detector-joint500 validate
 ```
 
 Run the repository test suite with:
@@ -69,3 +90,4 @@ The repository currently stores no benchmark results.
 - [Benchmark contract](docs/benchmark_contract.md)
 - [Detector-only protocol](docs/detector_only_protocol.md)
 - [SourceAFIS integration](docs/sourceafis_integration_v2.md)
+- [Joint-500 screening protocol](docs/detector_only_joint_500_v1.md)

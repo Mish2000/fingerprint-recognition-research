@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import inspect
 from pathlib import Path
+import re
 import subprocess
 from typing import Any, Iterable
 
@@ -43,6 +44,15 @@ def implementation_provenance(
         adapter,
         runner_source_path=runner_source_path,
     )
+    required_runtime_artifacts = _required_runtime_artifacts(adapter)
+    sidecar_jar_sha256 = startup_validation.get("jar_sha256")
+    if "sidecar_jar_sha256" in required_runtime_artifacts and (
+        not isinstance(sidecar_jar_sha256, str)
+        or re.fullmatch(r"[0-9a-f]{64}", sidecar_jar_sha256) is None
+    ):
+        raise ProvenanceError(
+            "Adapter requires startup_validation.sidecar_jar_sha256 before warm-up."
+        )
     fixed_components = {
         "benchmark_contract_version": BENCHMARK_CONTRACT_VERSION,
         "method": method_metadata.method,
@@ -50,7 +60,8 @@ def implementation_provenance(
         "score_direction": method_metadata.score_direction,
         "score_semantics": method_metadata.score_semantics,
         "adapter_declared_provenance": method_metadata.implementation_provenance,
-        "sidecar_jar_sha256": startup_validation.get("jar_sha256"),
+        "required_runtime_artifacts": list(required_runtime_artifacts),
+        "sidecar_jar_sha256": sidecar_jar_sha256,
         "python_adapter_source_sha256": file_sha256(adapter_source_path),
         "benchmark_runner_source_sha256": file_sha256(runner_source_path),
         "benchmark_contract_source_sha256": file_sha256(contract_source_path),
@@ -59,9 +70,6 @@ def implementation_provenance(
     }
     if declared_sources is not None:
         fixed_components["adapter_declared_implementation_sources"] = declared_sources
-    if method_metadata.method == "sourceafis" and not fixed_components["sidecar_jar_sha256"]:
-        raise ProvenanceError("SourceAFIS persisted runs require the managed sidecar JAR SHA-256.")
-
     implementation_hash = stable_hash(fixed_components)
     full = {
         **method_metadata.implementation_provenance,
@@ -88,6 +96,22 @@ def implementation_provenance(
     if declared_sources is not None:
         full["adapter_declared_implementation_sources"] = declared_sources
     return full, fixed_components, implementation_hash
+
+
+def _required_runtime_artifacts(adapter: MethodAdapter) -> tuple[str, ...]:
+    provider = getattr(adapter, "required_runtime_artifacts", None)
+    if provider is None:
+        return ()
+    if not callable(provider):
+        raise ProvenanceError("adapter.required_runtime_artifacts must be callable.")
+    raw = provider()
+    if not isinstance(raw, (tuple, list)) or not all(isinstance(item, str) for item in raw):
+        raise ProvenanceError("required_runtime_artifacts() must return a string sequence.")
+    required = tuple(sorted(set(raw)))
+    unsupported = set(required) - {"sidecar_jar_sha256"}
+    if unsupported:
+        raise ProvenanceError(f"Unsupported required runtime artifacts: {sorted(unsupported)}.")
+    return required
 
 
 def repository_state(path: Path) -> dict[str, Any]:

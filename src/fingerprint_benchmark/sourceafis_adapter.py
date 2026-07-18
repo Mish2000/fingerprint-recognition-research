@@ -104,6 +104,9 @@ class SourceAfisAdapter:
             ),
         )
 
+    def required_runtime_artifacts(self) -> tuple[str, ...]:
+        return ("sidecar_jar_sha256",)
+
     def prepare(self, image_path: Path, image_metadata: Mapping[str, Any]) -> PrepareOutcome:
         dpi = _effective_dpi(image_metadata)
         try:

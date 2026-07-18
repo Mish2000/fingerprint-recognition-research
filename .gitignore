@@ -16,3 +16,6 @@ Thumbs.db
 
 # --- Build outputs ---
 apps/**/target/
+
+# --- Research run outputs ---
+results/

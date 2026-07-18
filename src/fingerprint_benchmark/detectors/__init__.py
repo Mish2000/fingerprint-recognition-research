@@ -13,6 +13,8 @@ __all__ = [
     "OpenCVHarrisDetector",
     "OpenCVGFTTHarrisRootSIFTGeometricAdapter",
     "OpenCVHarrisRootSIFTGeometricAdapter",
+    "SourceAfisFinalMinutiaeDetector",
+    "SourceAfisFinalMinutiaeRootSIFTGeometricAdapter",
 ]
 
 
@@ -29,4 +31,11 @@ def __getattr__(name: str) -> Any:
         from . import opencv_gftt_harris
 
         return getattr(opencv_gftt_harris, name)
+    if name in {
+        "SourceAfisFinalMinutiaeDetector",
+        "SourceAfisFinalMinutiaeRootSIFTGeometricAdapter",
+    }:
+        from . import sourceafis_final_minutiae
+
+        return getattr(sourceafis_final_minutiae, name)
     raise AttributeError(name)

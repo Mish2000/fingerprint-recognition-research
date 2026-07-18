@@ -1,4 +1,6 @@
 import binascii
+import base64
+import hashlib
 import math
 import os
 import struct
@@ -19,8 +21,11 @@ def test_sourceafis_sidecar_health_extract_verify_and_dpi_roundtrip():
         health = client.health()
         validate_health(health)
         image = _synthetic_fingerprint_png(0)
+        pixels = _synthetic_fingerprint_pixels(0)
         template_1000 = client.extract_template(image, 1000)
         template_2000 = client.extract_template(image, 2000)
+        final_first = client.extract_final_minutiae(pixels, 360, 460, 1000)
+        final_second = client.extract_final_minutiae(pixels, 360, 460, 1000)
         verification = client.verify(template_1000.template_base64, template_1000.template_base64)
     finally:
         client.close()
@@ -32,6 +37,13 @@ def test_sourceafis_sidecar_health_extract_verify_and_dpi_roundtrip():
     assert template_1000.template_base64 != template_2000.template_base64
     assert template_1000.effective_dpi == pytest.approx(1000.0)
     assert template_2000.effective_dpi == pytest.approx(2000.0)
+    assert final_first.template_sha256 == hashlib.sha256(
+        base64.b64decode(template_1000.template_base64, validate=True)
+    ).hexdigest()
+    assert final_first.minutiae == final_second.minutiae
+    assert final_first.template_sha256 == final_second.template_sha256
+    assert final_first.native_width == 360
+    assert final_first.native_height == 460
     assert math.isfinite(template_1000.method_internal_ms)
     assert template_1000.method_internal_ms >= 0.0
     assert math.isfinite(verification.raw_score)
@@ -44,6 +56,14 @@ def _integration_enabled() -> bool:
 
 
 def _synthetic_fingerprint_png(variant: int) -> bytes:
+    width = 360
+    height = 460
+    pixels = _synthetic_fingerprint_pixels(variant)
+    rows = [bytes([0]) + pixels[y * width : (y + 1) * width] for y in range(height)]
+    return _png_bytes(width, height, b"".join(rows))
+
+
+def _synthetic_fingerprint_pixels(variant: int) -> bytes:
     width = 360
     height = 460
     period = 10.5
@@ -59,9 +79,12 @@ def _synthetic_fingerprint_png(variant: int) -> bytes:
             warped_y = y + 18.0 * math.sin(x * 0.035 + variant * 0.35) + 5.0 * math.sin(y * 0.02)
             ridge_pos = (warped_y - 52.0) % period
             distance = min(ridge_pos, period - ridge_pos)
-            row.append(22 if distance < 1.7 else 245)
-        rows.append(bytes([0]) + bytes(row))
-    return _png_bytes(width, height, b"".join(rows))
+            # Binary endpoints survive both ImageIO and OpenCV grayscale decoding
+            # unchanged, which makes this fixture suitable for the encoded/raw
+            # parity assertion below.
+            row.append(0 if distance < 1.7 else 255)
+        rows.append(bytes(row))
+    return b"".join(rows)
 
 
 def _png_bytes(width: int, height: int, filtered_rows: bytes) -> bytes:

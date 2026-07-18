@@ -287,6 +287,14 @@ class DetectorOnlyAdapter:
         )
         paths = {package_directory / relative for relative in relative_sources}
         paths.add(Path(detector_source).resolve())
+        detector_provider = getattr(self.detector, "implementation_source_paths", None)
+        if detector_provider is not None:
+            if not callable(detector_provider):
+                raise ValueError("detector.implementation_source_paths must be callable.")
+            repository_root = package_directory.parents[1]
+            for declared in detector_provider():
+                path = Path(declared)
+                paths.add((path if path.is_absolute() else repository_root / path).resolve())
         return tuple(
             sorted((path.resolve() for path in paths), key=lambda path: path.as_posix())
         )
@@ -358,6 +366,21 @@ class DetectorOnlyAdapter:
             )
         try:
             detector_result = self.detector.detect(image, image_metadata, mask=None)
+            if (
+                getattr(self.detector, "reject_points_above_protocol_maximum", False)
+                and detector_result.count > int(self.config.maximum_keypoints)
+            ):
+                raise MethodExecutionError(
+                    "too_many_detector_points",
+                    f"Detector returned {detector_result.count} points, exceeding the explicit "
+                    f"protocol maximum of {self.config.maximum_keypoints}; no subset was selected.",
+                    method_internal_ms=_elapsed(started),
+                    diagnostics={
+                        "image_load_ms": image_load_ms,
+                        "detector_point_count": detector_result.count,
+                        "maximum_keypoints": int(self.config.maximum_keypoints),
+                    },
+                )
             representation, adaptation, _ = build_representation(
                 image,
                 image_metadata,

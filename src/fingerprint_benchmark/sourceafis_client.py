@@ -6,17 +6,18 @@ import base64
 import http.client
 import json
 import math
+import re
 import socket
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Mapping
 from urllib.parse import urlparse
 
 from .contract import MethodExecutionError
 
 
 EXPECTED_SOURCEAFIS_VERSION = "3.18.1"
-EXPECTED_CONTRACT_VERSION = "sourceafis-sidecar-v2.1"
-EXPECTED_SIDECAR_IMPLEMENTATION_VERSION = "0.2.0"
+EXPECTED_CONTRACT_VERSION = "sourceafis-sidecar-v2.2"
+EXPECTED_SIDECAR_IMPLEMENTATION_VERSION = "0.3.0"
 SOURCEAFIS_MAVEN_COORDINATES = "com.machinezoo.sourceafis:sourceafis:3.18.1"
 SOURCEAFIS_TEMPLATE_FORMAT = "sourceafis"
 SOURCEAFIS_TRANSPORT = "localhost_http"
@@ -30,6 +31,19 @@ VERIFY_INTERNAL_TIMING_SCOPE = (
     "FingerprintTemplate deserialization for both templates, FingerprintMatcher construction, and "
     "FingerprintMatcher.match; excludes HTTP, JSON, and request Base64 decoding."
 )
+EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE = (
+    "FingerprintImageOptions construction, raw FingerprintImage construction, FingerprintTemplate extraction, "
+    "FingerprintTemplate.toByteArray serialization, documented native-template CBOR parsing, and response "
+    "model construction; excludes HTTP, JSON, request Base64 decoding, and response JSON serialization."
+)
+FINAL_MINUTIAE_ENDPOINT = "/extract-final-minutiae"
+FINAL_MINUTIAE_INPUT = "raw_uint8_grayscale_row_major"
+FINAL_MINUTIAE_COORDINATE_SPACE = "sourceafis_500_dpi_scaled_image"
+FINAL_MINUTIAE_SELECTION_STAGE = "sourceafis_final_template_minutiae"
+FINAL_MINUTIAE_HEALTH_STAGE = "final_template_minutiae"
+FINAL_MINUTIAE_SELECTION_SEMANTICS = "sourceafis_final_selected_minutia_set"
+FINAL_MINUTIAE_ORDER_SEMANTICS = "deterministic_sourceafis_template_order_not_quality_ranking"
+_SHA256_PATTERN = re.compile(r"\A[0-9a-f]{64}\Z")
 ALLOWED_LOOPBACK_HOSTS = frozenset({"localhost", "127.0.0.1", "::1"})
 
 
@@ -83,11 +97,43 @@ class SourceAfisVerification:
     method_internal_ms: float
 
 
+@dataclass(frozen=True, slots=True)
+class SourceAfisMinutia:
+    source_index: int
+    x_scaled: int
+    y_scaled: int
+    direction_radians: float
+    minutia_type: str
+
+
+@dataclass(frozen=True, slots=True)
+class SourceAfisFinalMinutiae:
+    sourceafis_version: str
+    template_version: str
+    effective_dpi: float
+    native_width: int
+    native_height: int
+    scaled_width: int
+    scaled_height: int
+    coordinate_space: str
+    selection_stage: str
+    selection_semantics: str
+    source_order_semantics: str
+    template_sha256: str
+    minutiae: tuple[SourceAfisMinutia, ...]
+    method_internal_ms: float
+
+    @property
+    def minutia_count(self) -> int:
+        return len(self.minutiae)
+
+
 class SourceAfisSidecarClient:
     """Small persistent HTTP client for the sidecar.
 
-    The client intentionally exposes only health, extraction, and pairwise
-    verification. It does not provide fallback matching or identification.
+    The client intentionally exposes only health, template/final-minutia
+    extraction, and pairwise verification. It does not provide fallback
+    matching or identification.
     """
 
     def __init__(self, service_url: str, *, timeout_seconds: float = 120.0) -> None:
@@ -173,6 +219,44 @@ class SourceAfisSidecarClient:
             method_internal_ms=_required_nonnegative_float(payload, "method_internal_ms", "comparison_failure"),
         )
 
+    def extract_final_minutiae(
+        self,
+        pixels: bytes,
+        width: int,
+        height: int,
+        dpi: float,
+    ) -> SourceAfisFinalMinutiae:
+        """Extract the final selected minutia set from exact raw grayscale bytes."""
+
+        if not isinstance(pixels, bytes):
+            raise SourceAfisClientError("invalid_raw_pixels", "SourceAFIS raw pixels must be bytes.")
+        checked_width = _positive_int(width, "width", "invalid_dimensions")
+        checked_height = _positive_int(height, "height", "invalid_dimensions")
+        if len(pixels) != checked_width * checked_height:
+            raise SourceAfisClientError(
+                "pixel_length_mismatch",
+                "SourceAFIS raw pixel length must equal width * height exactly.",
+            )
+        checked_dpi = _finite_float(dpi, "dpi", "invalid_dpi")
+        if checked_dpi < 100.0 or checked_dpi > 4000.0:
+            raise SourceAfisClientError("invalid_dpi", "SourceAFIS DPI is outside the supported range.")
+        payload = self._request_json(
+            "POST",
+            FINAL_MINUTIAE_ENDPOINT,
+            {
+                "width": checked_width,
+                "height": checked_height,
+                "pixels_base64": base64.b64encode(pixels).decode("ascii"),
+                "dpi": checked_dpi,
+            },
+        )
+        return _parse_final_minutiae_response(
+            payload,
+            expected_width=checked_width,
+            expected_height=checked_height,
+            expected_dpi=checked_dpi,
+        )
+
     def _request_json(self, method: str, path: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
         self.request_count += 1
         request_path = f"{self._base_path}{path}" if self._base_path else path
@@ -238,7 +322,12 @@ def validate_health(
         "external_preprocessing": "none",
         "method_internal_timing_unit": METHOD_INTERNAL_TIMING_UNIT,
         "extract_template_internal_timing_scope": EXTRACT_TEMPLATE_INTERNAL_TIMING_SCOPE,
+        "extract_final_minutiae_internal_timing_scope": EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE,
         "verify_internal_timing_scope": VERIFY_INTERNAL_TIMING_SCOPE,
+        "final_minutiae_endpoint": FINAL_MINUTIAE_ENDPOINT,
+        "final_minutiae_input": FINAL_MINUTIAE_INPUT,
+        "final_minutiae_coordinate_space": FINAL_MINUTIAE_COORDINATE_SPACE,
+        "final_minutiae_stage": FINAL_MINUTIAE_HEALTH_STAGE,
     }
     for field_name, expected_value in expected_fields.items():
         if payload.get(field_name) != expected_value:
@@ -265,6 +354,7 @@ def validate_health(
     expected_boolean_fields = {
         "template_cache": False,
         "supports_template_extraction": True,
+        "supports_final_minutiae_extraction": True,
         "supports_pairwise_verification": True,
         "supports_identification": False,
     }
@@ -341,6 +431,168 @@ def _required_str(payload: dict[str, Any], field_name: str, error_code: str) -> 
     if not text:
         raise SourceAfisContractError(error_code, f"SourceAFIS response field {field_name!r} is empty.")
     return text
+
+
+def _parse_final_minutiae_response(
+    payload: dict[str, Any],
+    *,
+    expected_width: int,
+    expected_height: int,
+    expected_dpi: float,
+) -> SourceAfisFinalMinutiae:
+    error_code = "final_minutiae_contract_mismatch"
+    expected_fields = {
+        "sourceafis_version",
+        "template_version",
+        "effective_dpi",
+        "native_width",
+        "native_height",
+        "scaled_width",
+        "scaled_height",
+        "coordinate_space",
+        "selection_stage",
+        "selection_semantics",
+        "source_order_semantics",
+        "template_sha256",
+        "minutia_count",
+        "minutiae",
+        "method_internal_ms",
+    }
+    _require_exact_fields(payload, expected_fields, "final-minutiae response", error_code)
+    sourceafis_version = _required_str(payload, "sourceafis_version", error_code)
+    if sourceafis_version != EXPECTED_SOURCEAFIS_VERSION:
+        raise SourceAfisContractError(
+            "sourceafis_version_mismatch",
+            f"SourceAFIS final-minutiae version mismatch: {sourceafis_version!r}.",
+        )
+    template_version = _required_str(payload, "template_version", error_code)
+    if not template_version.startswith(f"{EXPECTED_SOURCEAFIS_VERSION}-"):
+        raise SourceAfisContractError(
+            "sourceafis_version_mismatch",
+            f"SourceAFIS native template version mismatch: {template_version!r}.",
+        )
+    native_width = _required_positive_int(payload, "native_width", error_code)
+    native_height = _required_positive_int(payload, "native_height", error_code)
+    if (native_width, native_height) != (expected_width, expected_height):
+        raise SourceAfisContractError(error_code, "SourceAFIS final-minutiae native dimensions mismatch.")
+    scaled_width = _required_positive_int(payload, "scaled_width", error_code)
+    scaled_height = _required_positive_int(payload, "scaled_height", error_code)
+    effective_dpi = _required_float(payload, "effective_dpi", error_code)
+    if effective_dpi != expected_dpi:
+        raise SourceAfisContractError(error_code, "SourceAFIS final-minutiae effective DPI mismatch.")
+    exact_strings = {
+        "coordinate_space": FINAL_MINUTIAE_COORDINATE_SPACE,
+        "selection_stage": FINAL_MINUTIAE_SELECTION_STAGE,
+        "selection_semantics": FINAL_MINUTIAE_SELECTION_SEMANTICS,
+        "source_order_semantics": FINAL_MINUTIAE_ORDER_SEMANTICS,
+    }
+    for field_name, expected in exact_strings.items():
+        actual = _required_str(payload, field_name, error_code)
+        if actual != expected:
+            raise SourceAfisContractError(
+                error_code,
+                f"SourceAFIS final-minutiae field {field_name!r} mismatch: {actual!r}.",
+            )
+    template_sha256 = _required_str(payload, "template_sha256", error_code)
+    if _SHA256_PATTERN.fullmatch(template_sha256) is None:
+        raise SourceAfisContractError(error_code, "SourceAFIS template_sha256 must be lowercase SHA-256 hex.")
+    count = _required_nonnegative_int(payload, "minutia_count", error_code)
+    raw_minutiae = payload.get("minutiae")
+    if not isinstance(raw_minutiae, list):
+        raise SourceAfisContractError(error_code, "SourceAFIS final-minutiae field 'minutiae' must be an array.")
+    if len(raw_minutiae) != count:
+        raise SourceAfisContractError(error_code, "SourceAFIS final-minutiae count does not match the array.")
+    minutiae: list[SourceAfisMinutia] = []
+    for index, raw in enumerate(raw_minutiae):
+        if not isinstance(raw, dict):
+            raise SourceAfisContractError(error_code, f"SourceAFIS minutia {index} must be an object.")
+        _require_exact_fields(
+            raw,
+            {"source_index", "x_scaled", "y_scaled", "direction_radians", "type"},
+            f"minutia {index}",
+            error_code,
+        )
+        source_index = _required_nonnegative_int(raw, "source_index", error_code)
+        if source_index != index:
+            raise SourceAfisContractError(error_code, "SourceAFIS source_index must be contiguous template order.")
+        x_scaled = _required_nonnegative_int(raw, "x_scaled", error_code)
+        y_scaled = _required_nonnegative_int(raw, "y_scaled", error_code)
+        if x_scaled >= scaled_width or y_scaled >= scaled_height:
+            raise SourceAfisContractError(error_code, "SourceAFIS minutia coordinate is outside scaled bounds.")
+        direction = _required_float(raw, "direction_radians", error_code)
+        minutia_type = _required_str(raw, "type", error_code)
+        if minutia_type not in {"ENDING", "BIFURCATION"}:
+            raise SourceAfisContractError(error_code, "SourceAFIS minutia type is invalid.")
+        minutiae.append(
+            SourceAfisMinutia(
+                source_index=source_index,
+                x_scaled=x_scaled,
+                y_scaled=y_scaled,
+                direction_radians=direction,
+                minutia_type=minutia_type,
+            )
+        )
+    return SourceAfisFinalMinutiae(
+        sourceafis_version=sourceafis_version,
+        template_version=template_version,
+        effective_dpi=effective_dpi,
+        native_width=native_width,
+        native_height=native_height,
+        scaled_width=scaled_width,
+        scaled_height=scaled_height,
+        coordinate_space=FINAL_MINUTIAE_COORDINATE_SPACE,
+        selection_stage=FINAL_MINUTIAE_SELECTION_STAGE,
+        selection_semantics=FINAL_MINUTIAE_SELECTION_SEMANTICS,
+        source_order_semantics=FINAL_MINUTIAE_ORDER_SEMANTICS,
+        template_sha256=template_sha256,
+        minutiae=tuple(minutiae),
+        method_internal_ms=_required_nonnegative_float(payload, "method_internal_ms", error_code),
+    )
+
+
+def _require_exact_fields(
+    payload: Mapping[str, Any],
+    expected: set[str],
+    label: str,
+    error_code: str,
+) -> None:
+    actual = set(payload)
+    if actual != expected:
+        missing = sorted(expected - actual)
+        unexpected = sorted(actual - expected)
+        raise SourceAfisContractError(
+            error_code,
+            f"SourceAFIS {label} schema mismatch; missing={missing}, unexpected={unexpected}.",
+        )
+
+
+def _positive_int(value: Any, field_name: str, error_code: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+        raise SourceAfisClientError(error_code, f"SourceAFIS field {field_name!r} must be a positive integer.")
+    return value
+
+
+def _finite_float(value: Any, field_name: str, error_code: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise SourceAfisClientError(error_code, f"SourceAFIS field {field_name!r} must be numeric.")
+    parsed = float(value)
+    if not math.isfinite(parsed):
+        raise SourceAfisClientError(error_code, f"SourceAFIS field {field_name!r} must be finite.")
+    return parsed
+
+
+def _required_positive_int(payload: Mapping[str, Any], field_name: str, error_code: str) -> int:
+    value = payload.get(field_name)
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+        raise SourceAfisContractError(error_code, f"SourceAFIS response field {field_name!r} must be positive integer.")
+    return value
+
+
+def _required_nonnegative_int(payload: Mapping[str, Any], field_name: str, error_code: str) -> int:
+    value = payload.get(field_name)
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise SourceAfisContractError(error_code, f"SourceAFIS response field {field_name!r} must be non-negative integer.")
+    return value
 
 
 def _required_float(payload: dict[str, Any], field_name: str, error_code: str) -> float:

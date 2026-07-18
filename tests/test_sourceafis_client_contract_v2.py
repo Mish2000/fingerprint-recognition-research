@@ -6,6 +6,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import pytest
 
 from fingerprint_benchmark.sourceafis_client import (
+    EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE,
     EXTRACT_TEMPLATE_INTERNAL_TIMING_SCOPE,
     VERIFY_INTERNAL_TIMING_SCOPE,
     SourceAfisClientError,
@@ -191,8 +192,8 @@ def _health_payload(port: int) -> dict[str, object]:
         "maven_coordinates": "com.machinezoo.sourceafis:sourceafis:3.18.1",
         "template_format": "sourceafis",
         "template_version": "3.18.1",
-        "contract_version": "sourceafis-sidecar-v2.1",
-        "sidecar_implementation_version": "0.2.0",
+        "contract_version": "sourceafis-sidecar-v2.2",
+        "sidecar_implementation_version": "0.3.0",
         "java_runtime_version": "20.0.2+9",
         "java_runtime_vendor": "Test Vendor",
         "transport": "localhost_http",
@@ -208,9 +209,15 @@ def _health_payload(port: int) -> dict[str, object]:
         "external_preprocessing": "none",
         "template_cache": False,
         "supports_template_extraction": True,
+        "supports_final_minutiae_extraction": True,
         "supports_pairwise_verification": True,
         "supports_identification": False,
         "method_internal_timing_unit": "milliseconds",
         "extract_template_internal_timing_scope": EXTRACT_TEMPLATE_INTERNAL_TIMING_SCOPE,
+        "extract_final_minutiae_internal_timing_scope": EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE,
         "verify_internal_timing_scope": VERIFY_INTERNAL_TIMING_SCOPE,
+        "final_minutiae_endpoint": "/extract-final-minutiae",
+        "final_minutiae_input": "raw_uint8_grayscale_row_major",
+        "final_minutiae_coordinate_space": "sourceafis_500_dpi_scaled_image",
+        "final_minutiae_stage": "final_template_minutiae",
     }

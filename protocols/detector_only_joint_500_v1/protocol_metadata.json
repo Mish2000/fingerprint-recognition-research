@@ -1,0 +1,49 @@
+{
+  "artifact_hash_scope": "all generated artifacts except protocol_metadata.json to avoid recursive self-hash",
+  "artifact_sha256": {
+    "impostor_pairing.csv": "18a22a178a8d19408e04b1fc15000143ba906751fa8f74a04d3bec3b8e4e3a15",
+    "sd300b/plain_roll_genuine.csv": "d3e86d20b17d603be68720752d94cd24eafc56ad1535e360d4dcab7a0a1e6ac1",
+    "sd300b/plain_roll_impostor.csv": "d5608bd48afae248943db58ca828bdee40ee775cd3142912a7519425fad4f72d",
+    "sd300b/plain_self.csv": "93a7a39416d6c5c4d1a535b33f8f7eed19ce7e9f1b6f93f3dec58c77eba5d46f",
+    "sd300b/roll_self.csv": "03ae6ec1cef71dfcbb97317996aa7758f4c6a23b4e3725db224c2c00046b16fd",
+    "sd300c/plain_roll_genuine.csv": "547f6d633ce48f1922477924a9d477ad4ec3d6fc81221594e004246f672396f0",
+    "sd300c/plain_roll_impostor.csv": "39b34245468e563f1559919badebe2d704eeda5c6c87b9ce3edaef4632c10b05",
+    "sd300c/plain_self.csv": "2c87727b7c5cc26c02f7d8ac7ceaa18aefcb915571d407389c121a6ba564dc38",
+    "sd300c/roll_self.csv": "f1885701b445063c43632c25d24eca3db24e8e17006659167befd4f5108910c0",
+    "selected_identities.csv": "3b7f3fb19455d09a56ba484d0d42fd477d8c219fdb0545b11912ae8ae8da8863"
+  },
+  "base_manifest_sha256": {
+    "protocols/sd300b/plain_roll.csv": "364a3f08998c501eca69fb4ebb54809645a1429791b1a71e5b1b20c52b6c8551",
+    "protocols/sd300b/plain_self.csv": "982f8e8204893e787c8debff5b8d281e3c22da15faad0a469e894f3d656a69eb",
+    "protocols/sd300b/roll_self.csv": "6f227b44b4870f93b35b3791c992f3f4e6fc52d60a4be7f21fe107fed20d9cc6",
+    "protocols/sd300c/plain_roll.csv": "42b157f7a741f9c0cd0810df5384ca0edd29323cbb6a0f2d0034683012cd5044",
+    "protocols/sd300c/plain_self.csv": "b80e3978fad60a4977d959286d8ab5bf342577da44e487e7abe22ce0063ad004",
+    "protocols/sd300c/roll_self.csv": "7f8f24c54b3ffa32992db6070b690c797dc18a142485fc0d71124ad8aeddb6c4"
+  },
+  "cohort_size": 500,
+  "impostor_pairing_algorithm": "within_position_selection_rank_circular_shift_1_v1",
+  "method_references": [],
+  "per_position_counts": {
+    "1": 50,
+    "10": 50,
+    "2": 50,
+    "3": 50,
+    "4": 50,
+    "5": 50,
+    "6": 50,
+    "7": 50,
+    "8": 50,
+    "9": 50
+  },
+  "protocol_name": "detector_only_joint_500_v1",
+  "protocol_sha256": "4d53ba3466524f6a0399e57f62edc1bac58fb2bb425e18bdbd4ef95373e7ec23",
+  "protocol_version": "detector-only-joint-500-v1",
+  "result_references": [],
+  "score_references": [],
+  "seed": "detector-only-joint-500-v1",
+  "selection_algorithm": "sha256_rank_by_position_then_first_unselected_subject_v1",
+  "selection_hash_input": "protocol_version + newline + seed + newline + canonical_finger_position + newline + subject_id",
+  "self_failure_policy": "record_failure_without_cohort_filtering_or_replacement",
+  "timestamp_policy": "omitted_from_artifacts_and_protocol_hash_for_byte_exact_rebuild",
+  "unique_subject_count": 500
+}
