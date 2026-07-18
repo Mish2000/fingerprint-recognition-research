@@ -1,0 +1,9 @@
+method,dataset,split,wall_runtime_seconds,unique_prepare_count,comparison_count,prepare_failure_count,comparison_failure_count
+sift_geometric,sd300b,development,910.2530750999995,3793,18970,0,0
+sift_geometric,sd300c,development,2401.9727774000003,3793,18970,0,0
+sourceafis,sd300b,development,515.8874662999988,3794,20867,0,0
+sourceafis,sd300c,development,866.4406844000005,3793,18970,0,0
+sift_geometric,sd300b,evaluation,3213.3800825,13764,68820,1,0
+sift_geometric,sd300c,evaluation,8469.9455113,13764,68820,0,0
+sourceafis,sd300b,evaluation,1734.5865962999997,13764,75702,0,0
+sourceafis,sd300c,evaluation,3356.0437308000037,13764,68820,0,0

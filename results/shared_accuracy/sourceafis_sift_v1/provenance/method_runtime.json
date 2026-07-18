@@ -1,0 +1,250 @@
+{
+  "accuracy_runner_sha256": "1e59cf5605d353997e5896ba95dfcc6fada3865f355e05a18c49d9223a833c07",
+  "sift_geometric": {
+    "environment": {
+      "cpu_model": "Intel(R) Core(TM) Ultra 9 275HX",
+      "instruction_sets": {
+        "AVX2": {
+          "opencv_cpu_feature_id": 11,
+          "supported": true
+        },
+        "AVX512F": {
+          "opencv_cpu_feature_id": 13,
+          "supported": false
+        },
+        "FMA3": {
+          "opencv_cpu_feature_id": 12,
+          "supported": true
+        },
+        "SSE4_2": {
+          "opencv_cpu_feature_id": 7,
+          "supported": true
+        }
+      },
+      "num_threads": 16,
+      "opencv_build_information_sha256": "c40af2a568d64e7a8171ce0d3a6df3b003239052b24f0ed3624f43617779e770",
+      "opencv_version": "4.12.0",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "python_version": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:27:10) [MSC v.1944 64 bit (AMD64)]",
+      "use_optimized": true
+    },
+    "frozen_config_hash": "51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a",
+    "implementation_hash": "a663786cf6503cb522ab0194c1ab6bc65698d366408c53d49defce09e4960bbb",
+    "implementation_hash_components": {
+      "adapter_declared_provenance": {
+        "engine": "OpenCV SIFT",
+        "implementation_source_family": "repository-native modular adapter around cv2.SIFT_create",
+        "numpy_version": "2.2.6",
+        "opencv_distribution": {
+          "name": "opencv-python",
+          "status": "ok",
+          "version": "4.12.0.88"
+        },
+        "opencv_version": "4.12.0",
+        "random_seed_policy": "cv2.setRNGSeed(config.rng_seed) immediately before every geometry fit",
+        "sift_constructor_parameters": {
+          "contrastThreshold": 0.04,
+          "edgeThreshold": 10.0,
+          "nOctaveLayers": 3,
+          "nfeatures": 3000,
+          "sigma": 1.6
+        }
+      },
+      "benchmark_contract_source_sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2",
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "benchmark_runner_source_sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c",
+      "benchmark_support_source_sha256": {
+        "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+        "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+        "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+        "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+        "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+        "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+      },
+      "method": "sift_geometric",
+      "method_support_source_sha256": {
+        "__init__.py": "960b1b5110495fdbe71e44970d603851a83e99f0001fde6331b2855378c5a25a",
+        "adapter.py": "9af91e5ddacd4e83e09e220f6ea75fdf9daf8f60a56e449007ce0d3e2a48683e",
+        "config.py": "0dddaf996c10605ec6b08afc3494fefc9c8ff4adb26a5de819ee9049ac7317fb",
+        "descriptors.py": "073ed322c327457259d995a1719dbc13e29e682f2b2b06139887d70d72148f78",
+        "extractor.py": "90d86105190e0414c198ecce03783f18216ecd7884be688458726d11adc5e4c6",
+        "geometry.py": "35b51bd5888c296882a8c80c19df2af4443c1dea9ef91753a6ce5c4a84835982",
+        "matching.py": "3c9fd3d82b8c62674bcc52d3992caac07b0f5d0dd6eb67813316f684f15e127d",
+        "preprocessing.py": "8f0005ef2d8ddfee49d11889c8ad7042e0f8bac2ecd264097e87c62680c291f1",
+        "scoring.py": "09b394938aef3200d994440adc89d706a77d08bc6b038c07e8f0186044f39b6a"
+      },
+      "method_version": "sift-geometric-v1",
+      "python_adapter_source_sha256": "9af91e5ddacd4e83e09e220f6ea75fdf9daf8f60a56e449007ce0d3e2a48683e",
+      "score_direction": "higher_is_more_similar",
+      "score_semantics": "OpenCV SIFT L2 Lowe matches verified by PPI-normalized affine RANSAC; raw score is geometric_inlier_count with no acceptance thresholding in compare().",
+      "sidecar_jar_sha256": null
+    },
+    "implementation_provenance": {
+      "benchmark_contract_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\contract.py",
+        "sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2"
+      },
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "benchmark_runner_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\runner.py",
+        "sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c"
+      },
+      "benchmark_support_sources": {
+        "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+        "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+        "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+        "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+        "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+        "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+      },
+      "engine": "OpenCV SIFT",
+      "implementation_source_family": "repository-native modular adapter around cv2.SIFT_create",
+      "java_executable": null,
+      "method_support_sources": {
+        "__init__.py": "960b1b5110495fdbe71e44970d603851a83e99f0001fde6331b2855378c5a25a",
+        "adapter.py": "9af91e5ddacd4e83e09e220f6ea75fdf9daf8f60a56e449007ce0d3e2a48683e",
+        "config.py": "0dddaf996c10605ec6b08afc3494fefc9c8ff4adb26a5de819ee9049ac7317fb",
+        "descriptors.py": "073ed322c327457259d995a1719dbc13e29e682f2b2b06139887d70d72148f78",
+        "extractor.py": "90d86105190e0414c198ecce03783f18216ecd7884be688458726d11adc5e4c6",
+        "geometry.py": "35b51bd5888c296882a8c80c19df2af4443c1dea9ef91753a6ce5c4a84835982",
+        "matching.py": "3c9fd3d82b8c62674bcc52d3992caac07b0f5d0dd6eb67813316f684f15e127d",
+        "preprocessing.py": "8f0005ef2d8ddfee49d11889c8ad7042e0f8bac2ecd264097e87c62680c291f1",
+        "scoring.py": "09b394938aef3200d994440adc89d706a77d08bc6b038c07e8f0186044f39b6a"
+      },
+      "numpy_version": "2.2.6",
+      "opencv_distribution": {
+        "name": "opencv-python",
+        "status": "ok",
+        "version": "4.12.0.88"
+      },
+      "opencv_version": "4.12.0",
+      "python_adapter_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\sift\\adapter.py",
+        "sha256": "9af91e5ddacd4e83e09e220f6ea75fdf9daf8f60a56e449007ce0d3e2a48683e"
+      },
+      "random_seed_policy": "cv2.setRNGSeed(config.rng_seed) immediately before every geometry fit",
+      "repository": {
+        "commit": "97477036e4ed641252991a58308840f1e2983955",
+        "dirty": true,
+        "is_git_checkout": true,
+        "root": "C:\\fingerprint-recognition-research"
+      },
+      "sidecar_jar_path": null,
+      "sidecar_jar_sha256": null,
+      "sift_constructor_parameters": {
+        "contrastThreshold": 0.04,
+        "edgeThreshold": 10.0,
+        "nOctaveLayers": 3,
+        "nfeatures": 3000,
+        "sigma": 1.6
+      }
+    },
+    "method": "sift_geometric",
+    "method_version": "sift-geometric-v1"
+  },
+  "sourceafis": {
+    "environment": {
+      "java_runtime_vendor": "Azul Systems, Inc.",
+      "java_runtime_version": "21.0.10+7-LTS",
+      "sidecar_contract_version": "sourceafis-sidecar-v2.1",
+      "sidecar_implementation_version": "0.2.0",
+      "sourceafis_version": "3.18.1"
+    },
+    "frozen_config_hash": "cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+    "implementation_hash": "153bf41d47720151cee10b6fdb63accdd8366407e5e6803dcf611f084269adbd",
+    "implementation_hash_components": {
+      "adapter_declared_provenance": {
+        "engine": "SourceAFIS",
+        "external_preprocessing": "none",
+        "maven_coordinates": "com.machinezoo.sourceafis:sourceafis:3.18.1",
+        "method_internal_timing": {
+          "extract_template_scope": "FingerprintImageOptions construction, FingerprintImage construction, FingerprintTemplate extraction, and FingerprintTemplate.toByteArray serialization; excludes HTTP, JSON, request Base64 decoding, and response Base64 encoding.",
+          "unit": "milliseconds",
+          "verify_scope": "FingerprintTemplate deserialization for both templates, FingerprintMatcher construction, and FingerprintMatcher.match; excludes HTTP, JSON, and request Base64 decoding."
+        },
+        "official_implementation_family": "Java",
+        "raw_score_semantics": "SourceAFIS raw similarity score from FingerprintMatcher.match",
+        "sidecar_contract_version": "sourceafis-sidecar-v2.1",
+        "sidecar_implementation_provenance": "apps/sourceafis-sidecar",
+        "sidecar_implementation_version": "0.2.0",
+        "sourceafis_version": "3.18.1",
+        "template_cache": false
+      },
+      "benchmark_contract_source_sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2",
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "benchmark_runner_source_sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c",
+      "benchmark_support_source_sha256": {
+        "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+        "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+        "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+        "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+        "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+        "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+      },
+      "method": "sourceafis",
+      "method_support_source_sha256": {
+        "sourceafis_client.py": "d2cac9b76bb17c58ac20407b9554f378612423c7d0a406f0f8614a3be10363d1",
+        "sourceafis_sidecar.py": "fc1e26d33bc8a83bbe5588eab620f6a13966c72a5e89eb8858ea15c7e2bfd782"
+      },
+      "method_version": "3.18.1",
+      "python_adapter_source_sha256": "882e7e57d196e389365bdfded4f6fac29c71480962f60830b41640a45253cf69",
+      "score_direction": "higher_is_more_similar",
+      "score_semantics": "Unnormalized SourceAFIS similarity score returned by FingerprintMatcher.match; no threshold or decision is applied.",
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e"
+    },
+    "implementation_provenance": {
+      "benchmark_contract_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\contract.py",
+        "sha256": "e35d7b420b72bc5ff3a0a2439c4f5937af2ce8ef9200eb2f503078af6f6804f2"
+      },
+      "benchmark_contract_version": "pairwise-benchmark-v2",
+      "benchmark_runner_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\runner.py",
+        "sha256": "5774f1ab27f6cf83446bccb96c02e739f9aa89271af584c37e57ef7ba0f1432c"
+      },
+      "benchmark_support_sources": {
+        "bundle.py": "1cfc4b8ffa685376bbcb4cb961ea692fb50ea3577ae28db35836c05649c64a43",
+        "hashing.py": "bea0194d0faa6c85b8794894235842c3e12e0094c0e1a245913c81e4c80392d6",
+        "io.py": "1988e3f124bd88d701b9c2f7247c34b87eafba7fc887c053a577bbde4983699a",
+        "manifest.py": "b00e034ce1aa349d373fc9ce76d7c1e2b70347373ebc01b8dc32646738fea494",
+        "preflight.py": "ffb5d07ca1d28d25f5e7c8c805b4f73acd7c7e5393e11a155796939173e75c9c",
+        "provenance.py": "694ce1ceb42935e3ac1153a44fadeda137a37fcfe79574de4a199756eced38e5"
+      },
+      "engine": "SourceAFIS",
+      "external_preprocessing": "none",
+      "java_executable": "C:\\Users\\sirak\\.conda\\envs\\fingerprint-recognition-research\\Library\\bin\\java.exe",
+      "maven_coordinates": "com.machinezoo.sourceafis:sourceafis:3.18.1",
+      "method_internal_timing": {
+        "extract_template_scope": "FingerprintImageOptions construction, FingerprintImage construction, FingerprintTemplate extraction, and FingerprintTemplate.toByteArray serialization; excludes HTTP, JSON, request Base64 decoding, and response Base64 encoding.",
+        "unit": "milliseconds",
+        "verify_scope": "FingerprintTemplate deserialization for both templates, FingerprintMatcher construction, and FingerprintMatcher.match; excludes HTTP, JSON, and request Base64 decoding."
+      },
+      "method_support_sources": {
+        "sourceafis_client.py": "d2cac9b76bb17c58ac20407b9554f378612423c7d0a406f0f8614a3be10363d1",
+        "sourceafis_sidecar.py": "fc1e26d33bc8a83bbe5588eab620f6a13966c72a5e89eb8858ea15c7e2bfd782"
+      },
+      "official_implementation_family": "Java",
+      "python_adapter_source": {
+        "path": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\sourceafis_adapter.py",
+        "sha256": "882e7e57d196e389365bdfded4f6fac29c71480962f60830b41640a45253cf69"
+      },
+      "raw_score_semantics": "SourceAFIS raw similarity score from FingerprintMatcher.match",
+      "repository": {
+        "commit": "97477036e4ed641252991a58308840f1e2983955",
+        "dirty": true,
+        "is_git_checkout": true,
+        "root": "C:\\fingerprint-recognition-research"
+      },
+      "sidecar_contract_version": "sourceafis-sidecar-v2.1",
+      "sidecar_implementation_provenance": "apps/sourceafis-sidecar",
+      "sidecar_implementation_version": "0.2.0",
+      "sidecar_jar_path": "C:\\fingerprint-recognition-research\\apps\\sourceafis-sidecar\\target\\sourceafis-sidecar-0.2.0.jar",
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e",
+      "sourceafis_version": "3.18.1",
+      "template_cache": false
+    },
+    "method": "sourceafis",
+    "method_version": "3.18.1",
+    "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e"
+  }
+}

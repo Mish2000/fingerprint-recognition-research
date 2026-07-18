@@ -1,0 +1,234 @@
+{
+  "sift_geometric": {
+    "sd300b": {
+      "genuine_distribution": {
+        "failure_count": 1,
+        "maximum": 100.0,
+        "mean": 5.521435837814272,
+        "median": 3.0,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 19.0,
+        "scored_count": 6881
+      },
+      "impostor_distribution": {
+        "failure_count": 10,
+        "maximum": 48.0,
+        "mean": 0.5843336724313326,
+        "median": 0.0,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 3.0,
+        "scored_count": 68810
+      },
+      "metrics": {
+        "false_accept_count": 1248,
+        "false_nonmatch_count": 3726,
+        "far": 0.018136898706583346,
+        "far_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.017166384860977733,
+          "upper": 0.019161211532789053
+        },
+        "fnmr": 0.5414910623455893,
+        "fnmr_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.529698046309538,
+          "upper": 0.5532377777635711
+        },
+        "genuine_failure_count": 1,
+        "genuine_scored_count": 6881,
+        "genuine_scores_at_threshold": 522,
+        "genuine_total_count": 6882,
+        "impostor_failure_count": 10,
+        "impostor_scored_count": 68810,
+        "impostor_scores_at_threshold": 430,
+        "impostor_total_count": 68820,
+        "tar": 0.4585089376544107,
+        "tar_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.4467622222364289,
+          "upper": 0.4703019536904621
+        },
+        "threshold": 4,
+        "true_accept_count": 3155,
+        "true_nonmatch_count": 67562,
+        "zero_false_accept_upper_95": null
+      },
+      "threshold": 4.0
+    },
+    "sd300c": {
+      "genuine_distribution": {
+        "failure_count": 0,
+        "maximum": 105.0,
+        "mean": 5.384626562045917,
+        "median": 3.0,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 19.0,
+        "scored_count": 6882
+      },
+      "impostor_distribution": {
+        "failure_count": 0,
+        "maximum": 46.0,
+        "mean": 0.641572217378669,
+        "median": 0.0,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 3.0,
+        "scored_count": 68820
+      },
+      "metrics": {
+        "false_accept_count": 1295,
+        "false_nonmatch_count": 3829,
+        "far": 0.01881720430107527,
+        "far_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.017828554517836322,
+          "upper": 0.01985956930438108
+        },
+        "fnmr": 0.556378959604766,
+        "fnmr_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.5446130618994472,
+          "upper": 0.5680819521581232
+        },
+        "genuine_failure_count": 0,
+        "genuine_scored_count": 6882,
+        "genuine_scores_at_threshold": 515,
+        "genuine_total_count": 6882,
+        "impostor_failure_count": 0,
+        "impostor_scored_count": 68820,
+        "impostor_scores_at_threshold": 485,
+        "impostor_total_count": 68820,
+        "tar": 0.4436210403952339,
+        "tar_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.43191804784187676,
+          "upper": 0.4553869381005527
+        },
+        "threshold": 4,
+        "true_accept_count": 3053,
+        "true_nonmatch_count": 67525,
+        "zero_false_accept_upper_95": null
+      },
+      "threshold": 4.0
+    }
+  },
+  "sourceafis": {
+    "sd300b": {
+      "genuine_distribution": {
+        "failure_count": 0,
+        "maximum": 465.5985450829259,
+        "mean": 81.52764682500872,
+        "median": 70.14333240635213,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 212.04086250803144,
+        "scored_count": 6882
+      },
+      "impostor_distribution": {
+        "failure_count": 0,
+        "maximum": 55.2570331703966,
+        "mean": 1.7887429953490275,
+        "median": 0.7305255182456891,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 7.749602036842789,
+        "scored_count": 68820
+      },
+      "metrics": {
+        "false_accept_count": 2,
+        "false_nonmatch_count": 2380,
+        "far": 2.906131938390003e-05,
+        "far_wilson_95": {
+          "confidence": 0.95,
+          "lower": 7.969698168274161e-06,
+          "upper": 0.00010596551170207136
+        },
+        "fnmr": 0.34582970066841034,
+        "fnmr_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.33468107654145973,
+          "upper": 0.35715034120317346
+        },
+        "genuine_failure_count": 0,
+        "genuine_scored_count": 6882,
+        "genuine_scores_at_threshold": 0,
+        "genuine_total_count": 6882,
+        "impostor_failure_count": 0,
+        "impostor_scored_count": 68820,
+        "impostor_scores_at_threshold": 0,
+        "impostor_total_count": 68820,
+        "tar": 0.6541702993315897,
+        "tar_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.6428496587968265,
+          "upper": 0.6653189234585403
+        },
+        "threshold": 40.0,
+        "true_accept_count": 4502,
+        "true_nonmatch_count": 68818,
+        "zero_false_accept_upper_95": null
+      },
+      "threshold": 40.0
+    },
+    "sd300c": {
+      "genuine_distribution": {
+        "failure_count": 0,
+        "maximum": 456.26086694492136,
+        "mean": 79.78345112455663,
+        "median": 68.2521766015114,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 208.44389842122047,
+        "scored_count": 6882
+      },
+      "impostor_distribution": {
+        "failure_count": 0,
+        "maximum": 40.55265721239524,
+        "mean": 1.7441398051607861,
+        "median": 0.7207606584931978,
+        "minimum": 0.0,
+        "p05": 0.0,
+        "p95": 7.552461643488442,
+        "scored_count": 68820
+      },
+      "metrics": {
+        "false_accept_count": 1,
+        "false_nonmatch_count": 2434,
+        "far": 1.4530659691950014e-05,
+        "far_wilson_95": {
+          "confidence": 0.95,
+          "lower": 2.5650228400623813e-06,
+          "upper": 8.23104897276172e-05
+        },
+        "fnmr": 0.35367625690206334,
+        "fnmr_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.3424648978899293,
+          "upper": 0.36505087748127296
+        },
+        "genuine_failure_count": 0,
+        "genuine_scored_count": 6882,
+        "genuine_scores_at_threshold": 0,
+        "genuine_total_count": 6882,
+        "impostor_failure_count": 0,
+        "impostor_scored_count": 68820,
+        "impostor_scores_at_threshold": 0,
+        "impostor_total_count": 68820,
+        "tar": 0.6463237430979366,
+        "tar_wilson_95": {
+          "confidence": 0.95,
+          "lower": 0.634949122518727,
+          "upper": 0.6575351021100707
+        },
+        "threshold": 40.0,
+        "true_accept_count": 4448,
+        "true_nonmatch_count": 68819,
+        "zero_false_accept_upper_95": null
+      },
+      "threshold": 40.0
+    }
+  }
+}

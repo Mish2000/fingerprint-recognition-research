@@ -1,0 +1,133 @@
+{
+  "accuracy_execution_identity": {
+    "policy_hash": "5e157d880d560c823ce4b23aa869f7d5d01eb30c423ad03850858af71c420dd5",
+    "runner_source": "C:\\fingerprint-recognition-research\\src\\fingerprint_benchmark\\shared_accuracy.py",
+    "runner_source_sha256": "1e59cf5605d353997e5896ba95dfcc6fada3865f355e05a18c49d9223a833c07"
+  },
+  "accuracy_mode": "prepared_representation_run_local_cache",
+  "base_plain_roll_manifest_sha256": {
+    "sd300b": "364a3f08998c501eca69fb4ebb54809645a1429791b1a71e5b1b20c52b6c8551",
+    "sd300c": "42b157f7a741f9c0cd0810df5384ca0edd29323cbb6a0f2d0034683012cd5044"
+  },
+  "cold_pair_results_modified": false,
+  "evaluation_access_before_threshold_freeze": false,
+  "frozen_methods": {
+    "sift_geometric": {
+      "config_file_sha256": "f9f0623ae89752d09c5933d49dc80acc5803863cc8dc7109efb98b96d282f01f",
+      "legacy_decision_rule_file_sha256": "13e9e29d918f95783d68eecb70f6aa857009ac902417d3ac8d59dcf59b7a98fa",
+      "legacy_thresholds": {
+        "sd300b": 4.0,
+        "sd300c": 4.0
+      },
+      "primary_benchmark_config_hash": "51cd949cbfd84eebfe7cc5057f3621d6ec20be855905db743f42e8945adc541a",
+      "primary_implementation_hash": "a663786cf6503cb522ab0194c1ab6bc65698d366408c53d49defce09e4960bbb",
+      "version": "sift-geometric-v1"
+    },
+    "sourceafis": {
+      "historical_primary_by_dataset": {
+        "sd300b": {
+          "bundle": "C:\\fingerprint-recognition-research\\results\\sd300b\\plain_roll\\sourceafis\\pairwise-benchmark-v2\\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+          "implementation_hash": "03baeb3cc51a3180ca81d820fdb8aa0e62d4aed29189cf76fa3450ee642a3087",
+          "sidecar_jar_sha256": "38952cfd0704b192cd0aebaf8606e6ad1ff1cca58c10a8cbd4f51e69ea72e9d2"
+        },
+        "sd300c": {
+          "bundle": "C:\\fingerprint-recognition-research\\results\\sd300c\\plain_roll\\sourceafis\\pairwise-benchmark-v2\\cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+          "implementation_hash": "b81b2953598f56b178bacf1ba3007602c6750fe9bf2f8b521fdd4fa9f0456c28",
+          "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e"
+        }
+      },
+      "legacy_threshold": 40.0,
+      "primary_benchmark_config_hash": "cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+      "sidecar_jar": "C:\\fingerprint-recognition-research\\apps\\sourceafis-sidecar\\target\\sourceafis-sidecar-0.2.0.jar",
+      "sidecar_jar_sha256": "84df3b736a6e7de1c4493e126433a7ac6aa92c174c24446ecb220ddf71a2712e",
+      "version": "3.18.1"
+    }
+  },
+  "genuine_counts": {
+    "sd300b/development": 1897,
+    "sd300b/evaluation": 6882,
+    "sd300c/development": 1897,
+    "sd300c/evaluation": 6882
+  },
+  "impostor_policy": {
+    "different_subject_required": true,
+    "hash": "sha256",
+    "impostors_per_genuine_plain_identity": 10,
+    "same_canonical_finger_only": true,
+    "seed": "sourceafis-sift-shared-impostors-2026-07-v1",
+    "selection": "For every plain identity, legal same-finger roll candidates in its split are oriented by the pair of directional SHA-256 values; only the lower direction is eligible, then the 10 lowest forward hashes are selected.",
+    "unordered_duplicates_forbidden": true,
+    "version": "shared-impostor-plain-roll-v1"
+  },
+  "impostor_summaries": {
+    "development": {
+      "canonical_finger_distribution": {
+        "1": 1890,
+        "10": 1910,
+        "2": 1890,
+        "3": 1860,
+        "4": 1900,
+        "5": 1870,
+        "6": 1890,
+        "7": 1920,
+        "8": 1920,
+        "9": 1920
+      },
+      "duplicate_directed_count": 0,
+      "duplicate_unordered_count": 0,
+      "genuine_contamination_count": 0,
+      "identities_with_fewer_than_requested": 0,
+      "impostor_pair_count": 18970,
+      "maximum_impostors_per_plain_identity": 10,
+      "minimum_impostors_per_plain_identity": 10,
+      "plain_identity_count": 1897,
+      "split": "development",
+      "subject_count": 192
+    },
+    "evaluation": {
+      "canonical_finger_distribution": {
+        "1": 6860,
+        "10": 6880,
+        "2": 6900,
+        "3": 6890,
+        "4": 6920,
+        "5": 6800,
+        "6": 6860,
+        "7": 6890,
+        "8": 6890,
+        "9": 6930
+      },
+      "duplicate_directed_count": 0,
+      "duplicate_unordered_count": 0,
+      "genuine_contamination_count": 0,
+      "identities_with_fewer_than_requested": 0,
+      "impostor_pair_count": 68820,
+      "maximum_impostors_per_plain_identity": 10,
+      "minimum_impostors_per_plain_identity": 10,
+      "plain_identity_count": 6882,
+      "split": "evaluation",
+      "subject_count": 696
+    }
+  },
+  "manifest_sha256": {
+    "manifests/logical_impostors_development.csv": "f807d2812a5ed6a6f91c8df24a73a7df49f3010d92c09b15e0978f050ab66bff",
+    "manifests/logical_impostors_evaluation.csv": "49eb1e8d11657384fe485447d9771f46668f75d7a1f4ceced418d370b356205d",
+    "manifests/sd300b_development_genuine.csv": "e5bf4de12f720e9d6b893bbcfa6816bb73d8a81288dd703362a453a2d263d75d",
+    "manifests/sd300b_development_impostor.csv": "fa127c1bfc12d2d2af2722d1a1ba26278f6c99ad6497c6acce93fc41bdd3291e",
+    "manifests/sd300b_evaluation_genuine.csv": "b5cc8e8c5a793d892153642cbfd5095222d45f5a7b303b3fc824a7fb6b4d3b2a",
+    "manifests/sd300b_evaluation_impostor.csv": "e01be4ca27ac5a66de7ef472d9807b30a9d9d049405626594251373e6f4a01f1",
+    "manifests/sd300c_development_genuine.csv": "801b3e610e59d9068ff8901b989adce0cbd20d0c2b246022c0589f9f19828172",
+    "manifests/sd300c_development_impostor.csv": "8808fb3fc33ffa22a2c76d251f1d7d6ee6bbe8bb3b336e2bd3c73cf6ac08d02c",
+    "manifests/sd300c_evaluation_genuine.csv": "44e278c3b15f6db83c95b7bb0a6e35a6ffa80c5cabb4d24fa194ec6cb1934d01",
+    "manifests/sd300c_evaluation_impostor.csv": "f218b27f17f10200fcac56f61a56254e3ffa6e45d65841771bdc1b67615bb328"
+  },
+  "protocol_version": "sourceafis-sift-shared-accuracy-v1",
+  "schema_version": "shared-accuracy-protocol-definition-v1",
+  "score_direction": "higher_is_more_similar",
+  "split_reference_sha256": "19412c0edccf5ae4ab8e2246cd911a3aaf3d6e96ce060d9278762c05cae03bc0",
+  "threshold_selection_data": "development_only",
+  "threshold_targets": [
+    0.01,
+    0.001
+  ]
+}

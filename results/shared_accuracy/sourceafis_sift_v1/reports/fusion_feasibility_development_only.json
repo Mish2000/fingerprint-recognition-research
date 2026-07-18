@@ -1,0 +1,132 @@
+{
+  "evaluation_tuning_performed": false,
+  "exploratory_only": true,
+  "rules": {
+    "far_0_1_percent": {
+      "sd300b": {
+        "genuine": {
+          "and": {
+            "acceptance_rate": 0.10542962572482868,
+            "accepted_count": 200,
+            "failure_count": 0,
+            "scored_count": 1897
+          },
+          "or": {
+            "acceptance_rate": 0.7638376383763837,
+            "accepted_count": 1449,
+            "failure_count": 0,
+            "scored_count": 1897
+          }
+        },
+        "impostor": {
+          "and": {
+            "acceptance_rate": 0.0,
+            "accepted_count": 0,
+            "failure_count": 0,
+            "scored_count": 18970
+          },
+          "or": {
+            "acceptance_rate": 0.0016341591987348446,
+            "accepted_count": 31,
+            "failure_count": 0,
+            "scored_count": 18970
+          }
+        }
+      },
+      "sd300c": {
+        "genuine": {
+          "and": {
+            "acceptance_rate": 0.09541381128096996,
+            "accepted_count": 181,
+            "failure_count": 0,
+            "scored_count": 1897
+          },
+          "or": {
+            "acceptance_rate": 0.7496046389035319,
+            "accepted_count": 1422,
+            "failure_count": 0,
+            "scored_count": 1897
+          }
+        },
+        "impostor": {
+          "and": {
+            "acceptance_rate": 0.0,
+            "accepted_count": 0,
+            "failure_count": 0,
+            "scored_count": 18970
+          },
+          "or": {
+            "acceptance_rate": 0.0017923036373220875,
+            "accepted_count": 34,
+            "failure_count": 0,
+            "scored_count": 18970
+          }
+        }
+      }
+    },
+    "far_1_percent": {
+      "sd300b": {
+        "genuine": {
+          "and": {
+            "acceptance_rate": 0.37005798629414866,
+            "accepted_count": 702,
+            "failure_count": 0,
+            "scored_count": 1897
+          },
+          "or": {
+            "acceptance_rate": 0.8260411175540326,
+            "accepted_count": 1567,
+            "failure_count": 0,
+            "scored_count": 1897
+          }
+        },
+        "impostor": {
+          "and": {
+            "acceptance_rate": 0.000158144438587243,
+            "accepted_count": 3,
+            "failure_count": 0,
+            "scored_count": 18970
+          },
+          "or": {
+            "acceptance_rate": 0.019293621507643646,
+            "accepted_count": 366,
+            "failure_count": 0,
+            "scored_count": 18970
+          }
+        }
+      },
+      "sd300c": {
+        "genuine": {
+          "and": {
+            "acceptance_rate": 0.3552978386926726,
+            "accepted_count": 674,
+            "failure_count": 0,
+            "scored_count": 1897
+          },
+          "or": {
+            "acceptance_rate": 0.8228782287822878,
+            "accepted_count": 1561,
+            "failure_count": 0,
+            "scored_count": 1897
+          }
+        },
+        "impostor": {
+          "and": {
+            "acceptance_rate": 0.000158144438587243,
+            "accepted_count": 3,
+            "failure_count": 0,
+            "scored_count": 18970
+          },
+          "or": {
+            "acceptance_rate": 0.018292040063257776,
+            "accepted_count": 347,
+            "failure_count": 0,
+            "scored_count": 18970
+          }
+        }
+      }
+    }
+  },
+  "schema_version": "shared-accuracy-fusion-feasibility-v1",
+  "split": "development"
+}

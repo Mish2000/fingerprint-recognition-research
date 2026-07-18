@@ -1,0 +1,436 @@
+{
+  "evaluation_scores_read_during_selection": false,
+  "frozen": true,
+  "input_development_score_sha256": {
+    "sift_geometric": {
+      "sd300b_genuine_sha256": "81620d90deb15cc018c945c6d9bf3dba8b0cea8150a0aa65f3fd277bc525d628",
+      "sd300b_impostor_sha256": "6ab0d65c20dd4b284f996e91ab3744b5c5722c9ce529369e00874dfe77808dc8",
+      "sd300c_genuine_sha256": "eb89cf3ef8e7be778dd60898c1c7045e7f77d58ce392dd2f52fc74a37bfaa4a2",
+      "sd300c_impostor_sha256": "f437c1d994b6f8282a1403bd0fb8b1a50b34d39ad2a23a06b551c260183f8f04"
+    },
+    "sourceafis": {
+      "sd300b_genuine_sha256": "0cd285620989b5a1610279db94ffed390a0c32f2e9544042079e5e031ca20bc4",
+      "sd300b_impostor_sha256": "537494aa6ec891e94a9ea90c5317fa22ed72e344ab05707f9c815814b8bb4e69",
+      "sd300c_genuine_sha256": "8bee8ee52cee5c45a23ba53b20195ab8e70cd302c986f7f799d3c7a151a242f6",
+      "sd300c_impostor_sha256": "ad9ab35aba8106ae93e2e47d061a21623966755d3553d2b5a47b7928458683b7"
+    }
+  },
+  "methods": {
+    "sift_geometric": {
+      "far_0_1_percent": {
+        "acceptance_operator": "raw_score >= threshold",
+        "candidate_count": 26,
+        "integer_score_threshold": true,
+        "per_dataset": {
+          "sd300b": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 15,
+              "far": 0.0007907221929362151,
+              "scored_count": 18970,
+              "scores_at_threshold": 2,
+              "total_count": 18970,
+              "true_nonmatch_count": 18955
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 15,
+              "false_nonmatch_count": 1682,
+              "far": 0.0007907221929362151,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.0004792650965900857,
+                "upper": 0.0013043198929936482
+              },
+              "fnmr": 0.8866631523458092,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.8716095012347482,
+                "upper": 0.9001539686709139
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 28,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 2,
+              "impostor_total_count": 18970,
+              "tar": 0.11333684765419083,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.09984603132908602,
+                "upper": 0.12839049876525163
+              },
+              "threshold": 14,
+              "true_accept_count": 215,
+              "true_nonmatch_count": 18955,
+              "zero_false_accept_upper_95": null
+            }
+          },
+          "sd300c": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 16,
+              "far": 0.0008434370057986294,
+              "scored_count": 18970,
+              "scores_at_threshold": 1,
+              "total_count": 18970,
+              "true_nonmatch_count": 18954
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 16,
+              "false_nonmatch_count": 1701,
+              "far": 0.0008434370057986294,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.0005192532476198553,
+                "upper": 0.0013697400223240072
+              },
+              "fnmr": 0.8966789667896679,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.8821706345082521,
+                "upper": 0.9095839818571341
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 17,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 1,
+              "impostor_total_count": 18970,
+              "tar": 0.1033210332103321,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.09041601814286576,
+                "upper": 0.11782936549174786
+              },
+              "threshold": 14,
+              "true_accept_count": 196,
+              "true_nonmatch_count": 18954,
+              "zero_false_accept_upper_95": null
+            }
+          }
+        },
+        "score_direction": "higher_is_more_similar",
+        "target_far": 0.001,
+        "threshold": 14,
+        "tie_policy": "all scores exactly at threshold are accepted"
+      },
+      "far_1_percent": {
+        "acceptance_operator": "raw_score >= threshold",
+        "candidate_count": 26,
+        "integer_score_threshold": true,
+        "per_dataset": {
+          "sd300b": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 180,
+              "far": 0.009488666315234581,
+              "scored_count": 18970,
+              "scores_at_threshold": 47,
+              "total_count": 18970,
+              "true_nonmatch_count": 18790
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 180,
+              "false_nonmatch_count": 1137,
+              "far": 0.009488666315234581,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.008204965628856167,
+                "upper": 0.010970985620148761
+              },
+              "fnmr": 0.599367422245651,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.5771366898808975,
+                "upper": 0.6211965263116278
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 127,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 47,
+              "impostor_total_count": 18970,
+              "tar": 0.40063257775434896,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.37880347368837214,
+                "upper": 0.42286331011910244
+              },
+              "threshold": 5,
+              "true_accept_count": 760,
+              "true_nonmatch_count": 18790,
+              "zero_false_accept_upper_95": null
+            }
+          },
+          "sd300c": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 186,
+              "far": 0.009804955192409067,
+              "scored_count": 18970,
+              "scores_at_threshold": 55,
+              "total_count": 18970,
+              "true_nonmatch_count": 18784
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 186,
+              "false_nonmatch_count": 1166,
+              "far": 0.009804955192409067,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.008498674037750212,
+                "upper": 0.011309726893415485
+              },
+              "fnmr": 0.6146547179757512,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.5925433714233149,
+                "upper": 0.6363026472603682
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 102,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 55,
+              "impostor_total_count": 18970,
+              "tar": 0.38534528202424884,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.3636973527396318,
+                "upper": 0.4074566285766851
+              },
+              "threshold": 5,
+              "true_accept_count": 731,
+              "true_nonmatch_count": 18784,
+              "zero_false_accept_upper_95": null
+            }
+          }
+        },
+        "score_direction": "higher_is_more_similar",
+        "target_far": 0.01,
+        "threshold": 5,
+        "tie_policy": "all scores exactly at threshold are accepted"
+      }
+    },
+    "sourceafis": {
+      "far_0_1_percent": {
+        "acceptance_operator": "raw_score >= threshold",
+        "candidate_count": 25262,
+        "integer_score_threshold": false,
+        "per_dataset": {
+          "sd300b": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 16,
+              "far": 0.0008434370057986294,
+              "scored_count": 18970,
+              "scores_at_threshold": 0,
+              "total_count": 18970,
+              "true_nonmatch_count": 18954
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 16,
+              "false_nonmatch_count": 463,
+              "far": 0.0008434370057986294,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.0005192532476198553,
+                "upper": 0.0013697400223240072
+              },
+              "fnmr": 0.2440695835529784,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.22527029165447648,
+                "upper": 0.2639033080194171
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 0,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 0,
+              "impostor_total_count": 18970,
+              "tar": 0.7559304164470216,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.7360966919805829,
+                "upper": 0.7747297083455236
+              },
+              "threshold": 24.93003517749199,
+              "true_accept_count": 1434,
+              "true_nonmatch_count": 18954,
+              "zero_false_accept_upper_95": null
+            }
+          },
+          "sd300c": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 18,
+              "far": 0.0009488666315234581,
+              "scored_count": 18970,
+              "scores_at_threshold": 1,
+              "total_count": 18970,
+              "true_nonmatch_count": 18952
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 18,
+              "false_nonmatch_count": 490,
+              "far": 0.0009488666315234581,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.0006003109518956486,
+                "upper": 0.0014994988787684707
+              },
+              "fnmr": 0.25830258302583026,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.2391082449229237,
+                "upper": 0.2784738260358408
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 0,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 1,
+              "impostor_total_count": 18970,
+              "tar": 0.7416974169741697,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.7215261739641591,
+                "upper": 0.7608917550770761
+              },
+              "threshold": 24.93003517749199,
+              "true_accept_count": 1407,
+              "true_nonmatch_count": 18952,
+              "zero_false_accept_upper_95": null
+            }
+          }
+        },
+        "score_direction": "higher_is_more_similar",
+        "target_far": 0.001,
+        "threshold": 24.93003517749199,
+        "tie_policy": "all scores exactly at threshold are accepted"
+      },
+      "far_1_percent": {
+        "acceptance_operator": "raw_score >= threshold",
+        "candidate_count": 25262,
+        "integer_score_threshold": false,
+        "per_dataset": {
+          "sd300b": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 189,
+              "far": 0.00996309963099631,
+              "scored_count": 18970,
+              "scores_at_threshold": 0,
+              "total_count": 18970,
+              "true_nonmatch_count": 18781
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 189,
+              "false_nonmatch_count": 388,
+              "far": 0.00996309963099631,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.008645667800852066,
+                "upper": 0.011478957971394017
+              },
+              "fnmr": 0.20453347390616763,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.1869878179625774,
+                "upper": 0.22327336147556337
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 0,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 0,
+              "impostor_total_count": 18970,
+              "tar": 0.7954665260938324,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.7767266385244367,
+                "upper": 0.8130121820374225
+              },
+              "threshold": 14.608641525076788,
+              "true_accept_count": 1509,
+              "true_nonmatch_count": 18781,
+              "zero_false_accept_upper_95": null
+            }
+          },
+          "sd300c": {
+            "calibration_impostors": {
+              "failure_count": 0,
+              "false_accept_count": 164,
+              "far": 0.008645229309435952,
+              "scored_count": 18970,
+              "scores_at_threshold": 1,
+              "total_count": 18970,
+              "true_nonmatch_count": 18806
+            },
+            "development_operating_metrics": {
+              "false_accept_count": 164,
+              "false_nonmatch_count": 393,
+              "far": 0.008645229309435952,
+              "far_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.007423693002754485,
+                "upper": 0.010065725760488385
+              },
+              "fnmr": 0.20716921454928836,
+              "fnmr_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.1895322495361088,
+                "upper": 0.22598975791774878
+              },
+              "genuine_failure_count": 0,
+              "genuine_scored_count": 1897,
+              "genuine_scores_at_threshold": 0,
+              "genuine_total_count": 1897,
+              "impostor_failure_count": 0,
+              "impostor_scored_count": 18970,
+              "impostor_scores_at_threshold": 1,
+              "impostor_total_count": 18970,
+              "tar": 0.7928307854507116,
+              "tar_wilson_95": {
+                "confidence": 0.95,
+                "lower": 0.7740102420822511,
+                "upper": 0.8104677504638912
+              },
+              "threshold": 14.608641525076788,
+              "true_accept_count": 1504,
+              "true_nonmatch_count": 18806,
+              "zero_false_accept_upper_95": null
+            }
+          }
+        },
+        "score_direction": "higher_is_more_similar",
+        "target_far": 0.01,
+        "threshold": 14.608641525076788,
+        "tie_policy": "all scores exactly at threshold are accepted"
+      }
+    }
+  },
+  "protocol_version": "sourceafis-sift-shared-accuracy-v1",
+  "schema_version": "shared-accuracy-frozen-thresholds-v1",
+  "score_direction": "higher_is_more_similar",
+  "selected_on_split": "development",
+  "target_fars": [
+    0.01,
+    0.001
+  ]
+}
