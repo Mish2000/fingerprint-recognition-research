@@ -47,3 +47,4 @@ without a minimum pass threshold. Functional equivalence remains gated by
 pre-declared response-map tolerances, candidate-count rules, bidirectional
 keypoint overlap, top-K overlap when the cap is active, descriptor validity,
 downstream score/decision equivalence, and exact CUDA reproducibility.
+

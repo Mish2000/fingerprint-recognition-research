@@ -107,3 +107,4 @@ def make_scale_spec(config: Any, scale_index: int) -> ScaleSpec:
         effective_support_diameter=config.effective_gaussian_support_diameter(scale_index),
         keypoint_size=config.keypoint_size(scale_index),
     )
+

@@ -43,3 +43,4 @@ uses a pre-declared absolute/hybrid count rule, final-keypoint semantic
 equivalence, downstream CPU/CUDA decision equivalence, and exact CUDA-repeat
 hashes. The v2 contract was frozen before executing its preflight and before
 observing any HarrisZ+ 500-identity result.
+

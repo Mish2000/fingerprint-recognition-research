@@ -96,13 +96,13 @@ $Utf8NoBom = New-Object System.Text.UTF8Encoding $false
 $Writer = [System.IO.StreamWriter]::new($Out, $false, $Utf8NoBom)
 
 try {
-    $Writer.WriteLine('# AI Repository Structure Index')
+    $Writer.WriteLine('# Repository Structure Index')
     $Writer.WriteLine('')
     $Writer.WriteLine("Repository root: $Repo")
     $Writer.WriteLine("Generated at: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')")
     $Writer.WriteLine('')
     $Writer.WriteLine('Purpose:')
-    $Writer.WriteLine('This file is designed for an AI agent to quickly understand the repository layout and retrieve exact file/folder paths.')
+    $Writer.WriteLine('This file is designed for automated tooling to quickly understand the repository layout and retrieve exact file/folder paths.')
     $Writer.WriteLine('Reparse point directories are listed but not traversed.')
     $Writer.WriteLine('')
     $Writer.WriteLine('Excluded noisy directories:')

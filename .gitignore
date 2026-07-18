@@ -1,5 +1,5 @@
-# --- Agent / IDE / tooling temp ---
-.codex-tmp/
+# --- IDE / tooling temp ---
+.tooling-tmp/
 .idea/
 .vscode/
 
