@@ -1,0 +1,634 @@
+{
+  "sift_geometric": {
+    "far_0_1_percent": {
+      "genuine": {
+        "accepted_in_both": 560,
+        "accepted_only_in_sd300b": 157,
+        "accepted_only_in_sd300c": 91,
+        "decision_agreement": 0.9639587269292254,
+        "mcnemar_discordant_b_only": 157,
+        "mcnemar_discordant_c_only": 91,
+        "paired_failure_count": 1,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 19.0,
+          "mean": 0.1360267402993751,
+          "median": 0.0,
+          "minimum": -11.0,
+          "p05": -3.0,
+          "p95": 4.0,
+          "scored_count": 6881
+        },
+        "paired_scored_count": 6881,
+        "pearson_score_correlation": 0.9547724690695448,
+        "per_finger": {
+          "1": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.15451895043731778,
+            "sd300c_acceptance_rate": 0.14285714285714285
+          },
+          "10": {
+            "count": 688,
+            "sd300b_acceptance_rate": 0.03197674418604651,
+            "sd300c_acceptance_rate": 0.02616279069767442
+          },
+          "2": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.08272859216255443,
+            "sd300c_acceptance_rate": 0.08853410740203194
+          },
+          "3": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.11175616835994194,
+            "sd300c_acceptance_rate": 0.09724238026124818
+          },
+          "4": {
+            "count": 692,
+            "sd300b_acceptance_rate": 0.11849710982658959,
+            "sd300c_acceptance_rate": 0.10404624277456648
+          },
+          "5": {
+            "count": 680,
+            "sd300b_acceptance_rate": 0.04411764705882353,
+            "sd300c_acceptance_rate": 0.045588235294117645
+          },
+          "6": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.17055393586005832,
+            "sd300c_acceptance_rate": 0.15014577259475217
+          },
+          "7": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.1204644412191582,
+            "sd300c_acceptance_rate": 0.10885341074020319
+          },
+          "8": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.11465892597968069,
+            "sd300c_acceptance_rate": 0.10304789550072568
+          },
+          "9": {
+            "count": 693,
+            "sd300b_acceptance_rate": 0.09235209235209235,
+            "sd300c_acceptance_rate": 0.07936507936507936
+          }
+        },
+        "planned_pair_count": 6882,
+        "rejected_in_both": 6073,
+        "spearman_score_correlation": 0.896128911165943
+      },
+      "impostor": {
+        "accepted_in_both": 56,
+        "accepted_only_in_sd300b": 43,
+        "accepted_only_in_sd300c": 34,
+        "decision_agreement": 0.9988809766022381,
+        "mcnemar_discordant_b_only": 43,
+        "mcnemar_discordant_c_only": 34,
+        "paired_failure_count": 10,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 10.0,
+          "mean": -0.05733178317105072,
+          "median": 0.0,
+          "minimum": -15.0,
+          "p05": -2.0,
+          "p95": 2.0,
+          "scored_count": 68810
+        },
+        "paired_scored_count": 68810,
+        "pearson_score_correlation": 0.6520077067779123,
+        "per_finger": {
+          "1": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.005393586005830904,
+            "sd300c_acceptance_rate": 0.005685131195335277
+          },
+          "10": {
+            "count": 6880,
+            "sd300b_acceptance_rate": 0.00014534883720930232,
+            "sd300c_acceptance_rate": 0.00014534883720930232
+          },
+          "2": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "3": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.00014513788098693758,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "4": {
+            "count": 6920,
+            "sd300b_acceptance_rate": 0.0,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "5": {
+            "count": 6800,
+            "sd300b_acceptance_rate": 0.0,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "6": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.008600583090379008,
+            "sd300c_acceptance_rate": 0.007288629737609329
+          },
+          "7": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "8": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "9": {
+            "count": 6930,
+            "sd300b_acceptance_rate": 0.0001443001443001443,
+            "sd300c_acceptance_rate": 0.0
+          }
+        },
+        "planned_pair_count": 68820,
+        "rejected_in_both": 68677,
+        "spearman_score_correlation": 0.34409321397127973
+      },
+      "paired_conditions_not_independent": true,
+      "target_far": 0.001,
+      "threshold": 14
+    },
+    "far_1_percent": {
+      "genuine": {
+        "accepted_in_both": 2275,
+        "accepted_only_in_sd300b": 358,
+        "accepted_only_in_sd300c": 263,
+        "decision_agreement": 0.9097514896090685,
+        "mcnemar_discordant_b_only": 358,
+        "mcnemar_discordant_c_only": 263,
+        "paired_failure_count": 1,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 19.0,
+          "mean": 0.1360267402993751,
+          "median": 0.0,
+          "minimum": -11.0,
+          "p05": -3.0,
+          "p95": 4.0,
+          "scored_count": 6881
+        },
+        "paired_scored_count": 6881,
+        "pearson_score_correlation": 0.9547724690695448,
+        "per_finger": {
+          "1": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.5714285714285714,
+            "sd300c_acceptance_rate": 0.5306122448979592
+          },
+          "10": {
+            "count": 688,
+            "sd300b_acceptance_rate": 0.15261627906976744,
+            "sd300c_acceptance_rate": 0.14680232558139536
+          },
+          "2": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.3555878084179971,
+            "sd300c_acceptance_rate": 0.35413642960812775
+          },
+          "3": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.46153846153846156,
+            "sd300c_acceptance_rate": 0.4296081277213353
+          },
+          "4": {
+            "count": 692,
+            "sd300b_acceptance_rate": 0.3815028901734104,
+            "sd300c_acceptance_rate": 0.3627167630057804
+          },
+          "5": {
+            "count": 680,
+            "sd300b_acceptance_rate": 0.2,
+            "sd300c_acceptance_rate": 0.19852941176470587
+          },
+          "6": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.5408163265306123,
+            "sd300c_acceptance_rate": 0.5379008746355685
+          },
+          "7": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.3875181422351234,
+            "sd300c_acceptance_rate": 0.37300435413642963
+          },
+          "8": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.42670537010159654,
+            "sd300c_acceptance_rate": 0.40493468795355586
+          },
+          "9": {
+            "count": 693,
+            "sd300b_acceptance_rate": 0.3477633477633478,
+            "sd300c_acceptance_rate": 0.3492063492063492
+          }
+        },
+        "planned_pair_count": 6882,
+        "rejected_in_both": 3985,
+        "spearman_score_correlation": 0.896128911165943
+      },
+      "impostor": {
+        "accepted_in_both": 638,
+        "accepted_only_in_sd300b": 180,
+        "accepted_only_in_sd300c": 172,
+        "decision_agreement": 0.9948844644673739,
+        "mcnemar_discordant_b_only": 180,
+        "mcnemar_discordant_c_only": 172,
+        "paired_failure_count": 10,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 10.0,
+          "mean": -0.05733178317105072,
+          "median": 0.0,
+          "minimum": -15.0,
+          "p05": -2.0,
+          "p95": 2.0,
+          "scored_count": 68810
+        },
+        "paired_scored_count": 68810,
+        "pearson_score_correlation": 0.6520077067779123,
+        "per_finger": {
+          "1": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.05087463556851312,
+            "sd300c_acceptance_rate": 0.05029154518950437
+          },
+          "10": {
+            "count": 6880,
+            "sd300b_acceptance_rate": 0.0007267441860465116,
+            "sd300c_acceptance_rate": 0.0005813953488372093
+          },
+          "2": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0004354136429608128,
+            "sd300c_acceptance_rate": 0.00029027576197387516
+          },
+          "3": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0023222060957910013,
+            "sd300c_acceptance_rate": 0.0023222060957910013
+          },
+          "4": {
+            "count": 6920,
+            "sd300b_acceptance_rate": 0.00014450867052023122,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "5": {
+            "count": 6800,
+            "sd300b_acceptance_rate": 0.00014705882352941175,
+            "sd300c_acceptance_rate": 0.0002941176470588235
+          },
+          "6": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.0619533527696793,
+            "sd300c_acceptance_rate": 0.06093294460641399
+          },
+          "7": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.00014513788098693758,
+            "sd300c_acceptance_rate": 0.00014513788098693758
+          },
+          "8": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0010159651669085631,
+            "sd300c_acceptance_rate": 0.000725689404934688
+          },
+          "9": {
+            "count": 6930,
+            "sd300b_acceptance_rate": 0.001443001443001443,
+            "sd300c_acceptance_rate": 0.002453102453102453
+          }
+        },
+        "planned_pair_count": 68820,
+        "rejected_in_both": 67820,
+        "spearman_score_correlation": 0.34409321397127973
+      },
+      "paired_conditions_not_independent": true,
+      "target_far": 0.01,
+      "threshold": 5
+    }
+  },
+  "sourceafis": {
+    "far_0_1_percent": {
+      "genuine": {
+        "accepted_in_both": 4569,
+        "accepted_only_in_sd300b": 414,
+        "accepted_only_in_sd300c": 424,
+        "decision_agreement": 0.8782330717814589,
+        "mcnemar_discordant_b_only": 414,
+        "mcnemar_discordant_c_only": 424,
+        "paired_failure_count": 0,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 277.3517007108566,
+          "mean": 1.7441957004520763,
+          "median": 0.0,
+          "minimum": -178.42874139100707,
+          "p05": -52.26261997016586,
+          "p95": 57.55698040354333,
+          "scored_count": 6882
+        },
+        "paired_scored_count": 6882,
+        "pearson_score_correlation": 0.8857384671456351,
+        "per_finger": {
+          "1": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.7813411078717201,
+            "sd300c_acceptance_rate": 0.7842565597667639
+          },
+          "10": {
+            "count": 688,
+            "sd300b_acceptance_rate": 0.5872093023255814,
+            "sd300c_acceptance_rate": 0.561046511627907
+          },
+          "2": {
+            "count": 690,
+            "sd300b_acceptance_rate": 0.7347826086956522,
+            "sd300c_acceptance_rate": 0.7434782608695653
+          },
+          "3": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.7939042089985486,
+            "sd300c_acceptance_rate": 0.7822931785195936
+          },
+          "4": {
+            "count": 692,
+            "sd300b_acceptance_rate": 0.7312138728323699,
+            "sd300c_acceptance_rate": 0.7283236994219653
+          },
+          "5": {
+            "count": 680,
+            "sd300b_acceptance_rate": 0.6176470588235294,
+            "sd300c_acceptance_rate": 0.625
+          },
+          "6": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.7317784256559767,
+            "sd300c_acceptance_rate": 0.7623906705539358
+          },
+          "7": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.7576197387518142,
+            "sd300c_acceptance_rate": 0.7663280116110305
+          },
+          "8": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.7939042089985486,
+            "sd300c_acceptance_rate": 0.7822931785195936
+          },
+          "9": {
+            "count": 693,
+            "sd300b_acceptance_rate": 0.70995670995671,
+            "sd300c_acceptance_rate": 0.7186147186147186
+          }
+        },
+        "planned_pair_count": 6882,
+        "rejected_in_both": 1475,
+        "spearman_score_correlation": 0.873420885032879
+      },
+      "impostor": {
+        "accepted_in_both": 3,
+        "accepted_only_in_sd300b": 57,
+        "accepted_only_in_sd300c": 46,
+        "decision_agreement": 0.9985033420517292,
+        "mcnemar_discordant_b_only": 57,
+        "mcnemar_discordant_c_only": 46,
+        "paired_failure_count": 0,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 44.60946310677681,
+          "mean": 0.044603190188235636,
+          "median": 0.0,
+          "minimum": -31.868540460698007,
+          "p05": -5.170700865117014,
+          "p95": 5.419919594532674,
+          "scored_count": 68820
+        },
+        "paired_scored_count": 68820,
+        "pearson_score_correlation": 0.3096006452821702,
+        "per_finger": {
+          "1": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.0014577259475218659,
+            "sd300c_acceptance_rate": 0.0002915451895043732
+          },
+          "10": {
+            "count": 6880,
+            "sd300b_acceptance_rate": 0.0005813953488372093,
+            "sd300c_acceptance_rate": 0.00043604651162790697
+          },
+          "2": {
+            "count": 6900,
+            "sd300b_acceptance_rate": 0.0002898550724637681,
+            "sd300c_acceptance_rate": 0.0004347826086956522
+          },
+          "3": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0015965166908563134,
+            "sd300c_acceptance_rate": 0.0023222060957910013
+          },
+          "4": {
+            "count": 6920,
+            "sd300b_acceptance_rate": 0.00014450867052023122,
+            "sd300c_acceptance_rate": 0.0
+          },
+          "5": {
+            "count": 6800,
+            "sd300b_acceptance_rate": 0.0008823529411764706,
+            "sd300c_acceptance_rate": 0.0010294117647058824
+          },
+          "6": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.0010204081632653062,
+            "sd300c_acceptance_rate": 0.00043731778425655976
+          },
+          "7": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0008708272859216256,
+            "sd300c_acceptance_rate": 0.00029027576197387516
+          },
+          "8": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.0008708272859216256,
+            "sd300c_acceptance_rate": 0.0008708272859216256
+          },
+          "9": {
+            "count": 6930,
+            "sd300b_acceptance_rate": 0.00101010101010101,
+            "sd300c_acceptance_rate": 0.00101010101010101
+          }
+        },
+        "planned_pair_count": 68820,
+        "rejected_in_both": 68714,
+        "spearman_score_correlation": 0.29827739829371047
+      },
+      "paired_conditions_not_independent": true,
+      "target_far": 0.001,
+      "threshold": 24.93003517749199
+    },
+    "far_1_percent": {
+      "genuine": {
+        "accepted_in_both": 4905,
+        "accepted_only_in_sd300b": 396,
+        "accepted_only_in_sd300c": 376,
+        "decision_agreement": 0.8878233071781458,
+        "mcnemar_discordant_b_only": 396,
+        "mcnemar_discordant_c_only": 376,
+        "paired_failure_count": 0,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 277.3517007108566,
+          "mean": 1.7441957004520763,
+          "median": 0.0,
+          "minimum": -178.42874139100707,
+          "p05": -52.26261997016586,
+          "p95": 57.55698040354333,
+          "scored_count": 6882
+        },
+        "paired_scored_count": 6882,
+        "pearson_score_correlation": 0.8857384671456351,
+        "per_finger": {
+          "1": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.8119533527696793,
+            "sd300c_acceptance_rate": 0.8177842565597667
+          },
+          "10": {
+            "count": 688,
+            "sd300b_acceptance_rate": 0.6366279069767442,
+            "sd300c_acceptance_rate": 0.6162790697674418
+          },
+          "2": {
+            "count": 690,
+            "sd300b_acceptance_rate": 0.7768115942028986,
+            "sd300c_acceptance_rate": 0.7898550724637681
+          },
+          "3": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.841799709724238,
+            "sd300c_acceptance_rate": 0.8229317851959361
+          },
+          "4": {
+            "count": 692,
+            "sd300b_acceptance_rate": 0.7875722543352601,
+            "sd300c_acceptance_rate": 0.7789017341040463
+          },
+          "5": {
+            "count": 680,
+            "sd300b_acceptance_rate": 0.663235294117647,
+            "sd300c_acceptance_rate": 0.6779411764705883
+          },
+          "6": {
+            "count": 686,
+            "sd300b_acceptance_rate": 0.7769679300291545,
+            "sd300c_acceptance_rate": 0.7886297376093294
+          },
+          "7": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.8055152394775036,
+            "sd300c_acceptance_rate": 0.8011611030478955
+          },
+          "8": {
+            "count": 689,
+            "sd300b_acceptance_rate": 0.8388969521044993,
+            "sd300c_acceptance_rate": 0.8200290275761973
+          },
+          "9": {
+            "count": 693,
+            "sd300b_acceptance_rate": 0.7619047619047619,
+            "sd300c_acceptance_rate": 0.759018759018759
+          }
+        },
+        "planned_pair_count": 6882,
+        "rejected_in_both": 1205,
+        "spearman_score_correlation": 0.873420885032879
+      },
+      "impostor": {
+        "accepted_in_both": 86,
+        "accepted_only_in_sd300b": 567,
+        "accepted_only_in_sd300c": 520,
+        "decision_agreement": 0.9842051729148503,
+        "mcnemar_discordant_b_only": 567,
+        "mcnemar_discordant_c_only": 520,
+        "paired_failure_count": 0,
+        "paired_score_delta_b_minus_c": {
+          "failure_count": 0,
+          "maximum": 44.60946310677681,
+          "mean": 0.044603190188235636,
+          "median": 0.0,
+          "minimum": -31.868540460698007,
+          "p05": -5.170700865117014,
+          "p95": 5.419919594532674,
+          "scored_count": 68820
+        },
+        "paired_scored_count": 68820,
+        "pearson_score_correlation": 0.3096006452821702,
+        "per_finger": {
+          "1": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.009620991253644314,
+            "sd300c_acceptance_rate": 0.00597667638483965
+          },
+          "10": {
+            "count": 6880,
+            "sd300b_acceptance_rate": 0.007267441860465116,
+            "sd300c_acceptance_rate": 0.008866279069767441
+          },
+          "2": {
+            "count": 6900,
+            "sd300b_acceptance_rate": 0.007391304347826087,
+            "sd300c_acceptance_rate": 0.005652173913043478
+          },
+          "3": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.023947750362844702,
+            "sd300c_acceptance_rate": 0.022641509433962263
+          },
+          "4": {
+            "count": 6920,
+            "sd300b_acceptance_rate": 0.0030346820809248553,
+            "sd300c_acceptance_rate": 0.003323699421965318
+          },
+          "5": {
+            "count": 6800,
+            "sd300b_acceptance_rate": 0.008676470588235294,
+            "sd300c_acceptance_rate": 0.008970588235294117
+          },
+          "6": {
+            "count": 6860,
+            "sd300b_acceptance_rate": 0.010058309037900875,
+            "sd300c_acceptance_rate": 0.008454810495626823
+          },
+          "7": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.005805515239477504,
+            "sd300c_acceptance_rate": 0.0052249637155297535
+          },
+          "8": {
+            "count": 6890,
+            "sd300b_acceptance_rate": 0.013207547169811321,
+            "sd300c_acceptance_rate": 0.012336719883889695
+          },
+          "9": {
+            "count": 6930,
+            "sd300b_acceptance_rate": 0.005916305916305917,
+            "sd300c_acceptance_rate": 0.006637806637806638
+          }
+        },
+        "planned_pair_count": 68820,
+        "rejected_in_both": 67647,
+        "spearman_score_correlation": 0.29827739829371047
+      },
+      "paired_conditions_not_independent": true,
+      "target_far": 0.01,
+      "threshold": 14.608641525076788
+    }
+  }
+}

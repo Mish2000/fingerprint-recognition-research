@@ -1,0 +1,58 @@
+{
+  "accuracy_runner_sha256": "1e59cf5605d353997e5896ba95dfcc6fada3865f355e05a18c49d9223a833c07",
+  "cache": {
+    "cache_instance_policy": "new_empty_in_memory_cache_each_invocation",
+    "cache_persisted": false,
+    "cache_scope_id": "9e9f839ad1695b1d67dcddf8054a49daa852b290045824b6de976e2f6ce45a00",
+    "cache_sharding": "canonical_finger_position; released after every finger",
+    "cache_shared_across_datasets": false,
+    "cache_shared_across_methods": false,
+    "cache_shared_across_runs": false,
+    "cache_shared_across_splits": false,
+    "comparison_count": 68820,
+    "comparison_failure_count": 0,
+    "mode": "prepared_representation_accuracy",
+    "prepare_failure_count": 0,
+    "prepare_invocation_count": 13764,
+    "unique_image_count": 13764,
+    "wall_runtime_interpretation": "accuracy-pipeline runtime; not production or cold-pair latency",
+    "wall_runtime_seconds": 3356.0437308000037
+  },
+  "dataset": "sd300c",
+  "frozen_config_hash": "cb6ed29d0231c44a3d95e60fd1b9fd7aa8f2fa333c8ccecd971b252c041830c3",
+  "genuine_reuse_reason": "primary implementation/config and 100-pair exact preflight passed",
+  "genuine_score_origin": "reused_validated_primary",
+  "implementation_hash": "153bf41d47720151cee10b6fdb63accdd8366407e5e6803dcf611f084269adbd",
+  "method": "sourceafis",
+  "protocol_version": "sourceafis-sift-shared-accuracy-v1",
+  "schema_version": "shared-accuracy-score-run-v1",
+  "score_direction": "higher_is_more_similar",
+  "score_files": {
+    "genuine": {
+      "filename": "genuine.csv",
+      "sha256": "771fe511e57a964189cddcd898a8ab47bc2aded050c5fec0b03e6462420d3dcd",
+      "size": 8834924
+    },
+    "impostor": {
+      "filename": "impostor.csv",
+      "sha256": "8bfe5777a46ef41cbcebabbb22657dc8e0a997ad0f0f95c10846f8e1885776bf",
+      "size": 65743376
+    }
+  },
+  "split": "evaluation",
+  "thresholding_during_scoring": false,
+  "validation": {
+    "genuine": {
+      "failure_count": 0,
+      "failure_counts": {},
+      "planned_count": 6882,
+      "scoreable_count": 6882
+    },
+    "impostor": {
+      "failure_count": 0,
+      "failure_counts": {},
+      "planned_count": 68820,
+      "scoreable_count": 68820
+    }
+  }
+}

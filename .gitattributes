@@ -2,3 +2,7 @@
 # Disable all line-ending / text conversion so checkouts are
 # identical on any machine or platform.
 * -text
+results/shared_accuracy/sourceafis_sift_v1/scores/sift_geometric/sd300b/evaluation/impostor.csv filter=lfs diff=lfs merge=lfs -text
+results/shared_accuracy/sourceafis_sift_v1/scores/sift_geometric/sd300c/evaluation/impostor.csv filter=lfs diff=lfs merge=lfs -text
+results/shared_accuracy/sourceafis_sift_v1/scores/sourceafis/sd300b/evaluation/impostor.csv filter=lfs diff=lfs merge=lfs -text
+results/shared_accuracy/sourceafis_sift_v1/scores/sourceafis/sd300c/evaluation/impostor.csv filter=lfs diff=lfs merge=lfs -text
