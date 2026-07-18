@@ -1,0 +1,39 @@
+{
+  "datasets": [
+    {
+      "dataset": "sd300b",
+      "diagnostics_mismatch_count": 0,
+      "error_code_mismatch_count": 0,
+      "exact_score_reproducibility": true,
+      "max_absolute_score_delta": 0.0,
+      "mismatch_pair_count": 0,
+      "pair_count": 8593,
+      "passed": true,
+      "raw_score_text_equal_count": 8593,
+      "reproducible_pair_count": 8593,
+      "status_mismatch_count": 0
+    },
+    {
+      "dataset": "sd300c",
+      "diagnostics_mismatch_count": 0,
+      "error_code_mismatch_count": 0,
+      "exact_score_reproducibility": true,
+      "max_absolute_score_delta": 0.0,
+      "mismatch_pair_count": 0,
+      "pair_count": 8614,
+      "passed": true,
+      "raw_score_text_equal_count": 8614,
+      "reproducible_pair_count": 8614,
+      "status_mismatch_count": 0
+    }
+  ],
+  "overall": {
+    "max_absolute_score_delta": 0.0,
+    "mismatch_pair_count": 0,
+    "pair_count": 17207,
+    "passed": true
+  },
+  "schema_version": "derived-sourceafis-exact-reproducibility-v1",
+  "score_abs_tolerance": 0.0,
+  "timing_equality_required": false
+}

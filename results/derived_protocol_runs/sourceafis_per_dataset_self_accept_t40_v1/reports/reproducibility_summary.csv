@@ -1,0 +1,3 @@
+dataset,pair_count,reproducible_pair_count,mismatch_pair_count,raw_score_text_equal_count,status_mismatch_count,error_code_mismatch_count,diagnostics_mismatch_count,max_absolute_score_delta,exact_score_reproducibility,passed
+sd300b,8593,8593,0,8593,0,0,0,0.0,true,true
+sd300c,8614,8614,0,8614,0,0,0,0.0,true,true

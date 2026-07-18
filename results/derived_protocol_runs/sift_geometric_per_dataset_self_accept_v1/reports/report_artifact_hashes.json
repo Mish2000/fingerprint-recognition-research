@@ -1,0 +1,15 @@
+{
+  "files": {
+    "decision_summary.csv": "cdd2e5739965d14553842e662f73ed5904244da5a1ec772ce99a6484d95493e0",
+    "decision_summary.json": "42601357b8a8d1fc89a94475b95add732b00e924361dd039a846ab232331f277",
+    "report_summary.json": "6b5be81dc5e663645f7b4f2f965ce961e37f5b5fe65320c5c4a10e8d7d244f29",
+    "reproducibility_summary.csv": "f5ed10299ddbf25d2ece05ed08cba4a445e8087eacbba7d27d92c25b69c42cb6",
+    "reproducibility_summary.json": "ea309b66259a4dfdca3af26eb9402975e8013116288d8e2f8ee25194df2318ab",
+    "sd300b/primary_reproducibility.csv": "3fbafe47b142640f940f330f407d87fda9d748669f955b1c39f3ca717a503b4a",
+    "sd300c/primary_reproducibility.csv": "9c0bc5308fda171fe60920b0dd9e49154bda109ec69ab76ac5be9ecef92675ae",
+    "sourceafis_sift_identity_alignment.csv": "1efd244bdbda54259a4c02e9f36e9a2967726896f360b6025abdab631684169b",
+    "sourceafis_sift_protocol_alignment.md": "48520a42460ec76252882b041b2736244a00bdf282137c393ed6fd3469fe1f36",
+    "supervisor_tables.md": "594eccf144c944ca00bfb1ddd771621259f3e38a1a729158b8b529f9e270e91e"
+  },
+  "schema_version": "sift-derived-report-hashes-v1"
+}

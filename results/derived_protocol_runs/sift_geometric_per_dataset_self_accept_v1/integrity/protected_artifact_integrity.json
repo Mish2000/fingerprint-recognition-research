@@ -1,0 +1,44 @@
+{
+  "after": {
+    "category_counts": {
+      "base_manifests": 8,
+      "benchmark_implementation": 8,
+      "dataset_sd300b": 19439,
+      "dataset_sd300c": 19439,
+      "sift_implementation": 26,
+      "sift_pilot_config_decision_and_previous_results": 46,
+      "sift_primary_bundles": 12,
+      "sift_tests": 4,
+      "sourceafis_artifacts_audits_and_cohorts": 119,
+      "sourceafis_implementation": 28,
+      "sourceafis_tests": 4
+    },
+    "file_count": 39133,
+    "total_bytes": 114372281596,
+    "tree_sha256": "2a73717817417503e40da2390d6204897e8215d9a505781afe427df16e260818"
+  },
+  "after_snapshot_sha256": "cbc95bdda6f1bd2390e34a4f70b4692229ec8c8de7baf04742977f599a7d5ae5",
+  "before": {
+    "category_counts": {
+      "base_manifests": 8,
+      "benchmark_implementation": 8,
+      "dataset_sd300b": 19439,
+      "dataset_sd300c": 19439,
+      "sift_implementation": 26,
+      "sift_pilot_config_decision_and_previous_results": 46,
+      "sift_primary_bundles": 12,
+      "sift_tests": 4,
+      "sourceafis_artifacts_audits_and_cohorts": 119,
+      "sourceafis_implementation": 28,
+      "sourceafis_tests": 4
+    },
+    "file_count": 39133,
+    "total_bytes": 114372281596,
+    "tree_sha256": "2a73717817417503e40da2390d6204897e8215d9a505781afe427df16e260818"
+  },
+  "before_snapshot_sha256": "cbc95bdda6f1bd2390e34a4f70b4692229ec8c8de7baf04742977f599a7d5ae5",
+  "mismatch_count": 0,
+  "mismatches": [],
+  "protected_artifacts_unchanged": true,
+  "schema_version": "sift-derived-protected-artifact-integrity-v1"
+}
