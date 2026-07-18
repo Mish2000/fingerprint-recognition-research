@@ -8,7 +8,22 @@ import cv2
 import numpy as np
 
 
-ORIENTATION_POLICY = "sift_dominant_gradient"
+ORIENTATION_POLICY = "common_dominant_gradient_v1"
+ORIENTATION_POLICY_ALIASES = {
+    ORIENTATION_POLICY: ORIENTATION_POLICY,
+    "dominant_gradient_v1": ORIENTATION_POLICY,
+    "sift_dominant_gradient": ORIENTATION_POLICY,
+    "sift_dominant_gradient_v1": ORIENTATION_POLICY,
+}
+
+
+def normalize_orientation_policy(policy: str) -> str:
+    """Normalize temporary historical spellings to the protocol-owned name."""
+
+    try:
+        return ORIENTATION_POLICY_ALIASES[str(policy)]
+    except KeyError as exc:
+        raise ValueError(f"Unsupported orientation policy: {policy!r}.") from exc
 
 
 def assign_orientations(
@@ -21,8 +36,7 @@ def assign_orientations(
 ) -> tuple[np.ndarray, dict[str, object]]:
     """Assign one common angle per location without using detector-native angles."""
 
-    if policy not in (ORIENTATION_POLICY, "sift_dominant_gradient_v1"):
-        raise ValueError(f"Unsupported orientation policy: {policy!r}.")
+    canonical_policy = normalize_orientation_policy(policy)
     source = np.asarray(image)
     locations = np.asarray(points, dtype=np.float32)
     sizes = np.asarray(support_sizes, dtype=np.float32)
@@ -50,7 +64,7 @@ def assign_orientations(
         dtype=np.float32,
     )
     return angles, {
-        "orientation_policy": ORIENTATION_POLICY,
+        "orientation_policy": canonical_policy,
         "orientation_count": int(angles.size),
         "orientation_bins": int(bins),
         "gradient_operator": "opencv_sobel_3x3",
@@ -100,4 +114,9 @@ def _dominant_angle(
     return float((peak * 360.0 / bins) % 360.0)
 
 
-__all__ = ["ORIENTATION_POLICY", "assign_orientations"]
+__all__ = [
+    "ORIENTATION_POLICY",
+    "ORIENTATION_POLICY_ALIASES",
+    "assign_orientations",
+    "normalize_orientation_policy",
+]

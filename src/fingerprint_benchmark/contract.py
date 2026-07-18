@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Mapping, Protocol
+from typing import Any, Mapping, Protocol, Sequence
 
 
 BENCHMARK_CONTRACT_VERSION = "pairwise-benchmark-v2"
@@ -151,4 +151,15 @@ class MethodAdapter(Protocol):
         ...
 
     def close(self) -> None:
+        ...
+
+
+class ImplementationSourceProvider(Protocol):
+    """Optional adapter capability for complete implementation provenance.
+
+    Paths may be absolute or repository-relative.  The provenance layer
+    validates, normalizes, sorts, and hashes them before persistence.
+    """
+
+    def implementation_source_paths(self) -> Sequence[Path]:
         ...

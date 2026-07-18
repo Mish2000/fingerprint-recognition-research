@@ -142,9 +142,15 @@ class OpenCVGFTTHarrisRootSIFTGeometricAdapter(DetectorOnlyAdapter):
         detector_config: OpenCVHarrisConfig | None = None,
         protocol_config: DetectorOnlyProtocolConfig | None = None,
     ) -> None:
+        active_protocol = protocol_config or DetectorOnlyProtocolConfig()
+        if active_protocol.descriptor != "rootsift":
+            raise ValueError(
+                "OpenCVGFTTHarrisRootSIFTGeometricAdapter requires descriptor='rootsift' "
+                "because its public method identity is RootSIFT-specific."
+            )
         super().__init__(
             detector=OpenCVGFTTHarrisDetector(detector_config),
-            config=protocol_config or DetectorOnlyProtocolConfig(),
+            config=active_protocol,
             method_name=METHOD_NAME,
             method_version=METHOD_VERSION,
         )

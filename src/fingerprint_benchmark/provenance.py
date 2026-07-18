@@ -5,7 +5,7 @@ from __future__ import annotations
 import inspect
 from pathlib import Path
 import subprocess
-from typing import Any
+from typing import Any, Iterable
 
 from .contract import BENCHMARK_CONTRACT_VERSION, MethodAdapter, MethodMetadata
 from .hashing import file_sha256, stable_hash
@@ -56,6 +56,10 @@ def implementation_provenance(
             else {}
         )
     )
+    declared_sources = _adapter_declared_source_component(
+        adapter,
+        runner_source_path=runner_source_path,
+    )
     fixed_components = {
         "benchmark_contract_version": BENCHMARK_CONTRACT_VERSION,
         "method": method_metadata.method,
@@ -70,6 +74,8 @@ def implementation_provenance(
         "benchmark_support_source_sha256": benchmark_support_sources,
         "method_support_source_sha256": method_support_sources,
     }
+    if declared_sources is not None:
+        fixed_components["adapter_declared_implementation_sources"] = declared_sources
     if method_metadata.method == "sourceafis" and not fixed_components["sidecar_jar_sha256"]:
         raise ProvenanceError("SourceAFIS persisted runs require the managed sidecar JAR SHA-256.")
 
@@ -96,6 +102,8 @@ def implementation_provenance(
         "method_support_sources": method_support_sources,
         "repository": repository_state(runner_source_path),
     }
+    if declared_sources is not None:
+        full["adapter_declared_implementation_sources"] = declared_sources
     return full, fixed_components, implementation_hash
 
 
@@ -138,6 +146,73 @@ def _source_hashes(directory: Path, filenames: tuple[str, ...]) -> dict[str, str
             raise ProvenanceError(f"Required implementation source does not exist: {path}")
         hashes[filename] = file_sha256(path)
     return hashes
+
+
+def _adapter_declared_source_component(
+    adapter: MethodAdapter,
+    *,
+    runner_source_path: Path,
+) -> dict[str, Any] | None:
+    provider = getattr(adapter, "implementation_source_paths", None)
+    if provider is None:
+        return None
+    if not callable(provider):
+        raise ProvenanceError("adapter.implementation_source_paths must be callable.")
+    try:
+        declared = provider()
+        return source_component(
+            declared,
+            repository_root=_repository_root(runner_source_path),
+        )
+    except ProvenanceError:
+        raise
+    except (OSError, TypeError, ValueError) as exc:
+        raise ProvenanceError(f"Adapter source-path declaration failed: {exc}") from exc
+
+
+def source_component(
+    source_paths: Iterable[Path | str],
+    *,
+    repository_root: Path,
+) -> dict[str, Any]:
+    """Build one deterministic relative-path source-hash component."""
+
+    root = repository_root.resolve()
+    normalized: dict[str, Path] = {}
+    for raw_path in source_paths:
+        path = Path(raw_path)
+        if not path.is_absolute():
+            path = root / path
+        resolved = path.resolve()
+        if not resolved.is_file():
+            raise ProvenanceError(f"Declared implementation source does not exist: {resolved}")
+        try:
+            relative = resolved.relative_to(root).as_posix()
+        except ValueError as exc:
+            raise ProvenanceError(
+                f"Declared implementation source is outside the repository: {resolved}"
+            ) from exc
+        normalized[relative] = resolved
+    if not normalized:
+        raise ProvenanceError("implementation_source_paths() must declare at least one file.")
+    files = [
+        {"path": relative, "sha256": file_sha256(normalized[relative])}
+        for relative in sorted(normalized)
+    ]
+    return {
+        "files": files,
+        "component_sha256": stable_hash(files),
+    }
+
+
+def _repository_root(path: Path) -> Path:
+    probe = _git(path.resolve().parent, "rev-parse", "--show-toplevel")
+    if probe is not None:
+        return Path(probe).resolve()
+    resolved = path.resolve()
+    if len(resolved.parents) < 3:
+        raise ProvenanceError(f"Cannot infer repository root from runner source: {resolved}")
+    return resolved.parents[2]
 
 
 def _git(root: Path, *args: str) -> str | None:

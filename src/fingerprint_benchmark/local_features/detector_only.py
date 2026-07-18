@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import hashlib
+import inspect
 import json
 import math
 from pathlib import Path
@@ -26,7 +27,11 @@ from fingerprint_benchmark.detectors.types import Detector, DetectorResult
 from .descriptors import compute_sift_descriptors
 from .geometry import verify_geometry
 from .matching import match_descriptors
-from .orientation import ORIENTATION_POLICY, assign_orientations
+from .orientation import (
+    ORIENTATION_POLICY,
+    assign_orientations,
+    normalize_orientation_policy,
+)
 from .support import assign_support_sizes
 from .types import CanonicalLocalFeature, LocalFeatureRepresentation
 
@@ -70,8 +75,11 @@ class DetectorOnlyProtocolConfig:
             raise ValueError("maximum_keypoints must be positive.")
         if self.descriptor not in ("rootsift", "sift", "standard"):
             raise ValueError("descriptor must be rootsift, sift, or standard.")
-        if self.orientation_policy not in (ORIENTATION_POLICY, "sift_dominant_gradient_v1"):
-            raise ValueError("Unsupported common orientation policy.")
+        object.__setattr__(
+            self,
+            "orientation_policy",
+            normalize_orientation_policy(self.orientation_policy),
+        )
         if self.matching_mode not in ("one_way", "bidirectional_union", "mutual"):
             raise ValueError("Unsupported matching mode.")
         if self.geometry_model not in ("affine_full_2d", "affine_partial_2d"):
@@ -244,10 +252,46 @@ class DetectorOnlyAdapter:
     ) -> None:
         self.detector = detector
         self.config = config or DetectorOnlyProtocolConfig()
-        self.method_name = method_name or f"{detector.detector_name}_rootsift_geometric"
-        self.method_version = method_version or f"{detector.detector_version}-detector-only-v1"
+        self.method_name, self.method_version = _method_identity(
+            detector,
+            self.config.descriptor,
+            method_name=method_name,
+            method_version=method_version,
+        )
         cv2.setNumThreads(int(self.config.opencv_threads))
         cv2.setUseOptimized(bool(self.config.opencv_optimized))
+
+    def implementation_source_paths(self) -> tuple[Path, ...]:
+        """Declare every repository source that can affect representation or score."""
+
+        package_directory = Path(__file__).resolve().parent.parent
+        detector_source = inspect.getsourcefile(self.detector.__class__)
+        if not detector_source:
+            raise ValueError(
+                f"Cannot locate implementation source for detector {self.detector.__class__!r}."
+            )
+        relative_sources = (
+            "detectors/types.py",
+            "local_features/types.py",
+            "local_features/support.py",
+            "local_features/orientation.py",
+            "local_features/detector_only.py",
+            "local_features/descriptors/__init__.py",
+            "local_features/descriptors/sift_descriptor.py",
+            "local_features/descriptors/rootsift.py",
+            "local_features/matching.py",
+            "local_features/geometry.py",
+            "local_features/scoring.py",
+            "sift/descriptors.py",
+            "sift/matching.py",
+            "sift/geometry.py",
+            "sift/scoring.py",
+        )
+        paths = {package_directory / relative for relative in relative_sources}
+        paths.add(Path(detector_source).resolve())
+        return tuple(
+            sorted((path.resolve() for path in paths), key=lambda path: path.as_posix())
+        )
 
     def metadata(self) -> MethodMetadata:
         detector_config = _detector_config(self.detector)
@@ -256,8 +300,9 @@ class DetectorOnlyAdapter:
             method_version=self.method_version,
             score_direction=HIGHER_IS_MORE_SIMILAR,
             score_semantics=(
-                "Geometric inlier count after detector_only_v1 common support, orientation, "
-                "descriptor, matching, and PPI-normalized affine verification; no decision threshold."
+                "Geometric inlier count after detector_only_v1 common support and orientation, "
+                f"{self.config.descriptor} descriptor processing, matching, and PPI-normalized "
+                "affine verification; no decision threshold."
             ),
             implementation_provenance={
                 "protocol": PROTOCOL_NAME,
@@ -266,7 +311,9 @@ class DetectorOnlyAdapter:
                 "detector_version": self.detector.detector_version,
                 "detector_config": detector_config,
                 "descriptor_engine": "OpenCV SIFT compute at supplied keypoints",
+                "descriptor": self.config.descriptor,
                 "descriptor_normalization": self.config.descriptor,
+                "orientation_policy": self.config.orientation_policy,
                 "matching_implementation": "fingerprint_benchmark.local_features.matching",
                 "geometry_implementation": "fingerprint_benchmark.local_features.geometry",
                 "opencv_version": cv2.__version__,
@@ -360,6 +407,8 @@ class DetectorOnlyAdapter:
                     "ppi": representation.ppi,
                     "keypoint_count": representation.keypoint_count,
                     "descriptor_count": int(representation.descriptors.shape[0]),
+                    "descriptor": self.config.descriptor,
+                    "orientation_policy": self.config.orientation_policy,
                     "representation_sha256": adaptation["representation_sha256"],
                     "prepare_total_ms": elapsed_ms,
                 },
@@ -488,6 +537,38 @@ def _detector_config(detector: Detector) -> dict[str, Any]:
     if isinstance(config, Mapping):
         return dict(config)
     return {"value": str(config)}
+
+
+def _method_identity(
+    detector: Detector,
+    descriptor: str,
+    *,
+    method_name: str | None,
+    method_version: str | None,
+) -> tuple[str, str]:
+    if method_name is None and method_version is None:
+        if descriptor != "rootsift":
+            raise ValueError(
+                "Non-RootSIFT DetectorOnlyAdapter configurations require explicit "
+                "method_name and method_version matching the active descriptor."
+            )
+        return (
+            f"{detector.detector_name}_rootsift_geometric",
+            f"{detector.detector_version}-rootsift-geometric-detector-only-v1",
+        )
+    if method_name is None or method_version is None:
+        raise ValueError("method_name and method_version must be supplied together.")
+    lowered_name = method_name.lower()
+    lowered_version = method_version.lower()
+    if descriptor != "rootsift" and (
+        "rootsift" in lowered_name or "rootsift" in lowered_version
+    ):
+        raise ValueError("A non-RootSIFT descriptor cannot use a RootSIFT method identity.")
+    if descriptor not in lowered_name or descriptor not in lowered_version:
+        raise ValueError(
+            f"method_name and method_version must identify the active {descriptor!r} descriptor."
+        )
+    return method_name, method_version
 
 
 def _elapsed(start_ns: int) -> float:

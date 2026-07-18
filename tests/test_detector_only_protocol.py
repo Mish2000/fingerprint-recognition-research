@@ -146,7 +146,8 @@ def test_every_point_uses_one_physical_support_and_orientation_policy() -> None:
         np.full(representation.keypoint_count, 32.0, dtype=np.float32),
     )
     assert diagnostics["orientation_count"] == representation.keypoint_count
-    assert diagnostics["orientation_policy"] == "sift_dominant_gradient"
+    assert diagnostics["orientation_policy"] == "common_dominant_gradient_v1"
+    assert representation.metadata["orientation_policy"] == "common_dominant_gradient_v1"
     assert diagnostics["support_policy"] == "fixed_physical_diameter_scaled_by_manifest_ppi"
 
 

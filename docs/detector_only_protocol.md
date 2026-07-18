@@ -47,8 +47,12 @@ The fixed choices live in `DetectorOnlyProtocolConfig`:
   diameter; the native diameter is multiplied by `image_ppi/reference_ppi`.
 - `maximum_keypoints` is the common cap applied to the detector's existing
   ranked order.
-- `orientation_policy` assigns one orientation from the image for every
-  detector in exactly the same way.
+- `orientation_policy=common_dominant_gradient_v1` assigns one protocol-owned
+  orientation from the image for every detector in exactly the same way. This
+  is a shared dominant-gradient policy, not the SIFT detector and not a claim
+  of full reproduction of SIFT's orientation assignment. The historical names
+  `sift_dominant_gradient` and `sift_dominant_gradient_v1` remain temporary
+  input aliases and are normalized to the canonical name in new metadata.
 - `descriptor` selects the common supplied-keypoint descriptor and
   normalization. The v1 Harris method uses RootSIFT.
 - `matching_mode` and `lowe_ratio` define the common descriptor matcher.
@@ -80,6 +84,20 @@ adapter = OpenCVGFTTHarrisRootSIFTGeometricAdapter()
 The detector and common pipeline have separate configuration objects:
 `OpenCVHarrisConfig` and `DetectorOnlyProtocolConfig`. A future descriptor can
 therefore be selected in the protocol config without changing the detector.
+The public RootSIFT adapter rejects every non-RootSIFT descriptor immediately;
+descriptor experiments must use the generic adapter with an explicit matching
+method name and version.
+
+## Implementation provenance
+
+Adapters may implement `implementation_source_paths()` to declare their full
+score-producing source graph without adding method-name conditionals to the
+benchmark provenance layer. Each declared file is persisted under a sorted
+repository-relative path with its SHA-256, and the ordered list receives a
+deterministic component SHA-256. The complete component participates in the
+run's implementation hash. The Harris adapter declares the detector sources,
+all common representation/matching/geometry sources, and the protected legacy
+SIFT files behind the generic re-exports.
 
 ## Research boundary
 
