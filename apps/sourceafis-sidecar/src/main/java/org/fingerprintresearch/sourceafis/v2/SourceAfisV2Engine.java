@@ -27,6 +27,10 @@ final class SourceAfisV2Engine {
         "FingerprintImageOptions construction, FingerprintImage construction, FingerprintTemplate extraction, " +
         "and FingerprintTemplate.toByteArray serialization; excludes HTTP, JSON, request Base64 decoding, " +
         "and response Base64 encoding.";
+    static final String EXTRACT_RAW_TEMPLATE_INTERNAL_TIMING_SCOPE =
+        "FingerprintImageOptions construction, raw FingerprintImage construction, FingerprintTemplate extraction, " +
+        "FingerprintTemplate.toByteArray serialization, and template SHA-256; excludes HTTP, JSON, request Base64 " +
+        "decoding, response Base64 encoding, and response model/JSON serialization.";
     static final String EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE =
         "FingerprintImageOptions construction, raw FingerprintImage construction, FingerprintTemplate extraction, " +
         "FingerprintTemplate.toByteArray serialization, documented native-template CBOR parsing, and response " +
@@ -36,6 +40,8 @@ final class SourceAfisV2Engine {
         "FingerprintMatcher.match; excludes HTTP, JSON, and request Base64 decoding.";
     static final double MIN_DPI = 100.0;
     static final double MAX_DPI = 4000.0;
+    static final String RAW_TEMPLATE_ENDPOINT = "/extract-template-raw";
+    static final String RAW_TEMPLATE_INPUT = "raw_uint8_grayscale_row_major";
     static final String FINAL_MINUTIAE_ENDPOINT = "/extract-final-minutiae";
     static final String FINAL_MINUTIAE_INPUT = "raw_uint8_grayscale_row_major";
     static final String FINAL_MINUTIAE_COORDINATE_SPACE = "sourceafis_500_dpi_scaled_image";
@@ -76,16 +82,20 @@ final class SourceAfisV2Engine {
         response.put("external_preprocessing", "none");
         response.put("template_cache", false);
         response.put("supports_template_extraction", true);
+        response.put("supports_raw_template_extraction", true);
         response.put("supports_final_minutiae_extraction", true);
         response.put("supports_pairwise_verification", true);
         response.put("supports_identification", false);
         response.put("method_internal_timing_unit", METHOD_INTERNAL_TIMING_UNIT);
         response.put("extract_template_internal_timing_scope", EXTRACT_TEMPLATE_INTERNAL_TIMING_SCOPE);
+        response.put("extract_raw_template_internal_timing_scope", EXTRACT_RAW_TEMPLATE_INTERNAL_TIMING_SCOPE);
         response.put(
             "extract_final_minutiae_internal_timing_scope",
             EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE
         );
         response.put("verify_internal_timing_scope", VERIFY_INTERNAL_TIMING_SCOPE);
+        response.put("raw_template_endpoint", RAW_TEMPLATE_ENDPOINT);
+        response.put("raw_template_input", RAW_TEMPLATE_INPUT);
         response.put("final_minutiae_endpoint", FINAL_MINUTIAE_ENDPOINT);
         response.put("final_minutiae_input", FINAL_MINUTIAE_INPUT);
         response.put("final_minutiae_coordinate_space", FINAL_MINUTIAE_COORDINATE_SPACE);
@@ -145,33 +155,50 @@ final class SourceAfisV2Engine {
         }
     }
 
-    Map<String, Object> extractFinalMinutiae(Map<String, Object> request) {
-        int width = requiredPositiveInteger(request.get("width"), "width");
-        int height = requiredPositiveInteger(request.get("height"), "height");
-        byte[] pixels = decodeRequiredBase64(stringValue(request.get("pixels_base64")), "pixels_base64");
-        long expectedPixels = (long) width * (long) height;
-        if (pixels.length != expectedPixels) {
-            throw new ApiException(
-                422,
-                "pixel_length_mismatch",
-                "Decoded pixels_base64 length must equal width * height exactly."
-            );
+    Map<String, Object> extractTemplateRaw(Map<String, Object> request) {
+        RawImageInput input = rawImageInput(request);
+        try {
+            long started = System.nanoTime();
+            FingerprintImageOptions options = new FingerprintImageOptions().dpi(input.dpi);
+            FingerprintImage image = new FingerprintImage(input.width, input.height, input.pixels, options);
+            FingerprintTemplate template = new FingerprintTemplate(image);
+            byte[] serializedTemplate = template.toByteArray();
+            String templateSha256 = sha256(serializedTemplate);
+            double methodInternalMs = elapsedMilliseconds(started);
+            Map<String, Object> response = new LinkedHashMap<>();
+            response.put("template_base64", Base64.getEncoder().encodeToString(serializedTemplate));
+            response.put("template_sha256", templateSha256);
+            response.put("template_format", TEMPLATE_FORMAT);
+            response.put("template_version", buildInfo.sourceAfisVersion());
+            response.put("sourceafis_version", buildInfo.sourceAfisVersion());
+            response.put("effective_dpi", input.dpi);
+            response.put("native_width", input.width);
+            response.put("native_height", input.height);
+            response.put("method_internal_ms", methodInternalMs);
+            return response;
+        } catch (IllegalArgumentException e) {
+            throw new ApiException(422, "invalid_raw_image", "Raw grayscale dimensions or pixels are invalid.");
+        } catch (RuntimeException e) {
+            throw new ApiException(500, "raw_template_extraction_failure", "SourceAFIS raw-template extraction failed.");
         }
-        double dpi = requiredDpi(request.get("dpi"));
+    }
+
+    Map<String, Object> extractFinalMinutiae(Map<String, Object> request) {
+        RawImageInput input = rawImageInput(request);
 
         try {
             long started = System.nanoTime();
-            FingerprintImageOptions options = new FingerprintImageOptions().dpi(dpi);
-            FingerprintImage image = new FingerprintImage(width, height, pixels, options);
+            FingerprintImageOptions options = new FingerprintImageOptions().dpi(input.dpi);
+            FingerprintImage image = new FingerprintImage(input.width, input.height, input.pixels, options);
             FingerprintTemplate template = new FingerprintTemplate(image);
             byte[] serializedTemplate = template.toByteArray();
             NativeTemplate parsed = parseNativeTemplate(serializedTemplate);
             Map<String, Object> response = finalMinutiaeResponse(
                 parsed,
                 serializedTemplate,
-                width,
-                height,
-                dpi
+                input.width,
+                input.height,
+                input.dpi
             );
             response.put("method_internal_ms", elapsedMilliseconds(started));
             return response;
@@ -283,6 +310,21 @@ final class SourceAfisV2Engine {
     private double elapsedMilliseconds(long started) {
         long elapsedNanos = System.nanoTime() - started;
         return Math.max(0L, elapsedNanos) / 1_000_000.0;
+    }
+
+    private RawImageInput rawImageInput(Map<String, Object> request) {
+        int width = requiredPositiveInteger(request.get("width"), "width");
+        int height = requiredPositiveInteger(request.get("height"), "height");
+        byte[] pixels = decodeRequiredBase64(stringValue(request.get("pixels_base64")), "pixels_base64");
+        long expectedPixels = (long) width * (long) height;
+        if (pixels.length != expectedPixels) {
+            throw new ApiException(
+                422,
+                "pixel_length_mismatch",
+                "Decoded pixels_base64 length must equal width * height exactly."
+            );
+        }
+        return new RawImageInput(width, height, pixels, requiredDpi(request.get("dpi")));
     }
 
     private int requiredPositiveInteger(Object value, String fieldName) {
@@ -412,6 +454,20 @@ final class SourceAfisV2Engine {
             this.width = width;
             this.height = height;
             this.minutiae = List.copyOf(minutiae);
+        }
+    }
+
+    private static final class RawImageInput {
+        final int width;
+        final int height;
+        final byte[] pixels;
+        final double dpi;
+
+        RawImageInput(int width, int height, byte[] pixels, double dpi) {
+            this.width = width;
+            this.height = height;
+            this.pixels = pixels;
+            this.dpi = dpi;
         }
     }
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import http.client
 import json
 import math
@@ -16,8 +17,8 @@ from .contract import MethodExecutionError
 
 
 EXPECTED_SOURCEAFIS_VERSION = "3.18.1"
-EXPECTED_CONTRACT_VERSION = "sourceafis-sidecar-v2.2"
-EXPECTED_SIDECAR_IMPLEMENTATION_VERSION = "0.3.0"
+EXPECTED_CONTRACT_VERSION = "sourceafis-sidecar-v2.3"
+EXPECTED_SIDECAR_IMPLEMENTATION_VERSION = "0.4.0"
 SOURCEAFIS_MAVEN_COORDINATES = "com.machinezoo.sourceafis:sourceafis:3.18.1"
 SOURCEAFIS_TEMPLATE_FORMAT = "sourceafis"
 SOURCEAFIS_TRANSPORT = "localhost_http"
@@ -26,6 +27,11 @@ EXTRACT_TEMPLATE_INTERNAL_TIMING_SCOPE = (
     "FingerprintImageOptions construction, FingerprintImage construction, FingerprintTemplate extraction, "
     "and FingerprintTemplate.toByteArray serialization; excludes HTTP, JSON, request Base64 decoding, "
     "and response Base64 encoding."
+)
+EXTRACT_RAW_TEMPLATE_INTERNAL_TIMING_SCOPE = (
+    "FingerprintImageOptions construction, raw FingerprintImage construction, FingerprintTemplate extraction, "
+    "FingerprintTemplate.toByteArray serialization, and template SHA-256; excludes HTTP, JSON, request Base64 "
+    "decoding, response Base64 encoding, and response model/JSON serialization."
 )
 VERIFY_INTERNAL_TIMING_SCOPE = (
     "FingerprintTemplate deserialization for both templates, FingerprintMatcher construction, and "
@@ -36,6 +42,8 @@ EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE = (
     "FingerprintTemplate.toByteArray serialization, documented native-template CBOR parsing, and response "
     "model construction; excludes HTTP, JSON, request Base64 decoding, and response JSON serialization."
 )
+RAW_TEMPLATE_ENDPOINT = "/extract-template-raw"
+RAW_TEMPLATE_INPUT = "raw_uint8_grayscale_row_major"
 FINAL_MINUTIAE_ENDPOINT = "/extract-final-minutiae"
 FINAL_MINUTIAE_INPUT = "raw_uint8_grayscale_row_major"
 FINAL_MINUTIAE_COORDINATE_SPACE = "sourceafis_500_dpi_scaled_image"
@@ -87,6 +95,19 @@ class SourceAfisTemplate:
     template_version: str
     sourceafis_version: str
     effective_dpi: float
+    method_internal_ms: float
+
+
+@dataclass(frozen=True)
+class SourceAfisRawTemplate:
+    template_base64: str
+    template_sha256: str
+    template_format: str
+    template_version: str
+    sourceafis_version: str
+    effective_dpi: float
+    native_width: int
+    native_height: int
     method_internal_ms: float
 
 
@@ -219,6 +240,38 @@ class SourceAfisSidecarClient:
             method_internal_ms=_required_nonnegative_float(payload, "method_internal_ms", "comparison_failure"),
         )
 
+    def extract_template_raw(
+        self,
+        pixels: bytes,
+        width: int,
+        height: int,
+        dpi: float,
+    ) -> SourceAfisRawTemplate:
+        """Extract a native template from exact raw grayscale bytes."""
+
+        checked_pixels, checked_width, checked_height, checked_dpi = _validate_raw_image_request(
+            pixels,
+            width,
+            height,
+            dpi,
+        )
+        payload = self._request_json(
+            "POST",
+            RAW_TEMPLATE_ENDPOINT,
+            {
+                "width": checked_width,
+                "height": checked_height,
+                "pixels_base64": base64.b64encode(checked_pixels).decode("ascii"),
+                "dpi": checked_dpi,
+            },
+        )
+        return _parse_raw_template_response(
+            payload,
+            expected_width=checked_width,
+            expected_height=checked_height,
+            expected_dpi=checked_dpi,
+        )
+
     def extract_final_minutiae(
         self,
         pixels: bytes,
@@ -228,25 +281,19 @@ class SourceAfisSidecarClient:
     ) -> SourceAfisFinalMinutiae:
         """Extract the final selected minutia set from exact raw grayscale bytes."""
 
-        if not isinstance(pixels, bytes):
-            raise SourceAfisClientError("invalid_raw_pixels", "SourceAFIS raw pixels must be bytes.")
-        checked_width = _positive_int(width, "width", "invalid_dimensions")
-        checked_height = _positive_int(height, "height", "invalid_dimensions")
-        if len(pixels) != checked_width * checked_height:
-            raise SourceAfisClientError(
-                "pixel_length_mismatch",
-                "SourceAFIS raw pixel length must equal width * height exactly.",
-            )
-        checked_dpi = _finite_float(dpi, "dpi", "invalid_dpi")
-        if checked_dpi < 100.0 or checked_dpi > 4000.0:
-            raise SourceAfisClientError("invalid_dpi", "SourceAFIS DPI is outside the supported range.")
+        checked_pixels, checked_width, checked_height, checked_dpi = _validate_raw_image_request(
+            pixels,
+            width,
+            height,
+            dpi,
+        )
         payload = self._request_json(
             "POST",
             FINAL_MINUTIAE_ENDPOINT,
             {
                 "width": checked_width,
                 "height": checked_height,
-                "pixels_base64": base64.b64encode(pixels).decode("ascii"),
+                "pixels_base64": base64.b64encode(checked_pixels).decode("ascii"),
                 "dpi": checked_dpi,
             },
         )
@@ -322,8 +369,11 @@ def validate_health(
         "external_preprocessing": "none",
         "method_internal_timing_unit": METHOD_INTERNAL_TIMING_UNIT,
         "extract_template_internal_timing_scope": EXTRACT_TEMPLATE_INTERNAL_TIMING_SCOPE,
+        "extract_raw_template_internal_timing_scope": EXTRACT_RAW_TEMPLATE_INTERNAL_TIMING_SCOPE,
         "extract_final_minutiae_internal_timing_scope": EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE,
         "verify_internal_timing_scope": VERIFY_INTERNAL_TIMING_SCOPE,
+        "raw_template_endpoint": RAW_TEMPLATE_ENDPOINT,
+        "raw_template_input": RAW_TEMPLATE_INPUT,
         "final_minutiae_endpoint": FINAL_MINUTIAE_ENDPOINT,
         "final_minutiae_input": FINAL_MINUTIAE_INPUT,
         "final_minutiae_coordinate_space": FINAL_MINUTIAE_COORDINATE_SPACE,
@@ -354,6 +404,7 @@ def validate_health(
     expected_boolean_fields = {
         "template_cache": False,
         "supports_template_extraction": True,
+        "supports_raw_template_extraction": True,
         "supports_final_minutiae_extraction": True,
         "supports_pairwise_verification": True,
         "supports_identification": False,
@@ -431,6 +482,68 @@ def _required_str(payload: dict[str, Any], field_name: str, error_code: str) -> 
     if not text:
         raise SourceAfisContractError(error_code, f"SourceAFIS response field {field_name!r} is empty.")
     return text
+
+
+def _parse_raw_template_response(
+    payload: dict[str, Any],
+    *,
+    expected_width: int,
+    expected_height: int,
+    expected_dpi: float,
+) -> SourceAfisRawTemplate:
+    error_code = "raw_template_contract_mismatch"
+    _require_exact_fields(
+        payload,
+        {
+            "template_base64",
+            "template_sha256",
+            "template_format",
+            "template_version",
+            "sourceafis_version",
+            "effective_dpi",
+            "native_width",
+            "native_height",
+            "method_internal_ms",
+        },
+        "raw-template response",
+        error_code,
+    )
+    template_base64 = _required_str(payload, "template_base64", error_code)
+    _validate_base64(template_base64, "template_base64", error_code)
+    template_sha256 = _required_str(payload, "template_sha256", error_code)
+    if _SHA256_PATTERN.fullmatch(template_sha256) is None:
+        raise SourceAfisContractError(error_code, "SourceAFIS template_sha256 must be lowercase SHA-256 hex.")
+    serialized = base64.b64decode(template_base64.encode("ascii"), validate=True)
+    if hashlib.sha256(serialized).hexdigest() != template_sha256:
+        raise SourceAfisContractError(error_code, "SourceAFIS raw-template bytes do not match template_sha256.")
+    template_format = _required_str(payload, "template_format", error_code)
+    if template_format != SOURCEAFIS_TEMPLATE_FORMAT:
+        raise SourceAfisContractError(error_code, "SourceAFIS raw-template format mismatch.")
+    sourceafis_version = _required_str(payload, "sourceafis_version", error_code)
+    template_version = _required_str(payload, "template_version", error_code)
+    if sourceafis_version != EXPECTED_SOURCEAFIS_VERSION or template_version != EXPECTED_SOURCEAFIS_VERSION:
+        raise SourceAfisContractError(
+            "sourceafis_version_mismatch",
+            "SourceAFIS raw-template version does not match the pinned runtime.",
+        )
+    native_width = _required_positive_int(payload, "native_width", error_code)
+    native_height = _required_positive_int(payload, "native_height", error_code)
+    if (native_width, native_height) != (expected_width, expected_height):
+        raise SourceAfisContractError(error_code, "SourceAFIS raw-template native dimensions mismatch.")
+    effective_dpi = _required_float(payload, "effective_dpi", error_code)
+    if effective_dpi != expected_dpi:
+        raise SourceAfisContractError(error_code, "SourceAFIS raw-template effective DPI mismatch.")
+    return SourceAfisRawTemplate(
+        template_base64=template_base64,
+        template_sha256=template_sha256,
+        template_format=template_format,
+        template_version=template_version,
+        sourceafis_version=sourceafis_version,
+        effective_dpi=effective_dpi,
+        native_width=native_width,
+        native_height=native_height,
+        method_internal_ms=_required_nonnegative_float(payload, "method_internal_ms", error_code),
+    )
 
 
 def _parse_final_minutiae_response(
@@ -564,6 +677,27 @@ def _require_exact_fields(
             error_code,
             f"SourceAFIS {label} schema mismatch; missing={missing}, unexpected={unexpected}.",
         )
+
+
+def _validate_raw_image_request(
+    pixels: bytes,
+    width: int,
+    height: int,
+    dpi: float,
+) -> tuple[bytes, int, int, float]:
+    if not isinstance(pixels, bytes):
+        raise SourceAfisClientError("invalid_raw_pixels", "SourceAFIS raw pixels must be bytes.")
+    checked_width = _positive_int(width, "width", "invalid_dimensions")
+    checked_height = _positive_int(height, "height", "invalid_dimensions")
+    if len(pixels) != checked_width * checked_height:
+        raise SourceAfisClientError(
+            "pixel_length_mismatch",
+            "SourceAFIS raw pixel length must equal width * height exactly.",
+        )
+    checked_dpi = _finite_float(dpi, "dpi", "invalid_dpi")
+    if checked_dpi < 100.0 or checked_dpi > 4000.0:
+        raise SourceAfisClientError("invalid_dpi", "SourceAFIS DPI is outside the supported range.")
+    return pixels, checked_width, checked_height, checked_dpi
 
 
 def _positive_int(value: Any, field_name: str, error_code: str) -> int:

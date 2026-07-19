@@ -33,13 +33,13 @@ Run manually:
 ```powershell
 $env:SOURCEAFIS_HOST = "127.0.0.1"
 $env:SOURCEAFIS_PORT = "8765"
-java -jar apps\sourceafis-sidecar\target\sourceafis-sidecar-0.3.0.jar
+java -jar apps\sourceafis-sidecar\target\sourceafis-sidecar-0.4.0.jar
 ```
 
 Run through the benchmark CLI with a dedicated JVM for each dataset/protocol run:
 
 ```powershell
-python -m fingerprint_benchmark.cli run-sourceafis-all --sidecar-jar apps\sourceafis-sidecar\target\sourceafis-sidecar-0.3.0.jar
+python -m fingerprint_benchmark.cli run-sourceafis-all --sidecar-jar apps\sourceafis-sidecar\target\sourceafis-sidecar-0.4.0.jar
 ```
 
 ## Sidecar Scope
@@ -49,6 +49,7 @@ The sidecar supports only:
 ```text
 GET  /health
 POST /extract-template
+POST /extract-template-raw
 POST /extract-final-minutiae
 POST /verify
 ```
@@ -62,8 +63,8 @@ log image bytes, template bytes, or base64 payloads.
 
 ## Process Lifecycle
 
-Sidecar contract `sourceafis-sidecar-v2.2` is implemented by artifact version
-`0.3.0`. SourceAFIS remains pinned to `3.18.1`. A dedicated JVM starts before
+Sidecar contract `sourceafis-sidecar-v2.3` is implemented by artifact version
+`0.4.0`. SourceAFIS remains pinned to `3.18.1`. A dedicated JVM starts before
 each dataset/protocol run and remains
 alive only for that run. There is no subprocess per pair, no JVM startup inside
 `prepare`, and no JVM startup inside `compare`. The same deterministic warm-up
@@ -101,6 +102,11 @@ For `/extract-template`, method-internal time includes
 serialization. It excludes HTTP, JSON parsing, request Base64 decoding, and
 response Base64 encoding.
 
+For `/extract-template-raw`, method-internal time includes options and raw
+image construction, feature extraction, `toByteArray()`, and template SHA-256.
+It excludes HTTP, JSON, request Base64 decoding, response Base64 encoding, and
+response-model/JSON serialization.
+
 For `/verify`, method-internal time includes deserialization of both
 `FingerprintTemplate` objects, `FingerprintMatcher` construction, and
 `FingerprintMatcher.match`. It excludes HTTP, JSON parsing, and request Base64
@@ -113,9 +119,10 @@ Base64 decoding, and response JSON serialization. Detector wall time separately
 records pixel serialization, complete sidecar request wall time, SourceAFIS
 method-internal time, coordinate mapping/sorting, and total detector time.
 
-## Exact raw-pixel endpoint
+## Exact raw-pixel endpoints
 
-`POST /extract-final-minutiae` accepts:
+`POST /extract-template-raw` and `POST /extract-final-minutiae` accept the same
+request:
 
 ```json
 {
@@ -133,6 +140,26 @@ There is no PNG/JPEG round trip, ImageIO conversion, external resize,
 enhancement, inversion, binarization, normalization, or silent DPI default.
 
 The complete response schema is:
+
+```json
+{
+  "template_base64": "...",
+  "template_sha256": "64 lowercase hexadecimal characters",
+  "template_format": "sourceafis",
+  "template_version": "3.18.1",
+  "sourceafis_version": "3.18.1",
+  "effective_dpi": 1000.0,
+  "native_width": 1234,
+  "native_height": 1600,
+  "method_internal_ms": 12.34
+}
+```
+
+That is the complete `/extract-template-raw` response. The client verifies that
+the returned serialized bytes hash to `template_sha256`. No score, threshold,
+or decision is returned.
+
+The complete `/extract-final-minutiae` response schema is:
 
 ```json
 {
@@ -165,6 +192,39 @@ The complete response schema is:
 The endpoint never returns serialized template bytes, a score, threshold, or
 decision. Parser/schema failures return explicit error codes rather than a
 partial response.
+
+## Encoded versus canonical raw ingestion
+
+The end-to-end SourceAFIS baseline deliberately retains native encoded-image
+ingestion through `new FingerprintImage(imageBytes, options)`. In SourceAFIS
+3.18.1, PNG is handled by `ImageDecoder.decodeAny`, which tries
+`ImageIODecoder` first. That decoder calls Java ImageIO and
+`BufferedImage.getRGB`; the encoded constructor then averages the returned R,
+G, and B components.
+
+The detector-only comparison has a different requirement: Harris and the
+SourceAFIS final-minutiae detector must receive one common image array. Its
+canonical input is therefore the exact `cv2.IMREAD_GRAYSCALE` uint8 array,
+serialized in row-major order and sent to both raw endpoints. No encoded-image
+round trip is allowed in that branch.
+
+This distinction was made explicit after the original preflight failed on
+`sd300b:00001215:01:plain`. The PNG is 8-bit grayscale without alpha, palette,
+`gAMA`, `sRGB`, `iCCP`, or `tRNS`, but Java ImageIO maps its grayscale samples
+through the gray-to-sRGB color conversion exposed by `getRGB`. OpenCV preserves
+the decoded grayscale samples. Consequently, the two arrays are not
+pixel-identical and their SourceAFIS templates need not be identical. This is
+classified as `decoder_pixel_semantics_differ`, not a transport, row-stride,
+signed-byte, polarity, dimension, or nondeterminism defect.
+
+Preflight now requires exact `/extract-template-raw` template SHA equality with
+the template SHA returned by `/extract-final-minutiae` for the same OpenCV
+pixels and DPI. Encoded/raw template equality remains recorded as a diagnostic,
+along with repeatability of encoded, raw-template, and final-minutiae
+extraction. The native encoded baseline and detector-only branch therefore
+remain scientifically distinct: ingestion differences limit decomposition
+against the full baseline, while both detector-only methods still see exactly
+the same pixels.
 
 ## Native-template parsing
 
@@ -222,6 +282,7 @@ runtime version/vendor. Managed startup metadata additionally records the
 resolved Java executable, exact command, sidecar JAR path, and sidecar JAR
 SHA-256.
 
-Health additionally reports the v2.2 final-minutiae capability, endpoint, raw
-input contract, scaled coordinate space, final-template stage, and exact timing
-scope. The Python client validates every field before a run.
+Health additionally reports the v2.3 raw-template and final-minutiae
+capabilities, endpoints, raw input contract, scaled coordinate space,
+final-template stage, and exact timing scopes. The Python client validates every
+field before a run.

@@ -53,12 +53,16 @@ public final class SourceAfisSidecarService {
             executor.shutdownNow();
         }, "sourceafis-sidecar-shutdown"));
         server.start();
-        System.out.printf("SourceAFIS sidecar v2.2 listening on http://%s:%d%n", host, port);
+        System.out.printf("SourceAFIS sidecar v2.3 listening on http://%s:%d%n", host, port);
     }
 
     void register(HttpServer server) {
         server.createContext("/health", exchange -> handle(exchange, "/health", "GET", request -> engine.health(bindHost, port)));
         server.createContext("/extract-template", exchange -> handle(exchange, "/extract-template", "POST", engine::extractTemplate));
+        server.createContext(
+            "/extract-template-raw",
+            exchange -> handle(exchange, "/extract-template-raw", "POST", engine::extractTemplateRaw)
+        );
         server.createContext(
             "/extract-final-minutiae",
             exchange -> handle(exchange, "/extract-final-minutiae", "POST", engine::extractFinalMinutiae)

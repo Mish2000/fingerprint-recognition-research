@@ -55,11 +55,14 @@ between processes.
 
 ## SourceAFIS final-template semantics
 
-The detector consumes exact raw grayscale bytes and parses the documented
-native template produced by SourceAFIS 3.18.1. The native minutiae are the final
-selected set after deterministic shuffling. Template order is not a quality
-ranking. Direction and ending/bifurcation type are retained only as diagnostics
-and do not enter the common downstream representation.
+The canonical detector input is the exact uint8 array returned by OpenCV
+`IMREAD_GRAYSCALE`. Harris consumes that array directly. The SourceAFIS detector
+receives the same bytes, dimensions, and manifest PPI through the public raw
+`FingerprintImage(width, height, pixels, options)` constructor, then parses the
+documented native template produced by SourceAFIS 3.18.1. The native minutiae
+are the final selected set after deterministic shuffling. Template order is not
+a quality ranking. Direction and ending/bifurcation type are retained only as
+diagnostics and do not enter the common downstream representation.
 
 Scaled SourceAFIS coordinates are mapped using actual template/native image
 dimensions and pixel centers:
@@ -98,7 +101,33 @@ Every SourceAFIS bundle records a strict `sourceafis_preflight` binding in run
 metadata: artifact path/SHA, schema and protocol versions, detector version,
 sidecar JAR SHA, and image count. The referenced 20-item artifact must contain
 five shared identities per dataset with both Plain and Roll, and every item
-must pass encoded/raw parity and repeated-payload equality.
+must pass exact raw-template/final-minutiae template parity plus repeated
+encoded-template, raw-template, and final-minutiae extraction.
+
+The original encoded/raw gate failed at `sd300b:00001215:01:plain` because the
+two constructors did not ingest the same pixels. SourceAFIS 3.18.1 decodes PNG
+through Java ImageIO first and averages the sRGB components returned by
+`BufferedImage.getRGB`. OpenCV `IMREAD_GRAYSCALE` preserves different grayscale
+sample semantics for these NIST PNGs. The observed difference is a
+deterministic gray-to-sRGB lookup, not inversion, rotation, transposition,
+row-stride, signed-byte interpretation, or nondeterminism.
+
+Schema v2 therefore records separate encoded, canonical-raw, and
+final-minutiae template SHA-256 values;
+`raw_template_final_minutiae_equal`; all three repeatability flags; diagnostic
+`encoded_raw_template_equal`; `encoded_raw_equivalence_required=false`;
+`encoded_raw_pixel_ingestion_equivalence=false`; and
+`encoded_raw_difference_reason=decoder_pixel_semantics_differ`. The first four
+raw/repeatability conditions are mandatory. Encoded/raw equality is diagnostic
+because it cannot demonstrate transport correctness when the decoders receive
+different pixel arrays.
+
+`/extract-template` remains the native encoded-image SourceAFIS end-to-end
+baseline. `/extract-final-minutiae` remains the detector-only branch on the
+common OpenCV array. This ingestion difference limits a decomposition of the
+detector-only result against the complete SourceAFIS baseline, but it does not
+compromise the controlled Harris-versus-SourceAFIS detector comparison because
+both detector-only methods consume identical pixels.
 
 SD300b and SD300c are paired views joined by logical identity/pair, not pooled as
 independent observations. This is a development/screening cohort, not held-out

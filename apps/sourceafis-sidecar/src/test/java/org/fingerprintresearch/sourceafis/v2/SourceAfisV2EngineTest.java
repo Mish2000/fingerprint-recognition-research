@@ -49,14 +49,15 @@ class SourceAfisV2EngineTest {
         assertEquals("3.18.1", health.get("sourceafis_version"));
         assertEquals("3.18.1", health.get("method_version"));
         assertEquals("com.machinezoo.sourceafis:sourceafis:3.18.1", health.get("maven_coordinates"));
-        assertEquals("sourceafis-sidecar-v2.2", health.get("contract_version"));
-        assertEquals("0.3.0", health.get("sidecar_implementation_version"));
+        assertEquals("sourceafis-sidecar-v2.3", health.get("contract_version"));
+        assertEquals("0.4.0", health.get("sidecar_implementation_version"));
         assertEquals("sourceafis", health.get("template_format"));
         assertEquals("3.18.1", health.get("template_version"));
         assertEquals("localhost_http", health.get("transport"));
         assertEquals("none", health.get("external_preprocessing"));
         assertEquals(false, health.get("template_cache"));
         assertEquals(true, health.get("supports_template_extraction"));
+        assertEquals(true, health.get("supports_raw_template_extraction"));
         assertEquals(true, health.get("supports_final_minutiae_extraction"));
         assertEquals(true, health.get("supports_pairwise_verification"));
         assertEquals(false, health.get("supports_identification"));
@@ -66,10 +67,16 @@ class SourceAfisV2EngineTest {
             health.get("extract_template_internal_timing_scope")
         );
         assertEquals(
+            SourceAfisV2Engine.EXTRACT_RAW_TEMPLATE_INTERNAL_TIMING_SCOPE,
+            health.get("extract_raw_template_internal_timing_scope")
+        );
+        assertEquals(
             SourceAfisV2Engine.EXTRACT_FINAL_MINUTIAE_INTERNAL_TIMING_SCOPE,
             health.get("extract_final_minutiae_internal_timing_scope")
         );
         assertEquals(SourceAfisV2Engine.VERIFY_INTERNAL_TIMING_SCOPE, health.get("verify_internal_timing_scope"));
+        assertEquals("/extract-template-raw", health.get("raw_template_endpoint"));
+        assertEquals("raw_uint8_grayscale_row_major", health.get("raw_template_input"));
         assertEquals("/extract-final-minutiae", health.get("final_minutiae_endpoint"));
         assertEquals("raw_uint8_grayscale_row_major", health.get("final_minutiae_input"));
         assertEquals("sourceafis_500_dpi_scaled_image", health.get("final_minutiae_coordinate_space"));
@@ -171,6 +178,31 @@ class SourceAfisV2EngineTest {
         assertEquals(first.get("minutia_count"), ((List<?>) first.get("minutiae")).size());
         assertNonnegativeFiniteTiming(first);
         assertFalse(first.containsKey("template_base64"));
+        assertFalse(first.containsKey("threshold"));
+        assertFalse(first.containsKey("decision"));
+    }
+
+    @Test
+    void rawTemplateMatchesFinalMinutiaeTemplateForTheSamePixelsAndDpi() {
+        BufferedImage image = syntheticFingerprintImage(2);
+        byte[] pixels = rawGrayscalePixels(image);
+        Map<String, Object> request = rawRequest(image, pixels, 1000);
+
+        Map<String, Object> first = engine.extractTemplateRaw(request);
+        Map<String, Object> second = engine.extractTemplateRaw(request);
+        Map<String, Object> finalMinutiae = engine.extractFinalMinutiae(request);
+
+        assertEquals("sourceafis", first.get("template_format"));
+        assertEquals("3.18.1", first.get("template_version"));
+        assertEquals("3.18.1", first.get("sourceafis_version"));
+        assertEquals(1000.0, ((Number) first.get("effective_dpi")).doubleValue());
+        assertEquals(image.getWidth(), first.get("native_width"));
+        assertEquals(image.getHeight(), first.get("native_height"));
+        assertTrue(String.valueOf(first.get("template_sha256")).matches("[0-9a-f]{64}"));
+        assertEquals(first.get("template_base64"), second.get("template_base64"));
+        assertEquals(first.get("template_sha256"), second.get("template_sha256"));
+        assertEquals(first.get("template_sha256"), finalMinutiae.get("template_sha256"));
+        assertNonnegativeFiniteTiming(first);
         assertFalse(first.containsKey("threshold"));
         assertFalse(first.containsKey("decision"));
     }

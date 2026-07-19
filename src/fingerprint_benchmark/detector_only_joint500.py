@@ -36,7 +36,8 @@ FINGER_POSITIONS = tuple(range(1, 11))
 PER_POSITION = 50
 COHORT_SIZE = 500
 PROTOCOL_DIRECTORY = Path("protocols") / PROTOCOL_NAME
-SOURCEAFIS_PREFLIGHT_SCHEMA_VERSION = "sourceafis-final-minutiae-preflight-v1"
+SOURCEAFIS_PREFLIGHT_SCHEMA_VERSION = "sourceafis-final-minutiae-preflight-v2"
+SOURCEAFIS_ENCODED_RAW_DIFFERENCE_REASON = "decoder_pixel_semantics_differ"
 SOURCEAFIS_PREFLIGHT_FIELDS = frozenset(
     {
         "schema_version",
@@ -60,10 +61,18 @@ SOURCEAFIS_PREFLIGHT_ITEM_FIELDS = frozenset(
         "canonical_finger_position",
         "impression",
         "ppi",
-        "template_sha256",
+        "encoded_template_sha256",
+        "canonical_raw_template_sha256",
+        "final_minutiae_template_sha256",
+        "raw_template_final_minutiae_equal",
+        "encoded_raw_template_equal",
+        "encoded_raw_equivalence_required",
+        "encoded_raw_pixel_ingestion_equivalence",
+        "encoded_raw_difference_reason",
+        "repeated_encoded_template_equal",
+        "repeated_raw_template_equal",
+        "repeated_final_minutiae_equal",
         "minutia_count",
-        "parity",
-        "repeated_raw_payload_equal",
     }
 )
 SELECTED_COLUMNS = [
@@ -374,7 +383,7 @@ def run_sourceafis_preflight(
     results_root: Path = Path("results"),
     repository_root: Path = Path("."),
 ) -> dict[str, Any]:
-    """Prove encoded-image/raw-grayscale template parity on 20 cohort images."""
+    """Prove canonical raw-template/final-minutiae parity on 20 cohort images."""
 
     import cv2
 
@@ -405,33 +414,70 @@ def run_sourceafis_preflight(
                     encoded = image_path.read_bytes()
                 except OSError as exc:
                     raise Joint500ProtocolError(f"Cannot read preflight image {image_path}: {exc}") from exc
-                template = client.extract_template(encoded, float(record.ppi))
+                encoded_first = client.extract_template(encoded, float(record.ppi))
+                encoded_second = client.extract_template(encoded, float(record.ppi))
                 image = cv2.imread(str(image_path), cv2.IMREAD_GRAYSCALE)
                 if image is None or image.ndim != 2 or image.dtype.name != "uint8":
                     raise Joint500ProtocolError(f"OpenCV cannot read uint8 grayscale preflight image: {image_path}")
                 pixels = image.tobytes(order="C")
-                first = client.extract_final_minutiae(
+                raw_first = client.extract_template_raw(
                     pixels,
                     int(image.shape[1]),
                     int(image.shape[0]),
                     float(record.ppi),
                 )
-                second = client.extract_final_minutiae(
+                raw_second = client.extract_template_raw(
                     pixels,
                     int(image.shape[1]),
                     int(image.shape[0]),
                     float(record.ppi),
                 )
-                template_sha256 = hashlib.sha256(
-                    base64.b64decode(template.template_base64.encode("ascii"), validate=True)
+                final_first = client.extract_final_minutiae(
+                    pixels,
+                    int(image.shape[1]),
+                    int(image.shape[0]),
+                    float(record.ppi),
+                )
+                final_second = client.extract_final_minutiae(
+                    pixels,
+                    int(image.shape[1]),
+                    int(image.shape[0]),
+                    float(record.ppi),
+                )
+                encoded_first_sha256 = hashlib.sha256(
+                    base64.b64decode(encoded_first.template_base64.encode("ascii"), validate=True)
                 ).hexdigest()
-                if first.template_sha256 != template_sha256:
+                encoded_second_sha256 = hashlib.sha256(
+                    base64.b64decode(encoded_second.template_base64.encode("ascii"), validate=True)
+                ).hexdigest()
+                repeated_encoded_template_equal = encoded_first_sha256 == encoded_second_sha256
+                repeated_raw_template_equal = (
+                    raw_first.template_sha256 == raw_second.template_sha256
+                    and raw_first.template_base64 == raw_second.template_base64
+                )
+                repeated_final_minutiae_equal = (
+                    _deterministic_minutia_payload(final_first)
+                    == _deterministic_minutia_payload(final_second)
+                )
+                raw_template_final_minutiae_equal = (
+                    raw_first.template_sha256 == final_first.template_sha256
+                    and raw_second.template_sha256 == final_second.template_sha256
+                )
+                if not raw_template_final_minutiae_equal:
                     raise Joint500ProtocolError(
-                        f"SourceAFIS encoded/raw template parity mismatch for {dataset}/{key}/{side}."
+                        f"SourceAFIS raw-template/final-minutiae parity mismatch for {dataset}/{key}/{side}."
                     )
-                if _deterministic_minutia_payload(first) != _deterministic_minutia_payload(second):
+                if not repeated_encoded_template_equal:
                     raise Joint500ProtocolError(
-                        f"Repeated SourceAFIS raw extraction mismatch for {dataset}/{key}/{side}."
+                        f"Repeated SourceAFIS encoded extraction mismatch for {dataset}/{key}/{side}."
+                    )
+                if not repeated_raw_template_equal:
+                    raise Joint500ProtocolError(
+                        f"Repeated SourceAFIS raw-template extraction mismatch for {dataset}/{key}/{side}."
+                    )
+                if not repeated_final_minutiae_equal:
+                    raise Joint500ProtocolError(
+                        f"Repeated SourceAFIS final-minutiae extraction mismatch for {dataset}/{key}/{side}."
                     )
                 items.append(
                     {
@@ -441,10 +487,18 @@ def run_sourceafis_preflight(
                         "canonical_finger_position": key[1],
                         "impression": side,
                         "ppi": record.ppi,
-                        "template_sha256": template_sha256,
-                        "minutia_count": first.minutia_count,
-                        "parity": True,
-                        "repeated_raw_payload_equal": True,
+                        "encoded_template_sha256": encoded_first_sha256,
+                        "canonical_raw_template_sha256": raw_first.template_sha256,
+                        "final_minutiae_template_sha256": final_first.template_sha256,
+                        "raw_template_final_minutiae_equal": raw_template_final_minutiae_equal,
+                        "encoded_raw_template_equal": encoded_first_sha256 == raw_first.template_sha256,
+                        "encoded_raw_equivalence_required": False,
+                        "encoded_raw_pixel_ingestion_equivalence": False,
+                        "encoded_raw_difference_reason": SOURCEAFIS_ENCODED_RAW_DIFFERENCE_REASON,
+                        "repeated_encoded_template_equal": repeated_encoded_template_equal,
+                        "repeated_raw_template_equal": repeated_raw_template_equal,
+                        "repeated_final_minutiae_equal": repeated_final_minutiae_equal,
+                        "minutia_count": final_first.minutia_count,
                     }
                 )
     if len(items) != 20:
@@ -594,15 +648,53 @@ def _validate_sourceafis_preflight_payload(
             raise Joint500ProtocolError(
                 f"SourceAFIS preflight item {index} PPI does not match {dataset}."
             )
-        _validate_sha256(item.get("template_sha256"), f"preflight item {index} template")
+        for field_name in (
+            "encoded_template_sha256",
+            "canonical_raw_template_sha256",
+            "final_minutiae_template_sha256",
+        ):
+            _validate_sha256(item.get(field_name), f"preflight item {index} {field_name}")
         minutia_count = item.get("minutia_count")
         if type(minutia_count) is not int or minutia_count < 0:
             raise Joint500ProtocolError(
                 f"SourceAFIS preflight item {index} minutia_count must be a nonnegative integer."
             )
-        if item.get("parity") is not True or item.get("repeated_raw_payload_equal") is not True:
+        required_true = (
+            "raw_template_final_minutiae_equal",
+            "repeated_encoded_template_equal",
+            "repeated_raw_template_equal",
+            "repeated_final_minutiae_equal",
+        )
+        if any(item.get(field_name) is not True for field_name in required_true):
             raise Joint500ProtocolError(
                 f"SourceAFIS preflight item {index} did not pass parity and repeatability."
+            )
+        if type(item.get("encoded_raw_template_equal")) is not bool:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} encoded_raw_template_equal must be boolean."
+            )
+        expected_encoded_raw_equal = (
+            item["encoded_template_sha256"] == item["canonical_raw_template_sha256"]
+        )
+        if item["encoded_raw_template_equal"] is not expected_encoded_raw_equal:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} encoded/raw equality does not match its hashes."
+            )
+        if item.get("encoded_raw_equivalence_required") is not False:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} must classify encoded/raw template equality as diagnostic."
+            )
+        if item.get("encoded_raw_pixel_ingestion_equivalence") is not False:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} must record non-equivalent decoder pixel ingestion."
+            )
+        if item.get("encoded_raw_difference_reason") != SOURCEAFIS_ENCODED_RAW_DIFFERENCE_REASON:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} lacks the required decoder root-cause classification."
+            )
+        if item["canonical_raw_template_sha256"] != item["final_minutiae_template_sha256"]:
+            raise Joint500ProtocolError(
+                f"SourceAFIS preflight item {index} raw template hashes do not match."
             )
         identity = (subject_id, position)
         identities[dataset].setdefault(identity, set()).add(impression)

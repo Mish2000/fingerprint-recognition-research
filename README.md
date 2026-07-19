@@ -36,6 +36,10 @@ Minutia type, SourceAFIS direction, template order, response sentinel, and
 metadata are diagnostic only and do not enter the common representation.
 SourceAFIS is also retained unchanged as a separate end-to-end baseline through
 `/extract-template` and `/verify`; the detector branch does not replace it.
+For detector-only work, OpenCV `IMREAD_GRAYSCALE` uint8 pixels are canonical and
+are sent unchanged to SourceAFIS through `/extract-template-raw` and
+`/extract-final-minutiae`. The preflight gates those two raw paths and retains
+native encoded/raw equality only as a decoder-ingestion diagnostic.
 
 The method-neutral screening cohort is `detector_only_joint_500_v1`: 500
 identities, 50 per canonical finger position, one finger per subject, with the

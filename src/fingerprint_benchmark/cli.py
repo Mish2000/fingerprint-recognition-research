@@ -33,7 +33,7 @@ DATASETS = ("sd300b", "sd300c")
 PROTOCOLS = ("plain_self", "roll_self", "plain_roll")
 DEFAULT_SERVICE_URL = "http://127.0.0.1:8765"
 DEFAULT_SIDECAR_JAR = (
-    Path("apps") / "sourceafis-sidecar" / "target" / "sourceafis-sidecar-0.3.0.jar"
+    Path("apps") / "sourceafis-sidecar" / "target" / "sourceafis-sidecar-0.4.0.jar"
 )
 
 
@@ -77,7 +77,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     joint_validate.add_argument("--repository-root", type=Path, default=Path("."))
     joint_preflight = joint_phases.add_parser(
         "preflight-sourceafis",
-        help="Check encoded-image/raw-pixel SourceAFIS parity on 20 cohort images.",
+        help="Check raw-template/final-minutiae parity and encoded-ingestion diagnostics on 20 cohort images.",
     )
     _add_sourceafis_connection_args(joint_preflight)
     joint_preflight.add_argument("--results-root", type=Path, default=Path("results"))

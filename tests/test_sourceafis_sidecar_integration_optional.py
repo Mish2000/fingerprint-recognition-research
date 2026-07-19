@@ -24,6 +24,8 @@ def test_sourceafis_sidecar_health_extract_verify_and_dpi_roundtrip():
         pixels = _synthetic_fingerprint_pixels(0)
         template_1000 = client.extract_template(image, 1000)
         template_2000 = client.extract_template(image, 2000)
+        raw_first = client.extract_template_raw(pixels, 360, 460, 1000)
+        raw_second = client.extract_template_raw(pixels, 360, 460, 1000)
         final_first = client.extract_final_minutiae(pixels, 360, 460, 1000)
         final_second = client.extract_final_minutiae(pixels, 360, 460, 1000)
         verification = client.verify(template_1000.template_base64, template_1000.template_base64)
@@ -37,9 +39,11 @@ def test_sourceafis_sidecar_health_extract_verify_and_dpi_roundtrip():
     assert template_1000.template_base64 != template_2000.template_base64
     assert template_1000.effective_dpi == pytest.approx(1000.0)
     assert template_2000.effective_dpi == pytest.approx(2000.0)
-    assert final_first.template_sha256 == hashlib.sha256(
-        base64.b64decode(template_1000.template_base64, validate=True)
+    assert raw_first.template_sha256 == hashlib.sha256(
+        base64.b64decode(raw_first.template_base64, validate=True)
     ).hexdigest()
+    assert raw_first.template_sha256 == raw_second.template_sha256
+    assert raw_first.template_sha256 == final_first.template_sha256
     assert final_first.minutiae == final_second.minutiae
     assert final_first.template_sha256 == final_second.template_sha256
     assert final_first.native_width == 360

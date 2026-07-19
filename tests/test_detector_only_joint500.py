@@ -1,10 +1,13 @@
+import base64
 import csv
+import hashlib
 import json
 from pathlib import Path
 import shutil
 from types import SimpleNamespace
 
 import pytest
+import numpy as np
 
 import fingerprint_benchmark.detector_only_joint500 as joint500
 from fingerprint_benchmark.cli import parse_args
@@ -247,6 +250,81 @@ def test_sourceafis_preflight_schema_is_strict_and_returns_path_and_sha(tmp_path
     assert validated["preflight_sha256"] == file_sha256(path)
 
 
+def test_sourceafis_preflight_gates_canonical_raw_parity_not_encoded_parity(tmp_path, monkeypatch):
+    image_path = tmp_path / "image.png"
+    image_path.write_bytes(b"encoded image placeholder")
+    selected = [
+        {"subject_id": f"{identity:08d}", "canonical_finger_position": str(identity)}
+        for identity in range(1, 6)
+    ]
+    monkeypatch.setattr(
+        joint500,
+        "validate_protocol_artifacts",
+        lambda **kwargs: {"protocol_sha256": "a" * 64},
+    )
+    monkeypatch.setattr(joint500, "_read_csv_dicts", lambda *args, **kwargs: selected)
+
+    def fake_manifest(path):
+        dataset = "sd300c" if "sd300c" in str(path) else "sd300b"
+        ppi = 2000 if dataset == "sd300c" else 1000
+        return [
+            SimpleNamespace(
+                subject_id=identity["subject_id"],
+                canonical_finger_position=int(identity["canonical_finger_position"]),
+                path_a=image_path,
+                ppi=ppi,
+            )
+            for identity in selected
+        ]
+
+    monkeypatch.setattr(joint500, "read_pair_manifest", fake_manifest)
+    monkeypatch.setattr("cv2.imread", lambda *args, **kwargs: np.arange(12, dtype=np.uint8).reshape(3, 4))
+
+    encoded_bytes = b"encoded template"
+    raw_bytes = b"canonical raw template"
+    encoded_base64 = base64.b64encode(encoded_bytes).decode("ascii")
+    raw_base64 = base64.b64encode(raw_bytes).decode("ascii")
+    raw_sha256 = hashlib.sha256(raw_bytes).hexdigest()
+
+    class FakeClient:
+        def extract_template(self, encoded, dpi):
+            return SimpleNamespace(template_base64=encoded_base64)
+
+        def extract_template_raw(self, pixels, width, height, dpi):
+            return SimpleNamespace(template_base64=raw_base64, template_sha256=raw_sha256)
+
+        def extract_final_minutiae(self, pixels, width, height, dpi):
+            return SimpleNamespace(
+                sourceafis_version="3.18.1",
+                template_version="3.18.1-java",
+                effective_dpi=float(dpi),
+                native_width=width,
+                native_height=height,
+                scaled_width=width,
+                scaled_height=height,
+                coordinate_space="sourceafis_500_dpi_scaled_image",
+                selection_stage="sourceafis_final_template_minutiae",
+                selection_semantics="sourceafis_final_selected_minutia_set",
+                source_order_semantics="deterministic_sourceafis_template_order_not_quality_ranking",
+                template_sha256=raw_sha256,
+                minutiae=(),
+                minutia_count=0,
+            )
+
+    artifact = joint500.run_sourceafis_preflight(
+        client=FakeClient(),
+        jar_sha256="b" * 64,
+        results_root=tmp_path / "results",
+        repository_root=tmp_path,
+    )
+
+    assert artifact["image_count"] == 20
+    assert all(item["raw_template_final_minutiae_equal"] is True for item in artifact["items"])
+    assert all(item["encoded_raw_template_equal"] is False for item in artifact["items"])
+    assert all(item["encoded_raw_equivalence_required"] is False for item in artifact["items"])
+    assert all(item["encoded_raw_difference_reason"] == "decoder_pixel_semantics_differ" for item in artifact["items"])
+
+
 @pytest.mark.parametrize(
     "field",
     [
@@ -294,10 +372,18 @@ def test_sourceafis_preflight_rejects_tampered_top_level_fields(tmp_path, field)
         "canonical_finger_position",
         "impression",
         "ppi",
-        "template_sha256",
+        "encoded_template_sha256",
+        "canonical_raw_template_sha256",
+        "final_minutiae_template_sha256",
+        "raw_template_final_minutiae_equal",
+        "encoded_raw_template_equal",
+        "encoded_raw_equivalence_required",
+        "encoded_raw_pixel_ingestion_equivalence",
+        "encoded_raw_difference_reason",
+        "repeated_encoded_template_equal",
+        "repeated_raw_template_equal",
+        "repeated_final_minutiae_equal",
         "minutia_count",
-        "parity",
-        "repeated_raw_payload_equal",
     ],
 )
 def test_sourceafis_preflight_rejects_tampered_item_fields(tmp_path, field):
@@ -306,8 +392,17 @@ def test_sourceafis_preflight_rejects_tampered_item_fields(tmp_path, field):
     item = payload["items"][0]
     if field in {"canonical_finger_position", "ppi", "minutia_count"}:
         item[field] = -1
-    elif field in {"parity", "repeated_raw_payload_equal"}:
+    elif field in {
+        "raw_template_final_minutiae_equal",
+        "repeated_encoded_template_equal",
+        "repeated_raw_template_equal",
+        "repeated_final_minutiae_equal",
+    }:
         item[field] = False
+    elif field in {"encoded_raw_equivalence_required", "encoded_raw_pixel_ingestion_equivalence"}:
+        item[field] = True
+    elif field == "encoded_raw_template_equal":
+        item[field] = not item[field]
     else:
         item[field] = "tampered"
     _write_sourceafis_preflight(results, payload)
@@ -323,7 +418,7 @@ def test_sourceafis_preflight_rejects_tampering_in_every_item(tmp_path):
     for index in range(20):
         results = tmp_path / str(index)
         payload = _valid_sourceafis_preflight()
-        payload["items"][index]["parity"] = False
+        payload["items"][index]["raw_template_final_minutiae_equal"] = False
         _write_sourceafis_preflight(results, payload)
         with pytest.raises(Joint500ProtocolError):
             validate_sourceafis_preflight(
@@ -391,7 +486,7 @@ def test_report_rejects_sourceafis_bundle_when_bound_preflight_is_tampered(tmp_p
     payload["protocol_sha256"] = protocol_sha
     path = _write_sourceafis_preflight(results, payload)
     _write_bundle(results, "sd300b", "plain_self", SOURCEAFIS_METHOD)
-    payload["items"][0]["parity"] = False
+    payload["items"][0]["raw_template_final_minutiae_equal"] = False
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     with pytest.raises(Joint500ProtocolError):
         report_joint500(
@@ -526,10 +621,18 @@ def _valid_sourceafis_preflight():
                         "canonical_finger_position": identity,
                         "impression": impression,
                         "ppi": ppi,
-                        "template_sha256": f"{identity:x}" * 64,
+                        "encoded_template_sha256": f"{identity + 5:x}" * 64,
+                        "canonical_raw_template_sha256": f"{identity:x}" * 64,
+                        "final_minutiae_template_sha256": f"{identity:x}" * 64,
+                        "raw_template_final_minutiae_equal": True,
+                        "encoded_raw_template_equal": False,
+                        "encoded_raw_equivalence_required": False,
+                        "encoded_raw_pixel_ingestion_equivalence": False,
+                        "encoded_raw_difference_reason": "decoder_pixel_semantics_differ",
+                        "repeated_encoded_template_equal": True,
+                        "repeated_raw_template_equal": True,
+                        "repeated_final_minutiae_equal": True,
                         "minutia_count": identity,
-                        "parity": True,
-                        "repeated_raw_payload_equal": True,
                     }
                 )
     return {
