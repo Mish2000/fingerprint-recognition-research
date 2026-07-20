@@ -1,0 +1,67 @@
+{
+  "schema_version": "poc-primary-source-manifest-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "audit_date": "2026-07-20",
+  "historical_reconstruction_claim": false,
+  "scope_statement": "The project method is a new repository-owned global spectral/correlation baseline inspired by primary POC literature. It is not a byte-exact or behavior-exact restoration of any historical implementation.",
+  "sources": [
+    {
+      "source_id": "kuglin_hines_1975",
+      "citation": "C. D. Kuglin and D. C. Hines, The Phase Correlation Image Alignment Method, Proceedings of the IEEE International Conference on Cybernetics and Society, 1975, pp. 163-165.",
+      "primary_record_url": "https://ndlsearch.ndl.go.jp/en/books/R100000136-I1571698600526665344",
+      "audited_pdf_url": "http://boutigny.free.fr/Astronomie/AstroSources/Kuglin-Hines.pdf",
+      "retrieval_status": "primary-paper scan audited",
+      "sha256": "69fc8574c19f6b330fe51af793ea22781a26dd01e3b7f3a56e3a5925e178cb7d",
+      "bytes": 294941,
+      "pages": 3,
+      "project_use": [
+        "normalized Fourier phase-difference construction",
+        "inverse-transform impulse interpretation",
+        "translation from the correlation peak",
+        "explicit zero handling when a spectral product is unavailable"
+      ]
+    },
+    {
+      "source_id": "takita_et_al_2003",
+      "citation": "K. Takita, T. Aoki, Y. Sasaki, T. Higuchi, and K. Kobayashi, High-Accuracy Subpixel Image Registration Based on Phase-Only Correlation, IEICE Transactions on Fundamentals, E86-A(8), 2003, pp. 1925-1934.",
+      "primary_record_url": "https://globals.ieice.org/en_transactions/fundamentals/10.1587/e86-a_8_1925/_p",
+      "audited_pdf_url": "https://web.archive.org/web/20230324121426id_/http://www.aoki.ecei.tohoku.ac.jp/papers/e86-a_8_1925.pdf",
+      "retrieval_status": "author-hosted manuscript recovered from a dated web archive and checked against the publisher record",
+      "sha256": "15e840acca96983100eed05a891a698a2e2a3d37f58582482d8b6dc78924a722",
+      "bytes": 721280,
+      "pages": 10,
+      "project_use": [
+        "continuous/subpixel POC peak motivation",
+        "band-limited POC motivation",
+        "peak-location refinement as a source-inspired component"
+      ]
+    },
+    {
+      "source_id": "ito_et_al_2004",
+      "citation": "K. Ito, A. Morita, T. Aoki, T. Higuchi, H. Nakajima, and K. Kobayashi, A Fingerprint Recognition Algorithm Using Phase-Based Image Matching for Low-Quality Fingerprints, IEICE Transactions on Fundamentals, E87-A(3), 2004, pp. 682-691.",
+      "primary_record_url": "https://globals.ieice.org/en_transactions/fundamentals/10.1587/e87-a_3_682/_p",
+      "audited_pdf_url": "https://www.aoki.ecei.tohoku.ac.jp/~ito/e87-a_3_682.pdf",
+      "retrieval_status": "author-hosted primary paper audited and checked against the publisher record",
+      "sha256": "25e908f7c10d3d6fbbc0788f2200a8028633ea1fcde1d74de23ce81f1e1a07ed",
+      "bytes": 3245392,
+      "pages": 10,
+      "project_use": [
+        "fingerprint-specific POC motivation",
+        "band limitation for fingerprint spectra",
+        "bounded rotation search",
+        "translation and overlap-region motivation",
+        "peak quality as a similarity signal"
+      ]
+    }
+  ],
+  "source_storage": {
+    "repository_contains_source_pdfs": false,
+    "repository_contains_rendered_pages": false,
+    "policy": "Audited PDFs and page renders are retained outside the repository; only citations, URLs, hashes, sizes, page counts, and the design audit are versioned."
+  },
+  "integrity": {
+    "canonicalization": "UTF-8 JSON, ensure_ascii=true, keys sorted recursively, separators comma and colon; hash the complete document with integrity.canonical_sha256 omitted",
+    "canonical_sha256": "3bf7cdb6295cfb7ecd6f8282ee1b93aeec85aa8a6b3803dfa49f1c60799798f0"
+  }
+}

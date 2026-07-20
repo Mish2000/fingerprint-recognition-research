@@ -1,0 +1,133 @@
+{
+  "schema_version": "poc-synthetic-report-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "status": "fail",
+  "verdict": "NO-GO",
+  "executed_before_sd300_method_decode_or_inference": true,
+  "sd300_scores_viewed": false,
+  "contracts": {
+    "preflight_contract_canonical_sha256": "be1431d7917563288b82f4c573962aebede96518fd519dc525e1859eb68da53b",
+    "physical_scale_contract_canonical_sha256": "8db5b6738b4153324c97f122582f3880d0146aa6851e13fda44fd3558460050c"
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "numpy": "2.2.6",
+    "opencv": "4.12.0",
+    "opencv_threads": 1,
+    "compute_real_dtype": "float64",
+    "compute_complex_dtype": "complex128"
+  },
+  "fail_fast_policy": "The first failed mandatory physical/PPI gate fixes NO-GO and prevents all remaining synthetic gates and all SD300 method execution.",
+  "completed_cases": [
+    {
+      "case": "exact_identity_on_multi_component_ridge_field",
+      "status": "pass",
+      "expected": {"rotation_degrees": 0.0, "translation_x_px": 0.0, "translation_y_px": 0.0, "minimum_psr": 10.0},
+      "observed": {"rotation_degrees": 0.0, "translation_x_px": 0.0, "translation_y_px": 0.0, "raw_psr": 602.3204538946756}
+    },
+    {
+      "case": "positive_translation_sign",
+      "status": "pass",
+      "input_image_displacement_px": {"x": 7.0, "y": -5.0},
+      "expected_translation_to_apply_to_b_px": {"x": -7.0, "y": 5.0},
+      "observed": {"x": -6.998041347072983, "y": 5.000947971082553, "raw_psr": 511.84202441717025},
+      "euclidean_error_px": 0.002176154401056789,
+      "maximum_error_px": 0.35
+    },
+    {
+      "case": "negative_translation_sign",
+      "status": "pass",
+      "input_image_displacement_px": {"x": -9.0, "y": 6.0},
+      "expected_translation_to_apply_to_b_px": {"x": 9.0, "y": -6.0},
+      "observed": {"x": 8.998658695473155, "y": -6.000537239536626, "raw_psr": 467.0966802227921},
+      "euclidean_error_px": 0.0014451725894148925,
+      "maximum_error_px": 0.35
+    },
+    {
+      "case": "positive_opencv_rotation",
+      "status": "pass",
+      "expected_rotation_degrees": 8.0,
+      "observed_rotation_degrees": 8.0,
+      "observed_translation_px": {"x": 0.020299332995864994, "y": 0.010982080321171983},
+      "raw_psr": 130.30687256250903,
+      "maximum_rotation_error_degrees": 1.0
+    },
+    {
+      "case": "combined_rotation_and_translation",
+      "status": "pass",
+      "expected_rotation_degrees": 6.0,
+      "expected_translation_to_apply_to_b_px": {"x": -5.0, "y": 4.0},
+      "observed": {"rotation_degrees": 6.0, "translation_x_px": -4.980845211795707, "translation_y_px": 3.9866221162787543, "raw_psr": 125.21006037131099, "overlap_fraction": 0.9904112550646189},
+      "maximum_rotation_error_degrees": 1.0,
+      "maximum_translation_error_px": 0.75
+    }
+  ],
+  "ppi_equivalence_case": {
+    "status": "fail",
+    "generator": {
+      "physical_field_mm": [26.0096, 26.0096],
+      "raster_sizes_yx": {"500": [512, 512], "1000": [1024, 1024], "2000": [2048, 2048]},
+      "sampling": "separate analytic evaluation at pixel centers followed by uint8 round-to-nearest",
+      "base_field": "127 + 66*E*sin(2*pi*(2.0*x + 0.18*sin(0.55*y) + 0.035*y^2)) + 18*E*sin(2*pi*(0.37*x+0.23*y)), clipped to uint8; E=exp(-((x/10.7)^8+(y/11.1)^8))",
+      "transformed_field": "the same continuous field evaluated after a fixed 6-degree physical-coordinate rotation and translation (0.3048,-0.2032) mm",
+      "preprocessed_byte_identity_required": false
+    },
+    "frozen_tolerances": {
+      "maximum_reported_rotation_difference_degrees": 1.0,
+      "maximum_reported_translation_difference_mm": 0.1,
+      "maximum_canonical_peak_location_difference_px": 2.0,
+      "maximum_raw_psr_difference": 3.0
+    },
+    "observations": [
+      {
+        "source_ppi": 500.0,
+        "reported_rotation_degrees": -6.0,
+        "translation_x_px": -6.1010191423692595,
+        "translation_y_px": 4.117968989991287,
+        "signed_integer_peak_yx": [4, -6],
+        "raw_psr": 11.381758270992705,
+        "finite": true
+      },
+      {
+        "source_ppi": 1000.0,
+        "reported_rotation_degrees": -6.0,
+        "translation_x_px": -5.885900283525147,
+        "translation_y_px": 3.8862835120948156,
+        "signed_integer_peak_yx": [4, -6],
+        "raw_psr": 16.096358368783196,
+        "finite": true,
+        "difference_from_500": {"rotation_degrees": 0.0, "translation_mm": 0.016060698107989494, "peak_location_px": 0.0, "raw_psr": 4.714600097790491},
+        "checks": {"rotation": "pass", "translation": "pass", "peak_location": "pass", "raw_psr": "fail"}
+      },
+      {
+        "source_ppi": 2000.0,
+        "reported_rotation_degrees": -6.1546513149887945,
+        "translation_x_px": -6.061863611160202,
+        "translation_y_px": 3.71147694998923,
+        "signed_integer_peak_yx": [4, -6],
+        "raw_psr": 11.836467701592275,
+        "finite": true,
+        "difference_from_500": {"rotation_degrees": 0.15465131498879447, "translation_mm": 0.020745374963540186, "peak_location_px": 0.0, "raw_psr": 0.4547094305995696},
+        "checks": {"rotation": "pass", "translation": "pass", "peak_location": "pass", "raw_psr": "pass"}
+      }
+    ],
+    "failure": "The 500-to-1000 raw-PSR difference 4.714600097790491 exceeds the frozen maximum 3.0."
+  },
+  "not_run_cases": [
+    "additional sinusoidal orientations",
+    "additional curved-field cases",
+    "partial overlap above and below the minimum",
+    "constant image",
+    "blank image",
+    "independent unrelated patterns",
+    "non-power-of-two source dimensions",
+    "odd/even source dimensions",
+    "border-touching content",
+    "full deterministic tie matrix",
+    "three-repeat full matrix"
+  ],
+  "candidate_implementation_disposition": "discarded before any SD300 method execution; no runnable package or CLI is published",
+  "blocking_gate": "physical/PPI equivalence",
+  "parameter_or_tolerance_changed_after_failure": false
+}

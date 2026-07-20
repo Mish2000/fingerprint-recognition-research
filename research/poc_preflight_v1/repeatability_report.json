@@ -1,0 +1,14 @@
+{
+  "schema_version": "poc-repeatability-report-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "status": "not_run",
+  "blocked_by": "synthetic_report.json physical/PPI equivalence failure",
+  "required_fresh_process_count": 3,
+  "selected_sd300_image_count": 0,
+  "sd300_preparation_attempt_count": 0,
+  "sd300_comparison_attempt_count": 0,
+  "synthetic_comparison_attempt_count": 0,
+  "mismatch_count": null,
+  "reason": "The fail-fast NO-GO occurs before cohort preparation and before the runnable method is authorized."
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "poc-smoke-report-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "status": "not_run",
+  "blocked_by": "synthetic_report.json physical/PPI equivalence failure",
+  "planned_total_comparisons": 400,
+  "attempted": 0,
+  "successful": 0,
+  "failed": 0,
+  "finite_score_count": 0,
+  "nonfinite_score_count": 0,
+  "dataset_plan": {
+    "sd300b": {"plain_self": 50, "roll_self": 50, "plain_roll_genuine": 50, "next_subject_plain_roll_impostor": 50},
+    "sd300c": {"plain_self": 50, "roll_self": 50, "plain_roll_genuine": 50, "next_subject_plain_roll_impostor": 50}
+  },
+  "raw_score_summary": null,
+  "rotation_summary": null,
+  "translation_summary": null,
+  "overlap_summary": null,
+  "timing_summary": null,
+  "failure_categories": {},
+  "forbidden_metrics_computed": false,
+  "sd300_scores_computed": 0
+}

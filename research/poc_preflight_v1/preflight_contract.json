@@ -1,0 +1,197 @@
+{
+  "schema_version": "poc-preflight-contract-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "family": "global spectral and correlation matching",
+  "score_direction": "higher_is_more_similar",
+  "status": "frozen_before_sd300_method_inference",
+  "historical_reconstruction_claim": false,
+  "contract_completeness": "No algorithmic default outside this document and the referenced physical-scale contract may affect v1 output.",
+  "input": {
+    "decoder": "cv2.imread(path, cv2.IMREAD_GRAYSCALE)",
+    "required_decoded_shape": "two-dimensional and non-empty",
+    "required_decoded_dtype": "uint8",
+    "nonfinite_policy": "invalid; uint8 is the sole accepted decoded source dtype",
+    "ppi": "physical_scale_contract.json source_ppi rule",
+    "compute_real_dtype": "float64",
+    "compute_complex_dtype": "complex128"
+  },
+  "preprocessing": {
+    "physical_geometry": "physical_scale_contract.json",
+    "operation_order": [
+      "decode uint8 grayscale",
+      "validate positive finite PPI",
+      "PPI resample in uint8",
+      "center crop/pad image and validity mask to 512 by 512",
+      "convert image to float64",
+      "compute valid-pixel arithmetic mean",
+      "subtract mean on valid pixels",
+      "compute population RMS sqrt(mean(centered squared)) on valid pixels",
+      "divide valid centered samples by RMS only when RMS > 1e-12; otherwise set normalized image to zero and constant_input=true",
+      "set invalid samples to exactly zero",
+      "multiply by the frozen window immediately before each FFT"
+    ],
+    "intensity_clip": null,
+    "normalization_epsilon": 1e-12,
+    "window": {
+      "kind": "symmetric separable Hann",
+      "construction": "np.outer(np.hanning(512), np.hanning(512)).astype(float64)",
+      "periodic": false,
+      "application": "elementwise after normalization and after any candidate rotation; invalid samples are already zero"
+    }
+  },
+  "fft": {
+    "canvas_shape_yx": [512, 512],
+    "fft_shape_yx": [512, 512],
+    "extra_padding": false,
+    "forward": "numpy.fft.fft2(windowed_float64, s=(512,512), norm=None)",
+    "inverse": "numpy.fft.ifft2(normalized_cross_power, s=(512,512), norm=None).real",
+    "indexing": "unshifted NumPy FFT ordering",
+    "output_dtype": "complex128 forward and float64 real correlation surface"
+  },
+  "cross_power": {
+    "equation": "C = Fa * conjugate(Fb)",
+    "epsilon": 1e-12,
+    "normalization": "R=C/abs(C) where abs(C)>epsilon, else R=0+0j",
+    "zero_magnitude_policy": "exact complex zero",
+    "dc_policy": "R[0,0] is set to exact complex zero",
+    "band_mask": "inclusive physical radial annulus in physical_scale_contract.json, applied after unit-magnitude normalization",
+    "negative_correlation_policy": "retain signed real inverse-FFT values; do not take magnitude, square, or clip"
+  },
+  "rotation_search": {
+    "meaning": "reported angle_degrees is the OpenCV-positive counterclockwise angle applied to representation A before estimating the translation to apply to B",
+    "coarse_min_degrees": -20.0,
+    "coarse_max_degrees": 20.0,
+    "coarse_step_degrees": 2.0,
+    "coarse_candidate_order": "ascending inclusive sequence",
+    "rotation_center_xy": [255.5, 255.5],
+    "image_interpolation": "cv2.INTER_LINEAR",
+    "mask_interpolation": "cv2.INTER_NEAREST",
+    "warp_function": "cv2.warpAffine with dsize=(512,512), flags exactly the interpolation constant, borderMode=cv2.BORDER_CONSTANT, borderValue=0",
+    "canvas_expansion": false,
+    "refinement": "If the selected coarse candidate is not an endpoint, derive a separable three-score parabolic offset, clamp it to [-0.5,+0.5] coarse steps, and evaluate that one additional angle only when its absolute offset exceeds 1e-12 degrees.",
+    "maximum_evaluated_candidates": 22,
+    "candidate_objective": "frozen raw PSR after overlap policy",
+    "tie_rule": "For exactly equal finite objective values choose smallest absolute angle, then the numerically smaller angle; an exactly equal refined candidate does not replace the coarse candidate."
+  },
+  "translation": {
+    "integer_peak": "np.argmax on the C-order flattened real correlation surface; the first flat index wins an exact surface tie",
+    "signed_index": "For N=512, index i is i when i<256 and i-512 when i>=256.",
+    "meaning": "translation_x_px and translation_y_px are the displacement to apply to representation B after A rotation so that B aligns with rotated A.",
+    "subpixel": "For each axis on cyclic neighbors, delta=0.5*(left-right)/(left-2*center+right); use zero if the denominator is nonfinite or abs(denominator)<=1e-15; clamp delta to [-0.5,+0.5].",
+    "reported_value": "signed integer coordinate plus subpixel delta",
+    "overlap_warp_value": "The validity mask uses the reported floating translation directly in cv2.warpAffine."
+  },
+  "overlap": {
+    "rotated_a_mask": "A valid mask rotated by the candidate image affine matrix with nearest-neighbor interpolation",
+    "aligned_b_mask": "B valid mask translated by (translation_x_px,translation_y_px) using nearest-neighbor cv2.warpAffine, fixed canvas, constant-zero border",
+    "intersection": "count_nonzero((rotated_a_mask>0) and (aligned_b_mask>0))",
+    "denominator": "min(count_nonzero(rotated_a_mask), count_nonzero(B valid mask))",
+    "fraction": "intersection/denominator, or zero when denominator is zero",
+    "minimum_fraction_inclusive": 0.25,
+    "below_minimum": "valid comparison with raw_score exactly 0.0 and diagnostic low_overlap=true; it is not a comparison failure"
+  },
+  "score": {
+    "name": "peak_to_sidelobe_ratio",
+    "raw_score_only": true,
+    "decision_threshold": null,
+    "peak_value": "real correlation surface at the integer argmax location",
+    "exclusion": "all cyclic samples whose wrapped row and column offsets from the integer peak are each <=5; an 11 by 11 Chebyshev square",
+    "sidelobe_statistics": "float64 population mean and population standard deviation over every nonexcluded surface sample",
+    "valid_score": "(peak_value-sidelobe_mean)/sidelobe_std",
+    "zero_variance_policy": "raw_score=0.0 when sidelobe_std is nonfinite or <=1e-12",
+    "nonfinite_policy": "a nonfinite final score is a comparison failure with error_code poc_nonfinite_score",
+    "range": "finite float64, not otherwise clipped"
+  },
+  "failure_semantics": {
+    "image_read": "poc_image_read_failure",
+    "invalid_ppi": "poc_invalid_ppi",
+    "invalid_image": "poc_invalid_image",
+    "representation_identity": "poc_representation_identity_mismatch",
+    "representation_version": "poc_representation_version_mismatch",
+    "representation_payload": "poc_invalid_representation",
+    "opencv_or_fft_prepare": "poc_preparation_failure",
+    "opencv_or_fft_compare": "poc_comparison_failure",
+    "nonfinite_score": "poc_nonfinite_score",
+    "blank_or_constant": "successful zero-energy representation; deterministic finite zero score unless paired data create nonzero eligible cross-power"
+  },
+  "determinism": {
+    "opencv_threads": 1,
+    "opencv_optimized": true,
+    "opencv_rng_seed": 0,
+    "numpy_rng_in_algorithm": false,
+    "candidate_order": "frozen ascending coarse sequence followed by at most one refinement",
+    "array_order": "C contiguous before hashing",
+    "array_hash": "SHA-256 over an ASCII dtype tag, canonical little-endian int64 shape bytes, and C-order array bytes",
+    "representation_hash": "SHA-256 canonical JSON of method/version, physical metadata, and component array hashes",
+    "json": "ensure_ascii=true, sorted keys, compact separators for hashes; reports use sorted keys and indent two",
+    "tie_rules": "explicit in rotation_search and translation sections",
+    "timings_excluded_from_repeatability_equality": true
+  },
+  "synthetic_gates": {
+    "frozen_before_first_run": true,
+    "cases": [
+      "sinusoidal ridges at multiple orientations",
+      "curved ridge field",
+      "known positive and negative translation",
+      "known positive and negative rotation",
+      "combined rotation and translation",
+      "partial overlap above and below the minimum",
+      "constant and blank inputs",
+      "unrelated patterns",
+      "physically equivalent 500/1000/2000-PPI fields",
+      "non-power-of-two source dimensions",
+      "odd and even source dimensions",
+      "border-touching structure",
+      "exact tie behavior and repeated execution"
+    ],
+    "identity_minimum_psr": 10.0,
+    "identity_maximum_abs_rotation_degrees": 1e-09,
+    "identity_maximum_abs_translation_px": 0.05,
+    "translation_maximum_error_px": 0.35,
+    "rotation_maximum_error_degrees": 1.0,
+    "combined_translation_maximum_error_px": 0.75,
+    "combined_rotation_maximum_error_degrees": 1.0,
+    "above_minimum_overlap_must_score_finite": true,
+    "below_minimum_overlap_score": 0.0,
+    "constant_and_blank_score": 0.0,
+    "unrelated_score_must_be_below_corresponding_identity": true,
+    "repeat_count_same_process": 3,
+    "repeat_equality": "exact equality of representation hashes and all nontiming score/transform/overlap diagnostics",
+    "ppi_equivalence": "physical_scale_contract.json"
+  },
+  "sd300_policy": {
+    "contract_and_tolerances_locked_before_method_decode_or_inference": true,
+    "preparation_required_before_any_sd300_pair_score": "all 200 frozen cohort images must prepare successfully",
+    "parameter_changes_after_first_sd300_score": "forbidden",
+    "threshold_calibration": "forbidden",
+    "far_tar_roc_auc_eer": "forbidden",
+    "parameter_sweep": "forbidden",
+    "broad_benchmark": "forbidden"
+  },
+  "go_no_go": {
+    "go_requires": [
+      "complete explicit contract and immutable canonical hashes",
+      "all synthetic gates pass",
+      "physical PPI-equivalence gate passes",
+      "rotation and translation sign conventions are proven by synthetic tests",
+      "all 200 frozen cohort images prepare successfully without replacement",
+      "all permitted smoke scores and diagnostics are finite",
+      "identity/self behavior passes the frozen check",
+      "fresh-process repeatability is exact",
+      "smoke scores and transforms do not collapse to one constant result",
+      "no choice was tuned on SD300 results",
+      "pairwise-benchmark-v2 contract remains unchanged",
+      "all regression and parity gates pass"
+    ],
+    "no_go_if": [
+      "any required source, contract, synthetic, physical-scale, preparation, finite-score, identity, repeatability, collapse, benchmark-contract, regression, parity, protected-artifact, or provenance gate fails",
+      "an algorithmic parameter is changed after any SD300 method score is viewed",
+      "the frozen cohort needs replacement or an input-dependent exception"
+    ]
+  },
+  "integrity": {
+    "canonicalization": "UTF-8 JSON, ensure_ascii=true, keys sorted recursively, separators comma and colon; hash the complete document with integrity.canonical_sha256 omitted",
+    "canonical_sha256": "be1431d7917563288b82f4c573962aebede96518fd519dc525e1859eb68da53b"
+  }
+}

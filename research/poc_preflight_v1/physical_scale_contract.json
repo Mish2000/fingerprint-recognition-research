@@ -1,0 +1,61 @@
+{
+  "schema_version": "poc-physical-scale-contract-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "status": "frozen_before_sd300_method_inference",
+  "choice_classification": "project-defined frozen choice",
+  "reference_scale": {
+    "reference_ppi": 500.0,
+    "millimeters_per_pixel": 0.0508,
+    "rationale": "A 500-PPI canonical grid provides approximately ten samples across a representative 0.5-mm fingerprint ridge period, keeps the 4-cycles/mm upper band well below the 9.8425-cycles/mm Nyquist limit, avoids upsampling the intended 500/1000/2000-PPI inputs, and controls FFT and rotation-search cost. It was selected without viewing SD300 scores.",
+    "scale_formula": "reference_ppi / positive_finite_source_ppi"
+  },
+  "source_ppi": {
+    "metadata_key": "ppi",
+    "accepted_type": "real scalar convertible to float",
+    "validity": "finite and strictly positive",
+    "invalid_behavior": "raise MethodExecutionError with error_code poc_invalid_ppi"
+  },
+  "resampling": {
+    "target_width_formula": "max(1, floor(source_width * scale + 0.5))",
+    "target_height_formula": "max(1, floor(source_height * scale + 0.5))",
+    "identity_rule": "If scale equals exactly 1.0, copy without cv2.resize.",
+    "downsampling": "cv2.resize with dsize=(target_width,target_height), fx=0, fy=0, interpolation=cv2.INTER_AREA",
+    "upsampling": "cv2.resize with dsize=(target_width,target_height), fx=0, fy=0, interpolation=cv2.INTER_CUBIC",
+    "same_size_nonidentity_rounding": "If rounded dimensions equal the source dimensions but scale is not exactly 1.0, cv2.resize still runs with the scale-selected interpolation.",
+    "dtype_into_resize": "source uint8",
+    "validity_mask_before_canvas": "all resampled pixels are valid"
+  },
+  "canonical_canvas": {
+    "policy": "full-image deterministic center crop or center pad; no foreground detector",
+    "width_px": 512,
+    "height_px": 512,
+    "width_mm": 26.0096,
+    "height_mm": 26.0096,
+    "fixed_physical_rule": "The canvas is a method-level fixed physical field of view independent of dataset dimensions, subject identity, metadata other than PPI, other images, and matching results.",
+    "crop_rule": "For a dimension larger than 512, discard floor((dimension-512)/2) samples before the retained interval and the remainder after it.",
+    "pad_rule": "For a dimension smaller than 512, place floor((512-dimension)/2) zero samples before the image and the remainder after it.",
+    "border_value_uint8": 0,
+    "valid_mask": "uint8 1 on retained resampled image samples and 0 on canvas padding; cropping drops validity outside the canvas"
+  },
+  "physical_frequency_band": {
+    "radial_lower_cycles_per_mm_inclusive": 0.5,
+    "radial_upper_cycles_per_mm_inclusive": 4.0,
+    "frequency_grid": "numpy.fft.fftfreq(512, d=25.4/500.0) independently on each axis; radial Euclidean magnitude; unshifted ordering",
+    "dc_policy": "excluded both by the lower cutoff and by an explicit DC-zero rule",
+    "rationale": "The lower edge rejects very slow illumination/background structure; the upper edge retains the primary ridge band and nearby structural harmonics while remaining separated from Nyquist. These are project-owned physical limits, not SD300-tuned values."
+  },
+  "ppi_equivalence_gate": {
+    "source_ppi_values": [500.0, 1000.0, 2000.0],
+    "requirement": "Analytically equivalent physical synthetic fields are separately rasterized and prepared; preprocessed bytes are not required to match.",
+    "maximum_reported_rotation_difference_degrees": 1.0,
+    "maximum_reported_translation_difference_mm": 0.1,
+    "maximum_canonical_peak_location_difference_px": 2.0,
+    "maximum_raw_psr_difference": 3.0,
+    "all_scores_must_be_finite": true
+  },
+  "integrity": {
+    "canonicalization": "UTF-8 JSON, ensure_ascii=true, keys sorted recursively, separators comma and colon; hash the complete document with integrity.canonical_sha256 omitted",
+    "canonical_sha256": "8db5b6738b4153324c97f122582f3880d0146aa6851e13fda44fd3558460050c"
+  }
+}

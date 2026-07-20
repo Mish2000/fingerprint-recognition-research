@@ -1,0 +1,16 @@
+{
+  "schema_version": "poc-preparation-report-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "status": "not_run",
+  "blocked_by": "synthetic_report.json physical/PPI equivalence failure",
+  "cohort": "research/poc_preflight_v1/smoke_cohort.json",
+  "required_image_count": 200,
+  "attempted": 0,
+  "successful": 0,
+  "failed": 0,
+  "sd300_images_decoded_by_poc": 0,
+  "sd300_representations_created": 0,
+  "sd300_scores_computed": 0,
+  "replacement_performed": false
+}

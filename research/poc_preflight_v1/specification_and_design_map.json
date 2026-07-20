@@ -1,0 +1,95 @@
+{
+  "schema_version": "poc-specification-and-design-map-v1",
+  "method": "ppi_normalized_phase_only_correlation",
+  "method_version": "ppi-normalized-phase-only-correlation-v1",
+  "frozen_before_sd300_method_inference": true,
+  "historical_reconstruction_claim": false,
+  "classification_vocabulary": [
+    "source-defined",
+    "source-inspired",
+    "project-defined frozen choice"
+  ],
+  "components": [
+    {
+      "component": "phase-only cross-power equation",
+      "classification": "source-defined",
+      "specification": "For Fourier transforms Fa and Fb, form C = Fa * conjugate(Fb), normalize its nonzero samples to unit magnitude, and inverse transform it to a phase-correlation surface.",
+      "sources": ["kuglin_hines_1975", "takita_et_al_2003", "ito_et_al_2004"]
+    },
+    {
+      "component": "normalized cross-power numerical rule",
+      "classification": "project-defined frozen choice",
+      "specification": "R = C / abs(C) only where abs(C) > 1e-12; R is exactly complex zero elsewhere; the DC bin is exactly zero; the frozen annular band mask is applied after normalization.",
+      "sources": ["kuglin_hines_1975"]
+    },
+    {
+      "component": "inverse FFT convention",
+      "classification": "project-defined frozen choice",
+      "specification": "numpy.fft.ifft2 with default backward normalization; use the real component without clipping or absolute value; array shape is exactly 512 by 512 and indexing is unshifted.",
+      "sources": ["kuglin_hines_1975", "ito_et_al_2004"]
+    },
+    {
+      "component": "integer translation from peak",
+      "classification": "source-defined",
+      "specification": "The correlation-surface peak locates cyclic displacement; the project contract fixes signed-index conversion and the meaning of the reported displacement.",
+      "sources": ["kuglin_hines_1975", "ito_et_al_2004"]
+    },
+    {
+      "component": "subpixel peak location",
+      "classification": "source-inspired",
+      "specification": "Use a deterministic separable three-sample parabolic offset around the integer maximum, not the closed-form historical POC fitting model.",
+      "sources": ["takita_et_al_2003"]
+    },
+    {
+      "component": "spectral band limitation",
+      "classification": "source-inspired",
+      "specification": "Retain a project-owned physical annulus from 0.5 through 4.0 cycles/mm. This is not the paper's automatically estimated rectangular band.",
+      "sources": ["takita_et_al_2003", "ito_et_al_2004"]
+    },
+    {
+      "component": "rotation compensation",
+      "classification": "source-inspired",
+      "specification": "Rotate representation A over a bounded -20 through +20 degree grid, then optionally evaluate one deterministic parabolic-refinement candidate; this is not a reproduction of the paper's rotation implementation.",
+      "sources": ["ito_et_al_2004"]
+    },
+    {
+      "component": "valid overlap",
+      "classification": "source-inspired",
+      "specification": "Warp project-owned valid masks under the estimated rotation and translation, measure intersection divided by the smaller valid support, and return the frozen low score for overlap below 0.25.",
+      "sources": ["ito_et_al_2004"]
+    },
+    {
+      "component": "peak-quality score",
+      "classification": "project-defined frozen choice",
+      "specification": "Return peak-to-sidelobe ratio using an 11 by 11 cyclic exclusion square, population sidelobe mean and standard deviation, and a zero score for zero sidelobe variance or insufficient overlap. No decision threshold is present.",
+      "sources": ["ito_et_al_2004"]
+    },
+    {
+      "component": "PPI normalization and canonical field of view",
+      "classification": "project-defined frozen choice",
+      "specification": "Resample to 500 PPI, center crop or zero pad onto a 512 by 512 canvas, and propagate a validity mask under the exact physical-scale contract.",
+      "sources": []
+    },
+    {
+      "component": "intensity normalization and Hann window",
+      "classification": "project-defined frozen choice",
+      "specification": "Over valid pixels subtract the mean and divide by population RMS when RMS exceeds 1e-12, set invalid pixels to zero, and multiply by a symmetric separable float64 Hann window.",
+      "sources": []
+    },
+    {
+      "component": "determinism, tie breaking, failure semantics, and serialization",
+      "classification": "project-defined frozen choice",
+      "specification": "Use float64/complex128 computation, one OpenCV thread, RNG seed zero, fixed candidate order, explicit total tie rules, canonical JSON, deterministic array hashes, and explicit method error codes.",
+      "sources": []
+    }
+  ],
+  "non_claims": [
+    "No claim of byte-exact historical restoration.",
+    "No claim of parameter equivalence to the audited papers.",
+    "No threshold calibration, FAR, TAR, ROC, AUC, EER, parameter sweep, or broad benchmark is part of v1 preflight."
+  ],
+  "integrity": {
+    "canonicalization": "UTF-8 JSON, ensure_ascii=true, keys sorted recursively, separators comma and colon; hash the complete document with integrity.canonical_sha256 omitted",
+    "canonical_sha256": "48821c6a1993ec9a62516bb771d64666d598e87d8e4e472e85371e56d3cb4fa4"
+  }
+}
