@@ -95,3 +95,4 @@ The repository currently stores no benchmark results.
 - [Detector-only protocol](docs/detector_only_protocol.md)
 - [SourceAFIS integration](docs/sourceafis_integration_v2.md)
 - [Joint-500 screening protocol](docs/detector_only_joint_500_v1.md)
+- [Full-system SIFT geometric baseline (restored)](docs/sift_geometric_full.md)
