@@ -1,0 +1,92 @@
+{
+  "status": "audited",
+  "source_url_identifier": {
+    "repository_readme_link": "https://drive.google.com/drive/folders/1vV2skXApZMhqWTlF2j_qgXDxRYan5U1f?usp=drive_link",
+    "google_drive_folder_id": "1vV2skXApZMhqWTlF2j_qgXDxRYan5U1f",
+    "google_drive_file_id": "1R9v73hFBuy0iihz7v8eDlBcGrMDmQ9TH"
+  },
+  "download_date": "2026-07-20T13:27:56.5791265+03:00",
+  "files": [
+    {
+      "filename": "best_model.pyt",
+      "size_bytes": 875770140,
+      "sha256": "2683a04427bacd54adc00cfdc97474625b1e11e5a9e6672c5129f033018f8a28",
+      "file_format": "PyTorch ZIP serialization archive",
+      "magic_hex_prefix": "504b0304",
+      "archive_members": {
+        "count": 2965,
+        "uncompressed_bytes": 875266252,
+        "pickle_metadata": "model/data.pkl",
+        "tensor_storage_prefix": "model/data/",
+        "other_members": [
+          "model/version"
+        ]
+      }
+    }
+  ],
+  "folder_content_count": 1,
+  "model_variant_claimed": "README claims only a model with total embedding size 512; it does not name the architecture variant.",
+  "model_variant_verified": "DeepPrint_TexMinu_512 (class DeepPrint_TexMinu; no localization; 256 texture dimensions plus 256 minutiae dimensions)",
+  "variant_evidence": {
+    "model_state_entries": 1170,
+    "model_state_tensor_bytes": 286350352,
+    "parameter_count": 71516742,
+    "texture_projection_shape": [
+      256,
+      1536
+    ],
+    "minutia_projection_shape": [
+      256,
+      1024
+    ],
+    "texture_logits_shape": [
+      8000,
+      256
+    ],
+    "minutia_logits_shape": [
+      8000,
+      256
+    ],
+    "localization_keys_present": false,
+    "texture_keys_present": true,
+    "minutia_embedding_keys_present": true,
+    "minutia_map_keys_present": true
+  },
+  "safe_loading": {
+    "torch_version": "2.5.1+cpu",
+    "call": "torch.load(checkpoint, map_location='cpu', weights_only=True)",
+    "status": "pass",
+    "top_level_type": "dict",
+    "top_level_keys": [
+      "model_state_dict",
+      "loss_state_dict",
+      "optimizer_state_dict"
+    ],
+    "unrestricted_unpickling_used": false
+  },
+  "strict_state_dictionary_loading": {
+    "class": "DeepPrint_TexMinu",
+    "constructor": {
+      "num_fingerprints": 8000,
+      "texture_embedding_dims": 256,
+      "minutia_embedding_dims": 256
+    },
+    "strict": true,
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "shape_mismatches": [],
+    "status": "pass"
+  },
+  "checkpoint_license_status": {
+    "status": "unresolved",
+    "ownership_statement_found": false,
+    "separate_checkpoint_license_found": false,
+    "academic_use_permission_found": false,
+    "redistribution_permission_found": false,
+    "commercial_restriction_found": false,
+    "result_publication_restriction_found": false,
+    "citation_request": "The README requests citation of the BIOSIG 2023 paper for use of the code, but does not state that this request supplies checkpoint usage terms.",
+    "evidence": "The frozen README links the file and labels it only as a pre-trained model of embedding size 512. No separate terms were present in the repository or downloader-visible folder/file metadata.",
+    "gate_result": "NO-GO until the checkpoint owner or repository maintainer provides explicit, documented terms sufficient for the intended research use."
+  }
+}

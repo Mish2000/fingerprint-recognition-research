@@ -1,0 +1,176 @@
+{
+  "contract_name": "deepprint-style-feasibility-preflight-v1",
+  "contract_version": 1,
+  "created_before_inference": {
+    "value": true,
+    "created_at": "2026-07-20T13:08:57.9502841+03:00",
+    "checkpoint_downloaded": false,
+    "sd300_inference_started": false,
+    "genuine_or_impostor_scores_observed": false
+  },
+  "target_external_repository": "https://github.com/tim-rohwedder/fixed-length-fingerprint-extractors.git",
+  "source_selection_rule": {
+    "rule": "Use the commit at the external repository default branch tip returned by the first successful clone for this preflight, record its commit and tree SHA, and switch the external checkout to that exact commit in detached-HEAD state.",
+    "forbid_commit_selection_by_sd300_results": true,
+    "forbid_source_modification": true
+  },
+  "checkpoint_selection_rule": {
+    "rule": "Use only a checkpoint linked by the frozen external source. Continue only if the source identifies one authoritative checkpoint and its model variant without score-based choice. Record every downloaded member, byte size, SHA-256, format, and claimed/verified variant.",
+    "official_source_required": true,
+    "unambiguous_variant_required": true,
+    "mirrors_forbidden": true,
+    "retraining_forbidden": true,
+    "selection_by_sd300_results_forbidden": true
+  },
+  "license_gates": {
+    "source_license_documented": true,
+    "third_party_code_licenses_documented": true,
+    "checkpoint_terms_sufficient_for_research": true,
+    "checkpoint_redistribution_not_assumed": true,
+    "failure_verdict": "NO-GO"
+  },
+  "environment_gates": {
+    "isolated_environment_required": true,
+    "main_environment_changes_forbidden": true,
+    "main_pyproject_changes_forbidden": true,
+    "main_environment_yml_changes_forbidden": true,
+    "cpu_inference_required": true,
+    "cuda_required": false,
+    "resolved_versions_required": [
+      "python",
+      "pytorch",
+      "torchvision",
+      "numpy",
+      "opencv",
+      "scipy",
+      "scikit-learn",
+      "torchmetrics"
+    ]
+  },
+  "determinism_gates": {
+    "model_eval_required": true,
+    "torch_inference_mode_required": true,
+    "fixed_python_numpy_torch_seeds_required": true,
+    "fixed_thread_counts_required": true,
+    "deterministic_algorithms_required_when_supported": true,
+    "fresh_process_repetitions_per_selected_image": 3,
+    "minimum_selected_images": 6,
+    "exact_fields": [
+      "status",
+      "embedding_shape",
+      "embedding_dtype",
+      "embedding_byte_sha256",
+      "preprocessing_tensor_sha256",
+      "deterministic_diagnostics"
+    ],
+    "numeric_tolerance_allowed_for_initial_gate": false
+  },
+  "model_identity_gates": {
+    "exact_class_and_variant_required": true,
+    "architecture_verified_against_state_dict": true,
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "shape_mismatches": [],
+    "strict_false_to_mask_mismatch_forbidden": true,
+    "training_or_fine_tuning_forbidden": true,
+    "branches_and_embedding_dimensions_required": true,
+    "matching_outputs_and_similarity_formula_required": true
+  },
+  "preprocessing_gates": {
+    "one_policy_for_sd300b_and_sd300c": true,
+    "policy_must_be_authoritative_and_fixed_before_scores": true,
+    "plain_and_roll_must_succeed": true,
+    "ppi_policy_must_be_non_arbitrary": true,
+    "random_augmentation_forbidden": true,
+    "selection_by_genuine_or_impostor_scores_forbidden": true,
+    "required_specification": [
+      "image_decoder",
+      "color_conversion",
+      "inversion",
+      "contrast",
+      "normalization",
+      "resize",
+      "crop",
+      "padding",
+      "localization",
+      "interpolation",
+      "output_size",
+      "channels",
+      "tensor_order",
+      "value_range",
+      "mean_std",
+      "ppi_assumptions",
+      "border_behavior",
+      "failure_semantics",
+      "preprocessing_tensor_sha256"
+    ]
+  },
+  "SD300_smoke_cohort_selection_rule": {
+    "protocol": "detector_only_joint_500_v1",
+    "identity_rule": "For each canonical finger position 1 through 10, select the first identity in manifest order and use that same identity for SD300b and SD300c.",
+    "roles": [
+      "plain",
+      "roll"
+    ],
+    "datasets": [
+      "sd300b",
+      "sd300c"
+    ],
+    "expected_identity_count": 10,
+    "expected_image_count": 40,
+    "replacement_after_failure_forbidden": true,
+    "cohort_manifest_and_hash_required_before_inference": true
+  },
+  "GO_gates": [
+    "external source commit and tree are frozen",
+    "relevant source is available",
+    "source and third-party licenses are documented",
+    "checkpoint use status is sufficiently clear for research",
+    "official checkpoint is available and content-addressed",
+    "model variant is proven from source and state dictionary",
+    "strict state-dictionary loading has no missing, unexpected, or shape-mismatched keys",
+    "no training or fine-tuning is required",
+    "training data provenance is sufficient and there is no evidence of direct SD300b/c overlap",
+    "one justified deterministic preprocessing policy handles both datasets and both image roles",
+    "PPI handling is non-arbitrary",
+    "all embeddings are finite and non-constant",
+    "fresh-process CPU repeatability is exact for the frozen gate",
+    "the original similarity function is identified independently of SD300 scores",
+    "the existing benchmark contract needs no change",
+    "a practical integration architecture exists",
+    "no unresolved security or provenance blocker remains"
+  ],
+  "NO-GO_gates": [
+    "checkpoint is unavailable, mutable, ambiguous, or unofficial",
+    "checkpoint usage terms are insufficiently clear",
+    "model variant cannot be identified",
+    "state dictionary requires an unexplained non-strict load",
+    "training or fine-tuning is required",
+    "SD300 preprocessing or PPI handling requires score-based or arbitrary selection",
+    "embeddings are non-finite or collapse",
+    "CPU inference is not sufficiently repeatable",
+    "similarity function cannot be identified",
+    "dependencies cannot be frozen without unsafe main-environment changes",
+    "training and evaluation provenance cannot be separated",
+    "code or weights lack sufficient provenance"
+  ],
+  "forbidden_selection_signals": [
+    "SD300 genuine scores",
+    "SD300 impostor scores",
+    "self scores except post-freeze sanity checking",
+    "threshold metrics",
+    "FAR",
+    "TAR",
+    "ROC",
+    "AUC",
+    "Joint-500 performance comparisons",
+    "broad benchmark results"
+  ],
+  "smoke_similarity_diagnostics": {
+    "self_comparisons": true,
+    "plain_roll_genuine_pairs_per_dataset": 10,
+    "impostor_pairing": "next-subject cyclic pairing",
+    "impostor_pairs_per_dataset": 10,
+    "threshold_metrics_forbidden": true
+  }
+}

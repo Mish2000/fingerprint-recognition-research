@@ -1,0 +1,75 @@
+name: fingerprint-deepprint-preflight
+purpose: isolated CPU-only DeepPrint-style checkpoint audit
+created_with: conda create --override-channels -c conda-forge python=3.9 pip
+channels:
+  - conda-forge
+dependencies:
+  - bzip2=1.0.8
+  - ca-certificates=2026.6.17
+  - libexpat=2.8.1
+  - libffi=3.7.0
+  - liblzma=5.8.3
+  - libsqlite=3.53.3
+  - libzlib=1.3.2
+  - openssl=3.6.3
+  - pip=25.2
+  - python=3.9.23
+  - setuptools=80.9.0
+  - tk=8.6.13
+  - tzdata=2026c
+  - ucrt=10.0.26100.0
+  - vc=14.5
+  - vc14_runtime=14.51.36231
+  - vcomp14=14.51.36231
+  - wheel=0.45.1
+  - pip:
+      - beautifulsoup4==4.15.0
+      - certifi==2026.6.17
+      - charset-normalizer==3.4.9
+      - colorama==0.4.6
+      - filelock==3.19.1
+      - fsspec==2025.10.0
+      - gdown==5.2.0
+      - idna==3.18
+      - jinja2==3.1.6
+      - joblib==1.5.3
+      - lightning-utilities==0.15.2
+      - markupsafe==3.0.2
+      - mpmath==1.3.0
+      - networkx==3.2.1
+      - numpy==1.26.4
+      - opencv-python==4.10.0.84
+      - packaging==26.2
+      - pillow==11.3.0
+      - pysocks==1.7.1
+      - requests==2.32.5
+      - scikit-learn==1.5.2
+      - scipy==1.13.1
+      - soupsieve==2.8.4
+      - sympy==1.13.1
+      - threadpoolctl==3.6.0
+      - torch==2.5.1+cpu
+      - torchmetrics==1.6.1
+      - torchvision==0.20.1+cpu
+      - tqdm==4.67.1
+      - typing-extensions==4.15.0
+      - urllib3==2.6.3
+runtime:
+  device: cpu
+  python: 3.9.23
+  pytorch: 2.5.1+cpu
+  torchvision: 0.20.1+cpu
+  numpy: 1.26.4
+  opencv: 4.10.0
+  scipy: 1.13.1
+  scikit-learn: 1.5.2
+  torchmetrics: 1.6.1
+  torch_threads: 1
+  torch_interop_threads: 1
+  opencv_threads: 1
+  deterministic_algorithms: true
+  cuda_used: false
+notes:
+  - The target repository environment, pyproject.toml, and environment.yml were not changed.
+  - The external source was imported by an explicit runtime path; it was not copied or installed into the target repository.
+  - The source requirements are unbounded; this file records the exact versions resolved for this preflight.

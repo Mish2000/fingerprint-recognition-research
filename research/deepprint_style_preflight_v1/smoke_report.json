@@ -1,0 +1,121 @@
+{
+  "status": "not_run",
+  "scope": "frozen 40-image SD300b/c smoke cohort",
+  "blocked_by": [
+    "The checkpoint has no explicit ownership or usage terms sufficient to pass the frozen research-use license gate.",
+    "The external source defines dataset-specific loaders and binarizer ridge widths, but no authoritative preprocessing path for an unknown SD300 image.",
+    "The external source has no PPI input or physical resampling rule for the 1000-PPI SD300b and 2000-PPI SD300c images; selecting a pixel-domain policy would be arbitrary."
+  ],
+  "cohort": {
+    "manifest": "research/deepprint_style_preflight_v1/smoke_cohort.json",
+    "cohort_sha256": "3c9d26c6e85842ed25d53f6823a986d2bef518163a42a3868cc2d762895e95ef",
+    "expected_images": 40,
+    "attempted_images": 0,
+    "valid_images": 0,
+    "failed_images": 0,
+    "not_attempted_images": 40
+  },
+  "sd300_preprocessing": {
+    "status": "not_defined_by_source",
+    "image_decoder": "OpenCV grayscale is used by known source loaders, but there is no SD300 loader.",
+    "grayscale_or_rgb": "known loaders use grayscale",
+    "inversion": "no general rule",
+    "contrast_enhancement": "dataset-specific Gabor binarization with different fixed ridge-width parameters",
+    "normalization": "known loaders convert uint8 to a single-channel float tensor in approximately [0,1]",
+    "resize": "known loaders eventually target 299x299, but crop/pad order differs by dataset",
+    "crop": "dataset-specific; SFinGe removes 32 bottom rows, MCYT optical center-crops a fixed ROI, other loaders do not",
+    "padding": "square padding is used by several paths with fill 0 or 1 depending on the loader",
+    "localization": "not present in the verified checkpoint variant",
+    "interpolation": "torchvision antialiased resize in known paths",
+    "output_size": [
+      299,
+      299
+    ],
+    "channel_count": 1,
+    "tensor_order": "NCHW at model input",
+    "mean_std": "no mean/std standardization found",
+    "ppi_assumptions": "not declared",
+    "border_behavior": "dataset-specific",
+    "failure_semantics": "not defined for unknown images",
+    "preprocessing_tensor_sha256": null
+  },
+  "embedding_validity": {
+    "status": "not_run",
+    "blocked_by": "SD300 preprocessing and PPI gates failed before inference."
+  },
+  "similarity_diagnostics": {
+    "status": "not_run",
+    "self_comparisons": 0,
+    "genuine_pairs_per_dataset": 0,
+    "impostor_pairs_per_dataset": 0,
+    "threshold_far_tar_roc_auc_computed": false
+  },
+  "technical_source_example_inference": {
+    "status": "pass",
+    "scope": "two source-provided SFinGe examples using the source-defined SFinGe testing path; not SD300 evidence",
+    "device": "cpu",
+    "seed": 20260720,
+    "deterministic_algorithms": true,
+    "torch_threads": 1,
+    "torch_interop_threads": 1,
+    "opencv_threads": 1,
+    "strict_state_dictionary_load": {
+      "missing_keys": [],
+      "unexpected_keys": [],
+      "shape_mismatches": []
+    },
+    "preprocessing": "cv2.IMREAD_GRAYSCALE; remove final 32 rows; ToTensor; LazilyAllocatedBinarizer(ridge_width=5.0); square-pad with fill=0; torchvision antialiased resize to 299x299",
+    "samples": [
+      {
+        "source_relative_path": "tests/data/SFingeExample/1_1.png",
+        "source_sha256": "220c0e16f05fd40f1ad351314bf5fa83ad2a73d0ba9145d98a7dfe5a8caaed4f",
+        "preprocessing_tensor_sha256": "a29be8a633ff3c76ef04af093d60a04c9ec83f2e594dd5b1762da066e0567b98",
+        "embedding_sha256": "f164860e19a9f24bb5a116e82e97a87983173609356960e706e1a447d4c2b866",
+        "embedding_shape": [
+          512
+        ],
+        "embedding_dtype": "float32",
+        "finite": true,
+        "texture_norm": 0.9999999403953552,
+        "minutia_norm": 0.9999999403953552,
+        "combined_norm": 1.4142135381698608,
+        "min": -0.1686699539422989,
+        "max": 0.1735384166240692,
+        "mean": -0.002947714878246188,
+        "std": 0.062430448830127716
+      },
+      {
+        "source_relative_path": "tests/data/SFingeExample/1_2.png",
+        "source_sha256": "49c952a7cba8d3b4121b2dabec6248af76de28a408b4dab4e6cc0d8e7669467e",
+        "preprocessing_tensor_sha256": "9894b5d6ae7005caa7bd2e2378e2eee186bec545fc801b5f1c87ba409abea3cb",
+        "embedding_sha256": "aca69dc2c3ee5bcb945ee81b3b8fd4ed97e6ce55bf2486b881ce6385ec84e470",
+        "embedding_shape": [
+          512
+        ],
+        "embedding_dtype": "float32",
+        "finite": true,
+        "texture_norm": 1.0,
+        "minutia_norm": 0.9999999403953552,
+        "combined_norm": 1.4142135381698608,
+        "min": -0.17089994251728058,
+        "max": 0.17255555093288422,
+        "mean": -0.0027394334319978952,
+        "std": 0.0624399371445179
+      }
+    ],
+    "score_formula": "dot(concat(texture_a, minutia_a), concat(texture_b, minutia_b))",
+    "score_direction": "higher_is_more_similar",
+    "branch_normalization": "each 256-dimensional branch is L2-normalized independently",
+    "expected_self_score": 2.0,
+    "score_matrix": [
+      [
+        1.9999998807907104,
+        1.9490965604782104
+      ],
+      [
+        1.9490965604782104,
+        2.000000238418579
+      ]
+    ]
+  }
+}

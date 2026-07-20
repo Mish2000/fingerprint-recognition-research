@@ -1,0 +1,50 @@
+{
+  "status": "not_run",
+  "scope": "fresh-process repeatability for at least six images from the frozen SD300 cohort",
+  "blocked_by": [
+    "SD300 inference was stopped before model input because no authoritative preprocessing and PPI policy is defined by the external source.",
+    "Checkpoint usage terms do not pass the frozen license gate."
+  ],
+  "required_images": 6,
+  "selected_images": 0,
+  "fresh_processes_per_image": 3,
+  "sd300_process_runs": 0,
+  "exact_equality_gate": "not evaluated",
+  "technical_source_example_repeatability": {
+    "status": "pass",
+    "scope": "two source-provided SFinGe examples in three completely new CPU processes; diagnostic only",
+    "process_count": 3,
+    "image_count": 2,
+    "total_inferences": 6,
+    "all_status_equal": true,
+    "all_embedding_shapes_equal": true,
+    "all_embedding_dtypes_equal": true,
+    "all_embedding_byte_sha256_equal": true,
+    "all_preprocessing_tensor_sha256_equal": true,
+    "all_scores_equal": true,
+    "embedding_shape": [
+      2,
+      512
+    ],
+    "embedding_dtype": "float32",
+    "preprocessing_tensor_sha256": [
+      "a29be8a633ff3c76ef04af093d60a04c9ec83f2e594dd5b1762da066e0567b98",
+      "9894b5d6ae7005caa7bd2e2378e2eee186bec545fc801b5f1c87ba409abea3cb"
+    ],
+    "embedding_byte_sha256": [
+      "f164860e19a9f24bb5a116e82e97a87983173609356960e706e1a447d4c2b866",
+      "aca69dc2c3ee5bcb945ee81b3b8fd4ed97e6ce55bf2486b881ce6385ec84e470"
+    ],
+    "scores": [
+      [
+        1.9999998807907104,
+        1.9490965604782104
+      ],
+      [
+        1.9490965604782104,
+        2.000000238418579
+      ]
+    ],
+    "numeric_tolerance_used": false
+  }
+}
