@@ -1,10 +1,28 @@
-# Fingerprint detector research
+# Fingerprint recognition research
 
-This repository is a minimal research base for comparing fingerprint detectors
-under one common local-feature pipeline. It supports NIST SD300b and SD300c,
-immutable protocol manifests, and the `pairwise-benchmark-v2` contract.
+This repository is a research base for full fingerprint matchers and for
+controlled detector ablations. It supports NIST SD300b and SD300c, immutable
+protocol manifests, and the `pairwise-benchmark-v2` contract.
 
 ## Research methods
+
+### Full systems
+
+- **SourceAFIS full** uses the native SourceAFIS template and verification
+  pipeline through the pinned sidecar integration.
+- **SIFT geometric full** is the restored `sift_geometric-v1` baseline with
+  native SIFT detection, RootSIFT, mutual matching and affine verification.
+- **GFTT-Harris--RootSIFT geometric full** is
+  `gftt_harris_rootsift_geometric` / `gftt-harris-rootsift-geometric-v1`: a
+  complete single-scale Harris-location matcher with fixed dominant-gradient
+  orientation, supplied-keypoint SIFT, RootSIFT, mutual matching,
+  PPI-normalized partial-affine RANSAC and raw inlier-count scoring.
+
+The GFTT-Harris full method has no decision threshold and makes no claim of
+final biometric accuracy. See
+[`docs/gftt_harris_rootsift_geometric_full_v1.md`](docs/gftt_harris_rootsift_geometric_full_v1.md).
+
+### Detector-only ablation
 
 `detector_only_v1` fixes every stage after detection: PPI-aware support,
 common dominant-gradient orientation, supplied-keypoint SIFT descriptors,
@@ -79,6 +97,10 @@ fingerprint-benchmark run-sourceafis --help
 fingerprint-benchmark detector-joint500 --help
 fingerprint-benchmark detector-joint500 build --check
 fingerprint-benchmark detector-joint500 validate
+fingerprint-benchmark gftt-harris-smoke --help
+fingerprint-benchmark run-gftt-harris --help
+fingerprint-benchmark gftt-harris-parity --help
+fingerprint-benchmark gftt-harris-repeatability --help
 ```
 
 Run the repository test suite with:
@@ -96,3 +118,4 @@ The repository currently stores no benchmark results.
 - [SourceAFIS integration](docs/sourceafis_integration_v2.md)
 - [Joint-500 screening protocol](docs/detector_only_joint_500_v1.md)
 - [Full-system SIFT geometric baseline (restored)](docs/sift_geometric_full.md)
+- [Full-system GFTT-Harris--RootSIFT geometric matcher](docs/gftt_harris_rootsift_geometric_full_v1.md)
