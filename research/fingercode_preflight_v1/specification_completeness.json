@@ -1,0 +1,353 @@
+{
+  "schema_version": "fingercode-specification-completeness-v1",
+  "audited_source_manifest_sha256": "9c12cce318e1393162d7cad003e0a6e621bfa5dfa0c6bf4bc34137c88abddcbc",
+  "allowed_statuses": [
+    "specified",
+    "derivable",
+    "ambiguous",
+    "absent"
+  ],
+  "components": [
+    {
+      "component_id": "image_preprocessing_grayscale_conventions",
+      "status": "absent",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000",
+        "jain_prabhakar_hong_pankanti_cvpr_1999"
+      ],
+      "printed_pages": [
+        848,
+        187
+      ],
+      "equations": [],
+      "interpretation": "The papers name an input gray level I(x,y), but do not freeze channel conversion, sample depth, polarity, dtype, clipping, or decode behavior.",
+      "open_questions": [
+        "What exact byte-level image decoding and grayscale convention was used?"
+      ]
+    },
+    {
+      "component_id": "foreground_segmentation_mask",
+      "status": "ambiguous",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        850,
+        855
+      ],
+      "equations": [],
+      "interpretation": "Fig. 6 says the background was segmented and the experiment rejects incomplete ROIs, but the segmentation, mask use, and pixel eligibility algorithms are not given.",
+      "open_questions": [
+        "How is foreground segmented?",
+        "Are non-foreground pixels excluded from normalization, convolution, and AAD?"
+      ]
+    },
+    {
+      "component_id": "reference_point_definition",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        849
+      ],
+      "equations": [],
+      "interpretation": "The reference point is the point of maximum curvature of concave ridges.",
+      "open_questions": []
+    },
+    {
+      "component_id": "reference_point_detector",
+      "status": "ambiguous",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        849,
+        850,
+        851
+      ],
+      "equations": [
+        "(6)-(15)"
+      ],
+      "interpretation": "A multi-resolution orientation-field detector is outlined, but it permits different gradient operators, gives RI/RII geometry only pictorially, and omits block anchoring, segmentation, borders, ties, and search-neighborhood geometry.",
+      "open_questions": [
+        "What are the exact RI and RII dimensions/angles?",
+        "Which gradient operator and border rule are authoritative?",
+        "How are ties and invalid foreground blocks handled?"
+      ]
+    },
+    {
+      "component_id": "reference_orientation_definition",
+      "status": "ambiguous",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_cvpr_1999",
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        190,
+        847,
+        848
+      ],
+      "equations": [],
+      "interpretation": "CVPR defines a local-symmetry axis, but says it is not used; TIP assumes vertically oriented acquisition and defers automatic orientation determination.",
+      "open_questions": [
+        "Is a reference orientation part of the actual matcher contract?",
+        "If so, what sign, zero axis, and periodicity apply?"
+      ]
+    },
+    {
+      "component_id": "reference_orientation_detector",
+      "status": "absent",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_cvpr_1999",
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        190,
+        848
+      ],
+      "equations": [],
+      "interpretation": "No operational reference-orientation detector is specified for the implementation being evaluated.",
+      "open_questions": [
+        "What exact detector establishes canonical orientation?"
+      ]
+    },
+    {
+      "component_id": "canonical_alignment",
+      "status": "ambiguous",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        847,
+        848,
+        853
+      ],
+      "equations": [
+        "(21)-(23)"
+      ],
+      "interpretation": "Translation is centered on the reference point and acquisition is assumed upright; image canonicalization is not specified, while matching uses approximate template rotations.",
+      "open_questions": [
+        "Is any image resampling performed before the 11.25-degree enrollment variant?",
+        "What canvas, center, interpolation, and border rule are used?"
+      ]
+    },
+    {
+      "component_id": "roi_tessellation",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        848,
+        849
+      ],
+      "equations": [
+        "(1)-(5)"
+      ],
+      "interpretation": "For the 640-component MSU setting: one excluded 20-pixel center circle, five retained 20-pixel bands, sixteen sectors per band, and outer radius 120 pixels at 500 dpi.",
+      "open_questions": []
+    },
+    {
+      "component_id": "sector_ordering",
+      "status": "derivable",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        848,
+        849
+      ],
+      "equations": [
+        "(1)-(5)"
+      ],
+      "interpretation": "i=0..79 is band-major: Ti=i div 16 and theta_i=(i mod 16)*2pi/16; radial lower bounds are inclusive and upper bounds exclusive.",
+      "open_questions": []
+    },
+    {
+      "component_id": "normalization_target_mean_variance",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        851
+      ],
+      "equations": [
+        "(16)"
+      ],
+      "interpretation": "Each sector is normalized separately before filtering with desired mean M0=100 and desired variance V0=100.",
+      "open_questions": []
+    },
+    {
+      "component_id": "gabor_formula",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        852
+      ],
+      "equations": [
+        "(17)-(19)"
+      ],
+      "interpretation": "Even-symmetric Gaussian-windowed cosine with the source coordinate rotation.",
+      "open_questions": []
+    },
+    {
+      "component_id": "gabor_orientations",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        852,
+        853
+      ],
+      "equations": [
+        "(17)-(19)"
+      ],
+      "interpretation": "Eight directions relative to the x-axis: 0, 22.5, 45, 67.5, 90, 112.5, 135, and 157.5 degrees.",
+      "open_questions": []
+    },
+    {
+      "component_id": "gabor_frequency_wavelength",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000",
+        "jain_prabhakar_hong_pankanti_cvpr_1999"
+      ],
+      "printed_pages": [
+        853,
+        190
+      ],
+      "equations": [
+        "(17)",
+        "CVPR (2)"
+      ],
+      "interpretation": "At 500 dpi f=1/K with average inter-ridge distance K approximately 10 pixels; the CVPR filter example freezes f=0.1 cycles/pixel.",
+      "open_questions": []
+    },
+    {
+      "component_id": "gabor_sigma",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000",
+        "jain_prabhakar_hong_pankanti_cvpr_1999"
+      ],
+      "printed_pages": [
+        853,
+        190
+      ],
+      "equations": [
+        "(17)",
+        "CVPR (2)"
+      ],
+      "interpretation": "sigma_x=sigma_y=4.0 pixels at 500 dpi.",
+      "open_questions": []
+    },
+    {
+      "component_id": "gabor_support_truncation",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        852,
+        853
+      ],
+      "equations": [
+        "(17)-(19)"
+      ],
+      "interpretation": "Spatial-domain 33x33 mask; convolution uses only mask samples whose absolute value is greater than 0.05. Image/ROI boundary behavior remains unspecified under preprocessing.",
+      "open_questions": []
+    },
+    {
+      "component_id": "aad_formula",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        853
+      ],
+      "equations": [
+        "(20)"
+      ],
+      "interpretation": "V_i_theta=(1/n_i)*sum over sector pixels of abs(F_i_theta(x,y)-P_i_theta), where P is the sector mean of the filtered response.",
+      "open_questions": []
+    },
+    {
+      "component_id": "vector_ordering_dimensionality",
+      "status": "ambiguous",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        849,
+        853,
+        854
+      ],
+      "equations": [
+        "(20)-(23)"
+      ],
+      "interpretation": "80 sectors times 8 orientations gives 640 components and V_i_theta identifiers, but the linear serialization order and the mapping/clipping/rounding from AAD values to 256 one-byte values are not specified.",
+      "open_questions": [
+        "Is orientation-major or sector-major serialization authoritative?",
+        "What exact quantizer produces the claimed 640-byte FingerCode?",
+        "Is Euclidean distance computed on raw or quantized values?"
+      ]
+    },
+    {
+      "component_id": "rotation_compensation",
+      "status": "ambiguous",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        853,
+        854
+      ],
+      "equations": [
+        "(21)-(23)"
+      ],
+      "interpretation": "The paper specifies five cyclic templates at R=-2..2 plus five from an 11.25-degree rotated enrollment image and takes the minimum of ten distances, but does not specify rotation resampling, canvas, border, or resulting preprocessing.",
+      "open_questions": [
+        "What exact 11.25-degree image rotation operator is used?",
+        "How are rotated pixels outside the source handled?"
+      ]
+    },
+    {
+      "component_id": "matching_distance",
+      "status": "specified",
+      "source_ids": [
+        "jain_prabhakar_hong_pankanti_tip_2000"
+      ],
+      "printed_pages": [
+        847,
+        853,
+        855
+      ],
+      "equations": [],
+      "interpretation": "Corresponding FingerCodes are compared by Euclidean distance; the final distance is the minimum across ten enrollment templates, so lower is more similar. Exact numeric reproducibility still depends on the unresolved vector quantization.",
+      "open_questions": []
+    }
+  ],
+  "decision": {
+    "result": "NO-GO",
+    "stage": "primary_source_audit_before_sd300",
+    "mandatory_blockers": [
+      "reference_point_detector",
+      "reference_orientation_definition",
+      "reference_orientation_detector",
+      "canonical_alignment",
+      "vector_ordering_dimensionality",
+      "rotation_compensation"
+    ],
+    "trigger": "At least one key parameter is ambiguous or absent; the request explicitly forbids substituting a different core/reference/orientation/rotation method.",
+    "implementation_allowed": false,
+    "sd300_inference_allowed": false
+  },
+  "hash_scope": "canonical compact sorted-key JSON of this object with specification_completeness_sha256 omitted",
+  "specification_completeness_sha256": "0383c62d3081c627c7201a909bab1d99f4f1ccab90f91e38c766b00796b8eb42"
+}

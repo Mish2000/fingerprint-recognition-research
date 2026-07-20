@@ -1,0 +1,164 @@
+{
+  "schema_version": "fingercode-preflight-contract-v1",
+  "method_identity": {
+    "method_name": "fingercode_gabor_aad",
+    "method_version": "fingercode-gabor-aad-v1",
+    "family": "classical_handcrafted_gabor_texture",
+    "feasibility_state": "NO-GO",
+    "score_direction": "lower_is_more_similar"
+  },
+  "freeze_point": {
+    "created_after_primary_source_audit": true,
+    "created_before_any_sd300_inference": true,
+    "source_manifest_sha256": "9c12cce318e1393162d7cad003e0a6e621bfa5dfa0c6bf4bc34137c88abddcbc",
+    "specification_completeness_sha256": "0383c62d3081c627c7201a909bab1d99f4f1ccab90f91e38c766b00796b8eb42"
+  },
+  "repository_baseline": {
+    "starting_commit": "e0fec284546f8b937fac3c570612fc4e2245937c",
+    "branch": "main",
+    "origin_main_at_start": "e0fec284546f8b937fac3c570612fc4e2245937c",
+    "detector_protocol_name": "detector_only_joint_500_v1",
+    "detector_protocol_sha256": "4d53ba3466524f6a0399e57f62edc1bac58fb2bb425e18bdbd4ef95373e7ec23",
+    "protected_tree_git_object_ids": {
+      "sourceafis_sidecar": "368a0e1fb4dda37853c82b932e857c4c8a4a7028",
+      "sift": "6a1b5cc656ba93cfd40a97df340f4bcad5e11e90",
+      "gftt_harris_full": "216c678432234934391fc8af3b343288c3e5b9b1",
+      "detectors": "7cb063ceaebfdd2e68052e9821e8d3ce2d284eee",
+      "local_features": "396fa89d9a4985d5c54d766e1abe929d7e3761ac",
+      "detector_joint500_module_blob": "fc245949c6d90843a80e31006fa0819c4c32ec5b",
+      "detector_joint500_protocol": "d412d936e4682a4a9c3e6897f99c79b455a794d9"
+    }
+  },
+  "environment": {
+    "python": "3.11.15",
+    "numpy": "2.2.6",
+    "opencv": "4.12.0",
+    "runtime": "Windows; conda-forge CPython; MSC v.1944 64 bit"
+  },
+  "source_defined_algorithm": {
+    "input": {
+      "source_gray_level_symbol": "I(x,y)",
+      "exact_decode_contract": null,
+      "blocked_by": "image_preprocessing_grayscale_conventions"
+    },
+    "output": {
+      "nominal_shape": [
+        640
+      ],
+      "nominal_semantics": "8 orientations x 80 sectors",
+      "exact_dtype": null,
+      "exact_quantizer": null,
+      "blocked_by": "vector_ordering_dimensionality"
+    },
+    "roi_at_500_ppi": {
+      "excluded_inner_radius_px": 20,
+      "retained_band_count": 5,
+      "band_width_px": 20,
+      "sectors_per_band": 16,
+      "outer_radius_px": 120
+    },
+    "normalization": {
+      "scope": "each sector separately before filtering",
+      "target_mean": 100,
+      "target_variance": 100,
+      "equation": "TIP (16)"
+    },
+    "gabor": {
+      "symmetry": "even",
+      "frequency_cycles_per_pixel_at_500_ppi": 0.1,
+      "wavelength_px_at_500_ppi": 10,
+      "sigma_x_px_at_500_ppi": 4,
+      "sigma_y_px_at_500_ppi": 4,
+      "support_at_500_ppi": [
+        33,
+        33
+      ],
+      "active_mask_rule": "abs(coefficient) > 0.05",
+      "orientations_degrees": [
+        0,
+        22.5,
+        45,
+        67.5,
+        90,
+        112.5,
+        135,
+        157.5
+      ]
+    },
+    "feature": {
+      "statistic": "average_absolute_deviation_from_filtered_sector_mean",
+      "equation": "TIP (20)"
+    },
+    "matching": {
+      "distance": "Euclidean",
+      "enrollment_template_count": 10,
+      "final_reduction": "minimum",
+      "exact_numeric_input": null,
+      "blocked_by": "vector_ordering_dimensionality"
+    },
+    "reference_point": {
+      "definition": "maximum curvature of concave ridges",
+      "exact_detector": null,
+      "blocked_by": "reference_point_detector"
+    },
+    "reference_orientation": {
+      "exact_definition_for_current_matcher": null,
+      "exact_detector": null,
+      "blocked_by": [
+        "reference_orientation_definition",
+        "reference_orientation_detector"
+      ]
+    },
+    "canonical_alignment": {
+      "exact_operator": null,
+      "blocked_by": "canonical_alignment"
+    },
+    "rotation_compensation": {
+      "cyclic_sector_steps": [
+        -2,
+        -1,
+        0,
+        1,
+        2
+      ],
+      "additional_enrollment_image_rotation_degrees": 11.25,
+      "exact_image_rotation_operator": null,
+      "blocked_by": "rotation_compensation"
+    }
+  },
+  "ppi_policy": {
+    "canonical_reference_ppi": 500,
+    "preserve_native_pixels": true,
+    "linear_quantity_rule": "q_native = q_500 * image_ppi / 500",
+    "frequency_rule": "f_native = f_500 * 500 / image_ppi",
+    "angle_rule": "angles are unchanged",
+    "generic_integer_rounding_rule_if_needed": "round half up to nearest integer",
+    "status": "partially_frozen",
+    "unresolved": "Odd Gabor support scaling is not uniquely defined by the papers: scaling the 33-sample count and scaling the 16-pixel half-width yield different native support sizes."
+  },
+  "execution": {
+    "implementation_created": false,
+    "sd300_inference_run": false,
+    "deterministic_threading_rng_contract": null,
+    "error_semantics": {
+      "source_audit_block": "NO-GO before implementation and inference",
+      "runtime_errors": null
+    },
+    "artifact_format": "JSON research records only; no vectors, images, datasets, PDFs, or caches"
+  },
+  "decision": {
+    "result": "NO-GO",
+    "blockers": [
+      "reference_point_detector",
+      "reference_orientation_definition",
+      "reference_orientation_detector",
+      "canonical_alignment",
+      "vector_ordering_dimensionality",
+      "rotation_compensation",
+      "odd_support_ppi_scaling"
+    ],
+    "forbidden_substitutions_respected": true
+  },
+  "hash_scope": "canonical compact sorted-key JSON of this object with contract_sha256 omitted",
+  "contract_sha256": "819403018ac0f9cae2e2d31bde1d35ea1db699fe05617fc6571821a007b4479e"
+}

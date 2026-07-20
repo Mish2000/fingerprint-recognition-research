@@ -1,0 +1,155 @@
+{
+  "schema_version": "fingercode-physical-scale-contract-v1",
+  "status": "not_run",
+  "blocked_by": "primary_source_specification_incomplete",
+  "reference_ppi": 500,
+  "conversion_rules": {
+    "pixels_to_mm": "q_mm = q_px / ppi * 25.4",
+    "native_pixels": "q_native = q_500 * native_ppi / 500",
+    "native_frequency": "f_native = f_500 * 500 / native_ppi",
+    "integer_rounding_if_required": "round half up",
+    "angles": "unchanged"
+  },
+  "source_defined_quantities": [
+    {
+      "name": "excluded_inner_radius",
+      "q500_px": 20,
+      "physical_mm": 1.016,
+      "native_px_1000": 40,
+      "native_px_2000": 80,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "retained_band_width",
+      "q500_px": 20,
+      "physical_mm": 1.016,
+      "native_px_1000": 40,
+      "native_px_2000": 80,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "outer_radius",
+      "q500_px": 120,
+      "physical_mm": 6.096,
+      "native_px_1000": 240,
+      "native_px_2000": 480,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "gabor_sigma_x_y",
+      "q500_px": 4,
+      "physical_mm": 0.2032,
+      "native_px_1000": 8,
+      "native_px_2000": 16,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "gabor_wavelength",
+      "q500_px": 10,
+      "physical_mm": 0.508,
+      "native_px_1000": 20,
+      "native_px_2000": 40,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "reference_window_iteration_1",
+      "q500_px": 15,
+      "physical_mm": 0.762,
+      "native_px_1000": 30,
+      "native_px_2000": 60,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "reference_window_iteration_2",
+      "q500_px": 10,
+      "physical_mm": 0.508,
+      "native_px_1000": 20,
+      "native_px_2000": 40,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "reference_window_iteration_3",
+      "q500_px": 5,
+      "physical_mm": 0.254,
+      "native_px_1000": 10,
+      "native_px_2000": 20,
+      "rounding_error_px": [
+        0,
+        0
+      ]
+    }
+  ],
+  "gabor_frequency": {
+    "cycles_per_pixel_500": 0.1,
+    "cycles_per_mm": 1.968503937007874,
+    "cycles_per_pixel_1000": 0.05,
+    "cycles_per_pixel_2000": 0.025
+  },
+  "unresolved_support_scaling": {
+    "source_support_500": [
+      33,
+      33
+    ],
+    "source_half_width_500_px": 16,
+    "direct_sample_count_scaling": {
+      "support_1000": [
+        66,
+        66
+      ],
+      "support_2000": [
+        132,
+        132
+      ]
+    },
+    "centered_half_width_scaling": {
+      "support_1000": [
+        65,
+        65
+      ],
+      "support_2000": [
+        129,
+        129
+      ]
+    },
+    "result": "ambiguous",
+    "reason": "The papers do not define PPI adaptation or how an odd centered discrete support is scaled."
+  },
+  "synthetic_verification": {
+    "status": "not_run",
+    "blocked_by": [
+      "reference_point_detector",
+      "reference_orientation_detector",
+      "rotation_compensation",
+      "odd_support_ppi_scaling"
+    ],
+    "intended_checks": [
+      "physical_scale_equivalence_500_1000_2000",
+      "rounding_bounds",
+      "native_pixel_no_resize",
+      "orientation_unchanged"
+    ]
+  },
+  "hash_scope": "canonical compact sorted-key JSON of this object with contract_sha256 omitted",
+  "contract_sha256": "73a2a0d7009631811b7a698c7541c0ad32f9f029531910818f87fdf3b53f3d78"
+}

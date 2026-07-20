@@ -1,0 +1,14 @@
+{
+  "schema_version": "fingercode-repeatability-report-v1",
+  "status": "not_run",
+  "stage": "before_implementation",
+  "blocked_by": "primary_source_specification_incomplete",
+  "requested_process_count": 3,
+  "executed_process_count": 0,
+  "selected_cases": [],
+  "vector_hash_comparisons": [],
+  "score_comparisons": [],
+  "reason": "No alternate implementation was permitted after the mandatory NO-GO source gate.",
+  "report_sha256_scope": "canonical compact sorted-key JSON of this object with report_sha256 omitted",
+  "report_sha256": "b2ceaf6e6644bc750e04f5a377d3ce122727a8c2d2cd08282b37f29562f07f92"
+}

@@ -1,0 +1,114 @@
+{
+  "schema_version": "fingercode-primary-source-manifest-v1",
+  "research_family": "classical_fingercode_gabor_aad",
+  "retrieval_date_utc": "2026-07-20",
+  "clean_room_policy": {
+    "external_code_used": false,
+    "copied_text_code_or_figures": false,
+    "repository_contains_source_pdfs_or_derivatives": false,
+    "interpretation_basis": "Independent implementation feasibility audit from primary-paper equations and prose only."
+  },
+  "sources": [
+    {
+      "source_id": "jain_prabhakar_hong_pankanti_tip_2000",
+      "title": "Filterbank-Based Fingerprint Matching",
+      "authors": [
+        "Anil K. Jain",
+        "Salil Prabhakar",
+        "Lin Hong",
+        "Sharath Pankanti"
+      ],
+      "venue": "IEEE Transactions on Image Processing",
+      "bibliographic_detail": "vol. 9, no. 5, pp. 846-859, May 2000",
+      "doi": "10.1109/83.841531",
+      "official_record_url": "https://ieeexplore.ieee.org/document/841531",
+      "author_archive_listing_url": "https://biometrics.cse.msu.edu/pub/fingerprints.html",
+      "download_url": "https://biometrics.cse.msu.edu/Publications/Fingerprint/MSU-CSE-99-33.pdf",
+      "origin": "Michigan State University Biometrics Research Group author publication archive",
+      "pdf_sha256": "6d7f0d07823df27dcb40885c0936fd1bf9ea6635d1375bd9d3ec3cb607778552",
+      "pdf_bytes": 1398866,
+      "pdf_pages": 14,
+      "cited_printed_pages": [
+        847,
+        848,
+        849,
+        850,
+        851,
+        852,
+        853,
+        854,
+        855
+      ],
+      "equations_used": [
+        "(1)-(5) tessellation",
+        "(6)-(15) reference-point localization",
+        "(16) sector normalization",
+        "(17)-(19) Gabor filter",
+        "(20) AAD",
+        "(21)-(23) cyclic rotation"
+      ],
+      "figures_used_for_audit_only": [
+        "Fig. 3",
+        "Fig. 4",
+        "Fig. 6",
+        "Fig. 7",
+        "Fig. 10",
+        "Fig. 11"
+      ],
+      "authority": "primary"
+    },
+    {
+      "source_id": "jain_prabhakar_hong_pankanti_cvpr_1999",
+      "title": "FingerCode: A Filterbank for Fingerprint Representation and Matching",
+      "authors": [
+        "Anil K. Jain",
+        "Salil Prabhakar",
+        "Lin Hong",
+        "Sharath Pankanti"
+      ],
+      "venue": "Proceedings of the 1999 IEEE Computer Society Conference on Computer Vision and Pattern Recognition",
+      "bibliographic_detail": "vol. 2, pp. 187-193, June 23-25, 1999",
+      "doi": "10.1109/CVPR.1999.784628",
+      "official_record_url": "https://ieeexplore.ieee.org/document/784628",
+      "author_archive_listing_url": "https://biometrics.cse.msu.edu/pub/fingerprints.html",
+      "download_url": "https://ptacts.uspto.gov/ptacts/public-informations/petitions/1549770/download-documents?artifactId=J8ecTXmQEmrNOw7Nv6zvuFKDVsHTsWYnHfUafcDXW3p8EYJdb7x0yWc",
+      "origin": "USPTO PTAB public exhibit reproduction of the complete IEEE paper; title, authors, pagination, and IEEE metadata verified against the IEEE record",
+      "pdf_sha256": "ed60e6c4c662918950ffaa4278f93547a99bf8307d8d5747dd75247b45f82ec3",
+      "pdf_bytes": 1708093,
+      "pdf_pages": 7,
+      "cited_printed_pages": [
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "equations_used": [
+        "(1) tessellation",
+        "(2) Gabor filter",
+        "(3) sector normalization",
+        "feature standard-deviation equation"
+      ],
+      "figures_used_for_audit_only": [
+        "Fig. 2",
+        "Fig. 3",
+        "Fig. 4",
+        "Fig. 5",
+        "Fig. 6",
+        "Fig. 7"
+      ],
+      "authority": "primary"
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "url": "https://biometrics.cse.msu.edu/Publications/Fingerprint/MSU-CSE-99-26.pdf",
+      "pdf_sha256": "e842b074cf41184b934f3a73ee3675daab6578de1cb7089eea05682339d83c46",
+      "reason": "The MSU publication-list link labeled as the CVPR FingerCode paper resolves to a different three-page paper titled A Filterbank-based Representation for Classification and Matching of Fingerprints, omits Lin Hong, and is not the seven-page CVPR article."
+    }
+  ],
+  "hash_scope": "canonical compact sorted-key JSON of this object with manifest_sha256 omitted",
+  "manifest_sha256": "9c12cce318e1393162d7cad003e0a6e621bfa5dfa0c6bf4bc34137c88abddcbc"
+}

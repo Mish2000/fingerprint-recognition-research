@@ -1,0 +1,31 @@
+{
+  "schema_version": "fingercode-reference-point-report-v1",
+  "status": "not_run",
+  "stage": "before_sd300",
+  "blocked_by": [
+    "reference_point_detector",
+    "reference_orientation_definition",
+    "reference_orientation_detector"
+  ],
+  "requested_sample_count": 25,
+  "evaluated_sample_count": 0,
+  "accepted_count": 0,
+  "rejected_count": 0,
+  "source_audit_findings": {
+    "definition_available": true,
+    "exact_detector_available": false,
+    "exact_orientation_detector_available": false,
+    "missing_operational_details": [
+      "RI/RII geometry",
+      "gradient operator",
+      "block anchoring",
+      "border behavior",
+      "foreground segmentation",
+      "tie breaking",
+      "canonical orientation"
+    ]
+  },
+  "acceptance_gate_evaluated": false,
+  "report_sha256_scope": "canonical compact sorted-key JSON of this object with report_sha256 omitted",
+  "report_sha256": "c522c975e27776cf0d9a043530b02db7aa7e5a34f596046b0603d92d0983049f"
+}

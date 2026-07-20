@@ -1,0 +1,38 @@
+{
+  "schema_version": "fingercode-smoke-report-v1",
+  "status": "not_run",
+  "blocked_by": "primary_source_specification_incomplete",
+  "cohort": {
+    "manifest": "research/fingercode_preflight_v1/smoke_cohort.json",
+    "expected_image_count": 200,
+    "cohort_sha256": "07029ae7b0aa884e950c91745cc820ceecd1644d89c2cdf0be7ea1d44e5ff9dd",
+    "selection": "first five detector_only_joint_500_v1 identities per each of ten finger positions; SD300b/SD300c crossed with plain/roll"
+  },
+  "preparation": {
+    "status": "not_run",
+    "blocked_by": [
+      "reference_point_detector",
+      "reference_orientation_detector",
+      "vector_ordering_dimensionality",
+      "rotation_compensation"
+    ],
+    "attempted_image_count": 0,
+    "successful_image_count": 0,
+    "vector_shape_checks": 0,
+    "finite_vector_checks": 0
+  },
+  "inference": {
+    "status": "not_run",
+    "attempted_pair_count": 0,
+    "score_count": 0,
+    "technical_failures": 0,
+    "genuine_impostor_separation_reported": false
+  },
+  "artifacts_written": [
+    "smoke_cohort.json",
+    "smoke_report.json"
+  ],
+  "forbidden_artifacts_written": false,
+  "report_sha256_scope": "canonical compact sorted-key JSON of this object with report_sha256 omitted",
+  "report_sha256": "41530c0fdbc9a64dc2104c4e02756026d7c59b8bbe364c3532812ee4ffcad124"
+}
